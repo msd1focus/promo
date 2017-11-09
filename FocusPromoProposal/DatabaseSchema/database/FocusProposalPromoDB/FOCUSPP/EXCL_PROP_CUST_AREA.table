@@ -1,0 +1,128 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<table xmlns="http://xmlns.oracle.com/jdeveloper/1111/offlinedb">
+  <ID class="oracle.javatools.db.IdentifierBasedID">
+    <identifier class="java.lang.String">0647a7de-3c67-40d2-88d1-e7154b5e57c9</identifier>
+  </ID>
+  <name>EXCL_PROP_CUST_AREA</name>
+  <columns>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">5f36fc40-b654-4103-9e84-f57902e4ae98</identifier>
+      </ID>
+      <name>PROPOSAL_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">ca6a3f7d-ad8c-45e7-8a28-fa918a50f92f</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">969d44f3-d43e-4fa3-9879-7b17dc0bd535</identifier>
+      </ID>
+      <name>AREA_CODE</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">220e5dd4-9f89-4e0f-b8e7-7163ce96afeb</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">20</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">BYTE</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+  </columns>
+  <constraints>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">b8b912a7-2d2f-4d91-9b55-18761b65ae4a</identifier>
+      </ID>
+      <name>EXCL_PROP_CUST_AREA_PROPO_FK1</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>PROPOSAL_ID</name>
+          <identifier class="java.lang.String">5f36fc40-b654-4103-9e84-f57902e4ae98</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>EXCL_PROP_CUST_AREA</name>
+            <identifier class="java.lang.String">0647a7de-3c67-40d2-88d1-e7154b5e57c9</identifier>
+            <schemaName>FOCUSPP</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>FOCUSPP</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>1</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>PROPOSAL_PK</name>
+        <identifier class="java.lang.String">4436f162-9231-4bcc-9dce-fd6664f51946</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>PROPOSAL</name>
+          <identifier class="java.lang.String">9e228503-a2ab-4c7b-8bee-51418dedb377</identifier>
+          <schemaName>FOCUSPP</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.PKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">c9c42bcf-cff5-4201-a8d6-024ff5b6816b</identifier>
+      </ID>
+      <name>EXCL_PROP_CUST_AREA_PK</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>PROPOSAL_ID</name>
+          <identifier class="java.lang.String">5f36fc40-b654-4103-9e84-f57902e4ae98</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>EXCL_PROP_CUST_AREA</name>
+            <identifier class="java.lang.String">0647a7de-3c67-40d2-88d1-e7154b5e57c9</identifier>
+            <schemaName>FOCUSPP</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>FOCUSPP</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>AREA_CODE</name>
+          <identifier class="java.lang.String">969d44f3-d43e-4fa3-9879-7b17dc0bd535</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>EXCL_PROP_CUST_AREA</name>
+            <identifier class="java.lang.String">0647a7de-3c67-40d2-88d1-e7154b5e57c9</identifier>
+            <schemaName>FOCUSPP</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>FOCUSPP</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <enabled>true</enabled>
+    </constraint>
+  </constraints>
+  <properties>
+    <entry>
+      <key>TableType</key>
+      <value class="oracle.javatools.db.Table$TableType">NORMAL</value>
+    </entry>
+  </properties>
+  <schema>
+    <name>FOCUSPP</name>
+  </schema>
+</table>

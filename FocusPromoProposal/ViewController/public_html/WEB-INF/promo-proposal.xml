@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="promo-proposal">
+    <default-activity id="__6">FilterByCompanyUser</default-activity>
+    <managed-bean id="__4">
+      <managed-bean-name id="__3">ProposalBean</managed-bean-name>
+      <managed-bean-class id="__2">app.fpp.bean.ProposalBean</managed-bean-class>
+      <managed-bean-scope id="__5">request</managed-bean-scope>
+    </managed-bean>
+    <view id="formProposal">
+      <page>/Pages/PromoProposal/formProposal.jsff</page>
+    </view>
+    <method-call id="FilterByCompanyUser">
+      <method>#{bindings.ExecuteWithParams.execute}</method>
+      <outcome id="__1">
+        <fixed-outcome>ExecuteWithParams</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-call id="pp-add-region">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-add-region.xml</document>
+        <id>pp-add-region</id>
+      </task-flow-reference>
+      <input-parameter id="__22">
+        <name>propId</name>
+        <value>#{pageFlowScope.propId}</value>
+      </input-parameter>
+      <input-parameter id="__23">
+        <name>propNo</name>
+        <value>#{pageFlowScope.propNo}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__20">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-add-customer">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-add-customer.xml</document>
+        <id>pp-add-customer</id>
+      </task-flow-reference>
+      <input-parameter id="__24">
+        <name>propId</name>
+        <value>#{pageFlowScope.propId}</value>
+      </input-parameter>
+      <input-parameter id="__25">
+        <name>propNo</name>
+        <value>#{pageFlowScope.propNo}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__21">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-prod-add-variant">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-prod-add-variant.xml</document>
+        <id>pp-prod-add-variant</id>
+      </task-flow-reference>
+      <input-parameter id="__34">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
+      </input-parameter>
+      <input-parameter id="__35">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
+      </input-parameter>
+      <input-parameter id="__36">
+        <name>packCode</name>
+        <value>#{pageFlowScope.packCode}</value>
+      </input-parameter>
+      <input-parameter id="__120">
+        <name>extCode</name>
+        <value>#{pageFlowScope.extCode}</value>
+      </input-parameter>
+      <input-parameter id="__121">
+        <name>brandCode</name>
+        <value>#{pageFlowScope.brandCode}</value>
+      </input-parameter>
+      <input-parameter id="__122">
+        <name>classCode</name>
+        <value>#{pageFlowScope.classCode}</value>
+      </input-parameter>
+      <input-parameter id="__123">
+        <name>categoryCode</name>
+        <value>#{pageFlowScope.categoryCode}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__32">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-prod-add-item">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-prod-add-item.xml</document>
+        <id>pp-prod-add-item</id>
+      </task-flow-reference>
+      <input-parameter id="__37">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
+      </input-parameter>
+      <input-parameter id="__38">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
+      </input-parameter>
+      <input-parameter id="__39">
+        <name>packCode</name>
+        <value>#{pageFlowScope.packCode}</value>
+      </input-parameter>
+      <input-parameter id="__114">
+        <name>categoryCode</name>
+        <value>#{pageFlowScope.categoryCode}</value>
+      </input-parameter>
+      <input-parameter id="__115">
+        <name>classCode</name>
+        <value>#{pageFlowScope.classCode}</value>
+      </input-parameter>
+      <input-parameter id="__118">
+        <name>brandCode</name>
+        <value>#{pageFlowScope.brandCode}</value>
+      </input-parameter>
+      <input-parameter id="__119">
+        <name>extCode</name>
+        <value>#{pageFlowScope.extCode}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__33">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-add-buy-variant">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-add-buy-variant.xml</document>
+        <id>pp-add-buy-variant</id>
+      </task-flow-reference>
+      <input-parameter id="__56">
+        <name>promoAddBuyId</name>
+        <value>#{pageFlowScope.promoAddBuyId}</value>
+      </input-parameter>
+      <input-parameter id="__59">
+        <name>prodNameAddBuy</name>
+        <value>#{pageFlowScope.prodNameAddBuy}</value>
+      </input-parameter>
+      <input-parameter id="__60">
+        <name>packCode</name>
+        <value>#{pageFlowScope.packCode}</value>
+      </input-parameter>
+      <input-parameter id="__124">
+        <name>categoryCode</name>
+        <value>#{pageFlowScope.categoryCode}</value>
+      </input-parameter>
+      <input-parameter id="__125">
+        <name>classCode</name>
+        <value>#{pageFlowScope.classCode}</value>
+      </input-parameter>
+      <input-parameter id="__126">
+        <name>brandCode</name>
+        <value>#{pageFlowScope.brandCode}</value>
+      </input-parameter>
+      <input-parameter id="__127">
+        <name>extCode</name>
+        <value>#{pageFlowScope.extCode}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__52">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-add-buy-item">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-add-buy-item.xml</document>
+        <id>pp-add-buy-item</id>
+      </task-flow-reference>
+      <input-parameter id="__57">
+        <name>promoAddBuyId</name>
+        <value>#{pageFlowScope.promoAddBuyId}</value>
+      </input-parameter>
+      <input-parameter id="__58">
+        <name>prodNameAddBuy</name>
+        <value>#{pageFlowScope.prodNameAddBuy}</value>
+      </input-parameter>
+      <input-parameter id="__61">
+        <name>packCode</name>
+        <value>#{pageFlowScope.packCode}</value>
+      </input-parameter>
+      <input-parameter id="__128">
+        <name>extCode</name>
+        <value>#{pageFlowScope.extCode}</value>
+      </input-parameter>
+      <input-parameter id="__129">
+        <name>brandCode</name>
+        <value>#{pageFlowScope.brandCode}</value>
+      </input-parameter>
+      <input-parameter id="__130">
+        <name>classCode</name>
+        <value>#{pageFlowScope.classCode}</value>
+      </input-parameter>
+      <input-parameter id="__131">
+        <name>categoryCode</name>
+        <value>#{pageFlowScope.categoryCode}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__53">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-bonus-variant">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-bonus-variant.xml</document>
+        <id>pp-bonus-variant</id>
+      </task-flow-reference>
+      <input-parameter id="__62">
+        <name>promoBonusId</name>
+        <value>#{pageFlowScope.promoBonusId}</value>
+      </input-parameter>
+      <input-parameter id="__64">
+        <name>prodNameBonus</name>
+        <value>#{pageFlowScope.prodNameBonus}</value>
+      </input-parameter>
+      <input-parameter id="__66">
+        <name>packCode</name>
+        <value>#{pageFlowScope.packCode}</value>
+      </input-parameter>
+      <input-parameter id="__180">
+        <name>categoryCode</name>
+        <value>#{pageFlowScope.categoryCode}</value>
+      </input-parameter>
+      <input-parameter id="__181">
+        <name>classCode</name>
+        <value>#{pageFlowScope.classCode}</value>
+      </input-parameter>
+      <input-parameter id="__182">
+        <name>brandCode</name>
+        <value>#{pageFlowScope.brandCode}</value>
+      </input-parameter>
+      <input-parameter id="__183">
+        <name>extCode</name>
+        <value>#{pageFlowScope.extCode}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__55">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-bonus-item">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-bonus-item.xml</document>
+        <id>pp-bonus-item</id>
+      </task-flow-reference>
+      <input-parameter id="__63">
+        <name>promoBonusId</name>
+        <value>#{pageFlowScope.promoBonusId}</value>
+      </input-parameter>
+      <input-parameter id="__65">
+        <name>prodNameBonus</name>
+        <value>#{pageFlowScope.prodNameBonus}</value>
+      </input-parameter>
+      <input-parameter id="__67">
+        <name>packCode</name>
+        <value>#{pageFlowScope.packCode}</value>
+      </input-parameter>
+      <input-parameter id="__136">
+        <name>categoryCode</name>
+        <value>#{pageFlowScope.categoryCode}</value>
+      </input-parameter>
+      <input-parameter id="__137">
+        <name>classCode</name>
+        <value>#{pageFlowScope.classCode}</value>
+      </input-parameter>
+      <input-parameter id="__138">
+        <name>brandCode</name>
+        <value>#{pageFlowScope.brandCode}</value>
+      </input-parameter>
+      <input-parameter id="__139">
+        <name>extCode</name>
+        <value>#{pageFlowScope.extCode}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__54">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-prod-add-region">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-prod-add-region.xml</document>
+        <id>pp-prod-add-region</id>
+      </task-flow-reference>
+      <input-parameter id="__80">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
+      </input-parameter>
+      <input-parameter id="__81">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__79">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-prod-add-customer">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-prod-add-customer.xml</document>
+        <id>pp-prod-add-customer</id>
+      </task-flow-reference>
+      <input-parameter id="__82">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
+      </input-parameter>
+      <input-parameter id="__83">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__77">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-prod-add-area">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-prod-add-area.xml</document>
+        <id>pp-prod-add-area</id>
+      </task-flow-reference>
+      <input-parameter id="__84">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
+      </input-parameter>
+      <input-parameter id="__85">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__78">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-prod-add-loc">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-prod-add-loc.xml</document>
+        <id>pp-prod-add-loc</id>
+      </task-flow-reference>
+      <input-parameter id="__90">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
+      </input-parameter>
+      <input-parameter id="__91">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__86">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-add-area">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-add-area.xml</document>
+        <id>pp-add-area</id>
+      </task-flow-reference>
+      <input-parameter id="__100">
+        <name>propId</name>
+        <value>#{pageFlowScope.propId}</value>
+      </input-parameter>
+      <input-parameter id="__101">
+        <name>propNo</name>
+        <value>#{pageFlowScope.propNo}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__98">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-add-location">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-add-location.xml</document>
+        <id>pp-add-location</id>
+      </task-flow-reference>
+      <input-parameter id="__102">
+        <name>propId</name>
+        <value>#{pageFlowScope.propId}</value>
+      </input-parameter>
+      <input-parameter id="__103">
+        <name>propNo</name>
+        <value>#{pageFlowScope.propNo}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__99">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-prod-add-cust-group">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-prod-add-cust-group.xml</document>
+        <id>pp-prod-add-cust-group</id>
+      </task-flow-reference>
+      <input-parameter id="__116">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
+      </input-parameter>
+      <input-parameter id="__117">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__104">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-add-cust-group">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-add-cust-group.xml</document>
+        <id>pp-add-cust-group</id>
+      </task-flow-reference>
+      <input-parameter id="__112">
+        <name>propId</name>
+        <value>#{pageFlowScope.propId}</value>
+      </input-parameter>
+      <input-parameter id="__113">
+        <name>propNo</name>
+        <value>#{pageFlowScope.propNo}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__111">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-excl-prop-area">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-excl-prop-area.xml</document>
+        <id>pp-excl-prop-area</id>
+      </task-flow-reference>
+      <input-parameter id="__150">
+        <name>propId</name>
+        <value>#{pageFlowScope.propId}</value>
+      </input-parameter>
+      <input-parameter id="__151">
+        <name>propNo</name>
+        <value>#{pageFlowScope.propNo}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__133">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-excl-prop-customer">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-excl-prop-customer.xml</document>
+        <id>pp-excl-prop-customer</id>
+      </task-flow-reference>
+      <input-parameter id="__148">
+        <name>propId</name>
+        <value>#{pageFlowScope.propId}</value>
+      </input-parameter>
+      <input-parameter id="__149">
+        <name>propNo</name>
+        <value>#{pageFlowScope.propNo}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__132">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-excl-prop-region">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-excl-prop-region.xml</document>
+        <id>pp-excl-prop-region</id>
+      </task-flow-reference>
+      <input-parameter id="__154">
+        <name>propId</name>
+        <value>#{pageFlowScope.propId}</value>
+      </input-parameter>
+      <input-parameter id="__155">
+        <name>propNo</name>
+        <value>#{pageFlowScope.propNo}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__135">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-excl-prop-loc">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-excl-prop-loc.xml</document>
+        <id>pp-excl-prop-loc</id>
+      </task-flow-reference>
+      <input-parameter id="__152">
+        <name>propId</name>
+        <value>#{pageFlowScope.propId}</value>
+      </input-parameter>
+      <input-parameter id="__153">
+        <name>propNo</name>
+        <value>#{pageFlowScope.propNo}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__134">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-excl-prod-area">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-excl-prod-area.xml</document>
+        <id>pp-excl-prod-area</id>
+      </task-flow-reference>
+      <input-parameter id="__172">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
+      </input-parameter>
+      <input-parameter id="__173">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__168">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-excl-prod-customer">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-excl-prod-customer.xml</document>
+        <id>pp-excl-prod-customer</id>
+      </task-flow-reference>
+      <input-parameter id="__174">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
+      </input-parameter>
+      <input-parameter id="__175">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__169">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-excl-prod-loc">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-excl-prod-loc.xml</document>
+        <id>pp-excl-prod-loc</id>
+      </task-flow-reference>
+      <input-parameter id="__176">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
+      </input-parameter>
+      <input-parameter id="__177">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__170">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-excl-prod-region">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-excl-prod-region.xml</document>
+        <id>pp-excl-prod-region</id>
+      </task-flow-reference>
+      <input-parameter id="__178">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
+      </input-parameter>
+      <input-parameter id="__179">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__171">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <control-flow-rule id="__12">
+      <from-activity-id id="__13">formProposal</from-activity-id>
+      <control-flow-case id="__14">
+        <from-outcome id="__16">addregion</from-outcome>
+        <to-activity-id id="__15">pp-add-region</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__17">
+        <from-outcome id="__19">addcust</from-outcome>
+        <to-activity-id id="__18">pp-add-customer</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__26">
+        <from-outcome id="__28">addvariant</from-outcome>
+        <to-activity-id id="__27">pp-prod-add-variant</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__29">
+        <from-outcome id="__31">additem</from-outcome>
+        <to-activity-id id="__30">pp-prod-add-item</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__40">
+        <from-outcome id="__42">addbuyvariant</from-outcome>
+        <to-activity-id id="__41">pp-add-buy-variant</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__43">
+        <from-outcome id="__45">bonusvariant</from-outcome>
+        <to-activity-id id="__44">pp-bonus-variant</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__47">
+        <from-outcome id="__48">addbuyitem</from-outcome>
+        <to-activity-id id="__46">pp-add-buy-item</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__49">
+        <from-outcome id="__51">bonusitem</from-outcome>
+        <to-activity-id id="__50">pp-bonus-item</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__68">
+        <from-outcome id="__70">addprodarea</from-outcome>
+        <to-activity-id id="__69">pp-prod-add-area</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__72">
+        <from-outcome id="__73">addprodcust</from-outcome>
+        <to-activity-id id="__71">pp-prod-add-customer</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__75">
+        <from-outcome id="__76">addprodregion</from-outcome>
+        <to-activity-id id="__74">pp-prod-add-region</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__88">
+        <from-outcome id="__89">addprodloc</from-outcome>
+        <to-activity-id id="__87">pp-prod-add-loc</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__93">
+        <from-outcome id="__94">addlocation</from-outcome>
+        <to-activity-id id="__92">pp-add-location</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__96">
+        <from-outcome id="__97">addarea</from-outcome>
+        <to-activity-id id="__95">pp-add-area</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__106">
+        <from-outcome id="__107">addprodcustgroup</from-outcome>
+        <to-activity-id id="__105">pp-prod-add-cust-group</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__108">
+        <from-outcome id="__110">addcustgroup</from-outcome>
+        <to-activity-id id="__109">pp-add-cust-group</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__1137">
+        <from-outcome id="__1138">exclpropcust</from-outcome>
+        <to-activity-id id="__1136">pp-excl-prop-customer</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__1139">
+        <from-outcome id="__141">exclproparea</from-outcome>
+        <to-activity-id id="__140">pp-excl-prop-area</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__143">
+        <from-outcome id="__144">exclpropregion</from-outcome>
+        <to-activity-id id="__142">pp-excl-prop-region</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__146">
+        <from-outcome id="__147">exclproploc</from-outcome>
+        <to-activity-id id="__145">pp-excl-prop-loc</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__157">
+        <from-outcome id="__158">exclprodarea</from-outcome>
+        <to-activity-id id="__156">pp-excl-prod-area</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__159">
+        <from-outcome id="__161">exclprodcust</from-outcome>
+        <to-activity-id id="__160">pp-excl-prod-customer</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__163">
+        <from-outcome id="__164">exclprodloc</from-outcome>
+        <to-activity-id id="__162">pp-excl-prod-loc</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__165">
+        <from-outcome id="__167">exclprodregion</from-outcome>
+        <to-activity-id id="__166">pp-excl-prod-region</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__7">
+      <from-activity-id id="__8">FilterByCompanyUser</from-activity-id>
+      <control-flow-case id="__10">
+        <from-outcome id="__9">ExecuteWithParams</from-outcome>
+        <to-activity-id id="__11">formProposal</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

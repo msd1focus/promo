@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ExclPropCustRegionView"
+  Version="11.1.1.64.93"
+  InheritPersonalization="true"
+  SelectList="ExclPropCustRegion.PROPOSAL_ID, 
+       ExclPropCustRegion.REGION_CODE"
+  FromList="EXCL_PROP_CUST_REGION ExclPropCustRegion"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|VarAccess"/>
+  </DesignTime>
+  <EntityUsage
+    Name="ExclPropCustRegion"
+    Entity="app.fpp.model.entities.promoproposal.ExclPropCustRegion"/>
+  <ViewAttribute
+    Name="ProposalId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ProposalId"
+    EntityUsage="ExclPropCustRegion"
+    AliasName="PROPOSAL_ID"/>
+  <ViewAttribute
+    Name="RegionCode"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="RegionCode"
+    EntityUsage="ExclPropCustRegion"
+    AliasName="REGION_CODE"/>
+</ViewObject>

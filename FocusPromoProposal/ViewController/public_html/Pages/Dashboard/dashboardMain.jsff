@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  <af:panelTabbed id="pt1" inlineStyle="margin:5px;">
+    <af:showDetailItem text="Home" id="sdi1" stretchChildren="first">
+      <af:panelSplitter id="ps1" splitterPosition="420" disabled="true">
+        <f:facet name="first">
+          <af:panelGroupLayout id="pgl1" layout="scroll"
+                               inlineStyle="padding:20px;"
+                               rendered="#{UserData.companyId != 'B'}">
+            <af:panelGroupLayout id="pgl3" layout="horizontal"
+                                 inlineStyle="height:160px;width:380px;border:solid 1px #9EBCD8;border-left:solid 10px #B5C6D6;border-radius: 4px/4px;"
+                                 visible="#{UserData.userRole != 'seniorvp'}">
+              <af:panelGroupLayout id="pgl2" layout="vertical"
+                                   halign="center"
+                                   inlineStyle="height:120px;width:150px;margin-left:20px;">
+                <af:spacer width="10" height="5" id="s3"/>
+                <af:outputText value="Proposal" id="ot1"/>
+                <af:spacer width="10" height="5" id="s6"/>
+                <af:outputText value="#{bindings.Pall.inputValue == null ? 0 : bindings.Pall.inputValue}" id="ot2"
+                               inlineStyle="font-size:64px;"/>
+                <af:outputText value="document(s)" id="ot5"
+                               inlineStyle="font-size:11px;"/>
+              </af:panelGroupLayout>
+              <af:image source="/Images/v_spacer.png" shortDesc="vspacer"
+                        id="i1" inlineStyle="height:130.0px; width:1px;"/>
+              <af:spacer width="10" height="10" id="s10"/>
+              <af:panelGroupLayout id="panelGroupLayout3" layout="vertical"
+                                   inlineStyle="height:120px;width:119px;margin-left:10px;">
+                <af:spacer width="10" height="9" id="spacer1"/>
+                <af:panelGroupLayout id="pgl4" layout="horizontal">
+                  <af:panelGroupLayout id="pgl5" inlineStyle="width:80px;"
+                                       layout="vertical">
+                    <af:outputText value="Draft" id="ot8"/>
+                  </af:panelGroupLayout>
+                  <af:panelGroupLayout id="pgl6">
+                    <af:outputText value="#{bindings.PdraftNum.inputValue == null ? 0 : bindings.PdraftNum.inputValue}" id="ot9"
+                                   inlineStyle="font-weight:bold;"/>
+                  </af:panelGroupLayout>
+                </af:panelGroupLayout>
+                <af:spacer width="10" height="15" id="spacer2"/>
+                <af:panelGroupLayout id="panelGroupLayout4" layout="horizontal">
+                  <af:panelGroupLayout id="panelGroupLayout5"
+                                       inlineStyle="width:80px;"
+                                       layout="vertical">
+                    <af:outputText value="In Process" id="outputText4"/>
+                  </af:panelGroupLayout>
+                  <af:panelGroupLayout id="panelGroupLayout6">
+                    <af:outputText value="#{bindings.PinprocessNum.inputValue == null ? 0 : bindings.PinprocessNum.inputValue}" id="outputText6"
+                                   inlineStyle="font-weight:bold;"/>
+                  </af:panelGroupLayout>
+                </af:panelGroupLayout>
+                <af:spacer width="10" height="15" id="spacer3"/>
+                <af:panelGroupLayout id="panelGroupLayout7" layout="horizontal">
+                  <af:panelGroupLayout id="panelGroupLayout8"
+                                       inlineStyle="width:80px;"
+                                       layout="vertical">
+                    <af:outputText value="Active" id="outputText7"/>
+                  </af:panelGroupLayout>
+                  <af:panelGroupLayout id="panelGroupLayout9">
+                    <af:outputText value="#{bindings.PactiveNum.inputValue == null ? 0 : bindings.PactiveNum.inputValue}" id="outputText8"
+                                   inlineStyle="font-weight:bold;"/>
+                  </af:panelGroupLayout>
+                </af:panelGroupLayout>
+                <af:spacer width="10" height="15" id="spacer6"/>
+                <af:panelGroupLayout id="panelGroupLayout10"
+                                     layout="horizontal">
+                  <af:panelGroupLayout id="panelGroupLayout11"
+                                       inlineStyle="width:80px;"
+                                       layout="vertical">
+                    <af:outputText value="Rejected" id="outputText9"/>
+                  </af:panelGroupLayout>
+                  <af:panelGroupLayout id="panelGroupLayout12">
+                    <af:outputText value="#{bindings.PrejectedNum.inputValue == null ? 0 : bindings.PrejectedNum.inputValue}"
+                                   id="outputText10"
+                                   inlineStyle="font-weight:bold;">
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.PrejectedNum.format}"/>
+                    </af:outputText>
+                  </af:panelGroupLayout>
+                </af:panelGroupLayout>
+              </af:panelGroupLayout>
+            </af:panelGroupLayout>
+            <af:spacer width="10" height="5" id="s1"/>
+            <af:panelGroupLayout id="panelGroupLayout1" layout="vertical"
+                                 inlineStyle="height:160px;width:370px;border:solid 1px #9EBCD8;border-left:solid 10px #B5C6D6;border-radius: 4px/4px;"
+                                 halign="center"
+                                 visible="#{UserData.userRole != 'sales'}">
+              <af:spacer width="10" height="25" id="s4"/>
+              <af:outputText value="Waiting for Approval" id="outputText1"/>
+              <af:spacer width="10" height="5" id="s7"/>
+              <af:outputText value="#{bindings.ApprovalDashView1Iterator.estimatedRowCount == null ? 0 : bindings.ApprovalDashView1Iterator.estimatedRowCount}" id="ot3"
+                             inlineStyle="font-size:64px;">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.Numsurvey.format}"/>
+              </af:outputText>
+              <af:outputText value="task(s)" id="ot6"
+                             inlineStyle="font-size:11px;"/>
+            </af:panelGroupLayout>
+            <af:spacer width="10" height="5" id="s2"/>
+            <af:panelGroupLayout id="panelGroupLayout2" layout="vertical"
+                                 inlineStyle="height:160px;width:370px;border:solid 1px #9EBCD8;border-left:solid 10px #B5C6D6;border-radius: 4px/4px;"
+                                 halign="center"
+                                 visible="#{UserData.userRole == 'promoadmin'}">
+              <af:spacer width="10" height="25" id="spacer4"/>
+              <af:outputText value="List Confirmation" id="outputText2"/>
+              <af:spacer width="10" height="5" id="spacer5"/>
+              <af:outputText value="#{bindings.ConfirmationDashView1Iterator.estimatedRowCount == null ? 0 : bindings.ConfirmationDashView1Iterator.estimatedRowCount}" id="outputText3"
+                             inlineStyle="font-size:64px;">
+                <af:convertNumber groupingUsed="false"
+                                  pattern="#{bindings.Numsurvey.format}"/>
+              </af:outputText>
+              <af:outputText value="task(s)" id="outputText5"
+                             inlineStyle="font-size:11px;"/>
+            </af:panelGroupLayout>
+          </af:panelGroupLayout>
+        </f:facet>
+        <f:facet name="second">
+          <af:panelBox text=" " id="pb1" showDisclosure="false"
+                       inlineStyle="#{UserData.companyId == 'B' ? 'margin-top:20px;margin-bottom:20px;margin-right:20px;margin-left:20px;' : 'margin-top:20px;margin-bottom:20px;margin-right:20px;'}">
+            <f:facet name="toolbar"/>
+          </af:panelBox>
+        </f:facet>
+      </af:panelSplitter>
+    </af:showDetailItem>
+  </af:panelTabbed>
+</jsp:root>

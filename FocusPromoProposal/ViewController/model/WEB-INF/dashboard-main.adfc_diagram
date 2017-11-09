@@ -1,0 +1,72 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <View
+      id="View2">
+      <property
+         name="activityId">dashboardMain</property>
+      <property
+         name="page">/Pages/Dashboard/dashboardMain.jsff</property>
+      <property
+         name="start">false</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>dashboardMain&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">159.19531</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">420.0</property>
+   </View>
+   <MethodCall
+      id="MethodCall3">
+      <property
+         name="activityId">ExecuteApproval</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>ExecuteApproval&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">157.83887</property>
+      <property
+         name="x">115.35156</property>
+   </MethodCall>
+   <MethodCall
+      id="MethodCall4">
+      <property
+         name="activityId">ExecuteProposal</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>ExecuteProposal&lt;/b>&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">159.18945</property>
+      <property
+         name="x">261.35156</property>
+   </MethodCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase5"
+      from="MethodCall3"
+      to="MethodCall4">
+      <property
+         name="fromOutcome">ExecuteWithParams</property>
+      <property
+         name="sdm:polyPoints">R50,156.35156,157.48828,220.35156,158.83887,L50</property>
+   </ControlFlowCase>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase6"
+      from="MethodCall4"
+      to="View2">
+      <property
+         name="fromOutcome">ExecuteWithParams</property>
+      <property
+         name="sdm:polyPoints">R50,302.35156,158.83887,379.0,158.84473,L50</property>
+   </ControlFlowCase>
+</SDM>

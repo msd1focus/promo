@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="ppProdAddCustGroupPageDef"
+                Package="Pages.PromoProposal">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator id="AllProdukCustGroupShuttleView1Iterator"
+              Binds="AllProdukCustGroupShuttleView1"
+              DataControl="PromoProposalAMDataControl" RangeSize="25"/>
+    <iterator id="ProdRegionCustGroupView1Iterator"
+              Binds="ProdRegionCustGroupView1"
+              DataControl="PromoProposalAMDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <action id="Commit" DataControl="PromoProposalAMDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" DataControl="PromoProposalAMDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+  </bindings>
+</pageDefinition>

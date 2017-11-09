@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="pp-add-customer">
+    <default-activity id="__1">setKeyProposalId</default-activity>
+    <input-parameter-definition id="__9">
+      <name id="__8">propId</name>
+      <value>#{pageFlowScope.propId}</value>
+      <class>oracle.jbo.domain.DBSequence</class>
+      <required/>
+    </input-parameter-definition>
+    <input-parameter-definition id="__11">
+      <name id="__10">propNo</name>
+      <value>#{pageFlowScope.propNo}</value>
+      <class>java.lang.String</class>
+      <required/>
+    </input-parameter-definition>
+    <managed-bean id="__13">
+      <managed-bean-name id="__14">PpAddCustomerBackingBean</managed-bean-name>
+      <managed-bean-class id="__12">app.fpp.bean.PpAddCustomerBackingBean</managed-bean-class>
+      <managed-bean-scope id="__15">backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="ppAddCustomer">
+      <page>/Pages/PromoProposal/ppAddCustomer.jspx</page>
+    </view>
+    <task-flow-return id="return">
+      <outcome id="__2">
+        <name>return</name>
+      </outcome>
+    </task-flow-return>
+    <method-call id="setKeyProposalId">
+      <method>#{bindings.setCurrentRowWithKeyValue.execute}</method>
+      <outcome id="__16">
+        <fixed-outcome>setCurrentRowWithKeyValue</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="setUserCustomer">
+      <method>#{bindings.ExecuteWithParams.execute}</method>
+      <outcome id="__22">
+        <fixed-outcome>ExecuteWithParams</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__3">
+      <from-activity-id id="__4">ppAddCustomer</from-activity-id>
+      <control-flow-case id="__6">
+        <from-outcome id="__7">close</from-outcome>
+        <to-activity-id id="__5">return</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__17">
+      <from-activity-id id="__18">setKeyProposalId</from-activity-id>
+      <control-flow-case id="__19">
+        <from-outcome id="__20">setCurrentRowWithKeyValue</from-outcome>
+        <to-activity-id id="__21">setUserCustomer</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__23">
+      <from-activity-id id="__24">setUserCustomer</from-activity-id>
+      <control-flow-case id="__27">
+        <from-outcome id="__26">ExecuteWithParams</from-outcome>
+        <to-activity-id id="__25">ppAddCustomer</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+  </task-flow-definition>
+</adfc-config>

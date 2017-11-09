@@ -1,0 +1,286 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE JboProject SYSTEM "jbo_03_01.dtd">
+<!---->
+
+<JboProject
+   xmlns="http://xmlns.oracle.com/bc4j"
+   Name="Model"
+   Version="11.1.1.64.93"
+   SeparateXMLFiles="true"
+   PackageName="app.fpp.model" >
+   <DesignTime>
+      <Attr Name="_appModuleNames7" Value="app.fpp.model.am.BudgetSettingAM" />
+      <Attr Name="_appModuleNames6" Value="app.fpp.model.am.MasterDataAM" />
+      <Attr Name="_appModuleNames8" Value="app.fpp.model.am.DashboardAM" />
+      <Attr Name="_appModuleNames3" Value="app.fpp.model.am.ApprovalAM" />
+      <Attr Name="_appModuleNames2" Value="app.fpp.model.am.ConfirmationAM" />
+      <Attr Name="_jprName" Value="../../../../Model.jpr" />
+      <Attr Name="_appModuleNames5" Value="app.fpp.model.am.UserAccessAM" />
+      <Attr Name="_appModuleNames4" Value="app.fpp.model.am.ApprovalSettingAM" />
+      <Attr Name="_appModuleNames1" Value="app.fpp.model.am.PromoProposalAM" />
+      <Attr Name="_appModuleNames0" Value="app.fpp.model.am.SecurityAM" />
+      <Attr Name="_NamedConnection" Value="focuspp" />
+   </DesignTime>
+   <Containee
+      Name="am"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.am" >
+      <DesignTime>
+         <Attr Name="_AM" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="approval"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.entities.approval" >
+      <DesignTime>
+         <Attr Name="_EO" Value="true" />
+         <Attr Name="_AS" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="approvalsetting"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.entities.approvalsetting" >
+      <DesignTime>
+         <Attr Name="_EO" Value="true" />
+         <Attr Name="_AS" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="budgetsetting"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.entities.budgetsetting" >
+      <DesignTime>
+         <Attr Name="_EO" Value="true" />
+         <Attr Name="_AS" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="confirmation"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.entities.confirmation" >
+      <DesignTime>
+         <Attr Name="_EO" Value="true" />
+         <Attr Name="_AS" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="modifier"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.entities.confirmation.modifier" >
+      <DesignTime>
+         <Attr Name="_EO" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="targetpr"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.entities.confirmation.targetpr" >
+      <DesignTime>
+         <Attr Name="_EO" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="ebs"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.entities.masterdata.ebs" >
+      <DesignTime>
+         <Attr Name="_EO" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="shuttle"
+      PackageName="app.fpp.model.entities.masterdata.ebs.shuttle"
+      ObjectType="JboPackage">
+      <DesignTime>
+         <Attr Name="_EO" Value="true"/>
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="masterdata"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.entities.masterdata" >
+      <DesignTime>
+         <Attr Name="_EO" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="promoproposal"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.entities.promoproposal" >
+      <DesignTime>
+         <Attr Name="_EO" Value="true" />
+         <Attr Name="_AS" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="useraccess"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.entities.useraccess" >
+      <DesignTime>
+         <Attr Name="_EO" Value="true" />
+         <Attr Name="_AS" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="useraccessmenu"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.entities.useraccessmenu" >
+      <DesignTime>
+         <Attr Name="_EO" Value="true" />
+         <Attr Name="_AS" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="approval"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.approval" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+         <Attr Name="_VL" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="approvalsetting"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.approvalsetting" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+         <Attr Name="_VL" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="budgetsetting"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.budgetsetting" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+         <Attr Name="_VL" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="confirmation"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.confirmation" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+         <Attr Name="_VL" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="modifier"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.confirmation.modifier" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="targetpr"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.confirmation.targetpr" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="dashboard"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.dashboard" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="ebs"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.masterdata.ebs" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="shuttle"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.masterdata.ebs.shuttle" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="lov"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.masterdata.lov" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="masterdata"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.masterdata" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="shuttle"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.masterdata.shuttle" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="duplicate"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.promoproposal.duplicate" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="pricelist"
+      PackageName="app.fpp.model.views.promoproposal.pricelist"
+      ObjectType="JboPackage">
+      <DesignTime>
+         <Attr Name="_VO" Value="true"/>
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="promoproposal"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.promoproposal" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+         <Attr Name="_VL" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="validation"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.promoproposal.validation" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="useraccess"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.useraccess" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+         <Attr Name="_VL" Value="true" />
+      </DesignTime>
+   </Containee>
+   <Containee
+      Name="useraccessmenu"
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.useraccessmenu" >
+      <DesignTime>
+         <Attr Name="_VO" Value="true" />
+         <Attr Name="_VL" Value="true" />
+      </DesignTime>
+   </Containee>
+</JboProject>

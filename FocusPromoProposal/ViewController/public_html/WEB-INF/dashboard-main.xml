@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="dashboard-main">
+    <default-activity id="__1">ExecuteApproval</default-activity>
+    <view id="dashboardMain">
+      <page>/Pages/Dashboard/dashboardMain.jsff</page>
+    </view>
+    <method-call id="ExecuteApproval">
+      <method>#{bindings.ExecuteWithParams.execute}</method>
+      <outcome id="__2">
+        <fixed-outcome>ExecuteWithParams</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="ExecuteProposal">
+      <method>#{bindings.ExecuteWithParams.execute}</method>
+      <outcome id="__3">
+        <fixed-outcome>ExecuteWithParams</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__4">
+      <from-activity-id id="__5">ExecuteApproval</from-activity-id>
+      <control-flow-case id="__6">
+        <from-outcome id="__7">ExecuteWithParams</from-outcome>
+        <to-activity-id id="__8">ExecuteProposal</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__9">
+      <from-activity-id id="__10">ExecuteProposal</from-activity-id>
+      <control-flow-case id="__13">
+        <from-outcome id="__12">ExecuteWithParams</from-outcome>
+        <to-activity-id id="__11">dashboardMain</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

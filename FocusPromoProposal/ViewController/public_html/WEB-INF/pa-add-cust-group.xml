@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="pa-add-cust-group">
+    <default-activity id="__5">setKeyProposalId</default-activity>
+    <input-parameter-definition id="__1">
+      <name id="__2">propId</name>
+      <value>#{pageFlowScope.propId}</value>
+      <class>oracle.jbo.domain.DBSequence</class>
+      <required/>
+    </input-parameter-definition>
+    <input-parameter-definition id="__4">
+      <name id="__3">propNo</name>
+      <value>#{pageFlowScope.propNo}</value>
+      <class>java.lang.String</class>
+      <required/>
+    </input-parameter-definition>
+    <managed-bean id="__24">
+      <managed-bean-name id="__27">PaAddCustGroupBackingBean</managed-bean-name>
+      <managed-bean-class id="__25">app.fpp.bean.PaAddCustGroupBackingBean</managed-bean-class>
+      <managed-bean-scope id="__26">backingBean</managed-bean-scope>
+    </managed-bean>
+    <method-call id="setKeyProposalId">
+      <method>#{bindings.setCurrentRowWithKeyValue.execute}</method>
+      <outcome id="__6">
+        <fixed-outcome>setCurrentRowWithKeyValue</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-return id="return">
+      <outcome id="__7">
+        <name>return</name>
+      </outcome>
+    </task-flow-return>
+    <view id="paAddCustGroup">
+      <page>/Pages/Approval/paAddCustGroup.jspx</page>
+    </view>
+    <method-call id="setUserCustGroup">
+      <method>#{bindings.ExecuteWithParams.execute}</method>
+      <outcome id="__28">
+        <fixed-outcome>ExecuteWithParams</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__8">
+      <from-activity-id id="__9">paAddCustGroup</from-activity-id>
+      <control-flow-case id="__11">
+        <from-outcome id="__12">close</from-outcome>
+        <to-activity-id id="__10">return</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__13">
+      <from-activity-id id="__14">setKeyProposalId</from-activity-id>
+      <control-flow-case id="__17">
+        <from-outcome id="__15">setCurrentRowWithKeyValue</from-outcome>
+        <to-activity-id id="__16">setUserCustGroup</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__29">
+      <from-activity-id id="__30">setUserCustGroup</from-activity-id>
+      <control-flow-case id="__31">
+        <from-outcome id="__32">ExecuteWithParams</from-outcome>
+        <to-activity-id id="__33">paAddCustGroup</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+  </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="pp-prod-add-region">
+    <default-activity id="__1">setKeyPromoProdukId</default-activity>
+    <input-parameter-definition id="__7">
+      <name id="__6">promoProdukId</name>
+      <value>#{pageFlowScope.promoProdukId}</value>
+      <class>oracle.jbo.domain.DBSequence</class>
+      <required/>
+    </input-parameter-definition>
+    <input-parameter-definition id="__8">
+      <name id="__9">prodName</name>
+      <value>#{pageFlowScope.prodName}</value>
+      <class>java.lang.String</class>
+      <required/>
+    </input-parameter-definition>
+    <managed-bean id="__3">
+      <managed-bean-name id="__5">PpProdAddRegionBackingBean</managed-bean-name>
+      <managed-bean-class id="__2">app.fpp.bean.PpProdAddRegionBackingBean</managed-bean-class>
+      <managed-bean-scope id="__4">backingBean</managed-bean-scope>
+    </managed-bean>
+    <view id="ppProdAddRegion">
+      <page>/Pages/PromoProposal/ppProdAddRegion.jspx</page>
+    </view>
+    <task-flow-return id="return">
+      <outcome id="__10">
+        <name>return</name>
+      </outcome>
+    </task-flow-return>
+    <method-call id="setKeyPromoProdukId">
+      <method>#{bindings.setCurrentRowWithKeyValue.execute}</method>
+      <outcome id="__16">
+        <fixed-outcome>setCurrentRowWithKeyValue</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="setUserRegion">
+      <method>#{bindings.ExecuteWithParams.execute}</method>
+      <outcome id="__17">
+        <fixed-outcome>ExecuteWithParams</fixed-outcome>
+      </outcome>
+    </method-call>
+    <control-flow-rule id="__11">
+      <from-activity-id id="__12">ppProdAddRegion</from-activity-id>
+      <control-flow-case id="__13">
+        <from-outcome id="__15">close</from-outcome>
+        <to-activity-id id="__14">return</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__18">
+      <from-activity-id id="__19">setKeyPromoProdukId</from-activity-id>
+      <control-flow-case id="__21">
+        <from-outcome id="__20">setCurrentRowWithKeyValue</from-outcome>
+        <to-activity-id id="__22">setUserRegion</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__23">
+      <from-activity-id id="__24">setUserRegion</from-activity-id>
+      <control-flow-case id="__26">
+        <from-outcome id="__25">ExecuteWithParams</from-outcome>
+        <to-activity-id id="__27">ppProdAddRegion</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+  </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,238 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
+          xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+  
+  <af:panelSplitter id="ps2" orientation="vertical" splitterPosition="45"
+                    disabled="true">
+    <f:facet name="first">
+      <af:panelStretchLayout id="psl1" endWidth="311px"
+                             inlineStyle="border-bottom-width:1px; border-bottom-color:rgb(231,231,231); border-bottom-style:solid;"
+                             startWidth="350px">
+        <f:facet name="start">
+          <af:panelGroupLayout id="panelGroupLayout1"
+                               inlineStyle="padding-top:12px; padding-left:5px; color:rgb(28,65,126);"
+                               layout="vertical">
+            <af:outputText value="Master Data: Sales Area" id="outputText6"
+                           inlineStyle="font-weight:bold; font-size:18.0px;margin-left:16px;"/>
+          </af:panelGroupLayout>
+        </f:facet>
+        <f:facet name="end"/>
+      </af:panelStretchLayout>
+    </f:facet>
+    <f:facet name="second">
+      <af:panelSplitter id="panelSplitter1" splitterPosition="300">
+        <f:facet name="first">
+          <af:panelCollection id="pc2" styleClass="AFStretchWidth"
+                              featuresOff="detach viewMenu columnsMenuItem">
+            <f:facet name="toolbar">
+              <af:toolbar id="t3">
+                <af:commandToolbarButton actionListener="#{bindings.Execute.execute}"
+                                         text="Refresh"
+                                         disabled="#{!bindings.Execute.enabled}"
+                                         id="ctb3"/>
+                <af:image source="/Images/v_spacer_toolbar.png" id="i1"/>
+                <af:commandToolbarButton text="Add"
+                                         id="ctb2">
+                  <af:showPopupBehavior popupId="p1" triggerType="action"/>
+                </af:commandToolbarButton>
+                <af:popup id="p1" autoCancel="disabled"
+                          childCreation="deferred"
+                          contentDelivery="lazyUncached"
+                          popupFetchListener="#{MasterDataBean.addSalesAreaPopupFetchListener}"
+                          popupCanceledListener="#{MasterDataBean.addSalesAreaPopupCanceledListener}">
+                  <af:dialog id="d2" title="Add Sales Area"
+                             closeIconVisible="false" resize="off"
+                             stretchChildren="none"
+                             dialogListener="#{MasterDataBean.addSalesAreaDialogListener}">
+                    <af:panelFormLayout id="pfl3">
+                      <af:inputText value="#{bindings.RegionCode.inputValue}"
+                                    label="#{bindings.RegionCode.hints.label}"
+                                    required="#{bindings.RegionCode.hints.mandatory}"
+                                    columns="#{bindings.RegionCode.hints.displayWidth}"
+                                    maximumLength="#{bindings.RegionCode.hints.precision}"
+                                    shortDesc="#{bindings.RegionCode.hints.tooltip}"
+                                    id="it7">
+                        <f:validator binding="#{bindings.RegionCode.validator}"/>
+                      </af:inputText>
+                      <af:inputText value="#{bindings.RegionLabel.inputValue}"
+                                    label="#{bindings.RegionLabel.hints.label}"
+                                    required="#{bindings.RegionLabel.hints.mandatory}"
+                                    columns="#{bindings.RegionLabel.hints.displayWidth}"
+                                    maximumLength="#{bindings.RegionLabel.hints.precision}"
+                                    shortDesc="#{bindings.RegionLabel.hints.tooltip}"
+                                    id="it8">
+                        <f:validator binding="#{bindings.RegionLabel.validator}"/>
+                      </af:inputText>
+                      <af:selectOneChoice value="#{bindings.Status.inputValue}"
+                                          label="#{bindings.Status.label}"
+                                          required="#{bindings.Status.hints.mandatory}"
+                                          shortDesc="#{bindings.Status.hints.tooltip}"
+                                          id="soc3">
+                        <f:selectItems value="#{bindings.Status.items}"
+                                       id="si3"/>
+                      </af:selectOneChoice>
+                      <af:inputText value="#{bindings.Descr.inputValue}"
+                                    label="#{bindings.Descr.hints.label}"
+                                    required="#{bindings.Descr.hints.mandatory}"
+                                    columns="#{bindings.Descr.hints.displayWidth}"
+                                    maximumLength="#{bindings.Descr.hints.precision}"
+                                    shortDesc="#{bindings.Descr.hints.tooltip}"
+                                    id="it9" rows="2">
+                        <f:validator binding="#{bindings.Descr.validator}"/>
+                      </af:inputText>
+                    </af:panelFormLayout>
+                  </af:dialog>
+                </af:popup>
+              </af:toolbar>
+            </f:facet>
+            <af:table value="#{bindings.SalesRegionView1.collectionModel}"
+                      var="row" rows="#{bindings.SalesRegionView1.rangeSize}"
+                      emptyText="#{bindings.SalesRegionView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                      fetchSize="#{bindings.SalesRegionView1.rangeSize}"
+                      rowBandingInterval="0"
+                      filterModel="#{bindings.SalesRegionView1Query.queryDescriptor}"
+                      queryListener="#{bindings.SalesRegionView1Query.processQuery}"
+                      filterVisible="true" varStatus="vs"
+                      selectedRowKeys="#{bindings.SalesRegionView1.collectionModel.selectedRow}"
+                      selectionListener="#{bindings.SalesRegionView1.collectionModel.makeCurrent}"
+                      rowSelection="single" id="t1" columnStretching="last"
+                      partialTriggers="::ctb3 ::d2 :::d1"
+                      binding="#{MasterDataBean.tblRegionList}">
+              <af:column headerText="#{bindings.SalesRegionView1.hints.RegionCode.label}"
+                         id="c2" width="75" align="center" filterable="true">
+                <af:outputText value="#{row.RegionCode}" id="ot2"/>
+              </af:column>
+              <af:column sortProperty="#{bindings.SalesRegionView1.hints.RegionLabel.name}"
+                         filterable="true" sortable="true"
+                         headerText="#{bindings.SalesRegionView1.hints.RegionLabel.label}"
+                         id="c1">
+                <af:outputText value="#{row.RegionLabel}" id="ot1"/>
+              </af:column>
+            </af:table>
+          </af:panelCollection>
+        </f:facet>
+        <f:facet name="second">
+          <af:panelGroupLayout id="pgl8" layout="scroll"
+                               partialTriggers="pc2:t1">
+            <af:spacer width="10" height="10" id="s29"/>
+            <af:panelGroupLayout id="pgl31" layout="horizontal"
+                                 inlineStyle="margin-top:10px;"
+                                 visible="#{bindings.SalesRegionView1Iterator.estimatedRowCount == 0}">
+              <af:outputText value="Tidak ada data yang ditampilkan."
+                             id="outputText3"/>
+            </af:panelGroupLayout>
+            <af:panelHeader text=" " id="ph1"
+                            visible="#{bindings.SalesRegionView1Iterator.estimatedRowCount > 0}"
+                            styleClass="AFStretchWidth"
+                            inlineStyle="padding-right:20px;">
+              <f:facet name="context"/>
+              <f:facet name="menuBar"/>
+              <f:facet name="toolbar">
+                <af:toolbar id="t2">
+                  <af:commandToolbarButton text="Edit"
+                                           id="ctb1">
+                    <af:showPopupBehavior popupId="p2" triggerType="action"/>
+                  </af:commandToolbarButton>
+                  <af:popup id="p2" contentDelivery="lazyUncached">
+                    <af:dialog id="d1"
+                               title="Edit Sales Area: #{bindings.RegionLabel.inputValue}"
+                               closeIconVisible="false" resize="off"
+                               stretchChildren="none"
+                               dialogListener="#{MasterDataBean.editSalesAreaDialogListener}">
+                      <af:panelFormLayout id="pfl2">
+                        <af:inputText value="#{bindings.RegionCode.inputValue}"
+                                      label="#{bindings.RegionCode.hints.label}"
+                                      required="#{bindings.RegionCode.hints.mandatory}"
+                                      columns="#{bindings.RegionCode.hints.displayWidth}"
+                                      maximumLength="#{bindings.RegionCode.hints.precision}"
+                                      shortDesc="#{bindings.RegionCode.hints.tooltip}"
+                                      id="it6" readOnly="true"
+                                      contentStyle="font-weight:bold;">
+                          <f:validator binding="#{bindings.RegionCode.validator}"/>
+                        </af:inputText>
+                        <af:spacer width="10" id="s4" height="2"/>
+                        <af:inputText value="#{bindings.RegionLabel.inputValue}"
+                                      label="#{bindings.RegionLabel.hints.label}"
+                                      required="#{bindings.RegionLabel.hints.mandatory}"
+                                      columns="#{bindings.RegionLabel.hints.displayWidth}"
+                                      maximumLength="#{bindings.RegionLabel.hints.precision}"
+                                      shortDesc="#{bindings.RegionLabel.hints.tooltip}"
+                                      id="it5">
+                          <f:validator binding="#{bindings.RegionLabel.validator}"/>
+                        </af:inputText>
+                        <af:inputText value="#{bindings.Descr.inputValue}"
+                                      label="#{bindings.Descr.hints.label}"
+                                      required="#{bindings.Descr.hints.mandatory}"
+                                      columns="#{bindings.Descr.hints.displayWidth}"
+                                      maximumLength="#{bindings.Descr.hints.precision}"
+                                      shortDesc="#{bindings.Descr.hints.tooltip}"
+                                      id="it4" rows="2">
+                          <f:validator binding="#{bindings.Descr.validator}"/>
+                        </af:inputText>
+                        <af:selectOneChoice value="#{bindings.Status.inputValue}"
+                                            label="#{bindings.Status.label}"
+                                            required="#{bindings.Status.hints.mandatory}"
+                                            shortDesc="#{bindings.Status.hints.tooltip}"
+                                            id="soc2">
+                          <f:selectItems value="#{bindings.Status.items}"
+                                         id="si2"/>
+                        </af:selectOneChoice>
+                      </af:panelFormLayout>
+                    </af:dialog>
+                  </af:popup>
+                </af:toolbar>
+              </f:facet>
+              <f:facet name="legend"/>
+              <f:facet name="info"/>
+              <af:panelFormLayout id="pfl1" partialTriggers="d1" rows="10"
+                                  labelWidth="120">
+                <af:inputText value="#{bindings.RegionCode.inputValue}"
+                              label="#{bindings.RegionCode.hints.label}"
+                              required="#{bindings.RegionCode.hints.mandatory}"
+                              columns="#{bindings.RegionCode.hints.displayWidth}"
+                              maximumLength="#{bindings.RegionCode.hints.precision}"
+                              shortDesc="#{bindings.RegionCode.hints.tooltip}"
+                              id="it2" readOnly="true"
+                              contentStyle="font-weight:bold;">
+                  <f:validator binding="#{bindings.RegionCode.validator}"/>
+                </af:inputText>
+                <af:spacer width="10" height="10" id="s1"/>
+                <af:inputText value="#{bindings.RegionLabel.inputValue}"
+                              label="#{bindings.RegionLabel.hints.label}"
+                              required="#{bindings.RegionLabel.hints.mandatory}"
+                              columns="#{bindings.RegionLabel.hints.displayWidth}"
+                              maximumLength="#{bindings.RegionLabel.hints.precision}"
+                              shortDesc="#{bindings.RegionLabel.hints.tooltip}"
+                              id="it1" readOnly="true"
+                              contentStyle="font-weight:bold;">
+                  <f:validator binding="#{bindings.RegionLabel.validator}"/>
+                </af:inputText>
+                <af:spacer width="10" height="10" id="s2"/>
+                <af:selectOneChoice value="#{bindings.Status.inputValue}"
+                                    label="#{bindings.Status.label}"
+                                    required="#{bindings.Status.hints.mandatory}"
+                                    shortDesc="#{bindings.Status.hints.tooltip}"
+                                    id="soc1" readOnly="true"
+                                    contentStyle="font-weight:bold;">
+                  <f:selectItems value="#{bindings.Status.items}" id="si1"/>
+                </af:selectOneChoice>
+                <af:spacer width="10" height="10" id="s3"/>
+                <af:inputText value="#{bindings.Descr.inputValue}"
+                              label="#{bindings.Descr.hints.label}"
+                              required="#{bindings.Descr.hints.mandatory}"
+                              columns="#{bindings.Descr.hints.displayWidth}"
+                              maximumLength="#{bindings.Descr.hints.precision}"
+                              shortDesc="#{bindings.Descr.hints.tooltip}"
+                              id="it3" rows="2" readOnly="true"
+                              contentStyle="font-weight:bold;">
+                  <f:validator binding="#{bindings.Descr.validator}"/>
+                </af:inputText>
+              </af:panelFormLayout>
+            </af:panelHeader>
+          </af:panelGroupLayout>
+        </f:facet>
+      </af:panelSplitter>
+    </f:facet>
+  </af:panelSplitter>
+</jsp:root>

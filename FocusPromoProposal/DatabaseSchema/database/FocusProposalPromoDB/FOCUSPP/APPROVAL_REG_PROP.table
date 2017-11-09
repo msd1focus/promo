@@ -1,0 +1,128 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<table xmlns="http://xmlns.oracle.com/jdeveloper/1111/offlinedb">
+  <ID class="oracle.javatools.db.IdentifierBasedID">
+    <identifier class="java.lang.String">84c8ee6c-50e6-4b9a-a15f-0a21da7f22f7</identifier>
+  </ID>
+  <name>APPROVAL_REG_PROP</name>
+  <columns>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">1f103c66-5f7c-4fb9-a05b-32d15f50eff4</identifier>
+      </ID>
+      <name>PROPOSAL_ID</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">2a925d84-c651-4cc1-bbbc-78ea0579065b</identifier>
+        </ID>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
+          <typeName>NUMBER</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">2d0e16b1-a891-4a99-a97c-3464ce7f4443</identifier>
+      </ID>
+      <name>REGION_CODE</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">b15c4d55-68ea-4bf9-9af6-b700a6658306</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">20</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">BYTE</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>true</notNull>
+    </column>
+  </columns>
+  <constraints>
+    <constraint class="oracle.javatools.db.FKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">b0cccd01-5e0b-4da6-b16a-9cc3d2ed9366</identifier>
+      </ID>
+      <name>APPROVAL_REG_PROP_PROPOSA_FK1</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>PROPOSAL_ID</name>
+          <identifier class="java.lang.String">1f103c66-5f7c-4fb9-a05b-32d15f50eff4</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>APPROVAL_REG_PROP</name>
+            <identifier class="java.lang.String">84c8ee6c-50e6-4b9a-a15f-0a21da7f22f7</identifier>
+            <schemaName>FOCUSPP</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>FOCUSPP</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <deleteMode>1</deleteMode>
+      <enabled>true</enabled>
+      <referenceID class="oracle.javatools.db.IdentifierBasedID">
+        <name>PROPOSAL_PK</name>
+        <identifier class="java.lang.String">4436f162-9231-4bcc-9dce-fd6664f51946</identifier>
+        <parent class="oracle.javatools.db.IdentifierBasedID">
+          <name>PROPOSAL</name>
+          <identifier class="java.lang.String">9e228503-a2ab-4c7b-8bee-51418dedb377</identifier>
+          <schemaName>FOCUSPP</schemaName>
+          <type>TABLE</type>
+        </parent>
+        <type>CONSTRAINT</type>
+      </referenceID>
+    </constraint>
+    <constraint class="oracle.javatools.db.PKConstraint">
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">78970dc3-604b-4248-8881-c29b49853395</identifier>
+      </ID>
+      <name>APPROVAL_REG_PROP_PK</name>
+      <columnIDs>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>PROPOSAL_ID</name>
+          <identifier class="java.lang.String">1f103c66-5f7c-4fb9-a05b-32d15f50eff4</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>APPROVAL_REG_PROP</name>
+            <identifier class="java.lang.String">84c8ee6c-50e6-4b9a-a15f-0a21da7f22f7</identifier>
+            <schemaName>FOCUSPP</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>FOCUSPP</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+        <columnID class="oracle.javatools.db.IdentifierBasedID">
+          <name>REGION_CODE</name>
+          <identifier class="java.lang.String">2d0e16b1-a891-4a99-a97c-3464ce7f4443</identifier>
+          <parent class="oracle.javatools.db.IdentifierBasedID">
+            <name>APPROVAL_REG_PROP</name>
+            <identifier class="java.lang.String">84c8ee6c-50e6-4b9a-a15f-0a21da7f22f7</identifier>
+            <schemaName>FOCUSPP</schemaName>
+            <type>TABLE</type>
+          </parent>
+          <schemaName>FOCUSPP</schemaName>
+          <type>COLUMN</type>
+        </columnID>
+      </columnIDs>
+      <enabled>true</enabled>
+    </constraint>
+  </constraints>
+  <properties>
+    <entry>
+      <key>TableType</key>
+      <value class="oracle.javatools.db.Table$TableType">NORMAL</value>
+    </entry>
+  </properties>
+  <schema>
+    <name>FOCUSPP</name>
+  </schema>
+</table>

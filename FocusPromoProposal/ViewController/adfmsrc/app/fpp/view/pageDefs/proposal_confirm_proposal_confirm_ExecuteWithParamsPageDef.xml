@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93"
+                id="proposal_confirm_proposal_confirm_ExecuteWithParamsPageDef"
+                Package="app.fpp.view.pageDefs" SkipValidation="true">
+  <parameters/>
+  <executables>
+    <iterator Binds="ProposalConfirmationView1" RangeSize="25"
+              DataControl="ConfirmationAMDataControl"
+              id="ProposalConfirmationView1Iterator" Refresh="never"/>
+  </executables>
+  <bindings>
+    <action IterBinding="ProposalConfirmationView1Iterator"
+            id="ExecuteWithParams" RequiresUpdateModel="true"
+            Action="executeWithParams">
+      <NamedData NDName="userLogin" NDValue="#{UserData.userNameLogin}"
+                 NDType="java.lang.String"/>
+    </action>
+  </bindings>
+</pageDefinition>

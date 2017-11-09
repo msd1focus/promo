@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AllExclProposalCustomerShuttleView"
+  Version="11.1.1.64.93"
+  InheritPersonalization="true"
+  SelectList="FcsExclShuttleCustomer.CUSTOMER_ID, 
+       FcsExclShuttleCustomer.CUSTOMER_NAME, 
+       FcsExclShuttleCustomer.CUSTOMER_NUMBER, 
+       FcsExclShuttleCustomer.LOCATION_CODE, 
+       FcsExclShuttleCustomer.CUSTOMER_FULL_NAME"
+  FromList="FCS_EXCL_SHUTTLE_CUSTOMER FcsExclShuttleCustomer, PROPOSAL Proposal, PROP_REGION_LOC PropRegionLoc"
+  Where="Proposal.PROPOSAL_ID = PropRegionLoc.PROPOSAL_ID
+AND FcsExclShuttleCustomer.LOCATION_CODE = PropRegionLoc.LOCATION_CODE
+AND FcsExclShuttleCustomer.USER_NAME = :userName
+AND Proposal.PROPOSAL_ID = :proposalId
+GROUP BY FcsExclShuttleCustomer.CUSTOMER_ID, 
+       FcsExclShuttleCustomer.CUSTOMER_NAME, 
+       FcsExclShuttleCustomer.CUSTOMER_NUMBER, 
+       FcsExclShuttleCustomer.LOCATION_CODE, 
+       FcsExclShuttleCustomer.CUSTOMER_FULL_NAME"
+  OrderBy="FcsExclShuttleCustomer.CUSTOMER_FULL_NAME"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="app.fpp.model.views.masterdata.ebs.shuttle.AllExclProposalCustomerShuttleView_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="userName"
+    Kind="where"
+    Type="java.lang.String"/>
+  <Variable
+    Name="proposalId"
+    Kind="where"
+    Type="java.lang.String"/>
+  <EntityUsage
+    Name="FcsExclShuttleCustomer"
+    Entity="app.fpp.model.entities.masterdata.ebs.shuttle.FcsExclShuttleCustomer"/>
+  <EntityUsage
+    Name="Proposal"
+    Entity="app.fpp.model.entities.promoproposal.Proposal"
+    SourceUsage="app.fpp.model.views.masterdata.ebs.shuttle.AllExclProposalCustomerShuttleView.FcsExclShuttleCustomer"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"/>
+  <EntityUsage
+    Name="PropRegionLoc"
+    Entity="app.fpp.model.entities.promoproposal.PropRegionLoc"
+    Association="app.fpp.model.entities.promoproposal.PropRegionLocProposalFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.promoproposal.PropRegionLocProposalFk1Assoc.PropRegionLoc"
+    SourceUsage="app.fpp.model.views.masterdata.ebs.shuttle.AllExclProposalCustomerShuttleView.Proposal"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"
+    JoinType="INNER JOIN">
+    <DesignTime>
+      <AttrArray Name="_srcAttributes">
+        <Item Value="app.fpp.model.entities.promoproposal.Proposal.ProposalId"/>
+      </AttrArray>
+      <AttrArray Name="_dstAttributes">
+        <Item
+          Value="app.fpp.model.entities.promoproposal.PropRegionLoc.ProposalId"/>
+      </AttrArray>
+    </DesignTime>
+  </EntityUsage>
+  <ViewAttribute
+    Name="CustomerId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CustomerId"
+    EntityUsage="FcsExclShuttleCustomer"
+    AliasName="CUSTOMER_ID"/>
+  <ViewAttribute
+    Name="CustomerName"
+    PrecisionRule="true"
+    EntityAttrName="CustomerName"
+    EntityUsage="FcsExclShuttleCustomer"
+    AliasName="CUSTOMER_NAME"/>
+  <ViewAttribute
+    Name="CustomerNumber"
+    PrecisionRule="true"
+    EntityAttrName="CustomerNumber"
+    EntityUsage="FcsExclShuttleCustomer"
+    AliasName="CUSTOMER_NUMBER"/>
+  <ViewAttribute
+    Name="LocationCode"
+    PrecisionRule="true"
+    EntityAttrName="LocationCode"
+    EntityUsage="FcsExclShuttleCustomer"
+    AliasName="LOCATION_CODE"/>
+  <ViewAttribute
+    Name="CustomerFullName"
+    PrecisionRule="true"
+    EntityAttrName="CustomerFullName"
+    EntityUsage="FcsExclShuttleCustomer"
+    AliasName="CUSTOMER_FULL_NAME"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="app.fpp.model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="mdSalesAreaPageDef"
+                Package="Pages.MasterData">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="SalesRegionView1" RangeSize="25"
+              DataControl="MasterDataAMDataControl"
+              id="SalesRegionView1Iterator"/>
+    <searchRegion Binds="SalesRegionView1Iterator" Criteria=""
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  id="SalesRegionView1Query"/>
+  </executables>
+  <bindings>
+    <tree IterBinding="SalesRegionView1Iterator" id="SalesRegionView1">
+      <nodeDefinition DefName="app.fpp.model.views.masterdata.SalesRegionView"
+                      Name="SalesRegionView10">
+        <AttrNames>
+          <Item Value="RegionLabel"/>
+          <Item Value="RegionCode"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="SalesRegionView1Iterator" id="RegionCode">
+      <AttrNames>
+        <Item Value="RegionCode"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SalesRegionView1Iterator" id="RegionLabel">
+      <AttrNames>
+        <Item Value="RegionLabel"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="SalesRegionView1Iterator" id="Descr">
+      <AttrNames>
+        <Item Value="Descr"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="SalesRegionView1Iterator" StaticList="false"
+          Uses="LOV_Status" id="Status" DTSupportsMRU="false"/>
+    <action IterBinding="SalesRegionView1Iterator" id="Execute"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <action id="Commit" DataControl="MasterDataAMDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" DataControl="MasterDataAMDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <action IterBinding="SalesRegionView1Iterator" id="CreateInsert"
+            InstanceName="MasterDataAMDataControl.SalesRegionView1"
+            DataControl="MasterDataAMDataControl" RequiresUpdateModel="true"
+            Action="createInsertRow"/>
+  </bindings>
+</pageDefinition>

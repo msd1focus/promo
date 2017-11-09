@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93" id="dashboardMainPageDef"
+                Package="Pages.Dashboard">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator id="ConfirmationDashView1Iterator" Binds="ConfirmationDashView1"
+              DataControl="DashboardAMDataControl" RangeSize="25"/>
+    <iterator id="ApprovalDashView1Iterator" Binds="ApprovalDashView1"
+              DataControl="DashboardAMDataControl" RangeSize="25"/>
+    <iterator id="ProposalDashView1Iterator" Binds="ProposalDashView1"
+              DataControl="DashboardAMDataControl" RangeSize="25"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="ProposalDashView1Iterator" id="PdraftNum">
+      <AttrNames>
+        <Item Value="PdraftNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ProposalDashView1Iterator" id="PactiveNum">
+      <AttrNames>
+        <Item Value="PactiveNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ProposalDashView1Iterator" id="PinprocessNum">
+      <AttrNames>
+        <Item Value="PinprocessNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ProposalDashView1Iterator" id="PrejectedNum">
+      <AttrNames>
+        <Item Value="PrejectedNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ProposalDashView1Iterator" id="Pall">
+      <AttrNames>
+        <Item Value="Pall"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

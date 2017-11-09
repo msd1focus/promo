@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ExclCustCustView"
+  Version="11.1.1.64.93"
+  InheritPersonalization="true"
+  SelectList="ExclCustCust.CUSTOMER_ID, 
+       ExclCustCust.PROMO_PRODUK_ID"
+  FromList="EXCL_CUST_CUST ExclCustCust"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="app.fpp.model.views.promoproposal.ExclCustCustView_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <EntityUsage
+    Name="ExclCustCust"
+    Entity="app.fpp.model.entities.promoproposal.ExclCustCust"/>
+  <ViewAttribute
+    Name="CustomerId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CustomerId"
+    EntityUsage="ExclCustCust"
+    AliasName="CUSTOMER_ID"/>
+  <ViewAttribute
+    Name="PromoProdukId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="PromoProdukId"
+    EntityUsage="ExclCustCust"
+    AliasName="PROMO_PRODUK_ID"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="app.fpp.model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

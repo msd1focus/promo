@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel"
+                version="11.1.1.64.93"
+                id="pa_excl_prod_customer_pa_excl_prod_customer_ExecuteWithParamsPageDef"
+                Package="app.fpp.view.pageDefs" SkipValidation="true">
+  <parameters/>
+  <executables>
+    <iterator Binds="AllExcludeProdCustomerShuttleView1" RangeSize="25"
+              DataControl="ApprovalAMDataControl"
+              id="AllExcludeProdCustomerShuttleView1Iterator" Refresh="never"/>
+  </executables>
+  <bindings>
+    <action IterBinding="AllExcludeProdCustomerShuttleView1Iterator"
+            id="ExecuteWithParams" RequiresUpdateModel="true"
+            Action="executeWithParams">
+      <NamedData NDName="userName" NDValue="#{UserData.userNameLogin}"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="promoProdId" NDValue="#{pageFlowScope.promoProdukId}"
+                 NDType="java.lang.String"/>
+    </action>
+  </bindings>
+</pageDefinition>

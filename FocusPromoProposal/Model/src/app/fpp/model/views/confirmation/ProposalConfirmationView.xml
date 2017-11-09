@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="ProposalConfirmationView"
+  Version="11.1.1.64.93"
+  InheritPersonalization="true"
+  SelectList="Proposal.ADDENDUM_KE, 
+       Proposal.COMPANY_ID, 
+       Proposal.CONFIRM_NO, 
+       Proposal.CONTACT, 
+       Proposal.CREATED_BY, 
+       Proposal.CREATION_DATE, 
+       Proposal.CURRENCY, 
+       Proposal.CUST_REG_FLAG, 
+       Proposal.DISCOUNT_TYPE, 
+       Proposal.KOMPENSASI_DIPEROLEH, 
+       Proposal.LAST_UPDATE_DATE, 
+       Proposal.LAST_UPDATED_BY, 
+       Proposal.MEKANISME_PENAGIHAN, 
+       Proposal.NOTES, 
+       Proposal.PC_TYPE, 
+       Proposal.PEMOHON, 
+       Proposal.PERIODE_PROG_FROM, 
+       Proposal.PERIODE_PROG_TO, 
+       Proposal.PROG_DAYS, 
+       Proposal.PROG_PROMO, 
+       Proposal.PROPOSAL_DATE, 
+       Proposal.PROPOSAL_ID, 
+       Proposal.PROPOSAL_NO, 
+       Proposal.PROPOSAL_TYPE, 
+       Proposal.STATUS, 
+       Proposal.STD_STM, 
+       Proposal.USER_TYPE_CREATOR, 
+       Proposal.CONFIRM_DATE, 
+       Proposal.PR_CREATED, 
+       Proposal.COPY_SOURCE, 
+       Proposal.MODIFIER_TYPE, 
+       Proposal.BJP_FLAG, 
+       Proposal.ARCHIEVE_FLAG, 
+       (CASE WHEN (PERIODE_PROG_FROM &lt;= SYSDATE AND SYSDATE &lt;= PERIODE_PROG_TO) THEN 'Y' ELSE 'N' END) AS CAN_ADDENDUM, 
+       Proposal.PR_REQUEST_ID, 
+       Proposal.MOD_REQUEST_ID, 
+       Proposal.HIST_REMARK, 
+       Proposal.HIST_TRAN_DT_FROM, 
+       Proposal.HIST_TRAN_DT_TO"
+  FromList="PROPOSAL Proposal"
+  Where="Proposal.CONFIRM_NO IS NOT NULL AND Proposal.STATUS = 'ACTIVE'
+AND Proposal.LAST_UPDATED_BY = :userLogin"
+  OrderBy="Proposal.LAST_UPDATE_DATE DESC"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="app.fpp.model.views.confirmation.ProposalConfirmationView_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="userLogin"
+    Kind="where"
+    Type="java.lang.String"/>
+  <ViewAccessor
+    Name="CurrencyLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['FNI_CURRENCY_CODE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="DiscountTypeLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['FNI_DISCOUNT_TYPE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="DokStatusLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['FNI_DOC_STATUS']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="MekPenagihanLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['FNI_TYPE_CLAIM']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="PcTypeLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['FNI_PC_TYPE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ProgramPromoLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['FNI_PROG_PROMO']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ProposalTypeLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['FNI_PROPOSAL_TYPE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="StdStmLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['FNI_STD_STM']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="UserAccessLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.UserAccessLov"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="ModifierTypeLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_TYPE_MODIFIER']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="BjpFlagLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_BJP_FLAG']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="ArchiveFlagLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_ARCHIVE_FLAG']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="RegionCustFlagLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_PROP_REG_CUS_FLG']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_Currency"
+    ListVOName="CurrencyLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_Currency_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="Currency"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_DiscountType"
+    ListVOName="DiscountTypeLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_DiscountType_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="DiscountType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_Status"
+    ListVOName="DokStatusLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_Status_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="Status"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_MekanismePenagihan"
+    ListVOName="MekPenagihanLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_MekanismePenagihan_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="MekanismePenagihan"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_PcType"
+    ListVOName="PcTypeLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_PcType_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="PcType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_ProgPromo"
+    ListVOName="ProgramPromoLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_ProgPromo_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="ProgPromo"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_ProposalType"
+    ListVOName="ProposalTypeLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_ProposalType_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="ProposalType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_StdStm"
+    ListVOName="StdStmLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_StdStm_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="StdStm"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_Pemohon"
+    ListVOName="UserAccessLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_Pemohon_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="Pemohon"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="UserName"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="FullName"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_ModifierType"
+    ListVOName="ModifierTypeLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_ModifierType_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="ModifierType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_BjpFlag"
+    ListVOName="BjpFlagLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_BjpFlag_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="BjpFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_ArchieveFlag"
+    ListVOName="ArchiveFlagLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_ArchieveFlag_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="ArchieveFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CustRegFlag"
+    ListVOName="RegionCustFlagLov"
+    ListRangeSize="10"
+    NullValueFlag="none"
+    NullValueId="LOV_CustRegFlag_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="CustRegFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <EntityUsage
+    Name="Proposal"
+    Entity="app.fpp.model.entities.promoproposal.Proposal"/>
+  <ViewAttribute
+    Name="AddendumKe"
+    PrecisionRule="true"
+    EntityAttrName="AddendumKe"
+    EntityUsage="Proposal"
+    AliasName="ADDENDUM_KE"/>
+  <ViewAttribute
+    Name="CompanyId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CompanyId"
+    EntityUsage="Proposal"
+    AliasName="COMPANY_ID"/>
+  <ViewAttribute
+    Name="ConfirmNo"
+    PrecisionRule="true"
+    EntityAttrName="ConfirmNo"
+    EntityUsage="Proposal"
+    AliasName="CONFIRM_NO"/>
+  <ViewAttribute
+    Name="Contact"
+    PrecisionRule="true"
+    EntityAttrName="Contact"
+    EntityUsage="Proposal"
+    AliasName="CONTACT"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="Proposal"
+    AliasName="CREATED_BY"/>
+  <ViewAttribute
+    Name="CreationDate"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="Proposal"
+    AliasName="CREATION_DATE"/>
+  <ViewAttribute
+    Name="Currency"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="Currency"
+    EntityUsage="Proposal"
+    AliasName="CURRENCY"
+    LOVName="LOV_Currency">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CustRegFlag"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CustRegFlag"
+    EntityUsage="Proposal"
+    AliasName="CUST_REG_FLAG"
+    LOVName="LOV_CustRegFlag">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="input_text_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DiscountType"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DiscountType"
+    EntityUsage="Proposal"
+    AliasName="DISCOUNT_TYPE"
+    LOVName="LOV_DiscountType">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="KompensasiDiperoleh"
+    PrecisionRule="true"
+    EntityAttrName="KompensasiDiperoleh"
+    EntityUsage="Proposal"
+    AliasName="KOMPENSASI_DIPEROLEH"/>
+  <ViewAttribute
+    Name="LastUpdateDate"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdateDate"
+    EntityUsage="Proposal"
+    AliasName="LAST_UPDATE_DATE"/>
+  <ViewAttribute
+    Name="LastUpdatedBy"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="LastUpdatedBy"
+    EntityUsage="Proposal"
+    AliasName="LAST_UPDATED_BY"/>
+  <ViewAttribute
+    Name="MekanismePenagihan"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="MekanismePenagihan"
+    EntityUsage="Proposal"
+    AliasName="MEKANISME_PENAGIHAN"
+    LOVName="LOV_MekanismePenagihan">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Notes"
+    PrecisionRule="true"
+    EntityAttrName="Notes"
+    EntityUsage="Proposal"
+    AliasName="NOTES"/>
+  <ViewAttribute
+    Name="PcType"
+    PrecisionRule="true"
+    EntityAttrName="PcType"
+    EntityUsage="Proposal"
+    AliasName="PC_TYPE"
+    LOVName="LOV_PcType">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Pemohon"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="Pemohon"
+    EntityUsage="Proposal"
+    AliasName="PEMOHON"
+    LOVName="LOV_Pemohon">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PeriodeProgFrom"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="PeriodeProgFrom"
+    EntityUsage="Proposal"
+    AliasName="PERIODE_PROG_FROM">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.confirmation.ProposalConfirmationView.PeriodeProgFrom_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.confirmation.ProposalConfirmationView.PeriodeProgFrom_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PeriodeProgTo"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="PeriodeProgTo"
+    EntityUsage="Proposal"
+    AliasName="PERIODE_PROG_TO">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.confirmation.ProposalConfirmationView.PeriodeProgTo_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.confirmation.ProposalConfirmationView.PeriodeProgTo_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProgDays"
+    PrecisionRule="true"
+    EntityAttrName="ProgDays"
+    EntityUsage="Proposal"
+    AliasName="PROG_DAYS"/>
+  <ViewAttribute
+    Name="ProgPromo"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ProgPromo"
+    EntityUsage="Proposal"
+    AliasName="PROG_PROMO"
+    LOVName="LOV_ProgPromo">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProposalDate"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="ProposalDate"
+    EntityUsage="Proposal"
+    AliasName="PROPOSAL_DATE"/>
+  <ViewAttribute
+    Name="ProposalId"
+    IsUpdateable="while_insert"
+    PrecisionRule="true"
+    EntityAttrName="ProposalId"
+    EntityUsage="Proposal"
+    AliasName="PROPOSAL_ID"/>
+  <ViewAttribute
+    Name="ProposalNo"
+    IsUnique="true"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ProposalNo"
+    EntityUsage="Proposal"
+    AliasName="PROPOSAL_NO"/>
+  <ViewAttribute
+    Name="ProposalType"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="ProposalType"
+    EntityUsage="Proposal"
+    AliasName="PROPOSAL_TYPE"
+    LOVName="LOV_ProposalType">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Status"
+    PrecisionRule="true"
+    EntityAttrName="Status"
+    EntityUsage="Proposal"
+    AliasName="STATUS"
+    LOVName="LOV_Status">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="StdStm"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="StdStm"
+    EntityUsage="Proposal"
+    AliasName="STD_STM"
+    LOVName="LOV_StdStm">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="UserTypeCreator"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="UserTypeCreator"
+    EntityUsage="Proposal"
+    AliasName="USER_TYPE_CREATOR"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="app.fpp.model.ModelBundle"/>
+  </ResourceBundle>
+  <ViewAttribute
+    Name="ConfirmDate"
+    PrecisionRule="true"
+    EntityAttrName="ConfirmDate"
+    EntityUsage="Proposal"
+    AliasName="CONFIRM_DATE">
+    <TransientExpression><![CDATA[adf.currentDateTime]]></TransientExpression>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProgDaysCount"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="PROG_DAYS_COUNT"
+    SQLType="VARCHAR"
+    Precision="255">
+    <TransientExpression><![CDATA[(PeriodeProgTo - PeriodeProgFrom) + 1]]></TransientExpression>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PrCreated"
+    PrecisionRule="true"
+    EntityAttrName="PrCreated"
+    EntityUsage="Proposal"
+    AliasName="PR_CREATED"/>
+  <ViewAttribute
+    Name="CopySource"
+    PrecisionRule="true"
+    EntityAttrName="CopySource"
+    EntityUsage="Proposal"
+    AliasName="COPY_SOURCE"/>
+  <ViewAttribute
+    Name="ModifierType"
+    PrecisionRule="true"
+    EntityAttrName="ModifierType"
+    EntityUsage="Proposal"
+    AliasName="MODIFIER_TYPE"
+    LOVName="LOV_ModifierType">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BjpFlag"
+    PrecisionRule="true"
+    EntityAttrName="BjpFlag"
+    EntityUsage="Proposal"
+    AliasName="BJP_FLAG"
+    LOVName="LOV_BjpFlag">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="radio"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ArchieveFlag"
+    PrecisionRule="true"
+    EntityAttrName="ArchieveFlag"
+    EntityUsage="Proposal"
+    AliasName="ARCHIEVE_FLAG"
+    LOVName="LOV_ArchieveFlag">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="radio"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CanAddendum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CAN_ADDENDUM"
+    SQLType="VARCHAR"
+    Precision="1"
+    Expression="(CASE WHEN (PERIODE_PROG_FROM &lt;= SYSDATE AND SYSDATE &lt;= PERIODE_PROG_TO) THEN 'Y' ELSE 'N' END)"/>
+  <ViewAttribute
+    Name="PrRequestId"
+    PrecisionRule="true"
+    EntityAttrName="PrRequestId"
+    EntityUsage="Proposal"
+    AliasName="PR_REQUEST_ID"/>
+  <ViewAttribute
+    Name="ModRequestId"
+    PrecisionRule="true"
+    EntityAttrName="ModRequestId"
+    EntityUsage="Proposal"
+    AliasName="MOD_REQUEST_ID">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="MODIFIER_REQUEST_ID"/>
+        <DISPLAYWIDTH
+          Value="20"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="HistRemark"
+    PrecisionRule="true"
+    EntityAttrName="HistRemark"
+    EntityUsage="Proposal"
+    AliasName="HIST_REMARK">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="HISTORY_REMARK"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="HistTranDtFrom"
+    PrecisionRule="true"
+    EntityAttrName="HistTranDtFrom"
+    EntityUsage="Proposal"
+    AliasName="HIST_TRAN_DT_FROM">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.confirmation.ProposalConfirmationView.HistTranDtFrom_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.confirmation.ProposalConfirmationView.HistTranDtFrom_FMT_FORMAT"/>
+        <LABEL
+          ResId="HISTORY_TRANSAKSI_FROM"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="HistTranDtTo"
+    PrecisionRule="true"
+    EntityAttrName="HistTranDtTo"
+    EntityUsage="Proposal"
+    AliasName="HIST_TRAN_DT_TO">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.confirmation.ProposalConfirmationView.HistTranDtTo_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.confirmation.ProposalConfirmationView.HistTranDtTo_FMT_FORMAT"/>
+        <LABEL
+          ResId="HISTORY_TRANSAKSI_TO"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewLinkAccessor
+    Name="PostingView"
+    ViewLink="app.fpp.model.views.confirmation.PostingProposalProposalConfirmationFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="PromoProdukView"
+    ViewLink="app.fpp.model.views.confirmation.PromoProdukProposalConfirmationFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="PropRegionAreaView"
+    ViewLink="app.fpp.model.views.confirmation.ProposalConfirmationPropRegionAreaFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="PropRegionCustomerView"
+    ViewLink="app.fpp.model.views.confirmation.ProposalConfirmationPropRegionCustomerFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="PropRegionView"
+    ViewLink="app.fpp.model.views.confirmation.ProposalConfirmationPropRegionFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="PropRegionLocView"
+    ViewLink="app.fpp.model.views.confirmation.ProposalConfirmationPropRegionLocFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="PropRegionCustGroupView"
+    ViewLink="app.fpp.model.views.confirmation.ProposalConfirmationPropRegionCustGroupFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="ExclPropCustAreaView"
+    ViewLink="app.fpp.model.views.confirmation.ExclPropCustAreaProposalConfirmationFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="ExclPropCustCustView"
+    ViewLink="app.fpp.model.views.confirmation.ExclPropCustCustProposalConfirmationFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="ExclPropCustLocView"
+    ViewLink="app.fpp.model.views.confirmation.ExclPropCustLocProposalConfirmationFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="ExclPropCustRegionView"
+    ViewLink="app.fpp.model.views.confirmation.ExclPropCustRegionProposalConfirmationFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+</ViewObject>
