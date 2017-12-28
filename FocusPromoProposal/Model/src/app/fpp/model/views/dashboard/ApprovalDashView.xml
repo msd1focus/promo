@@ -33,15 +33,13 @@
     Type="java.lang.String"/>
   <SQLQuery>
     <![CDATA[SELECT Proposal.PROPOSAL_ID
-FROM FOCUSPP.PROPOSAL Proposal, FOCUSPP.DOC_APPROVAL DocApproval, FOCUSPP.APPROVAL_REG_PROP ApprovalRegProp
+FROM FOCUSPP.PROPOSAL Proposal, FOCUSPP.DOC_APPROVAL DocApproval
 WHERE Proposal.PROPOSAL_ID = DocApproval.PROPOSAL_ID
 AND Proposal.COMPANY_ID = :compId
 AND Proposal.STATUS IN ('INPROCESS', 'REJECTED')
-AND ApprovalRegProp.PROPOSAL_ID = Proposal.PROPOSAL_ID
-AND ApprovalRegProp.PROPOSAL_ID = DocApproval.PROPOSAL_ID
 AND DocApproval.ACTION IS NULL
 AND DocApproval.ROLE_NAME = :roleName
-AND ApprovalRegProp.REGION_CODE IN (SELECT AUR.REGION_CODE FROM FOCUSPP.APP_USER_REGION AUR WHERE AUR.USER_NAME = :userName)
+AND DocApproval.ACTION_TO = :userName
 GROUP BY Proposal.PROPOSAL_ID]]>
   </SQLQuery>
   <ViewAttribute

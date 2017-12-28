@@ -12,55 +12,57 @@
        BudgetCustHdr.CREATED_BY, 
        BudgetCustHdr.CREATION_DATE, 
        BudgetCustHdr.MODIFIED_BY, 
-       BudgetCustHdr.MODIFIED_ON"
+       BudgetCustHdr.MODIFIED_ON, 
+       BudgetCustHdr.KODE_POSTING, 
+       BudgetCustHdr.BUDGET_TYPE"
   FromList="BUDGET_CUST_HDR BudgetCustHdr"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
   RowClass="app.fpp.model.views.budgetsetting.BudgetCustHdrViewRowImpl"
-  ComponentClass="app.fpp.model.views.budgetsetting.BudgetCustHdrViewImpl">
+  ComponentClass="app.fpp.model.views.budgetsetting.BudgetCustHdrViewImpl"
+  OrderBy="BudgetCustHdr.BUDGET_YEAR DESC">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
-  <ViewAccessor
-    Name="CustomersLov"
-    ViewObjectName="app.fpp.model.views.masterdata.ebs.CustomersLov">
-    <ViewCriteriaUsage
-      Name="CustomersLovCriteria"
-      FullName="app.fpp.model.views.masterdata.ebs.CustomersLov.CustomersLovCriteria"/>
-    <ParameterMap>
-      <PIMap Variable="userName">
-        <TransientExpression><![CDATA[adf.context.securityContext.getUserPrincipal().getName()]]></TransientExpression>
-      </PIMap>
-    </ParameterMap>
-  </ViewAccessor>
+  <Variable
+    Name="budgetType"
+    Kind="viewcriteria"
+    Type="java.lang.String">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="input_text_lov"/>
+        <DISPLAYWIDTH
+          Value="230"/>
+        <DISPLAYHEIGHT
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
   <ViewAccessor
     Name="BudgetCustomerYearLov"
     ViewObjectName="app.fpp.model.views.masterdata.lov.BudgetCustomerYearLov"
     RowLevelBinds="true"/>
-  <ListBinding
-    Name="LOV_CustomerId"
-    ListVOName="CustomersLov"
-    ListRangeSize="10"
-    NullValueFlag="none"
-    NullValueId="LOV_CustomerId_LOVUIHints_NullValueId"
-    MRUCount="0">
-    <AttrArray Name="AttrNames">
-      <Item Value="CustomerId"/>
-    </AttrArray>
-    <AttrArray Name="ListAttrNames">
-      <Item Value="CustomerId"/>
-    </AttrArray>
-    <AttrArray Name="ListDisplayAttrNames">
-      <Item Value="CustomerId"/>
-      <Item Value="CustomerFullName"/>
-    </AttrArray>
-    <DisplayCriteria
-      Name="CustomersLovCriteria"
-      Hint="showAndExecute"/>
-  </ListBinding>
+  <ViewAccessor
+    Name="AllKodePostingView1"
+    ViewObjectName="app.fpp.model.views.masterdata.ebs.AllKodePostingView"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="LookupCodeView1"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_BUDGET_TYPE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CustomerGroupLov1"
+    ViewObjectName="app.fpp.model.views.masterdata.ebs.CustomerGroupLov"
+    RowLevelBinds="true"/>
   <ListBinding
     Name="LOV_BudgetYear"
     ListVOName="BudgetCustomerYearLov"
@@ -79,6 +81,66 @@
     </AttrArray>
     <DisplayCriteria
       Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_KodePosting"
+    ListVOName="AllKodePostingView1"
+    ListRangeSize="10"
+    NullValueFlag="none"
+    NullValueId="LOV_KodePosting_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="KodePosting"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Item"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Item"/>
+      <Item Value="ItemDescription"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="AllKodePostingViewCriteria"
+      Hint="showAndExecute"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_BudgetType"
+    ListVOName="LookupCodeView1"
+    ListRangeSize="10"
+    NullValueFlag="none"
+    NullValueId="LOV_BudgetType_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="BudgetType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CustomerId"
+    ListVOName="CustomerGroupLov1"
+    ListRangeSize="10"
+    NullValueFlag="none"
+    NullValueId="LOV_CustomerId_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="CustomerId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="FlexValue"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="CgLabel"/>
+    </AttrArray>
+    <DisplayCriteria
+      Name="CustomerGroupLovCriteria"
+      Hint="showAndExecute"/>
   </ListBinding>
   <EntityUsage
     Name="BudgetCustHdr"
@@ -100,6 +162,8 @@
     LOVName="LOV_CustomerId">
     <Properties>
       <SchemaBasedProperties>
+        <AUTOSUBMIT
+          Value="true"/>
         <CONTROLTYPE
           Value="input_text_lov"/>
       </SchemaBasedProperties>
@@ -156,9 +220,97 @@
     ColumnType="VARCHAR2"
     AliasName="CUSTOMER_DESC"
     SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="KodePosting"
+    PrecisionRule="true"
+    EntityAttrName="KodePosting"
+    EntityUsage="BudgetCustHdr"
+    AliasName="KODE_POSTING"
+    LOVName="LOV_KodePosting">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="app.fpp.model.views.budgetsetting.BudgetCustHdrView.KodePosting_LABEL"/>
+        <DISPLAYWIDTH
+          Value="20"/>
+        <CONTROLTYPE
+          Value="input_text_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BudgetType"
+    PrecisionRule="true"
+    EntityAttrName="BudgetType"
+    EntityUsage="BudgetCustHdr"
+    AliasName="BUDGET_TYPE"
+    LOVName="LOV_BudgetType">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="app.fpp.model.views.budgetsetting.BudgetCustHdrView.BudgetType_LABEL"/>
+        <CONTROLTYPE
+          Value="input_text_lov"/>
+        <AUTOSUBMIT
+          Value="true"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CheckRowStatus"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC"/>
+  <ViewCriteria
+    Name="BudgetCustHdrViewCriteria"
+    ViewObjectName="app.fpp.model.views.budgetsetting.BudgetCustHdrView"
+    Conjunction="AND"
+    Mode="3">
+    <Properties>
+      <CustomProperties>
+        <Property
+          Name="displayOperators"
+          Value="Never"/>
+        <Property
+          Name="autoExecute"
+          Value="false"/>
+        <Property
+          Name="allowConjunctionOverride"
+          Value="false"/>
+        <Property
+          Name="showInList"
+          Value="false"/>
+        <Property
+          Name="mode"
+          Value="Basic"/>
+      </CustomProperties>
+    </Properties>
+    <ViewCriteriaRow
+      Name="vcrow20"
+      UpperColumns="1">
+      <ViewCriteriaItem
+        Name="BudgetType"
+        ViewAttribute="BudgetType"
+        Operator="="
+        Conjunction="AND"
+        Value=":budgetType"
+        IsBindVarValue="true"
+        Required="Optional"/>
+    </ViewCriteriaRow>
+  </ViewCriteria>
   <ViewLinkAccessor
     Name="BudgetCustomerView"
     ViewLink="app.fpp.model.views.budgetsetting.BudgetCustomerBudgetCustHdrFk1Link"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="app.fpp.model.ModelBundle"/>
+  </ResourceBundle>
 </ViewObject>

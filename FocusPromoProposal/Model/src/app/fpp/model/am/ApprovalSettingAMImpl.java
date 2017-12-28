@@ -1,10 +1,7 @@
 package app.fpp.model.am;
 
 import app.fpp.adfextensions.CustomApplicationModuleImpl;
-
 import app.fpp.model.am.common.ApprovalSettingAM;
-
-import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.jbo.server.ViewLinkImpl;
 import oracle.jbo.server.ViewObjectImpl;
 // ---------------------------------------------------------------------

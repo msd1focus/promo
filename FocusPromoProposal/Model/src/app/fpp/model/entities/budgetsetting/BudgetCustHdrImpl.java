@@ -39,7 +39,7 @@ public class BudgetCustHdrImpl extends EntityImpl {
             }
 
             public void put(BudgetCustHdrImpl obj, Object value) {
-                obj.setCustomerId((Number)value);
+                obj.setCustomerId((String)value);
             }
         }
         ,
@@ -93,6 +93,26 @@ public class BudgetCustHdrImpl extends EntityImpl {
             }
         }
         ,
+        KodePosting {
+            public Object get(BudgetCustHdrImpl obj) {
+                return obj.getKodePosting();
+            }
+
+            public void put(BudgetCustHdrImpl obj, Object value) {
+                obj.setKodePosting((String)value);
+            }
+        }
+        ,
+        BudgetType {
+            public Object get(BudgetCustHdrImpl obj) {
+                return obj.getBudgetType();
+            }
+
+            public void put(BudgetCustHdrImpl obj, Object value) {
+                obj.setBudgetType((String)value);
+            }
+        }
+        ,
         BudgetCustomer {
             public Object get(BudgetCustHdrImpl obj) {
                 return obj.getBudgetCustomer();
@@ -129,6 +149,8 @@ public class BudgetCustHdrImpl extends EntityImpl {
             return vals;
         }
     }
+
+
     public static final int BUDGETCUSTHDRID = AttributesEnum.BudgetCustHdrId.index();
     public static final int CUSTOMERID = AttributesEnum.CustomerId.index();
     public static final int BUDGETYEAR = AttributesEnum.BudgetYear.index();
@@ -136,12 +158,25 @@ public class BudgetCustHdrImpl extends EntityImpl {
     public static final int CREATIONDATE = AttributesEnum.CreationDate.index();
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDON = AttributesEnum.ModifiedOn.index();
+    public static final int KODEPOSTING = AttributesEnum.KodePosting.index();
+    public static final int BUDGETTYPE = AttributesEnum.BudgetType.index();
     public static final int BUDGETCUSTOMER = AttributesEnum.BudgetCustomer.index();
 
     /**
      * This is the default constructor (do not remove).
      */
     public BudgetCustHdrImpl() {
+    }
+
+
+    /**
+     * @return the definition object for this instance class.
+     */
+    public static synchronized EntityDefImpl getDefinitionObject() {
+        if (mDefinitionObject == null) {
+            mDefinitionObject = EntityDefImpl.findDefObject("app.fpp.model.entities.budgetsetting.BudgetCustHdr");
+        }
+        return mDefinitionObject;
     }
 
     /**
@@ -164,15 +199,15 @@ public class BudgetCustHdrImpl extends EntityImpl {
      * Gets the attribute value for CustomerId, using the alias name CustomerId.
      * @return the CustomerId
      */
-    public Number getCustomerId() {
-        return (Number)getAttributeInternal(CUSTOMERID);
+    public String getCustomerId() {
+        return (String)getAttributeInternal(CUSTOMERID);
     }
 
     /**
      * Sets <code>value</code> as the attribute value for CustomerId.
      * @param value value to set the CustomerId
      */
-    public void setCustomerId(Number value) {
+    public void setCustomerId(String value) {
         setAttributeInternal(CUSTOMERID, value);
     }
 
@@ -225,6 +260,38 @@ public class BudgetCustHdrImpl extends EntityImpl {
     }
 
     /**
+     * Gets the attribute value for KodePosting, using the alias name KodePosting.
+     * @return the KodePosting
+     */
+    public String getKodePosting() {
+        return (String)getAttributeInternal(KODEPOSTING);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for KodePosting.
+     * @param value value to set the KodePosting
+     */
+    public void setKodePosting(String value) {
+        setAttributeInternal(KODEPOSTING, value);
+    }
+
+    /**
+     * Gets the attribute value for BudgetType, using the alias name BudgetType.
+     * @return the BudgetType
+     */
+    public String getBudgetType() {
+        return (String)getAttributeInternal(BUDGETTYPE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BudgetType.
+     * @param value value to set the BudgetType
+     */
+    public void setBudgetType(String value) {
+        setAttributeInternal(BUDGETTYPE, value);
+    }
+
+    /**
      * getAttrInvokeAccessor: generated method. Do not modify.
      * @param index the index identifying the attribute
      * @param attrDef the attribute
@@ -264,6 +331,7 @@ public class BudgetCustHdrImpl extends EntityImpl {
         return (RowIterator)getAttributeInternal(BUDGETCUSTOMER);
     }
 
+
     /**
      * @param budgetCustHdrId key constituent
 
@@ -271,16 +339,6 @@ public class BudgetCustHdrImpl extends EntityImpl {
      */
     public static Key createPrimaryKey(DBSequence budgetCustHdrId) {
         return new Key(new Object[]{budgetCustHdrId});
-    }
-
-    /**
-     * @return the definition object for this instance class.
-     */
-    public static synchronized EntityDefImpl getDefinitionObject() {
-        if (mDefinitionObject == null) {
-            mDefinitionObject = EntityDefImpl.findDefObject("app.fpp.model.entities.budgetsetting.BudgetCustHdr");
-        }
-        return mDefinitionObject;
     }
 
     /**

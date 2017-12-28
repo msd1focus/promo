@@ -10,10 +10,8 @@
        RunNumber.USER_NAME, 
        RunNumber.RUN_YEAR, 
        RunNumber.RUN_MONTH, 
-       RunNumber.VALUE, 
-       AppUserAccess.ID, 
-       AppUserAccess.USER_INITIAL"
-  FromList="RUN_NUMBER RunNumber, APP_USER_ACCESS AppUserAccess"
+       RunNumber.VALUE"
+  FromList="RUN_NUMBER RunNumber"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
@@ -21,7 +19,6 @@
   RowClass="app.fpp.model.views.masterdata.RunNumConfViewRowImpl"
   ComponentClass="app.fpp.model.views.masterdata.RunNumConfViewImpl"
   Where="RunNumber.RUN_NUM_TYPE = 'CONF'
-AND AppUserAccess.USER_NAME = RunNumber.USER_NAME
 AND RunNumber.USER_NAME = :userName
 AND RunNumber.RUN_YEAR = :runYear
 AND RunNumber.RUN_MONTH = :runMonth
@@ -51,13 +48,6 @@ FOR UPDATE OF RunNumber.VALUE">
   <EntityUsage
     Name="RunNumber"
     Entity="app.fpp.model.entities.masterdata.RunNumber"/>
-  <EntityUsage
-    Name="AppUserAccess"
-    Entity="app.fpp.model.entities.useraccess.AppUserAccess"
-    SourceUsage="app.fpp.model.views.masterdata.RunNumConfView.RunNumber"
-    ReadOnly="true"
-    Reference="true"
-    DeleteParticipant="false"/>
   <ViewAttribute
     Name="RunNumType"
     IsNotNull="true"
@@ -93,20 +83,6 @@ FOR UPDATE OF RunNumber.VALUE">
     EntityAttrName="Value"
     EntityUsage="RunNumber"
     AliasName="VALUE"/>
-  <ViewAttribute
-    Name="Id"
-    IsUpdateable="while_insert"
-    PrecisionRule="true"
-    EntityAttrName="Id"
-    EntityUsage="AppUserAccess"
-    AliasName="ID"/>
-  <ViewAttribute
-    Name="UserInitial"
-    IsNotNull="true"
-    PrecisionRule="true"
-    EntityAttrName="UserInitial"
-    EntityUsage="AppUserAccess"
-    AliasName="USER_INITIAL"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="app.fpp.model.ModelBundle"/>

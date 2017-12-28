@@ -37,7 +37,7 @@ public class BudgetCustHdrViewRowImpl extends ViewRowImpl {
             }
 
             public void put(BudgetCustHdrViewRowImpl obj, Object value) {
-                obj.setCustomerId((Number)value);
+                obj.setCustomerId((String)value);
             }
         }
         ,
@@ -101,6 +101,36 @@ public class BudgetCustHdrViewRowImpl extends ViewRowImpl {
             }
         }
         ,
+        KodePosting {
+            public Object get(BudgetCustHdrViewRowImpl obj) {
+                return obj.getKodePosting();
+            }
+
+            public void put(BudgetCustHdrViewRowImpl obj, Object value) {
+                obj.setKodePosting((String)value);
+            }
+        }
+        ,
+        BudgetType {
+            public Object get(BudgetCustHdrViewRowImpl obj) {
+                return obj.getBudgetType();
+            }
+
+            public void put(BudgetCustHdrViewRowImpl obj, Object value) {
+                obj.setBudgetType((String)value);
+            }
+        }
+        ,
+        CheckRowStatus {
+            public Object get(BudgetCustHdrViewRowImpl obj) {
+                return obj.getCheckRowStatus();
+            }
+
+            public void put(BudgetCustHdrViewRowImpl obj, Object value) {
+                obj.setCheckRowStatus((Integer)value);
+            }
+        }
+        ,
         BudgetCustomerView {
             public Object get(BudgetCustHdrViewRowImpl obj) {
                 return obj.getBudgetCustomerView();
@@ -111,9 +141,9 @@ public class BudgetCustHdrViewRowImpl extends ViewRowImpl {
             }
         }
         ,
-        CustomersLov {
+        BudgetCustomerYearLov {
             public Object get(BudgetCustHdrViewRowImpl obj) {
-                return obj.getCustomersLov();
+                return obj.getBudgetCustomerYearLov();
             }
 
             public void put(BudgetCustHdrViewRowImpl obj, Object value) {
@@ -121,9 +151,29 @@ public class BudgetCustHdrViewRowImpl extends ViewRowImpl {
             }
         }
         ,
-        BudgetCustomerYearLov {
+        AllKodePostingView1 {
             public Object get(BudgetCustHdrViewRowImpl obj) {
-                return obj.getBudgetCustomerYearLov();
+                return obj.getAllKodePostingView1();
+            }
+
+            public void put(BudgetCustHdrViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        LookupCodeView1 {
+            public Object get(BudgetCustHdrViewRowImpl obj) {
+                return obj.getLookupCodeView1();
+            }
+
+            public void put(BudgetCustHdrViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        CustomerGroupLov1 {
+            public Object get(BudgetCustHdrViewRowImpl obj) {
+                return obj.getCustomerGroupLov1();
             }
 
             public void put(BudgetCustHdrViewRowImpl obj, Object value) {
@@ -158,6 +208,8 @@ public class BudgetCustHdrViewRowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
+
     public static final int BUDGETCUSTHDRID = AttributesEnum.BudgetCustHdrId.index();
     public static final int CUSTOMERID = AttributesEnum.CustomerId.index();
     public static final int BUDGETYEAR = AttributesEnum.BudgetYear.index();
@@ -166,9 +218,14 @@ public class BudgetCustHdrViewRowImpl extends ViewRowImpl {
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDON = AttributesEnum.ModifiedOn.index();
     public static final int CUSTOMERDESC = AttributesEnum.CustomerDesc.index();
+    public static final int KODEPOSTING = AttributesEnum.KodePosting.index();
+    public static final int BUDGETTYPE = AttributesEnum.BudgetType.index();
+    public static final int CHECKROWSTATUS = AttributesEnum.CheckRowStatus.index();
     public static final int BUDGETCUSTOMERVIEW = AttributesEnum.BudgetCustomerView.index();
-    public static final int CUSTOMERSLOV = AttributesEnum.CustomersLov.index();
     public static final int BUDGETCUSTOMERYEARLOV = AttributesEnum.BudgetCustomerYearLov.index();
+    public static final int ALLKODEPOSTINGVIEW1 = AttributesEnum.AllKodePostingView1.index();
+    public static final int LOOKUPCODEVIEW1 = AttributesEnum.LookupCodeView1.index();
+    public static final int CUSTOMERGROUPLOV1 = AttributesEnum.CustomerGroupLov1.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -204,15 +261,15 @@ public class BudgetCustHdrViewRowImpl extends ViewRowImpl {
      * Gets the attribute value for CUSTOMER_ID using the alias name CustomerId.
      * @return the CUSTOMER_ID
      */
-    public Number getCustomerId() {
-        return (Number) getAttributeInternal(CUSTOMERID);
+    public String getCustomerId() {
+        return (String) getAttributeInternal(CUSTOMERID);
     }
 
     /**
      * Sets <code>value</code> as attribute value for CUSTOMER_ID using the alias name CustomerId.
      * @param value value to set the CUSTOMER_ID
      */
-    public void setCustomerId(Number value) {
+    public void setCustomerId(String value) {
         setAttributeInternal(CUSTOMERID, value);
     }
 
@@ -301,17 +358,28 @@ public class BudgetCustHdrViewRowImpl extends ViewRowImpl {
      * @return the CustomerDesc
      */
     public String getCustomerDesc() {
-        Number custId = null;
+        String custId = null;
         String custDesc = null;
+        String postDesc = null;
+        String PostId = null;
+      
         if (getCustomerId() != null) {
             custId = this.getCustomerId();
             Row[] custRows;
-            custRows = this.getCustomersLov().getFilteredRows("CustomerId", custId);
+            custRows = this.getCustomerGroupLov1().getFilteredRows("FlexValue", custId);
             if (custRows.length > 0) {
-                custDesc = (custRows[0].getAttribute("CustomerFullName").toString()).toUpperCase();
+                custDesc = (custRows[0].getAttribute("CgLabel").toString()).toUpperCase();
             }
             return custDesc;
-        } else {
+        } else if (getKodePosting()!=null){
+            PostId = this.getKodePosting();
+            Row[] custRows;
+            custRows = this.getAllKodePostingView1().getFilteredRows("Item", PostId);
+            if (custRows.length > 0) {
+                postDesc = (custRows[0].getAttribute("ItemDescription").toString()).toUpperCase();
+            }
+            return postDesc;
+        }else {
             return (String) getAttributeInternal(CUSTOMERDESC);
         }
     }
@@ -325,6 +393,63 @@ public class BudgetCustHdrViewRowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for KODE_POSTING using the alias name KodePosting.
+     * @return the KODE_POSTING
+     */
+    public String getKodePosting() {
+        return (String) getAttributeInternal(KODEPOSTING);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for KODE_POSTING using the alias name KodePosting.
+     * @param value value to set the KODE_POSTING
+     */
+    public void setKodePosting(String value) {
+        setAttributeInternal(KODEPOSTING, value);
+    }
+
+    /**
+     * Gets the attribute value for BUDGET_TYPE using the alias name BudgetType.
+     * @return the BUDGET_TYPE
+     */
+    public String getBudgetType() {
+        return (String) getAttributeInternal(BUDGETTYPE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for BUDGET_TYPE using the alias name BudgetType.
+     * @param value value to set the BUDGET_TYPE
+     */
+    public void setBudgetType(String value) {
+        setAttributeInternal(BUDGETTYPE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CheckRowStatus.
+     * @return the CheckRowStatus
+     */
+     /*here row is reference variable of collection, this expression returns an int value if it is 
+      2-Modified
+      0-New
+      1-Unmodified
+     -1-Initialized
+     */
+     public Integer getCheckRowStatus() {
+         byte entityState = this.getEntity(0).getEntityState();
+         return new Integer(entityState);
+
+         // return (Integer) getAttributeInternal(CHECKROWSTATUS);
+     }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CheckRowStatus.
+     * @param value value to set the  CheckRowStatus
+     */
+    public void setCheckRowStatus(Integer value) {
+        setAttributeInternal(CHECKROWSTATUS, value);
+    }
+
+    /**
      * Gets the associated <code>RowIterator</code> using master-detail link BudgetCustomerView.
      */
     public RowIterator getBudgetCustomerView() {
@@ -332,17 +457,31 @@ public class BudgetCustHdrViewRowImpl extends ViewRowImpl {
     }
 
     /**
-     * Gets the view accessor <code>RowSet</code> CustomersLov.
-     */
-    public RowSet getCustomersLov() {
-        return (RowSet)getAttributeInternal(CUSTOMERSLOV);
-    }
-
-    /**
      * Gets the view accessor <code>RowSet</code> BudgetCustomerYearLov.
      */
     public RowSet getBudgetCustomerYearLov() {
         return (RowSet)getAttributeInternal(BUDGETCUSTOMERYEARLOV);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> AllKodePostingView1.
+     */
+    public RowSet getAllKodePostingView1() {
+        return (RowSet)getAttributeInternal(ALLKODEPOSTINGVIEW1);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> LookupCodeView1.
+     */
+    public RowSet getLookupCodeView1() {
+        return (RowSet)getAttributeInternal(LOOKUPCODEVIEW1);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> CustomerGroupLov1.
+     */
+    public RowSet getCustomerGroupLov1() {
+        return (RowSet)getAttributeInternal(CUSTOMERGROUPLOV1);
     }
 
     /**

@@ -2,29 +2,20 @@ package app.fpp.model.am;
 
 import app.fpp.adfextensions.CustomApplicationModuleImpl;
 import app.fpp.model.am.common.ApprovalAM;
-
+import app.fpp.model.views.approval.ApprovalForwardReceiverProposalViewImpl;
+import app.fpp.model.views.approval.ApprovalForwardRejectReceiverProposalViewImpl;
 import app.fpp.model.views.approval.ApprovalReceiverApproveProposalViewImpl;
 import app.fpp.model.views.approval.ApprovalReceiverRejectProposalViewImpl;
-import app.fpp.model.views.approval.CheckRoleProposalCreatorViewImpl;
 import app.fpp.model.views.approval.DocApprovalViewImpl;
-
 import app.fpp.model.views.masterdata.ebs.FcsViewCategCombinationViewImpl;
-import app.fpp.model.views.promoproposal.DiscountViewImpl;
-import app.fpp.model.views.promoproposal.ProdukItemViewImpl;
-import app.fpp.model.views.promoproposal.ProdukVariantViewImpl;
-import app.fpp.model.views.promoproposal.PromoBonusVariantViewImpl;
 import app.fpp.model.views.promoproposal.PromoBonusViewImpl;
 import app.fpp.model.views.promoproposal.PromoProdukViewImpl;
-
 import app.fpp.model.views.promoproposal.validation.ProdVariantValidationViewImpl;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import oracle.jbo.JboException;
 import oracle.jbo.Row;
 import oracle.jbo.domain.Number;
-import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.jbo.server.ViewLinkImpl;
 import oracle.jbo.server.ViewObjectImpl;
 // ---------------------------------------------------------------------
@@ -53,19 +44,21 @@ public class ApprovalAMImpl extends CustomApplicationModuleImpl implements Appro
                                    String promoDtTo, String docRegion,
                                    String usrRole, String userNm,
                                    String aprvlCodeRun, String idDocAprvl,
-                                   String reasonDocAprvl, String usrAction) {
+                                   String reasonDocAprvl, String usrAction,
+                                   String propDt) {
 
         //Retrieve proposal receiver role
         ViewObjectImpl proposalReceiver =
             this.getApprovalReceiverApproveProposalView1();
         proposalReceiver.setNamedWhereClauseParam("aprvlCode", aprvlCodeRun);
-        proposalReceiver.setNamedWhereClauseParam("usrRole", usrRole);
+        proposalReceiver.setNamedWhereClauseParam("usrName", userNm);
         proposalReceiver.executeQuery();
 
         if (proposalReceiver.getEstimatedRowCount() > 0) {
             //IF USER NOT THE LATEST ROLE IN APPROVAL FLOW
             Row propReceiverRow = proposalReceiver.first();
             String roleName = (String)propReceiverRow.getAttribute("RoleName");
+            String usrName = (String)propReceiverRow.getAttribute("UserName");
             String aprvlCode =
                 (String)propReceiverRow.getAttribute("AprvlCode");
 
@@ -73,13 +66,15 @@ public class ApprovalAMImpl extends CustomApplicationModuleImpl implements Appro
 
             try {
                 String SQL =
-                    "INSERT INTO DOC_APPROVAL (DOC_APPROVAL_ID, PROPOSAL_ID, DOCUMENT_NO, STATUS, PROMO_DATE_FROM, PROMO_DATE_TO, ROLE_NAME, REGION, APRVL_CODE, CREATED_BY, CREATION_DATE) " +
+                    "INSERT INTO DOC_APPROVAL (DOC_APPROVAL_ID, PROPOSAL_ID, DOCUMENT_NO, STATUS, PROMO_DATE_FROM, PROMO_DATE_TO, ROLE_NAME, REGION, APRVL_CODE, CREATED_BY, CREATION_DATE, ACTION_TO, PROPOSAL_DATE) " +
                     "VALUES (DOC_APPROVAL_SEQ.NEXTVAL, TO_NUMBER(" + propId +
                     "), '" + docNo + "', '" + docStatus +
                     "', TO_DATE(UPPER('" + promoDtFrom +
                     "'), 'DD-MON-YYYY'), " + "TO_DATE(UPPER('" + promoDtTo +
                     "'), 'DD-MON-YYYY'), '" + roleName + "', '" + docRegion +
-                    "', '" + aprvlCode + "', '" + userNm + "', SYSDATE)";
+                    "', '" + aprvlCode + "', '" + userNm + "', SYSDATE, '" +
+                    usrName + "', TO_DATE(UPPER('" + propDt +
+                    "'), 'DD-MON-YYYY hh:mi:ss'))";
                 addDocApprovalStmt =
                         getDBTransaction().createPreparedStatement(SQL, 1);
                 addDocApprovalStmt.executeUpdate();
@@ -95,20 +90,23 @@ public class ApprovalAMImpl extends CustomApplicationModuleImpl implements Appro
                     }
                 }
             }
+
         } else {
             //IF USER IS THE LATEST ROLE IN APPROVAL FLOW
             PreparedStatement addDocFinishApprovalStmt = null;
 
             try {
                 String SQLFinish =
-                    "INSERT INTO DOC_APPROVAL (DOC_APPROVAL_ID, PROPOSAL_ID, DOCUMENT_NO, STATUS, PROMO_DATE_FROM, PROMO_DATE_TO, ACTION, ACTION_DATE, ACTION_BY, REASON, ROLE_NAME, REGION, APRVL_CODE, CREATED_BY, CREATION_DATE) " +
+                    "INSERT INTO DOC_APPROVAL (DOC_APPROVAL_ID, PROPOSAL_ID, DOCUMENT_NO, STATUS, PROMO_DATE_FROM, PROMO_DATE_TO, ACTION, ACTION_DATE, ACTION_BY, REASON, ROLE_NAME, REGION, APRVL_CODE, CREATED_BY, CREATION_DATE, ACTION_TO, PROPOSAL_DATE) " +
                     "VALUES (DOC_APPROVAL_SEQ.NEXTVAL, TO_NUMBER(" + propId +
-                    "), '" + docNo + "', 'ACTIVE', TO_DATE(UPPER('" + promoDtFrom +
-                    "'), 'DD-MON-YYYY'), " + "TO_DATE(UPPER('" + promoDtTo +
-                    "'), 'DD-MON-YYYY'), 'FINISHED', SYSDATE, '" + userNm +
-                    "', '" + finalReason + "', '" + usrRole + "', '" +
+                    "), '" + docNo + "', 'ACTIVE', TO_DATE(UPPER('" +
+                    promoDtFrom + "'), 'DD-MON-YYYY'), " + "TO_DATE(UPPER('" +
+                    promoDtTo +
+                    "'), 'DD-MON-YYYY'), 'FINISHED', SYSDATE  + INTERVAL '1' SECOND, '" +
+                    userNm + "', '" + finalReason + "', '" + usrRole + "', '" +
                     docRegion + "', '" + aprvlCodeRun + "', '" + userNm +
-                    "', SYSDATE)";
+                    "', SYSDATE, '" + userNm + "', TO_DATE(UPPER('" + propDt +
+                    "'), 'DD-MON-YYYY hh:mi:ss'))";
 
                 addDocFinishApprovalStmt =
                         getDBTransaction().createPreparedStatement(SQLFinish,
@@ -134,17 +132,20 @@ public class ApprovalAMImpl extends CustomApplicationModuleImpl implements Appro
                                   String promoDtTo, String docRegion,
                                   String usrRole, String userNm,
                                   String aprvlCodeRun, String idDocAprvl,
-                                  String reasonDocAprvl, String usrAction) {
+                                  String reasonDocAprvl, String usrAction,
+                                  String propDt) {
 
         //Retrieve proposal receiver role
         ViewObjectImpl proposalReceiver =
             this.getApprovalReceiverRejectProposalView1();
         proposalReceiver.setNamedWhereClauseParam("aprvlCode", aprvlCodeRun);
         proposalReceiver.setNamedWhereClauseParam("usrRole", usrRole);
+        proposalReceiver.setNamedWhereClauseParam("noProp", docNo);
         proposalReceiver.executeQuery();
 
         if (proposalReceiver.getEstimatedRowCount() > 0) {
             Row propReceiverRow = proposalReceiver.first();
+            String usrName = (String)propReceiverRow.getAttribute("UserName");
             String roleName = (String)propReceiverRow.getAttribute("RoleName");
             String aprvlCode =
                 (String)propReceiverRow.getAttribute("AprvlCode");
@@ -152,41 +153,44 @@ public class ApprovalAMImpl extends CustomApplicationModuleImpl implements Appro
                 (Number)propReceiverRow.getAttribute("StepSequence");
             Integer stepSeq = stepSeqNum.intValue();
 
-            //Role proposal creator
-            ViewObjectImpl isNextStepCreator =
-                this.getCheckRoleProposalCreatorView1();
-            isNextStepCreator.setNamedWhereClauseParam("aprvlCd",
-                                                       aprvlCodeRun);
-            isNextStepCreator.setNamedWhereClauseParam("usrRole", roleName);
-            isNextStepCreator.setNamedWhereClauseParam("propId",
-                                                       new Number(Integer.parseInt(propId)));
-            isNextStepCreator.executeQuery();
-
             if (!stepSeq.equals(FIRSTSTEPINFLOW)) {
+                //Role proposal creator
+                ViewObjectImpl isNextStepCreator =
+                    this.getCheckRoleProposalCreatorView1();
+                isNextStepCreator.setNamedWhereClauseParam("aprvlCd",
+                                                           aprvlCodeRun);
+                isNextStepCreator.setNamedWhereClauseParam("usrRole",
+                                                           roleName);
+                isNextStepCreator.setNamedWhereClauseParam("propId",
+                                                           new Number(Integer.parseInt(propId)));
+                isNextStepCreator.executeQuery();
+
                 if (isNextStepCreator.getEstimatedRowCount() == 0) {
-                    PreparedStatement addDocApprovalStmt = null;
+                    PreparedStatement rejectDocApprovalStmt = null;
 
                     try {
                         String SQL =
-                            "INSERT INTO DOC_APPROVAL (DOC_APPROVAL_ID, PROPOSAL_ID, DOCUMENT_NO, STATUS, PROMO_DATE_FROM, PROMO_DATE_TO, ROLE_NAME, REGION, APRVL_CODE, CREATED_BY, CREATION_DATE) " +
+                            "INSERT INTO DOC_APPROVAL (DOC_APPROVAL_ID, PROPOSAL_ID, DOCUMENT_NO, STATUS, PROMO_DATE_FROM, PROMO_DATE_TO, ROLE_NAME, REGION, APRVL_CODE, CREATED_BY, CREATION_DATE, ACTION_TO, PROPOSAL_DATE) " +
                             "VALUES (DOC_APPROVAL_SEQ.NEXTVAL, TO_NUMBER(" +
                             propId + "), '" + docNo + "', '" + docStatus +
                             "', TO_DATE(UPPER('" + promoDtFrom +
                             "'), 'DD-MON-YYYY'), " + "TO_DATE(UPPER('" +
                             promoDtTo + "'), 'DD-MON-YYYY'), '" + roleName +
                             "', '" + docRegion + "', '" + aprvlCode + "', '" +
-                            userNm + "', SYSDATE)";
-                        addDocApprovalStmt =
+                            userNm + "', SYSDATE, '" + usrName +
+                            "', TO_DATE(UPPER('" + propDt +
+                            "'), 'DD-MON-YYYY hh:mi:ss'))";
+                        rejectDocApprovalStmt =
                                 getDBTransaction().createPreparedStatement(SQL,
                                                                            1);
-                        addDocApprovalStmt.executeUpdate();
+                        rejectDocApprovalStmt.executeUpdate();
                     } catch (SQLException e) {
                         throw new JboException(e.getMessage());
                     } finally {
                         getDBTransaction().commit();
-                        if (addDocApprovalStmt != null) {
+                        if (rejectDocApprovalStmt != null) {
                             try {
-                                addDocApprovalStmt.close();
+                                rejectDocApprovalStmt.close();
                             } catch (Exception e) {
                                 throw new JboException(e.getMessage());
                             }
@@ -208,7 +212,130 @@ public class ApprovalAMImpl extends CustomApplicationModuleImpl implements Appro
             }
         } else {
             getDBTransaction().rollback();
-            throw new JboException("Role penerima pada flow approval tidak ditemukan.");
+            StringBuilder message = new StringBuilder("<html><body>");
+            message.append("<p>User penerima pada flow approval tidak ditemukan.</p>");
+            message.append("<p>Proses reject tidak bisa dilakukan.</p>");
+            message.append("</body></html>");
+            throw new JboException(message.toString());
+            //throw new JboException("User penerima pada flow approval tidak ditemukan.");
+        }
+    }
+    
+    public void forwardDocApproval(String propId, String docNo,
+                                   String docStatus, String promoDtFrom,
+                                   String promoDtTo, String docRegion,
+                                   String usrRole, String userNm,
+                                   String aprvlCodeRun, String idDocAprvl,
+                                   String reasonDocAprvl, String usrAction,
+                                   String propDt) {
+
+        //Retrieve proposal receiver role
+        ViewObjectImpl proposalReceiver =
+            this.getApprovalForwardReceiverProposalView1();
+        proposalReceiver.setNamedWhereClauseParam("userName", userNm);
+        proposalReceiver.executeQuery();
+
+        if (proposalReceiver.getEstimatedRowCount() > 0) {
+            Row propForwardReceiverRow = proposalReceiver.first();
+            String roleName = (String)propForwardReceiverRow.getAttribute("Role");
+            String usrName = (String)propForwardReceiverRow.getAttribute("UserName");
+
+            PreparedStatement addDocApprovalStmt = null;
+
+            try {
+                String SQL =
+                    "INSERT INTO DOC_APPROVAL (DOC_APPROVAL_ID, PROPOSAL_ID, DOCUMENT_NO, STATUS, PROMO_DATE_FROM, PROMO_DATE_TO, ROLE_NAME, REGION, APRVL_CODE, CREATED_BY, CREATION_DATE, ACTION_TO, PROPOSAL_DATE, FORWARD_TO) " +
+                    "VALUES (DOC_APPROVAL_SEQ.NEXTVAL, TO_NUMBER(" + propId +
+                    "), '" + docNo + "', '" + docStatus +
+                    "', TO_DATE(UPPER('" + promoDtFrom +
+                    "'), 'DD-MON-YYYY'), " + "TO_DATE(UPPER('" + promoDtTo +
+                    "'), 'DD-MON-YYYY'), '" + roleName + "', '" + docRegion +
+                    "', '" + aprvlCodeRun + "', '" + userNm + "', SYSDATE, '" +
+                    usrName + "', TO_DATE(UPPER('" + propDt +
+                    "'), 'DD-MON-YYYY hh:mi:ss'), '" + usrName + "')";
+                addDocApprovalStmt =
+                        getDBTransaction().createPreparedStatement(SQL, 1);
+                addDocApprovalStmt.executeUpdate();
+            } catch (SQLException e) {
+                throw new JboException(e.getMessage());
+            } finally {
+                getDBTransaction().commit();
+                if (addDocApprovalStmt != null) {
+                    try {
+                        addDocApprovalStmt.close();
+                    } catch (Exception e) {
+                        throw new JboException(e.getMessage());
+                    }
+                }
+            }
+
+        } else {
+            // ROLE FORWARD NOT FOUND
+            StringBuilder message = new StringBuilder("<html><body>");
+            message.append("<p>User penerima proses forward tidak ditemukan.</p>");
+            message.append("<p>Proses forward tidak bisa dilakukan.</p>");
+            message.append("</body></html>");
+            throw new JboException(message.toString());
+        }
+    }
+
+    public void rejectFwdDocApproval(String propId, String docNo,
+                                  String docStatus, String promoDtFrom,
+                                  String promoDtTo, String docRegion,
+                                  String usrRole, String userNm,
+                                  String aprvlCodeRun, String idDocAprvl,
+                                  String reasonDocAprvl, String usrAction,
+                                  String propDt) {
+        
+        //Retrieve proposal receiver role
+        ViewObjectImpl proposalReceiver =
+            this.getApprovalForwardRejectReceiverProposalView1();
+        proposalReceiver.setNamedWhereClauseParam("aprvlCode", aprvlCodeRun);
+        proposalReceiver.setNamedWhereClauseParam("noProp", docNo);
+        proposalReceiver.executeQuery();
+
+        if (proposalReceiver.getEstimatedRowCount() > 0) {
+            Row propReceiverRow = proposalReceiver.first();
+            String usrName = (String)propReceiverRow.getAttribute("ActionBy");
+            String roleName = (String)propReceiverRow.getAttribute("RoleName");
+            PreparedStatement rejectDocApprovalStmt = null;
+
+            try {
+                String SQL =
+                    "INSERT INTO DOC_APPROVAL (DOC_APPROVAL_ID, PROPOSAL_ID, DOCUMENT_NO, STATUS, PROMO_DATE_FROM, PROMO_DATE_TO, ROLE_NAME, REGION, APRVL_CODE, CREATED_BY, CREATION_DATE, ACTION_TO, PROPOSAL_DATE) " +
+                    "VALUES (DOC_APPROVAL_SEQ.NEXTVAL, TO_NUMBER(" +
+                    propId + "), '" + docNo + "', '" + docStatus +
+                    "', TO_DATE(UPPER('" + promoDtFrom +
+                    "'), 'DD-MON-YYYY'), " + "TO_DATE(UPPER('" +
+                    promoDtTo + "'), 'DD-MON-YYYY'), '" + roleName +
+                    "', '" + docRegion + "', '" + aprvlCodeRun + "', '" +
+                    userNm + "', SYSDATE, '" + usrName +
+                    "', TO_DATE(UPPER('" + propDt +
+                    "'), 'DD-MON-YYYY hh:mi:ss'))";
+                rejectDocApprovalStmt =
+                        getDBTransaction().createPreparedStatement(SQL,
+                                                                   1);
+                rejectDocApprovalStmt.executeUpdate();
+            } catch (SQLException e) {
+                throw new JboException(e.getMessage());
+            } finally {
+                getDBTransaction().commit();
+                if (rejectDocApprovalStmt != null) {
+                    try {
+                        rejectDocApprovalStmt.close();
+                    } catch (Exception e) {
+                        throw new JboException(e.getMessage());
+                    }
+                }
+            }                
+        } else {
+            getDBTransaction().rollback();
+            StringBuilder message = new StringBuilder("<html><body>");
+            message.append("<p>User penerima pada flow approval tidak ditemukan.</p>");
+            message.append("<p>Proses reject tidak bisa dilakukan.</p>");
+            message.append("</body></html>");
+            throw new JboException(message.toString());
+            //throw new JboException("User penerima pada flow approval tidak ditemukan.");
         }
     }
 
@@ -760,69 +887,6 @@ public class ApprovalAMImpl extends CustomApplicationModuleImpl implements Appro
         return (ViewLinkImpl)findViewLink("ExclCustCustPromoProdukFk1Link1");
     }
 
-    /**
-     * Container's getter for ExclPropCustAreaView1.
-     * @return ExclPropCustAreaView1
-     */
-    public ViewObjectImpl getExclPropCustAreaView1() {
-        return (ViewObjectImpl)findViewObject("ExclPropCustAreaView1");
-    }
-
-    /**
-     * Container's getter for ExclPropCustAreaProposalApprovalFk1Link1.
-     * @return ExclPropCustAreaProposalApprovalFk1Link1
-     */
-    public ViewLinkImpl getExclPropCustAreaProposalApprovalFk1Link1() {
-        return (ViewLinkImpl)findViewLink("ExclPropCustAreaProposalApprovalFk1Link1");
-    }
-
-    /**
-     * Container's getter for ExclPropCustCustView1.
-     * @return ExclPropCustCustView1
-     */
-    public ViewObjectImpl getExclPropCustCustView1() {
-        return (ViewObjectImpl)findViewObject("ExclPropCustCustView1");
-    }
-
-    /**
-     * Container's getter for ExclPropCustCustProposalApprovalFk1Link1.
-     * @return ExclPropCustCustProposalApprovalFk1Link1
-     */
-    public ViewLinkImpl getExclPropCustCustProposalApprovalFk1Link1() {
-        return (ViewLinkImpl)findViewLink("ExclPropCustCustProposalApprovalFk1Link1");
-    }
-
-    /**
-     * Container's getter for ExclPropCustLocView1.
-     * @return ExclPropCustLocView1
-     */
-    public ViewObjectImpl getExclPropCustLocView1() {
-        return (ViewObjectImpl)findViewObject("ExclPropCustLocView1");
-    }
-
-    /**
-     * Container's getter for ExclPropCustLocProposalApprovalFk1Link1.
-     * @return ExclPropCustLocProposalApprovalFk1Link1
-     */
-    public ViewLinkImpl getExclPropCustLocProposalApprovalFk1Link1() {
-        return (ViewLinkImpl)findViewLink("ExclPropCustLocProposalApprovalFk1Link1");
-    }
-
-    /**
-     * Container's getter for ExclPropCustRegionView1.
-     * @return ExclPropCustRegionView1
-     */
-    public ViewObjectImpl getExclPropCustRegionView1() {
-        return (ViewObjectImpl)findViewObject("ExclPropCustRegionView1");
-    }
-
-    /**
-     * Container's getter for ExclPropCustRegionProposaApprovalFk1Link1.
-     * @return ExclPropCustRegionProposaApprovalFk1Link1
-     */
-    public ViewLinkImpl getExclPropCustRegionProposaApprovalFk1Link1() {
-        return (ViewLinkImpl)findViewLink("ExclPropCustRegionProposaApprovalFk1Link1");
-    }
 
     /**
      * Container's getter for AllExclProposalAreaShuttleView1.
@@ -886,5 +950,103 @@ public class ApprovalAMImpl extends CustomApplicationModuleImpl implements Appro
      */
     public ViewObjectImpl getAllExcludeProdRegionShuttleView1() {
         return (ViewObjectImpl)findViewObject("AllExcludeProdRegionShuttleView1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustAreaView1.
+     * @return ExclPropCustAreaView1
+     */
+    public ViewObjectImpl getExclPropCustAreaView1() {
+        return (ViewObjectImpl)findViewObject("ExclPropCustAreaView1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustAreaPromoProdukFk1Link1.
+     * @return ExclPropCustAreaPromoProdukFk1Link1
+     */
+    public ViewLinkImpl getExclPropCustAreaPromoProdukFk1Link1() {
+        return (ViewLinkImpl)findViewLink("ExclPropCustAreaPromoProdukFk1Link1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustCustView1.
+     * @return ExclPropCustCustView1
+     */
+    public ViewObjectImpl getExclPropCustCustView1() {
+        return (ViewObjectImpl)findViewObject("ExclPropCustCustView1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustCustPromoProdukFk1Link1.
+     * @return ExclPropCustCustPromoProdukFk1Link1
+     */
+    public ViewLinkImpl getExclPropCustCustPromoProdukFk1Link1() {
+        return (ViewLinkImpl)findViewLink("ExclPropCustCustPromoProdukFk1Link1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustLocView1.
+     * @return ExclPropCustLocView1
+     */
+    public ViewObjectImpl getExclPropCustLocView1() {
+        return (ViewObjectImpl)findViewObject("ExclPropCustLocView1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustLocPromoProdukFk1Link1.
+     * @return ExclPropCustLocPromoProdukFk1Link1
+     */
+    public ViewLinkImpl getExclPropCustLocPromoProdukFk1Link1() {
+        return (ViewLinkImpl)findViewLink("ExclPropCustLocPromoProdukFk1Link1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustRegionView1.
+     * @return ExclPropCustRegionView1
+     */
+    public ViewObjectImpl getExclPropCustRegionView1() {
+        return (ViewObjectImpl)findViewObject("ExclPropCustRegionView1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustRegionPromoProdukFk1Link1.
+     * @return ExclPropCustRegionPromoProdukFk1Link1
+     */
+    public ViewLinkImpl getExclPropCustRegionPromoProdukFk1Link1() {
+        return (ViewLinkImpl)findViewLink("ExclPropCustRegionPromoProdukFk1Link1");
+    }
+
+
+    /**
+     * Container's getter for UploadDownloadView1.
+     * @return UploadDownloadView1
+     */
+    public ViewObjectImpl getUploadDownloadView1() {
+        return (ViewObjectImpl)findViewObject("UploadDownloadView1");
+    }
+
+    /**
+     * Container's getter for ApprovalUploadDownloadFk1Link1.
+     * @return ApprovalUploadDownloadFk1Link1
+     */
+    public ViewLinkImpl getApprovalUploadDownloadFk1Link1() {
+        return (ViewLinkImpl)findViewLink("ApprovalUploadDownloadFk1Link1");
+    }
+
+
+    /**
+     * Container's getter for ApprovalForwardReceiverProposalView1.
+     * @return ApprovalForwardReceiverProposalView1
+     */
+    public ApprovalForwardReceiverProposalViewImpl getApprovalForwardReceiverProposalView1() {
+        return (ApprovalForwardReceiverProposalViewImpl)findViewObject("ApprovalForwardReceiverProposalView1");
+    }
+
+    /**
+     * Container's getter for ApprovalForwardRejectReceiverProposalView1.
+     * @return ApprovalForwardRejectReceiverProposalView1
+     */
+    public ApprovalForwardRejectReceiverProposalViewImpl getApprovalForwardRejectReceiverProposalView1() {
+        return (ApprovalForwardRejectReceiverProposalViewImpl)findViewObject("ApprovalForwardRejectReceiverProposalView1");
     }
 }

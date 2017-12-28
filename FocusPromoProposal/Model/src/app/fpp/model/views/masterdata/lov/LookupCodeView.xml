@@ -60,6 +60,8 @@
       <SchemaBasedProperties>
         <LABEL
           ResId="PILIH"/>
+        <DISPLAYWIDTH
+          Value="20"/>
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>

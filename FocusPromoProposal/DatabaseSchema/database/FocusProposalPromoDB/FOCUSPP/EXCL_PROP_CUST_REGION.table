@@ -7,12 +7,12 @@
   <columns>
     <column>
       <ID class="oracle.javatools.db.IdentifierBasedID">
-        <identifier class="java.lang.String">8ac1223d-595a-46f0-a17e-4805a2f0bbf5</identifier>
+        <identifier class="java.lang.String">c8e9c5cf-aaec-4e02-ab01-eca3de0b69a5</identifier>
       </ID>
-      <name>PROPOSAL_ID</name>
+      <name>PROMO_PRODUK_ID</name>
       <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
         <ID class="oracle.javatools.db.IdentifierBasedID">
-          <identifier class="java.lang.String">8bdcb6e9-478c-4116-b531-9ca94dd7edec</identifier>
+          <identifier class="java.lang.String">e47a7a3c-fba6-44cd-bd27-50a13dfc0e60</identifier>
         </ID>
         <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
           <providerClass>oracle.javatools.db.ora.OracleDatabaseImpl</providerClass>
@@ -56,8 +56,8 @@
       <name>EXCL_PROP_CUST_REGION_PRO_FK1</name>
       <columnIDs>
         <columnID class="oracle.javatools.db.IdentifierBasedID">
-          <name>PROPOSAL_ID</name>
-          <identifier class="java.lang.String">8ac1223d-595a-46f0-a17e-4805a2f0bbf5</identifier>
+          <name>PROMO_PRODUK_ID</name>
+          <identifier class="java.lang.String">c8e9c5cf-aaec-4e02-ab01-eca3de0b69a5</identifier>
           <parent class="oracle.javatools.db.IdentifierBasedID">
             <name>EXCL_PROP_CUST_REGION</name>
             <identifier class="java.lang.String">f54af408-4963-444a-b70b-2a134fecf4bb</identifier>
@@ -71,11 +71,11 @@
       <deleteMode>1</deleteMode>
       <enabled>true</enabled>
       <referenceID class="oracle.javatools.db.IdentifierBasedID">
-        <name>PROPOSAL_PK</name>
-        <identifier class="java.lang.String">4436f162-9231-4bcc-9dce-fd6664f51946</identifier>
+        <name>PROMO_PRODUK_PK</name>
+        <identifier class="java.lang.String">268c8d2f-d7c7-4f94-b0d7-81fe180a264d</identifier>
         <parent class="oracle.javatools.db.IdentifierBasedID">
-          <name>PROPOSAL</name>
-          <identifier class="java.lang.String">9e228503-a2ab-4c7b-8bee-51418dedb377</identifier>
+          <name>PROMO_PRODUK</name>
+          <identifier class="java.lang.String">f7f1884e-1801-494b-b14b-e1870da93229</identifier>
           <schemaName>FOCUSPP</schemaName>
           <type>TABLE</type>
         </parent>
@@ -89,8 +89,8 @@
       <name>EXCL_PROP_CUST_REGION_PK</name>
       <columnIDs>
         <columnID class="oracle.javatools.db.IdentifierBasedID">
-          <name>PROPOSAL_ID</name>
-          <identifier class="java.lang.String">8ac1223d-595a-46f0-a17e-4805a2f0bbf5</identifier>
+          <name>PROMO_PRODUK_ID</name>
+          <identifier class="java.lang.String">c8e9c5cf-aaec-4e02-ab01-eca3de0b69a5</identifier>
           <parent class="oracle.javatools.db.IdentifierBasedID">
             <name>EXCL_PROP_CUST_REGION</name>
             <identifier class="java.lang.String">f54af408-4963-444a-b70b-2a134fecf4bb</identifier>
@@ -109,7 +109,6 @@
             <schemaName>FOCUSPP</schemaName>
             <type>TABLE</type>
           </parent>
-          <schemaName>FOCUSPP</schemaName>
           <type>COLUMN</type>
         </columnID>
       </columnIDs>

@@ -49,9 +49,10 @@ public class ApprovalAMClient extends ApplicationModuleImpl implements ApprovalA
                                    String promoDtTo, String docRegion,
                                    String usrRole, String userNm,
                                    String aprvlCodeRun, String idDocAprvl,
-                                   String reasonDocAprvl, String usrAction) {
+                                   String reasonDocAprvl, String usrAction,
+                                   String propDt) {
         Object _ret =
-            this.riInvokeExportedMethod(this,"approveDocApproval",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {propId, docNo, docStatus, promoDtFrom, promoDtTo, docRegion, usrRole, userNm, aprvlCodeRun, idDocAprvl, reasonDocAprvl, usrAction});
+            this.riInvokeExportedMethod(this,"approveDocApproval",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {propId, docNo, docStatus, promoDtFrom, promoDtTo, docRegion, usrRole, userNm, aprvlCodeRun, idDocAprvl, reasonDocAprvl, usrAction, propDt});
         return;
     }
 
@@ -60,9 +61,34 @@ public class ApprovalAMClient extends ApplicationModuleImpl implements ApprovalA
                                   String promoDtTo, String docRegion,
                                   String usrRole, String userNm,
                                   String aprvlCodeRun, String idDocAprvl,
-                                  String reasonDocAprvl, String usrAction) {
+                                  String reasonDocAprvl, String usrAction,
+                                  String propDt) {
         Object _ret =
-            this.riInvokeExportedMethod(this,"rejectDocApproval",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {propId, docNo, docStatus, promoDtFrom, promoDtTo, docRegion, usrRole, userNm, aprvlCodeRun, idDocAprvl, reasonDocAprvl, usrAction});
+            this.riInvokeExportedMethod(this,"rejectDocApproval",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {propId, docNo, docStatus, promoDtFrom, promoDtTo, docRegion, usrRole, userNm, aprvlCodeRun, idDocAprvl, reasonDocAprvl, usrAction, propDt});
+        return;
+    }
+
+    public void forwardDocApproval(String propId, String docNo,
+                                   String docStatus, String promoDtFrom,
+                                   String promoDtTo, String docRegion,
+                                   String usrRole, String userNm,
+                                   String aprvlCodeRun, String idDocAprvl,
+                                   String reasonDocAprvl, String usrAction,
+                                   String propDt) {
+        Object _ret =
+            this.riInvokeExportedMethod(this,"forwardDocApproval",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {propId, docNo, docStatus, promoDtFrom, promoDtTo, docRegion, usrRole, userNm, aprvlCodeRun, idDocAprvl, reasonDocAprvl, usrAction, propDt});
+        return;
+    }
+
+    public void rejectFwdDocApproval(String propId, String docNo,
+                                     String docStatus, String promoDtFrom,
+                                     String promoDtTo, String docRegion,
+                                     String usrRole, String userNm,
+                                     String aprvlCodeRun, String idDocAprvl,
+                                     String reasonDocAprvl, String usrAction,
+                                     String propDt) {
+        Object _ret =
+            this.riInvokeExportedMethod(this,"rejectFwdDocApproval",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {propId, docNo, docStatus, promoDtFrom, promoDtTo, docRegion, usrRole, userNm, aprvlCodeRun, idDocAprvl, reasonDocAprvl, usrAction, propDt});
         return;
     }
 }

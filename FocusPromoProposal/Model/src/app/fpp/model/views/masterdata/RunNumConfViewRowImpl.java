@@ -67,26 +67,6 @@ public class RunNumConfViewRowImpl extends ViewRowImpl {
                 obj.setValue((Number)value);
             }
         }
-        ,
-        Id {
-            public Object get(RunNumConfViewRowImpl obj) {
-                return obj.getId();
-            }
-
-            public void put(RunNumConfViewRowImpl obj, Object value) {
-                obj.setId((DBSequence)value);
-            }
-        }
-        ,
-        UserInitial {
-            public Object get(RunNumConfViewRowImpl obj) {
-                return obj.getUserInitial();
-            }
-
-            public void put(RunNumConfViewRowImpl obj, Object value) {
-                obj.setUserInitial((String)value);
-            }
-        }
         ;
         private static AttributesEnum[] vals = null;
         private static final int firstIndex = 0;
@@ -121,8 +101,6 @@ public class RunNumConfViewRowImpl extends ViewRowImpl {
     public static final int RUNYEAR = AttributesEnum.RunYear.index();
     public static final int RUNMONTH = AttributesEnum.RunMonth.index();
     public static final int VALUE = AttributesEnum.Value.index();
-    public static final int ID = AttributesEnum.Id.index();
-    public static final int USERINITIAL = AttributesEnum.UserInitial.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -138,13 +116,6 @@ public class RunNumConfViewRowImpl extends ViewRowImpl {
         return (EntityImpl)getEntity(0);
     }
 
-    /**
-     * Gets AppUserAccess entity object.
-     * @return the AppUserAccess
-     */
-    public AppUserAccessImpl getAppUserAccess() {
-        return (AppUserAccessImpl)getEntity(1);
-    }
 
     /**
      * Gets the attribute value for RUN_NUM_TYPE using the alias name RunNumType.
@@ -227,37 +198,6 @@ public class RunNumConfViewRowImpl extends ViewRowImpl {
         setAttributeInternal(VALUE, value);
     }
 
-    /**
-     * Gets the attribute value for ID using the alias name Id.
-     * @return the ID
-     */
-    public DBSequence getId() {
-        return (DBSequence)getAttributeInternal(ID);
-    }
-
-    /**
-     * Sets <code>value</code> as attribute value for ID using the alias name Id.
-     * @param value value to set the ID
-     */
-    public void setId(DBSequence value) {
-        setAttributeInternal(ID, value);
-    }
-
-    /**
-     * Gets the attribute value for USER_INITIAL using the alias name UserInitial.
-     * @return the USER_INITIAL
-     */
-    public String getUserInitial() {
-        return (String) getAttributeInternal(USERINITIAL);
-    }
-
-    /**
-     * Sets <code>value</code> as attribute value for USER_INITIAL using the alias name UserInitial.
-     * @param value value to set the USER_INITIAL
-     */
-    public void setUserInitial(String value) {
-        setAttributeInternal(USERINITIAL, value);
-    }
 
     /**
      * getAttrInvokeAccessor: generated method. Do not modify.

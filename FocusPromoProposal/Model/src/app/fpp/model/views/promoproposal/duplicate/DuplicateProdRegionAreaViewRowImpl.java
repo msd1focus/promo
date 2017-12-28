@@ -46,39 +46,6 @@ public class DuplicateProdRegionAreaViewRowImpl extends ViewRowImpl {
                 obj.setNotes((String)value);
             }
         }
-        ,
-        Description {
-            public Object get(DuplicateProdRegionAreaViewRowImpl obj) {
-                return obj.getDescription();
-            }
-
-            public void put(DuplicateProdRegionAreaViewRowImpl obj,
-                            Object value) {
-                obj.setDescription((String)value);
-            }
-        }
-        ,
-        Value {
-            public Object get(DuplicateProdRegionAreaViewRowImpl obj) {
-                return obj.getValue();
-            }
-
-            public void put(DuplicateProdRegionAreaViewRowImpl obj,
-                            Object value) {
-                obj.setValue((String)value);
-            }
-        }
-        ,
-        RegionCode {
-            public Object get(DuplicateProdRegionAreaViewRowImpl obj) {
-                return obj.getRegionCode();
-            }
-
-            public void put(DuplicateProdRegionAreaViewRowImpl obj,
-                            Object value) {
-                obj.setRegionCode((String)value);
-            }
-        }
         ;
         private static AttributesEnum[] vals = null;
         private static final int firstIndex = 0;
@@ -112,9 +79,6 @@ public class DuplicateProdRegionAreaViewRowImpl extends ViewRowImpl {
     public static final int PROMOPRODUKID = AttributesEnum.PromoProdukId.index();
     public static final int AREACODE = AttributesEnum.AreaCode.index();
     public static final int NOTES = AttributesEnum.Notes.index();
-    public static final int DESCRIPTION = AttributesEnum.Description.index();
-    public static final int VALUE = AttributesEnum.Value.index();
-    public static final int REGIONCODE = AttributesEnum.RegionCode.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -170,53 +134,6 @@ public class DuplicateProdRegionAreaViewRowImpl extends ViewRowImpl {
         setAttributeInternal(NOTES, value);
     }
 
-    /**
-     * Gets the attribute value for the calculated attribute Description.
-     * @return the Description
-     */
-    public String getDescription() {
-        return (String) getAttributeInternal(DESCRIPTION);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute Description.
-     * @param value value to set the  Description
-     */
-    public void setDescription(String value) {
-        setAttributeInternal(DESCRIPTION, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute Value.
-     * @return the Value
-     */
-    public String getValue() {
-        return (String) getAttributeInternal(VALUE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute Value.
-     * @param value value to set the  Value
-     */
-    public void setValue(String value) {
-        setAttributeInternal(VALUE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute RegionCode.
-     * @return the RegionCode
-     */
-    public String getRegionCode() {
-        return (String) getAttributeInternal(REGIONCODE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute RegionCode.
-     * @param value value to set the  RegionCode
-     */
-    public void setRegionCode(String value) {
-        setAttributeInternal(REGIONCODE, value);
-    }
 
     /**
      * getAttrInvokeAccessor: generated method. Do not modify.

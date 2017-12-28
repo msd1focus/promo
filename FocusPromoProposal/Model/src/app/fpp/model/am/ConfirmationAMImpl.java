@@ -2,36 +2,21 @@ package app.fpp.model.am;
 
 import app.fpp.adfextensions.CustomApplicationModuleImpl;
 import app.fpp.model.am.common.ConfirmationAM;
-
-
-import app.fpp.model.views.confirmation.ProposalReadyConfirmAdendumViewImpl;
-import app.fpp.model.views.confirmation.ProposalUpdateConfirmAdendumViewImpl;
-import app.fpp.model.views.confirmation.ProposalUpdatePrCreatedViewImpl;
+import app.fpp.model.views.confirmation.modifier.FcsModifierAreaExclViewImpl;
 import app.fpp.model.views.confirmation.modifier.FcsModifierAreaViewImpl;
-import app.fpp.model.views.confirmation.modifier.FcsModifierHoViewImpl;
+import app.fpp.model.views.confirmation.modifier.FcsModifierHoExclViewImpl;
 import app.fpp.model.views.confirmation.modifier.FcsQpModifierTempViewImpl;
-import app.fpp.model.views.confirmation.modifier.HeaderIdSeqViewImpl;
 import app.fpp.model.views.confirmation.targetpr.FcsApprovalPathViewImpl;
 import app.fpp.model.views.confirmation.targetpr.FcsCheckDcvPrClosedViewImpl;
-import app.fpp.model.views.confirmation.targetpr.FcsPoRequisitionTempViewImpl;
 import app.fpp.model.views.confirmation.targetpr.FcsViewNoPrClosedViewImpl;
-import app.fpp.model.views.confirmation.targetpr.FcsViewNoPrViewImpl;
 import app.fpp.model.views.confirmation.targetpr.ItemBjpFlagViewImpl;
 import app.fpp.model.views.masterdata.RunNumConfViewImpl;
-import app.fpp.model.views.masterdata.ebs.CompanyOUViewImpl;
 import app.fpp.model.views.masterdata.ebs.FcsViewGudangInventoryViewImpl;
 import app.fpp.model.views.masterdata.ebs.KodePostingBJPViewImpl;
 import app.fpp.model.views.masterdata.ebs.KodePostingViewImpl;
-import app.fpp.model.views.promoproposal.DiscountViewImpl;
-import app.fpp.model.views.promoproposal.ProdukItemViewImpl;
-import app.fpp.model.views.promoproposal.ProdukVariantViewImpl;
-import app.fpp.model.views.promoproposal.PromoBonusVariantViewImpl;
 import app.fpp.model.views.promoproposal.PromoBonusViewImpl;
 import app.fpp.model.views.promoproposal.PromoProdukViewImpl;
-
-
 import oracle.jbo.ViewCriteria;
-import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.jbo.server.ViewLinkImpl;
 import oracle.jbo.server.ViewObjectImpl;
 // ---------------------------------------------------------------------
@@ -621,11 +606,11 @@ public class ConfirmationAMImpl extends CustomApplicationModuleImpl implements C
     }
 
     /**
-     * Container's getter for ExclPropCustAreaProposalConfirmationFk1Link1.
-     * @return ExclPropCustAreaProposalConfirmationFk1Link1
+     * Container's getter for ExclPropCustAreaPromoProdukFk1Link1.
+     * @return ExclPropCustAreaPromoProdukFk1Link1
      */
-    public ViewLinkImpl getExclPropCustAreaProposalConfirmationFk1Link1() {
-        return (ViewLinkImpl)findViewLink("ExclPropCustAreaProposalConfirmationFk1Link1");
+    public ViewLinkImpl getExclPropCustAreaPromoProdukFk1Link1() {
+        return (ViewLinkImpl)findViewLink("ExclPropCustAreaPromoProdukFk1Link1");
     }
 
     /**
@@ -637,11 +622,11 @@ public class ConfirmationAMImpl extends CustomApplicationModuleImpl implements C
     }
 
     /**
-     * Container's getter for ExclPropCustCustProposalConfirmationFk1Link1.
-     * @return ExclPropCustCustProposalConfirmationFk1Link1
+     * Container's getter for ExclPropCustCustPromoProdukFk1Link1.
+     * @return ExclPropCustCustPromoProdukFk1Link1
      */
-    public ViewLinkImpl getExclPropCustCustProposalConfirmationFk1Link1() {
-        return (ViewLinkImpl)findViewLink("ExclPropCustCustProposalConfirmationFk1Link1");
+    public ViewLinkImpl getExclPropCustCustPromoProdukFk1Link1() {
+        return (ViewLinkImpl)findViewLink("ExclPropCustCustPromoProdukFk1Link1");
     }
 
     /**
@@ -653,11 +638,11 @@ public class ConfirmationAMImpl extends CustomApplicationModuleImpl implements C
     }
 
     /**
-     * Container's getter for ExclPropCustLocProposalConfirmationFk1Link1.
-     * @return ExclPropCustLocProposalConfirmationFk1Link1
+     * Container's getter for ExclPropCustLocPromoProdukFk1Link1.
+     * @return ExclPropCustLocPromoProdukFk1Link1
      */
-    public ViewLinkImpl getExclPropCustLocProposalConfirmationFk1Link1() {
-        return (ViewLinkImpl)findViewLink("ExclPropCustLocProposalConfirmationFk1Link1");
+    public ViewLinkImpl getExclPropCustLocPromoProdukFk1Link1() {
+        return (ViewLinkImpl)findViewLink("ExclPropCustLocPromoProdukFk1Link1");
     }
 
     /**
@@ -669,10 +654,74 @@ public class ConfirmationAMImpl extends CustomApplicationModuleImpl implements C
     }
 
     /**
-     * Container's getter for ExclPropCustRegionProposalConfirmationFk1Link1.
-     * @return ExclPropCustRegionProposalConfirmationFk1Link1
+     * Container's getter for ExclPropCustRegionPromoProdukFk1Link1.
+     * @return ExclPropCustRegionPromoProdukFk1Link1
      */
-    public ViewLinkImpl getExclPropCustRegionProposalConfirmationFk1Link1() {
-        return (ViewLinkImpl)findViewLink("ExclPropCustRegionProposalConfirmationFk1Link1");
+    public ViewLinkImpl getExclPropCustRegionPromoProdukFk1Link1() {
+        return (ViewLinkImpl)findViewLink("ExclPropCustRegionPromoProdukFk1Link1");
+    }
+
+    /**
+     * Container's getter for KomBudgetCustLov1.
+     * @return KomBudgetCustLov1
+     */
+    public ViewObjectImpl getKomBudgetCustLov1() {
+        return (ViewObjectImpl)findViewObject("KomBudgetCustLov1");
+    }
+
+    /**
+     * Container's getter for UploadDownloadView1.
+     * @return UploadDownloadView1
+     */
+    public ViewObjectImpl getUploadDownloadView1() {
+        return (ViewObjectImpl)findViewObject("UploadDownloadView1");
+    }
+
+    /**
+     * Container's getter for FcsModifierAreaExclView1.
+     * @return FcsModifierAreaExclView1
+     */
+    public FcsModifierAreaExclViewImpl getFcsModifierAreaExclView1() {
+        return (FcsModifierAreaExclViewImpl)findViewObject("FcsModifierAreaExclView1");
+    }
+
+    /**
+     * Container's getter for FcsModifierHoExclView1.
+     * @return FcsModifierHoExclView1
+     */
+    public FcsModifierHoExclViewImpl getFcsModifierHoExclView1() {
+        return (FcsModifierHoExclViewImpl)findViewObject("FcsModifierHoExclView1");
+    }
+
+    /**
+     * Container's getter for FcsQpModifierTempExclView1.
+     * @return FcsQpModifierTempExclView1
+     */
+    public ViewObjectImpl getFcsQpModifierTempExclView1() {
+        return (ViewObjectImpl)findViewObject("FcsQpModifierTempExclView1");
+    }
+
+    /**
+     * Container's getter for RealisasiItemPaketView1.
+     * @return RealisasiItemPaketView1
+     */
+    public ViewObjectImpl getRealisasiItemPaketView1() {
+        return (ViewObjectImpl)findViewObject("RealisasiItemPaketView1");
+    }
+
+    /**
+     * Container's getter for RealisasiItemPaketPromoProdukFk1Link1.
+     * @return RealisasiItemPaketPromoProdukFk1Link1
+     */
+    public ViewLinkImpl getRealisasiItemPaketPromoProdukFk1Link1() {
+        return (ViewLinkImpl)findViewLink("RealisasiItemPaketPromoProdukFk1Link1");
+    }
+
+    /**
+     * Container's getter for KomBudgetPostLov1.
+     * @return KomBudgetPostLov1
+     */
+    public ViewObjectImpl getKomBudgetPostLov1() {
+        return (ViewObjectImpl)findViewObject("KomBudgetPostLov1");
     }
 }

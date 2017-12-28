@@ -20,9 +20,9 @@
       <property
          name="y">213.79297</property>
       <property
-         name="x">418.0</property>
-      <property
          name="pageFragment">true</property>
+      <property
+         name="x">418.0</property>
    </View>
    <MethodCall
       id="MethodCall5">

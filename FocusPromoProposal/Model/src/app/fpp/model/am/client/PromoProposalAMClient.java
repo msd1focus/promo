@@ -34,10 +34,10 @@ public class PromoProposalAMClient extends ApplicationModuleImpl implements Prom
 
     public void addDocApproval(String propId, String docNo, String docStatus,
                                String promoDtFrom, String promoDtTo,
-                               String docRegion, String roleName,
-                               String userNm, String aprvlFlowNm) {
+                               String docRegion, String usrRole, String userNm,
+                               String aprvlFlowNm, String propDt) {
         Object _ret =
-            this.riInvokeExportedMethod(this,"addDocApproval",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {propId, docNo, docStatus, promoDtFrom, promoDtTo, docRegion, roleName, userNm, aprvlFlowNm});
+            this.riInvokeExportedMethod(this,"addDocApproval",new String [] {"java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String","java.lang.String"},new Object[] {propId, docNo, docStatus, promoDtFrom, promoDtTo, docRegion, usrRole, userNm, aprvlFlowNm, propDt});
         return;
     }
 }

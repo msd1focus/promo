@@ -7,7 +7,7 @@
     <variableIterator id="variables"/>
     <iterator id="AllProposalCustGroupShuttleView1Iterator"
               Binds="AllProposalCustGroupShuttleView1"
-              DataControl="PromoProposalAMDataControl" RangeSize="25"/>
+              DataControl="PromoProposalAMDataControl" RangeSize="-1"/>
     <iterator id="PropRegionCustGroupView1Iterator"
               Binds="PropRegionCustGroupView1"
               DataControl="PromoProposalAMDataControl" RangeSize="25"/>

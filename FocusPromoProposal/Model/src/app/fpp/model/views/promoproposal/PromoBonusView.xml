@@ -20,7 +20,9 @@
        (SELECT LISTAGG(PVAR.SET_VARIANT_DESC, ', ') WITHIN GROUP (ORDER BY PVAR.SET_VARIANT_DESC)   FROM (SELECT PV.PROMO_BONUS_ID, IMC.SET_VARIANT_DESC FROM PROMO_BONUS_VARIANT PV, APPS.FCS_VIEW_ITEM_MASTER_CATEGORY IMC  WHERE IMC.SET_VARIANT = PV.PROD_VARIANT GROUP BY PV.PROMO_BONUS_ID, IMC.SET_VARIANT_DESC) PVAR  WHERE PVAR.PROMO_BONUS_ID = PromoBonus.PROMO_BONUS_ID  GROUP BY PVAR.PROMO_BONUS_ID) AS PRODUCT_VARIANT_BONUS, 
        (SELECT LISTAGG(PITEM.ITEM_DESCRIPTION, ', ') WITHIN GROUP (ORDER BY PITEM.ITEM_DESCRIPTION)    FROM (SELECT PI.PROMO_BONUS_ID, IMC.ITEM_DESCRIPTION FROM PROMO_BONUS_PROD_ITEM PI, APPS.FCS_VIEW_ITEM_MASTER_CATEGORY IMC  WHERE IMC.ITEM = PI.PROD_ITEM GROUP BY PI.PROMO_BONUS_ID, IMC.ITEM_DESCRIPTION) PITEM   WHERE PITEM.PROMO_BONUS_ID = PromoBonus.PROMO_BONUS_ID  GROUP BY PITEM.PROMO_BONUS_ID) AS PRODUCT_ITEM_BONUS, 
        PromoBonus.DISC_YEARLY, 
-       PromoBonus.DISC_NON_YEARLY"
+       PromoBonus.DISC_NON_YEARLY, 
+       PromoBonus.INPUT_PRICE_BY, 
+       PromoBonus.PRICE_VAL"
   FromList="PROMO_BONUS PromoBonus"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -131,6 +133,15 @@
     Name="ProductUomLov"
     ViewObjectName="app.fpp.model.views.masterdata.ebs.ProductUomLov"
     RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="LovPriceBased"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_INPUT_PRICE_BASED']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
   <ListBinding
     Name="LOV_TipePotongan"
     ListVOName="LovTipePotongan"
@@ -270,6 +281,25 @@
     </AttrArray>
     <AttrArray Name="ListDisplayAttrNames">
       <Item Value="UnitOfMeasure"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_InputPriceBy"
+    ListVOName="LovPriceBased"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="InputPriceBy"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
     </AttrArray>
     <DisplayCriteria
       Hint="hide"/>
@@ -570,6 +600,27 @@
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>
+  <ViewAttribute
+    Name="InputPriceBy"
+    PrecisionRule="true"
+    EntityAttrName="InputPriceBy"
+    EntityUsage="PromoBonus"
+    AliasName="INPUT_PRICE_BY"
+    LOVName="LOV_InputPriceBy"
+    DefaultValue="MANUAL">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="input_text_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PriceVal"
+    PrecisionRule="true"
+    EntityAttrName="PriceVal"
+    EntityUsage="PromoBonus"
+    AliasName="PRICE_VAL"/>
   <ViewLinkAccessor
     Name="PromoBonusProdItemView"
     ViewLink="app.fpp.model.views.promoproposal.PromoBonusProdItemPromoBonusFk1Link"

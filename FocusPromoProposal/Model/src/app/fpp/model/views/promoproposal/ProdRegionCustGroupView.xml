@@ -14,14 +14,24 @@
        ProdRegionCustGroup.CUST_GROUP, 
        ProdRegionCustGroup.NOTES, 
        (SELECT DISTINCT LISTAGG(AC.ATTRIBUTE3,'|') WITHIN GROUP (ORDER BY PRCG.PROMO_PRODUK_ID,          PRCG.CUST_GROUP, PRCG.NOTES) OVER (PARTITION BY PRCG.PROMO_PRODUK_ID,            PRCG.CUST_GROUP, PRCG.NOTES)  AS REGION_CODE FROM PROD_REGION_CUST_GROUP PRCG, APPS.AR_CUSTOMERS AC, APP_USER_REGION AUR WHERE AC.ATTRIBUTE1 = PRCG.CUST_GROUP AND AC.ATTRIBUTE3 = AUR.REGION_CODE AND PRCG.PROMO_PRODUK_ID = ProdRegionCustGroup.PROMO_PRODUK_ID AND PRCG.CUST_GROUP = ProdRegionCustGroup.CUST_GROUP GROUP BY PRCG.PROMO_PRODUK_ID,  PRCG.NOTES,         PRCG.CUST_GROUP,  AC.ATTRIBUTE3) AS REGION_CODE, 
-       (ProdRegionCustGroup.CUST_GROUP) AS CUST_GROUP_NAME"
-  FromList="PROD_REGION_CUST_GROUP ProdRegionCustGroup">
+       (ProdRegionCustGroup.CUST_GROUP) AS CUST_GROUP_NAME, 
+       FcsFlexValuesVl.DESCRIPTION, 
+       FcsFlexValuesVl.FLEX_VALUE_ID"
+  FromList="PROD_REGION_CUST_GROUP ProdRegionCustGroup, APPS.FCS_FLEX_VALUES_VL FcsFlexValuesVl"
+  Where="FcsFlexValuesVl.FLEX_VALUE = ProdRegionCustGroup.CUST_GROUP">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|VarAccess"/>
   </DesignTime>
   <EntityUsage
     Name="ProdRegionCustGroup"
     Entity="app.fpp.model.entities.promoproposal.ProdRegionCustGroup"/>
+  <EntityUsage
+    Name="FcsFlexValuesVl"
+    Entity="app.fpp.model.entities.masterdata.ebs.FcsFlexValuesVl"
+    SourceUsage="app.fpp.model.views.promoproposal.ProdRegionCustGroupView.ProdRegionCustGroup"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"/>
   <ViewAttribute
     Name="PromoProdukId"
     IsNotNull="true"
@@ -64,4 +74,17 @@
     SQLType="VARCHAR"
     Precision="255"
     Expression="ProdRegionCustGroup.CUST_GROUP"/>
+  <ViewAttribute
+    Name="Description"
+    PrecisionRule="true"
+    EntityAttrName="Description"
+    EntityUsage="FcsFlexValuesVl"
+    AliasName="DESCRIPTION"/>
+  <ViewAttribute
+    Name="FlexValueId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="FlexValueId"
+    EntityUsage="FcsFlexValuesVl"
+    AliasName="FLEX_VALUE_ID"/>
 </ViewObject>

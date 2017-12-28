@@ -30,14 +30,47 @@
       </SchemaBasedProperties>
     </Properties>
   </Variable>
+  <Variable
+    Name="kdItemType"
+    Kind="viewcriteria"
+    Type="java.lang.String"
+    DefaultValue="EPR"/>
+  <ViewAccessor
+    Name="ItemTypeExpLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_ITEM_TYPE_EXPENSE']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ListBinding
+    Name="LOV_ItemType"
+    ListVOName="ItemTypeExpLov"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="ItemType"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
   <SQLQuery>
     <![CDATA[SELECT FcsViewItemMasterCategory.ITEM, 
        FcsViewItemMasterCategory.ITEM_DESCRIPTION,
+       FcsViewItemMasterCategory.ITEM_TYPE,
        (FcsViewItemMasterCategory.ITEM || ' ' || FcsViewItemMasterCategory.ITEM_DESCRIPTION) AS POSTING_SEARCH
 FROM APPS.FCS_VIEW_ITEM_MASTER_CATEGORY FcsViewItemMasterCategory
-WHERE FcsViewItemMasterCategory.ITEM_TYPE = 'EXP'
-AND FcsViewItemMasterCategory.TYPE_TABLE = 'MASTER'
-GROUP BY FcsViewItemMasterCategory.ITEM, FcsViewItemMasterCategory.ITEM_DESCRIPTION
+WHERE FcsViewItemMasterCategory.TYPE_TABLE = 'MASTER'
+AND FcsViewItemMasterCategory.ITEM_TYPE IN ('EPR','EXP','EKS')
+GROUP BY FcsViewItemMasterCategory.ITEM, FcsViewItemMasterCategory.ITEM_DESCRIPTION, FcsViewItemMasterCategory.ITEM_TYPE
 ORDER BY "ITEM_DESCRIPTION"]]>
   </SQLQuery>
   <ViewAttribute
@@ -59,7 +92,7 @@ ORDER BY "ITEM_DESCRIPTION"]]>
         <LABEL
           ResId="KODE"/>
         <DISPLAYWIDTH
-          Value="13"/>
+          Value="25"/>
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>
@@ -82,7 +115,29 @@ ORDER BY "ITEM_DESCRIPTION"]]>
         <LABEL
           ResId="NAME"/>
         <DISPLAYWIDTH
-          Value="20"/>
+          Value="45"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ItemType"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="30"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="ITEM_TYPE"
+    Expression="ITEM_TYPE"
+    SQLType="VARCHAR"
+    LOVName="LOV_ItemType">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>
@@ -105,7 +160,7 @@ ORDER BY "ITEM_DESCRIPTION"]]>
         <LABEL
           ResId="ITEM_EXPENSE"/>
         <DISPLAYWIDTH
-          Value="30"/>
+          Value="70"/>
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>
@@ -136,6 +191,14 @@ ORDER BY "ITEM_DESCRIPTION"]]>
     <ViewCriteriaRow
       Name="vcrow17"
       UpperColumns="1">
+      <ViewCriteriaItem
+        Name="ItemType"
+        ViewAttribute="ItemType"
+        Operator="="
+        Conjunction="AND"
+        Value=":kdItemType"
+        IsBindVarValue="true"
+        Required="Optional"/>
       <ViewCriteriaItem
         Name="PostingSearch"
         ViewAttribute="PostingSearch"

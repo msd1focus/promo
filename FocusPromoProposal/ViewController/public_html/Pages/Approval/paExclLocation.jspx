@@ -5,7 +5,7 @@
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
   <f:view>
-    <af:document id="d1" title="Exclude Location for #{pageFlowScope.propNo}">
+    <af:document id="d1" title="Exclude Location for #{pageFlowScope.prodName}">
       <af:form id="f1">
         <af:panelGroupLayout id="pgl1" layout="vertical" halign="center"
                              inlineStyle="background-color:#f9f9f9;">

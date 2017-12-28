@@ -11,7 +11,8 @@
   PageIterMode="Full"
   UseGlueCode="false"
   RowClass="app.fpp.model.views.promoproposal.duplicate.DuplicateProdRegionLocViewRowImpl"
-  ComponentClass="app.fpp.model.views.promoproposal.duplicate.DuplicateProdRegionLocViewImpl">
+  ComponentClass="app.fpp.model.views.promoproposal.duplicate.DuplicateProdRegionLocViewImpl"
+  OrderBy='"PROMO_PRODUK_ID" DESC'>
   <DesignTime>
     <Attr Name="_isExpertMode" Value="true"/>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
@@ -30,12 +31,9 @@
   <SQLQuery>
     <![CDATA[SELECT ProdRegionLocation.PROMO_PRODUK_ID, 
        ProdRegionLocation.LOCATION_CODE, 
-       ProdRegionLocation.NOTES, 
-       (SELECT ARC.ATTRIBUTE5 FROM APPS.AR_CUSTOMERS ARC WHERE ARC.ATTRIBUTE5 = ProdRegionLocation.LOCATION_CODE GROUP BY ARC.ATTRIBUTE5) AS LOCATION_NAME, 
-       (SELECT ARC.ATTRIBUTE3 FROM APPS.AR_CUSTOMERS ARC WHERE ARC.ATTRIBUTE5 = ProdRegionLocation.LOCATION_CODE  GROUP BY ARC.ATTRIBUTE3) AS REGION_CODE
+       ProdRegionLocation.NOTES
 FROM PROD_REGION_LOC ProdRegionLocation
-WHERE ProdRegionLocation.PROMO_PRODUK_ID = :promoProdukId
-ORDER BY "LOCATION_NAME"]]>
+WHERE ProdRegionLocation.PROMO_PRODUK_ID = :promoProdukId]]>
   </SQLQuery>
   <ViewAttribute
     Name="PromoProdukId"
@@ -81,36 +79,6 @@ ORDER BY "LOCATION_NAME"]]>
     SQLType="VARCHAR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="500"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="LocationName"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="150"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="LOCATION_NAME"
-    Expression="LOCATION_NAME"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="150"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="RegionCode"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="150"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="REGION_CODE"
-    Expression="REGION_CODE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="150"/>
     </DesignTime>
   </ViewAttribute>
   <AttrArray Name="KeyAttributes">

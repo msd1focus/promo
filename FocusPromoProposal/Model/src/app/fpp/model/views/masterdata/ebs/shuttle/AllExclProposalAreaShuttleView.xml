@@ -6,23 +6,20 @@
   Name="AllExclProposalAreaShuttleView"
   Version="11.1.1.64.93"
   InheritPersonalization="true"
-  SelectList="FcsExclShuttleArea.AREA_CODE, 
-       FcsExclShuttleArea.AREA_LABEL, 
-       FcsExclShuttleArea.DESCRIPTION"
-  FromList="FCS_EXCL_SHUTTLE_AREA FcsExclShuttleArea, PROPOSAL Proposal, PROP_REGION PropRegion"
-  Where="Proposal.PROPOSAL_ID = PropRegion.PROPOSAL_ID
-AND PropRegion.REGION_CODE = FcsExclShuttleArea.REGION_CODE
-AND FcsExclShuttleArea.USER_NAME = :userName
-AND PropRegion.PROPOSAL_ID = :proposalId
-GROUP BY FcsExclShuttleArea.AREA_CODE, 
-       FcsExclShuttleArea.DESCRIPTION, 
-       FcsExclShuttleArea.AREA_LABEL,
-       PropRegion.PROPOSAL_ID"
-  OrderBy="FcsExclShuttleArea.AREA_LABEL"
+  SelectList="FcsExclShuttleAreaProp.AREA_CODE, 
+       FcsExclShuttleAreaProp.AREA_LABEL, 
+       FcsExclShuttleAreaProp.DESCRIPTION"
+  FromList="FCS_EXCL_SHUTTLE_AREA_PROP FcsExclShuttleAreaProp"
+  OrderBy="FcsExclShuttleAreaProp.AREA_LABEL"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  Where="FcsExclShuttleAreaProp.USER_NAME = :userName
+AND FcsExclShuttleAreaProp.PROMO_PRODUK_ID = :promoProdukId
+GROUP BY FcsExclShuttleAreaProp.AREA_CODE, 
+       FcsExclShuttleAreaProp.DESCRIPTION, 
+       FcsExclShuttleAreaProp.AREA_LABEL">
   <Properties>
     <SchemaBasedProperties>
       <LABEL
@@ -34,57 +31,30 @@ GROUP BY FcsExclShuttleArea.AREA_CODE,
     Kind="where"
     Type="java.lang.String"/>
   <Variable
-    Name="proposalId"
+    Name="promoProdukId"
     Kind="where"
     Type="java.lang.String"/>
   <EntityUsage
-    Name="FcsExclShuttleArea"
-    Entity="app.fpp.model.entities.masterdata.ebs.shuttle.FcsExclShuttleArea"/>
-  <EntityUsage
-    Name="Proposal"
-    Entity="app.fpp.model.entities.promoproposal.Proposal"
-    SourceUsage="app.fpp.model.views.masterdata.ebs.shuttle.AllExclProposalAreaShuttleView.FcsExclShuttleArea"
-    ReadOnly="true"
-    Reference="true"
-    DeleteParticipant="false"/>
-  <EntityUsage
-    Name="PropRegion"
-    Entity="app.fpp.model.entities.promoproposal.PropRegion"
-    Association="app.fpp.model.entities.promoproposal.PropRegionProposalFk1Assoc"
-    AssociationEnd="app.fpp.model.entities.promoproposal.PropRegionProposalFk1Assoc.PropRegion"
-    SourceUsage="app.fpp.model.views.masterdata.ebs.shuttle.AllExclProposalAreaShuttleView.Proposal"
-    ReadOnly="true"
-    Reference="true"
-    DeleteParticipant="false"
-    JoinType="INNER JOIN">
-    <DesignTime>
-      <AttrArray Name="_srcAttributes">
-        <Item Value="app.fpp.model.entities.promoproposal.Proposal.ProposalId"/>
-      </AttrArray>
-      <AttrArray Name="_dstAttributes">
-        <Item
-          Value="app.fpp.model.entities.promoproposal.PropRegion.ProposalId"/>
-      </AttrArray>
-    </DesignTime>
-  </EntityUsage>
+    Name="FcsExclShuttleAreaProp"
+    Entity="app.fpp.model.entities.masterdata.ebs.shuttle.FcsExclShuttleAreaProp"/>
   <ViewAttribute
     Name="AreaCode"
     IsNotNull="true"
     PrecisionRule="true"
     EntityAttrName="AreaCode"
-    EntityUsage="FcsExclShuttleArea"
+    EntityUsage="FcsExclShuttleAreaProp"
     AliasName="AREA_CODE"/>
   <ViewAttribute
     Name="AreaLabel"
     PrecisionRule="true"
     EntityAttrName="AreaLabel"
-    EntityUsage="FcsExclShuttleArea"
+    EntityUsage="FcsExclShuttleAreaProp"
     AliasName="AREA_LABEL"/>
   <ViewAttribute
     Name="Description"
     PrecisionRule="true"
     EntityAttrName="Description"
-    EntityUsage="FcsExclShuttleArea"
+    EntityUsage="FcsExclShuttleAreaProp"
     AliasName="DESCRIPTION"/>
   <ResourceBundle>
     <PropertiesBundle

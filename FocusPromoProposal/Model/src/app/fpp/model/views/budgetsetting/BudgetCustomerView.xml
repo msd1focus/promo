@@ -20,7 +20,11 @@
        BudgetCustomer.CREATION_DATE, 
        BudgetCustomer.MODIFIED_BY, 
        BudgetCustomer.MODIFIED_ON, 
-       (SELECT CASE WHEN COUNT(BUDGET_CUST_TRAN_ID) > 0  THEN 'T' ELSE 'F' END AS TRAN_ROW FROM BUDGET_CUST_TRAN BudgetCustTran WHERE BudgetCustTran.BUDGET_CUSTOMER_ID =  BudgetCustomer.BUDGET_CUSTOMER_ID) AS TRAN_ROW"
+       (SELECT CASE WHEN COUNT(BUDGET_CUST_TRAN_ID) > 0  THEN 'T' ELSE 'F' END AS TRAN_ROW FROM BUDGET_CUST_TRAN BudgetCustTran WHERE BudgetCustTran.BUDGET_CUSTOMER_ID =  BudgetCustomer.BUDGET_CUSTOMER_ID) AS TRAN_ROW, 
+       BudgetCustomer.BUDGET_AS_TO_DATE, 
+       BudgetCustomer.BUDGET_AS_TO_DATE_USED, 
+       (select count(bct.budget_cust_tran_id) as budget_history_num from BUDGET_CUST_TRAN bct where bct.budget_customer_id = BudgetCustomer.BUDGET_CUSTOMER_ID AND bct.ACTION = 'APPROVED') AS BUDGET_HISTORY_NUM, 
+       (select count(bct.budget_cust_tran_id) as budget_history_num from BUDGET_CUST_TRAN bct where bct.budget_customer_id = BudgetCustomer.BUDGET_CUSTOMER_ID and bct.ACTION = 'SUBMIT') AS BUDGET_APPROVAL_NUM"
   FromList="BUDGET_CUSTOMER BudgetCustomer"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -28,7 +32,7 @@
   UseGlueCode="false"
   RowClass="app.fpp.model.views.budgetsetting.BudgetCustomerViewRowImpl"
   ComponentClass="app.fpp.model.views.budgetsetting.BudgetCustomerViewImpl"
-  OrderBy="BudgetCustomer.BUDGET_BRAND DESC">
+  OrderBy="BudgetCustomer.BUDGET_CUSTOMER_ID ASC">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
@@ -436,18 +440,12 @@
     SQLType="NUMERIC"
     IsSelected="false">
     <RecalcCondition><![CDATA[true]]></RecalcCondition>
-    <TransientExpression><![CDATA[if (YearlyBudgetAmount == null) {
-return 0 - YearlyBudgetUsed;
-} else if (YearlyBudgetUsed == null) {
-return YearlyBudgetAmount;
-} else {
-return YearlyBudgetAmount - YearlyBudgetUsed;
-}]]></TransientExpression>
+    <TransientExpression><![CDATA[(YearlyBudgetAmount - BudgetAsToDate)]]></TransientExpression>
     <Dependencies>
       <Item
-        Value="YearlyBudgetAmount"/>
+        Value="BudgetAsToDate"/>
       <Item
-        Value="YearlyBudgetUsed"/>
+        Value="YearlyBudgetAmount"/>
     </Dependencies>
     <Properties>
       <SchemaBasedProperties>
@@ -514,6 +512,144 @@ return YearlyBudgetAmount - YearlyBudgetUsed;
     AliasName="TRAN_ROW"
     SQLType="VARCHAR"
     Expression="SELECT CASE WHEN COUNT(BUDGET_CUST_TRAN_ID) > 0  THEN 'T' ELSE 'F' END AS TRAN_ROW FROM BUDGET_CUST_TRAN BudgetCustTran WHERE BudgetCustTran.BUDGET_CUSTOMER_ID =  BudgetCustomer.BUDGET_CUSTOMER_ID"/>
+  <ViewAttribute
+    Name="BudgetAsToDate"
+    PrecisionRule="true"
+    EntityAttrName="BudgetAsToDate"
+    EntityUsage="BudgetCustomer"
+    AliasName="BUDGET_AS_TO_DATE"
+    DefaultValue="0">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.budgetsetting.BudgetCustomerView.BudgetAsToDate_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.budgetsetting.BudgetCustomerView.BudgetAsToDate_FMT_FORMAT"/>
+        <LABEL
+          ResId="app.fpp.model.views.budgetsetting.BudgetCustomerView.BudgetAsToDate_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BudgetAsToDateUsed"
+    PrecisionRule="true"
+    EntityAttrName="BudgetAsToDateUsed"
+    EntityUsage="BudgetCustomer"
+    AliasName="BUDGET_AS_TO_DATE_USED"
+    DefaultValue="0">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.budgetsetting.BudgetCustomerView.BudgetAsToDateUsed_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.budgetsetting.BudgetCustomerView.BudgetAsToDateUsed_FMT_FORMAT"/>
+        <LABEL
+          ResId="app.fpp.model.views.budgetsetting.BudgetCustomerView.BudgetAsToDateUsed_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BudgetAsToDateRemaining"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC"
+    IsUpdateable="false">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[if (BudgetAsToDate == null) {
+return 0 - BudgetAsToDateUsed;
+} else if (BudgetAsToDateUsed == null) {
+return BudgetAsToDate;
+} else {
+return BudgetAsToDate - BudgetAsToDateUsed;
+}]]></TransientExpression>
+    <Dependencies>
+      <Item
+        Value="BudgetAsToDate"/>
+      <Item
+        Value="BudgetAsToDateUsed"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.budgetsetting.BudgetCustomerView.BudgetAsToDateRemaining_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.budgetsetting.BudgetCustomerView.BudgetAsToDateRemaining_FMT_FORMAT"/>
+        <LABEL
+          ResId="app.fpp.model.views.budgetsetting.BudgetCustomerView.BudgetAsToDateRemaining_LABEL"/>
+        <DISPLAYWIDTH
+          Value="30"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CheckRowStatus"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="BudgetHistoryNum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Long"
+    ColumnType="NUMBER"
+    AliasName="BUDGET_HISTORY_NUM"
+    SQLType="FLOAT"
+    Expression="(select count(bct.budget_cust_tran_id) as budget_history_num from BUDGET_CUST_TRAN bct where bct.budget_customer_id = BudgetCustomer.BUDGET_CUSTOMER_ID AND bct.ACTION = 'APPROVED')"/>
+<ViewAttribute
+    Name="PercentAsToDateVsYearly"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="NUMERIC">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[if (BudgetAsToDate != null && YearlyBudgetAmount != null && YearlyBudgetAmount > 0) {
+return ((BudgetAsToDate / YearlyBudgetAmount) * 100);
+} else {
+return 0;
+}]]></TransientExpression>
+    <Dependencies>
+      <Item
+        Value="BudgetAsToDate"/>
+      <Item
+        Value="YearlyBudgetAmount"/>
+    </Dependencies>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.budgetsetting.BudgetCustomerView.PercentAsToDateVsYearly_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.budgetsetting.BudgetCustomerView.PercentAsToDateVsYearly_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>  
+<ViewAttribute
+    Name="BudgetApprovalNum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Long"
+    ColumnType="VARCHAR2"
+    AliasName="BUDGET_APPROVAL_NUM"
+    SQLType="FLOAT"
+    Precision="255"
+    Expression="(select count(bct.budget_cust_tran_id) as budget_history_num from BUDGET_CUST_TRAN bct where bct.budget_customer_id = BudgetCustomer.BUDGET_CUSTOMER_ID and bct.ACTION = 'SUBMIT')"/>
   <ViewLinkAccessor
     Name="BudgetCustTranView"
     ViewLink="app.fpp.model.views.budgetsetting.BudgetCustTranBudgetCustomerFk1Link"
@@ -522,6 +658,11 @@ return YearlyBudgetAmount - YearlyBudgetUsed;
   <ViewLinkAccessor
     Name="BudgetCustTranHistoryView"
     ViewLink="app.fpp.model.views.budgetsetting.BudgetCustTranHistoryBudgetCustomerFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="BudgetCustTranApproval"
+    ViewLink="app.fpp.model.views.budgetsetting.BudgetCustTranApprovalBudgetCustomerFk1Link"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <ResourceBundle>

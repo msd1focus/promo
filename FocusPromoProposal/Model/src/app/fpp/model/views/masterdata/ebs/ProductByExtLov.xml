@@ -68,7 +68,7 @@
   </Variable>
   <SQLQuery>
     <![CDATA[SELECT FcsViewItemMasterCategory.SET_EXT, 
-       FcsViewItemMasterCategory.SET_EXT_DESC, 
+       NVL(FcsViewItemMasterCategory.SET_EXT_DESC, FcsViewItemMasterCategory.SET_EXT) AS SET_EXT_DESC, 
        FcsViewItemMasterCategory.SET_BRAND, 
        (FcsViewItemMasterCategory.SET_EXT || ' ' || FcsViewItemMasterCategory.SET_EXT_DESC) AS EXT_SEARCH
 FROM APPS.FCS_VIEW_ITEM_MASTER_CATEGORY FcsViewItemMasterCategory

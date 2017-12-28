@@ -18,8 +18,8 @@
        PromoProduk.AMOUNT_PROMO, 
        PromoProduk.EST_BUDGET_PROP, 
        PromoProduk.REG_CUST_FLAG, 
-       (SELECT LISTAGG(PVAR.SET_VARIANT_DESC, ', ') WITHIN GROUP (ORDER BY PVAR.SET_VARIANT_DESC)  FROM (SELECT PV.PROMO_PRODUK_ID, IMC.SET_VARIANT_DESC FROM PRODUK_VARIANT PV, APPS.FCS_VIEW_ITEM_MASTER_CATEGORY IMC  WHERE IMC.SET_VARIANT = PV.PROD_VARIANT GROUP BY PV.PROMO_PRODUK_ID, IMC.SET_VARIANT_DESC) PVAR WHERE PVAR.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID  GROUP BY PVAR.PROMO_PRODUK_ID) AS PRODUCT_VARIANT, 
-       (SELECT LISTAGG(PITEM.ITEM_DESCRIPTION, ', ') WITHIN GROUP (ORDER BY PITEM.ITEM_DESCRIPTION)   FROM (SELECT PI.PROMO_PRODUK_ID, IMC.ITEM_DESCRIPTION FROM PRODUK_ITEM PI, APPS.FCS_VIEW_ITEM_MASTER_CATEGORY IMC  WHERE IMC.ITEM = PI.PROD_ITEM GROUP BY PI.PROMO_PRODUK_ID, IMC.ITEM_DESCRIPTION) PITEM  WHERE PITEM.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID  GROUP BY PITEM.PROMO_PRODUK_ID) AS PRODUCT_ITEM, 
+       (SELECT RTRIM(dbms_lob.substr(REPLACE(          REPLACE(            XMLAGG(              XMLELEMENT(&quot;A&quot;,PVAR.SET_VARIANT_DESC)            ORDER BY 1).getClobVal(),          '&lt;A>',''),        '&lt;/A>',','), 1995, 1 ), ',')  FROM (SELECT PV.PROMO_PRODUK_ID, IMC.SET_VARIANT_DESC FROM PRODUK_VARIANT PV, APPS.FCS_VIEW_ITEM_MASTER_CATEGORY IMC  WHERE IMC.SET_VARIANT = PV.PROD_VARIANT GROUP BY PV.PROMO_PRODUK_ID, IMC.SET_VARIANT_DESC) PVAR WHERE PVAR.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID  GROUP BY PVAR.PROMO_PRODUK_ID) AS PRODUCT_VARIANT, 
+       (SELECT RTRIM(dbms_lob.substr(REPLACE(          REPLACE(            XMLAGG(              XMLELEMENT(&quot;A&quot;,PITEM.ITEM_DESCRIPTION)            ORDER BY 1).getClobVal(),          '&lt;A>',''),        '&lt;/A>',','), 1995, 1 ), ',')    FROM (SELECT PI.PROMO_PRODUK_ID, IMC.ITEM_DESCRIPTION FROM PRODUK_ITEM PI, APPS.FCS_VIEW_ITEM_MASTER_CATEGORY IMC  WHERE IMC.ITEM = PI.PROD_ITEM GROUP BY PI.PROMO_PRODUK_ID, IMC.ITEM_DESCRIPTION) PITEM  WHERE PITEM.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID  GROUP BY PITEM.PROMO_PRODUK_ID) AS PRODUCT_ITEM, 
        (SELECT SUM(NVL(DIS.DISC_NON_YEARLY,0)) AS NON_YEARLY FROM TARGET TR, DISCOUNT DIS  WHERE TR.PROMO_PRODUK_ID = DIS.PROMO_PRODUK_ID AND TR.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID) AS DISC_NON_YEARLY, 
        (SELECT SUM(NVL(DIS.DISC_YEARLY,0)) AS YEARLY FROM TARGET TR, DISCOUNT DIS  WHERE TR.PROMO_PRODUK_ID = DIS.PROMO_PRODUK_ID AND TR.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID) AS DISC_YEARLY, 
        (SELECT SUM((((NVL(DIS.DISC_NON_YEARLY,0))/NVL(TR.VALUE,1))*100)) AS RASIO_NON_YEARLY FROM TARGET TR, DISCOUNT DIS  WHERE TR.PROMO_PRODUK_ID = DIS.PROMO_PRODUK_ID AND TR.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID) AS DISC_RASIO_NON_YEARLY, 
@@ -41,9 +41,25 @@
        PromoProduk.ITEM_EXPENSE, 
        PromoProduk.KODE_POSTING_MF, 
        PromoProduk.EXCL_CUST_BY, 
-       (SELECT 'APP_CUST_EXCL_' || PromoProduk.REG_CUST_FLAG FROM DUAL) AS EXCL_CUST_LOV_PARAM, 
-       (SELECT LISTAGG(PV.PROD_VARIANT, ',') WITHIN GROUP (ORDER BY PV.PROD_VARIANT) FROM PRODUK_VARIANT PV WHERE PV.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID GROUP BY PV.PROMO_PRODUK_ID) AS PRODUCT_VAR_CODE, 
-       (SELECT LISTAGG(PI.PROD_ITEM, ',') WITHIN GROUP (ORDER BY PI.PROD_ITEM) FROM PRODUK_ITEM PI WHERE PI.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID  GROUP BY PI.PROMO_PRODUK_ID) AS PRODUCT_ITEM_CODE"
+       (SELECT CASE WHEN PR.USER_TYPE_CREATOR = 'HO' THEN 'APP_CUST_EXCL_' || PD.REG_CUST_FLAG WHEN PR.USER_TYPE_CREATOR = 'AREA' THEN 'APP_CUST_EXCL_' || PR.CUST_REG_FLAG ELSE '' END FROM PROPOSAL PR, PROMO_PRODUK PD WHERE PD.PROPOSAL_ID = PR.PROPOSAL_ID AND PD.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID) AS EXCL_CUST_LOV_PARAM, 
+       (SELECT RTRIM(dbms_lob.substr(REPLACE(          REPLACE(            XMLAGG(              XMLELEMENT(&quot;A&quot;,PV.PROD_VARIANT)            ORDER BY 1).getClobVal(),          '&lt;A>',''),        '&lt;/A>',','), 1995, 1 ), ',') FROM PRODUK_VARIANT PV  WHERE PV.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID GROUP BY PV.PROMO_PRODUK_ID) AS PRODUCT_VAR_CODE, 
+       (SELECT RTRIM(dbms_lob.substr(REPLACE(          REPLACE(            XMLAGG(              XMLELEMENT(&quot;A&quot;,PI.PROD_ITEM)            ORDER BY 1).getClobVal(),          '&lt;A>',''),        '&lt;/A>',','), 1995, 1 ), ',') FROM PRODUK_ITEM PI  WHERE PI.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID GROUP BY PI.PROMO_PRODUK_ID) AS PRODUCT_ITEM_CODE, 
+       PromoProduk.DISC_MF, 
+       PromoProduk.DISC_ON_TOP, 
+       PromoProduk.DISC_RASIO_MF, 
+       PromoProduk.DISC_RASIO_ON_TOP, 
+       PromoProduk.DISC_RASIO_TOTAL AS DISC_RASIO_TOTAL1, 
+       (SELECT UCP.USER_CUSTOMER FROM FCS_USER_CUST_PRIV UCP, PROPOSAL PROP WHERE UCP.USER_NAME = PROP.CREATED_BY AND PROP.PROPOSAL_ID = PromoProduk.PROPOSAL_ID) AS USER_CUSTOMER, 
+       PromoProduk.BRG_BONUS_MF, 
+       PromoProduk.BRG_BONUS_ON_TOP, 
+       PromoProduk.BRG_BONUS_RASIO_MF, 
+       PromoProduk.BRG_BONUS_RASIO_ON_TOP, 
+       PromoProduk.BRG_BONUS_RASIO_TOTAL, 
+       PromoProduk.BIA_MF, 
+       PromoProduk.BIA_ONTOP, 
+       PromoProduk.BIA_RASIO_MF, 
+       PromoProduk.BIA_RASIO_TOTAL, 
+       PromoProduk.BIA_RASION_ONTOP"
   FromList="PROMO_PRODUK PromoProduk"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -169,6 +185,60 @@
     <ParameterMap>
       <PIMap Variable="luTitle">
         <TransientExpression><![CDATA[ExclCustLovParam]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CustByRegionLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_PROD_USR_REGION']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CustByAreaLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_PROD_USR_AREA']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CustByLocLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_PROD_USR_LOC']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CustByCustGroupLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_PROD_USR_CUSTGROUP']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CustByCustomerLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_PROD_USR_CUST']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CustByInvalidLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_PROD_USR_INVALID']]></TransientExpression>
       </PIMap>
     </ParameterMap>
   </ViewAccessor>
@@ -396,6 +466,120 @@
     <DisplayCriteria
       Hint="hide"/>
   </ListBinding>
+  <ListBinding
+    Name="LOV_CustByRegion"
+    ListVOName="CustByRegionLov"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="RegCustFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CustByArea"
+    ListVOName="CustByAreaLov"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="RegCustFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CustByLoc"
+    ListVOName="CustByLocLov"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="RegCustFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CustByCustGroup"
+    ListVOName="CustByCustGroupLov"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="RegCustFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CustByCustomer"
+    ListVOName="CustByCustomerLov"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="RegCustFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CustByInvalid"
+    ListVOName="CustByInvalidLov"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="RegCustFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
   <EntityUsage
     Name="PromoProduk"
     Entity="app.fpp.model.entities.promoproposal.PromoProduk"/>
@@ -570,14 +754,14 @@
     EntityAttrName="RegCustFlag"
     EntityUsage="PromoProduk"
     AliasName="REG_CUST_FLAG"
-    LOVName="LOV_RegCustFlag"
-    DefaultValue="REGION">
+    LOVName="LOV_CustByInvalid"
+    LOVFinder="RegCustFlagSwitcher">
     <Properties>
       <SchemaBasedProperties>
-        <CONTROLTYPE
-          Value="input_text_lov"/>
         <AUTOSUBMIT
           Value="true"/>
+        <CONTROLTYPE
+          Value="input_text_lov"/>
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>
@@ -622,18 +806,18 @@
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PRODUCT_VARIANT"
-    Expression="SELECT LISTAGG(PVAR.SET_VARIANT_DESC, ', ') WITHIN GROUP (ORDER BY PVAR.SET_VARIANT_DESC)  FROM (SELECT PV.PROMO_PRODUK_ID, IMC.SET_VARIANT_DESC FROM PRODUK_VARIANT PV, APPS.FCS_VIEW_ITEM_MASTER_CATEGORY IMC  WHERE IMC.SET_VARIANT = PV.PROD_VARIANT GROUP BY PV.PROMO_PRODUK_ID, IMC.SET_VARIANT_DESC) PVAR WHERE PVAR.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID  GROUP BY PVAR.PROMO_PRODUK_ID"
+    Expression="SELECT RTRIM(dbms_lob.substr(REPLACE(          REPLACE(            XMLAGG(              XMLELEMENT(&quot;A&quot;,PVAR.SET_VARIANT_DESC)            ORDER BY 1).getClobVal(),          '&lt;A>',''),        '&lt;/A>',','), 1995, 1 ), ',')  FROM (SELECT PV.PROMO_PRODUK_ID, IMC.SET_VARIANT_DESC FROM PRODUK_VARIANT PV, APPS.FCS_VIEW_ITEM_MASTER_CATEGORY IMC  WHERE IMC.SET_VARIANT = PV.PROD_VARIANT GROUP BY PV.PROMO_PRODUK_ID, IMC.SET_VARIANT_DESC) PVAR WHERE PVAR.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID  GROUP BY PVAR.PROMO_PRODUK_ID"
     SQLType="VARCHAR"/>
   <ViewAttribute
     Name="ProductItem"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Precision="255"
+    Precision="2000"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PRODUCT_ITEM"
-    Expression="SELECT LISTAGG(PITEM.ITEM_DESCRIPTION, ', ') WITHIN GROUP (ORDER BY PITEM.ITEM_DESCRIPTION)   FROM (SELECT PI.PROMO_PRODUK_ID, IMC.ITEM_DESCRIPTION FROM PRODUK_ITEM PI, APPS.FCS_VIEW_ITEM_MASTER_CATEGORY IMC  WHERE IMC.ITEM = PI.PROD_ITEM GROUP BY PI.PROMO_PRODUK_ID, IMC.ITEM_DESCRIPTION) PITEM  WHERE PITEM.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID  GROUP BY PITEM.PROMO_PRODUK_ID"
+    Expression="SELECT RTRIM(dbms_lob.substr(REPLACE(          REPLACE(            XMLAGG(              XMLELEMENT(&quot;A&quot;,PITEM.ITEM_DESCRIPTION)            ORDER BY 1).getClobVal(),          '&lt;A>',''),        '&lt;/A>',','), 1995, 1 ), ',')    FROM (SELECT PI.PROMO_PRODUK_ID, IMC.ITEM_DESCRIPTION FROM PRODUK_ITEM PI, APPS.FCS_VIEW_ITEM_MASTER_CATEGORY IMC  WHERE IMC.ITEM = PI.PROD_ITEM GROUP BY PI.PROMO_PRODUK_ID, IMC.ITEM_DESCRIPTION) PITEM  WHERE PITEM.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID  GROUP BY PITEM.PROMO_PRODUK_ID"
     SQLType="VARCHAR">
     <Properties>
       <SchemaBasedProperties>
@@ -828,7 +1012,7 @@
         <FMT_FORMAT
           ResId="app.fpp.model.views.promoproposal.PromoProdukView.BarangBonusRasioNonYearly_FMT_FORMAT"/>
         <LABEL
-          ResId="POTONGAN_NON_YEARLY_BUDGET__ON"/>
+          ResId="RASIO_TDK_POTONG_BUDGET__ON_TO"/>
         <DISPLAYWIDTH
           Value="40"/>
       </SchemaBasedProperties>
@@ -851,7 +1035,7 @@
         <FMT_FORMAT
           ResId="app.fpp.model.views.promoproposal.PromoProdukView.BarangBonusRasioYearly_FMT_FORMAT"/>
         <LABEL
-          ResId="RASIO_YEARLY_BUDGET__MF"/>
+          ResId="RASIO_POTONG_BUDGET__MF"/>
         <DISPLAYWIDTH
           Value="40"/>
       </SchemaBasedProperties>
@@ -882,7 +1066,6 @@
   </ViewAttribute>
   <ViewAttribute
     Name="BiayaNonYearly"
-    IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
     Type="oracle.jbo.domain.Number"
@@ -905,7 +1088,6 @@
   </ViewAttribute>
   <ViewAttribute
     Name="BiayaYearly"
-    IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
     Type="oracle.jbo.domain.Number"
@@ -943,7 +1125,7 @@
         <FMT_FORMAT
           ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiayaRasioNonYearly_FMT_FORMAT"/>
         <LABEL
-          ResId="POTONGAN_NON_YEARLY_BUDGET__ON"/>
+          ResId="RASIO_TDK_POTONG_BUDGET__ON_TO"/>
         <DISPLAYWIDTH
           Value="40"/>
       </SchemaBasedProperties>
@@ -966,7 +1148,7 @@
         <FMT_FORMAT
           ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiayaRasioYearly_FMT_FORMAT"/>
         <LABEL
-          ResId="RASIO_YEARLY_BUDGET__MF"/>
+          ResId="RASIO_POTONG_BUDGET__MF"/>
         <DISPLAYWIDTH
           Value="40"/>
       </SchemaBasedProperties>
@@ -1152,7 +1334,7 @@
     AliasName="EXCL_CUST_LOV_PARAM"
     SQLType="VARCHAR"
     Precision="255"
-    Expression="SELECT 'APP_CUST_EXCL_' || PromoProduk.REG_CUST_FLAG FROM DUAL"/>
+    Expression="SELECT CASE WHEN PR.USER_TYPE_CREATOR = 'HO' THEN 'APP_CUST_EXCL_' || PD.REG_CUST_FLAG WHEN PR.USER_TYPE_CREATOR = 'AREA' THEN 'APP_CUST_EXCL_' || PR.CUST_REG_FLAG ELSE '' END FROM PROPOSAL PR, PROMO_PRODUK PD WHERE PD.PROPOSAL_ID = PR.PROPOSAL_ID AND PD.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID"/>
   <ViewAttribute
     Name="ProductVarCode"
     IsUpdateable="false"
@@ -1162,8 +1344,8 @@
     ColumnType="VARCHAR2"
     AliasName="PRODUCT_VAR_CODE"
     SQLType="VARCHAR"
-    Precision="255"
-    Expression="SELECT LISTAGG(PV.PROD_VARIANT, ',') WITHIN GROUP (ORDER BY PV.PROD_VARIANT) FROM PRODUK_VARIANT PV WHERE PV.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID GROUP BY PV.PROMO_PRODUK_ID">
+    Precision="2000"
+    Expression="SELECT RTRIM(dbms_lob.substr(REPLACE(          REPLACE(            XMLAGG(              XMLELEMENT(&quot;A&quot;,PV.PROD_VARIANT)            ORDER BY 1).getClobVal(),          '&lt;A>',''),        '&lt;/A>',','), 1995, 1 ), ',') FROM PRODUK_VARIANT PV  WHERE PV.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID GROUP BY PV.PROMO_PRODUK_ID">
     <Properties>
       <SchemaBasedProperties>
         <LABEL
@@ -1180,12 +1362,280 @@
     ColumnType="VARCHAR2"
     AliasName="PRODUCT_ITEM_CODE"
     SQLType="VARCHAR"
-    Precision="255"
-    Expression="SELECT LISTAGG(PI.PROD_ITEM, ',') WITHIN GROUP (ORDER BY PI.PROD_ITEM) FROM PRODUK_ITEM PI WHERE PI.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID  GROUP BY PI.PROMO_PRODUK_ID">
+    Precision="2000"
+    Expression="SELECT RTRIM(dbms_lob.substr(REPLACE(          REPLACE(            XMLAGG(              XMLELEMENT(&quot;A&quot;,PI.PROD_ITEM)            ORDER BY 1).getClobVal(),          '&lt;A>',''),        '&lt;/A>',','), 1995, 1 ), ',') FROM PRODUK_ITEM PI  WHERE PI.PROMO_PRODUK_ID = PromoProduk.PROMO_PRODUK_ID GROUP BY PI.PROMO_PRODUK_ID">
     <Properties>
       <SchemaBasedProperties>
         <LABEL
           ResId="PROD_ITEM_CODE"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DiscMf"
+    PrecisionRule="true"
+    EntityAttrName="DiscMf"
+    EntityUsage="PromoProduk"
+    AliasName="DISC_MF">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.DiscMf_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.DiscMf_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DiscOnTop"
+    PrecisionRule="true"
+    EntityAttrName="DiscOnTop"
+    EntityUsage="PromoProduk"
+    AliasName="DISC_ON_TOP">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.DiscOnTop_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.DiscOnTop_FMT_FORMAT"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DiscRasioMf"
+    PrecisionRule="true"
+    EntityAttrName="DiscRasioMf"
+    EntityUsage="PromoProduk"
+    AliasName="DISC_RASIO_MF"/>
+  <ViewAttribute
+    Name="DiscRasioOnTop"
+    PrecisionRule="true"
+    EntityAttrName="DiscRasioOnTop"
+    EntityUsage="PromoProduk"
+    AliasName="DISC_RASIO_ON_TOP"/>
+  <ViewAttribute
+    Name="DiscRasioTotal1"
+    PrecisionRule="true"
+    EntityAttrName="DiscRasioTotal"
+    EntityUsage="PromoProduk"
+    AliasName="DISC_RASIO_TOTAL1"/>
+  <ViewAttribute
+    Name="UserCustomer"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="USER_CUSTOMER"
+    SQLType="VARCHAR"
+    Precision="255"
+    Expression="SELECT UCP.USER_CUSTOMER FROM FCS_USER_CUST_PRIV UCP, PROPOSAL PROP WHERE UCP.USER_NAME = PROP.CREATED_BY AND PROP.PROPOSAL_ID = PromoProduk.PROPOSAL_ID"/>
+  <ViewAttribute
+    Name="RegCustFlagSwitcher"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[UserCustomer =='REGION' ? 'LOV_CustByRegion' : UserCustomer =='AREA' ? 'LOV_CustByArea' : UserCustomer =='LOCATION' ? 'LOV_CustByLoc' : UserCustomer =='CUSTGROUP' ? 'LOV_CustByCustGroup' : UserCustomer =='CUSTOMER' ? 'LOV_CustByCustomer' : 'LOV_CustByInvalid']]></TransientExpression>
+    <Dependencies>
+      <Item
+        Value="UserCustomer"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BrgBonusMf"
+    PrecisionRule="true"
+    EntityAttrName="BrgBonusMf"
+    EntityUsage="PromoProduk"
+    AliasName="BRG_BONUS_MF">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusMf_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusMf_FMT_FORMAT"/>
+        <LABEL
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusMf_LABEL"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BrgBonusOnTop"
+    PrecisionRule="true"
+    EntityAttrName="BrgBonusOnTop"
+    EntityUsage="PromoProduk"
+    AliasName="BRG_BONUS_ON_TOP">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusOnTop_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusOnTop_FMT_FORMAT"/>
+        <LABEL
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusOnTop_LABEL"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BrgBonusRasioMf"
+    PrecisionRule="true"
+    EntityAttrName="BrgBonusRasioMf"
+    EntityUsage="PromoProduk"
+    AliasName="BRG_BONUS_RASIO_MF">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusRasioMf_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusRasioMf_FMT_FORMAT"/>
+        <LABEL
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusRasioMf_LABEL"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BrgBonusRasioOnTop"
+    PrecisionRule="true"
+    EntityAttrName="BrgBonusRasioOnTop"
+    EntityUsage="PromoProduk"
+    AliasName="BRG_BONUS_RASIO_ON_TOP">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusRasioOnTop_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusRasioOnTop_FMT_FORMAT"/>
+        <LABEL
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusRasioOnTop_LABEL"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BrgBonusRasioTotal"
+    PrecisionRule="true"
+    EntityAttrName="BrgBonusRasioTotal"
+    EntityUsage="PromoProduk"
+    AliasName="BRG_BONUS_RASIO_TOTAL">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusRasioTotal_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusRasioTotal_FMT_FORMAT"/>
+        <LABEL
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusRasioTotal_LABEL"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BiaMf"
+    PrecisionRule="true"
+    EntityAttrName="BiaMf"
+    EntityUsage="PromoProduk"
+    AliasName="BIA_MF">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiaMf_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiaMf_FMT_FORMAT"/>
+        <LABEL
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BrgBonusMf_LABEL"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BiaOntop"
+    PrecisionRule="true"
+    EntityAttrName="BiaOntop"
+    EntityUsage="PromoProduk"
+    AliasName="BIA_ONTOP">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiaOntop_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiaOntop_FMT_FORMAT"/>
+        <LABEL
+          ResId="TOTAL_NON_YEARLY_BUDGET__ON_TO"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BiaRasioMf"
+    PrecisionRule="true"
+    EntityAttrName="BiaRasioMf"
+    EntityUsage="PromoProduk"
+    AliasName="BIA_RASIO_MF">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiaRasioMf_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiaRasioMf_FMT_FORMAT"/>
+        <LABEL
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiaRasioMf_LABEL"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BiaRasioTotal"
+    PrecisionRule="true"
+    EntityAttrName="BiaRasioTotal"
+    EntityUsage="PromoProduk"
+    AliasName="BIA_RASIO_TOTAL">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiaRasioTotal_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiaRasioTotal_FMT_FORMAT"/>
+        <LABEL
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiaRasioTotal_LABEL"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BiaRasionOntop"
+    PrecisionRule="true"
+    EntityAttrName="BiaRasionOntop"
+    EntityUsage="PromoProduk"
+    AliasName="BIA_RASION_ONTOP">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiaRasionOntop_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiaRasionOntop_FMT_FORMAT"/>
+        <LABEL
+          ResId="app.fpp.model.views.promoproposal.PromoProdukView.BiaRasionOntop_LABEL"/>
+        <DISPLAYWIDTH
+          Value="40"/>
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>
@@ -1272,6 +1722,31 @@
   <ViewLinkAccessor
     Name="ExclCustCustView"
     ViewLink="app.fpp.model.views.promoproposal.ExclCustCustPromoProdukFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="ExclPropCustAreaView"
+    ViewLink="app.fpp.model.views.promoproposal.ExclPropCustAreaPromoProdukFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="ExclPropCustCustView"
+    ViewLink="app.fpp.model.views.promoproposal.ExclPropCustCustPromoProdukFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="ExclPropCustLocView"
+    ViewLink="app.fpp.model.views.promoproposal.ExclPropCustLocPromoProdukFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="ExclPropCustRegionView"
+    ViewLink="app.fpp.model.views.promoproposal.ExclPropCustRegionPromoProdukFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="RealisasiItemPaketView"
+    ViewLink="app.fpp.model.views.confirmation.RealisasiItemPaketPromoProdukFk1Link"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <LOVUIHints

@@ -13,7 +13,7 @@
   UseGlueCode="false"
   RowClass="app.fpp.model.entities.promoproposal.PromoProdukImpl">
   <DesignTime>
-    <Attr Name="_codeGenFlag2" Value="Init|Access"/>
+    <Attr Name="_codeGenFlag2" Value="Init|Delete|Access"/>
     <AttrArray Name="_publishEvents"/>
     <Attr Name="_isCodegen" Value="true"/>
   </DesignTime>
@@ -364,6 +364,233 @@
       </SchemaBasedProperties>
     </Properties>
   </Attribute>
+  <Attribute
+    Name="DiscMf"
+    Precision="18"
+    Scale="2"
+    ColumnName="DISC_MF"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="POTONGAN_YEARLY_BUDGET__MF"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="DiscOnTop"
+    Precision="18"
+    Scale="2"
+    ColumnName="DISC_ON_TOP"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="POTONGAN_NON_YEARLY_BUDGET__ON"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="DiscRasioMf"
+    Precision="18"
+    Scale="2"
+    ColumnName="DISC_RASIO_MF"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="RASIO_POTONG_BUDGET__MF"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="DiscRasioOnTop"
+    Precision="18"
+    Scale="2"
+    ColumnName="DISC_RASIO_ON_TOP"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="RASIO_POTONG_BUDGET__ON_TOP"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="DiscRasioTotal"
+    Precision="18"
+    Scale="2"
+    ColumnName="DISC_RASIO_TOTAL"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="RASIO_TOTAL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="BrgBonusMf"
+    Precision="18"
+    Scale="2"
+    ColumnName="BRG_BONUS_MF"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BrgBonusOnTop"
+    Precision="18"
+    Scale="2"
+    ColumnName="BRG_BONUS_ON_TOP"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BrgBonusRasioMf"
+    Precision="18"
+    Scale="2"
+    ColumnName="BRG_BONUS_RASIO_MF"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BrgBonusRasioOnTop"
+    Precision="18"
+    Scale="2"
+    ColumnName="BRG_BONUS_RASIO_ON_TOP"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BrgBonusRasioTotal"
+    Precision="18"
+    Scale="2"
+    ColumnName="BRG_BONUS_RASIO_TOTAL"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BiaMf"
+    Precision="18"
+    Scale="2"
+    ColumnName="BIA_MF"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BiaOntop"
+    Precision="18"
+    Scale="2"
+    ColumnName="BIA_ONTOP"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BiaRasionOntop"
+    Precision="18"
+    Scale="2"
+    ColumnName="BIA_RASION_ONTOP"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BiaRasioMf"
+    Precision="18"
+    Scale="2"
+    ColumnName="BIA_RASIO_MF"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BiaRasioTotal"
+    Precision="18"
+    Scale="2"
+    ColumnName="BIA_RASIO_TOTAL"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_PRODUK">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="Discount"
     Association="app.fpp.model.entities.promoproposal.DiscountPromoProdukFk1Assoc"
@@ -481,6 +708,41 @@
     Association="app.fpp.model.entities.promoproposal.ExclCustCustPromoProdukFk1Assoc"
     AssociationEnd="app.fpp.model.entities.promoproposal.ExclCustCustPromoProdukFk1Assoc.ExclCustCust"
     AssociationOtherEnd="app.fpp.model.entities.promoproposal.ExclCustCustPromoProdukFk1Assoc.PromoProduk"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="ExclPropCustArea"
+    Association="app.fpp.model.entities.promoproposal.ExclPropCustAreaPromoProdukFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.promoproposal.ExclPropCustAreaPromoProdukFk1Assoc.ExclPropCustArea"
+    AssociationOtherEnd="app.fpp.model.entities.promoproposal.ExclPropCustAreaPromoProdukFk1Assoc.PromoProduk"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="ExclPropCustRegion"
+    Association="app.fpp.model.entities.promoproposal.ExclPropCustRegionPromoProdukFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.promoproposal.ExclPropCustRegionPromoProdukFk1Assoc.ExclPropCustRegion"
+    AssociationOtherEnd="app.fpp.model.entities.promoproposal.ExclPropCustRegionPromoProdukFk1Assoc.PromoProduk"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="ExclPropCustLoc"
+    Association="app.fpp.model.entities.promoproposal.ExclPropCustLocPromoProdukFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.promoproposal.ExclPropCustLocPromoProdukFk1Assoc.ExclPropCustLoc"
+    AssociationOtherEnd="app.fpp.model.entities.promoproposal.ExclPropCustLocPromoProdukFk1Assoc.PromoProduk"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="ExclPropCustCust"
+    Association="app.fpp.model.entities.promoproposal.ExclPropCustCustPromoProdukFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.promoproposal.ExclPropCustCustPromoProdukFk1Assoc.ExclPropCustCust"
+    AssociationOtherEnd="app.fpp.model.entities.promoproposal.ExclPropCustCustPromoProdukFk1Assoc.PromoProduk"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="RealisasiItemPaket"
+    Association="app.fpp.model.entities.confirmation.RealisasiItemPaketPromoProdukFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.confirmation.RealisasiItemPaketPromoProdukFk1Assoc.RealisasiItemPaket"
+    AssociationOtherEnd="app.fpp.model.entities.confirmation.RealisasiItemPaketPromoProdukFk1Assoc.PromoProduk"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <Key

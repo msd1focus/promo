@@ -9,7 +9,7 @@
       <ID class="oracle.javatools.db.IdentifierBasedID">
         <identifier class="java.lang.String">00911e0a-ea34-4d61-91d6-f536357d345a</identifier>
       </ID>
-      <name>PROPOSAL_ID</name>
+      <name>PROMO_PRODUK_ID</name>
       <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
         <ID class="oracle.javatools.db.IdentifierBasedID">
           <identifier class="java.lang.String">f2fbc7ac-2ca1-4a8a-aeff-e261269dafb0</identifier>
@@ -51,12 +51,12 @@
   <constraints>
     <constraint class="oracle.javatools.db.FKConstraint">
       <ID class="oracle.javatools.db.IdentifierBasedID">
-        <identifier class="java.lang.String">335ce0f0-5062-4017-8e77-7ba820757252</identifier>
+        <identifier class="java.lang.String">fc41869a-2d6b-4177-b72e-ba0c35991ad8</identifier>
       </ID>
-      <name>EXCL_PROP_CUST_LOC_PROPOS_FK1</name>
+      <name>EXCL_PROP_CUST_LOC_PROMO__FK1</name>
       <columnIDs>
         <columnID class="oracle.javatools.db.IdentifierBasedID">
-          <name>PROPOSAL_ID</name>
+          <name>PROMO_PRODUK_ID</name>
           <identifier class="java.lang.String">00911e0a-ea34-4d61-91d6-f536357d345a</identifier>
           <parent class="oracle.javatools.db.IdentifierBasedID">
             <name>EXCL_PROP_CUST_LOC</name>
@@ -64,18 +64,17 @@
             <schemaName>FOCUSPP</schemaName>
             <type>TABLE</type>
           </parent>
-          <schemaName>FOCUSPP</schemaName>
           <type>COLUMN</type>
         </columnID>
       </columnIDs>
       <deleteMode>1</deleteMode>
       <enabled>true</enabled>
       <referenceID class="oracle.javatools.db.IdentifierBasedID">
-        <name>PROPOSAL_PK</name>
-        <identifier class="java.lang.String">4436f162-9231-4bcc-9dce-fd6664f51946</identifier>
+        <name>PROMO_PRODUK_PK</name>
+        <identifier class="java.lang.String">268c8d2f-d7c7-4f94-b0d7-81fe180a264d</identifier>
         <parent class="oracle.javatools.db.IdentifierBasedID">
-          <name>PROPOSAL</name>
-          <identifier class="java.lang.String">9e228503-a2ab-4c7b-8bee-51418dedb377</identifier>
+          <name>PROMO_PRODUK</name>
+          <identifier class="java.lang.String">f7f1884e-1801-494b-b14b-e1870da93229</identifier>
           <schemaName>FOCUSPP</schemaName>
           <type>TABLE</type>
         </parent>
@@ -97,7 +96,6 @@
             <schemaName>FOCUSPP</schemaName>
             <type>TABLE</type>
           </parent>
-          <schemaName>FOCUSPP</schemaName>
           <type>COLUMN</type>
         </columnID>
         <columnID class="oracle.javatools.db.IdentifierBasedID">
@@ -109,7 +107,6 @@
             <schemaName>FOCUSPP</schemaName>
             <type>TABLE</type>
           </parent>
-          <schemaName>FOCUSPP</schemaName>
           <type>COLUMN</type>
         </columnID>
       </columnIDs>

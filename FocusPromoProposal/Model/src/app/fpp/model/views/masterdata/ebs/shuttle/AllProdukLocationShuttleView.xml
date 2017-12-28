@@ -13,7 +13,10 @@
   SelectList="FcsShuttleLocation.LOC_CODE, 
        FcsShuttleLocation.LOC_LABEL"
   FromList="FCS_SHUTTLE_LOCATION FcsShuttleLocation"
-  Where="FcsShuttleLocation.USER_NAME = :userName">
+  Where="FcsShuttleLocation.USER_NAME = :userName
+GROUP BY FcsShuttleLocation.LOC_CODE, 
+       FcsShuttleLocation.LOC_LABEL"
+  OrderBy="FcsShuttleLocation.LOC_LABEL">
   <Properties>
     <SchemaBasedProperties>
       <LABEL

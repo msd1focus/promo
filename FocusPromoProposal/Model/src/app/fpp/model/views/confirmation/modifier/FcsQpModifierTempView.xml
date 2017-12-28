@@ -52,7 +52,8 @@
        FcsQpModifierTemp.ROWID, 
        FcsQpModifierTemp.BUCKET, 
        FcsQpModifierTemp.LIST_HEADER_ID, 
-       FcsQpModifierTemp.LINE_NO"
+       FcsQpModifierTemp.LINE_NO, 
+       FcsQpModifierTemp.ATTRIBUTE2"
   FromList="APPS.FCS_QP_MODIFIER_TEMP FcsQpModifierTemp"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -350,4 +351,10 @@
     EntityAttrName="LineNo"
     EntityUsage="FcsQpModifierTemp"
     AliasName="LINE_NO"/>
+  <ViewAttribute
+    Name="Attribute2"
+    PrecisionRule="true"
+    EntityAttrName="Attribute2"
+    EntityUsage="FcsQpModifierTemp"
+    AliasName="ATTRIBUTE2"/>
 </ViewObject>

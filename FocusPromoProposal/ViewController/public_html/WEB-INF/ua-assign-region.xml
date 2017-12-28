@@ -16,7 +16,7 @@
     </input-parameter-definition>
     <managed-bean id="__7">
       <managed-bean-name id="__9">AssignRegionUserBackingBean</managed-bean-name>
-      <managed-bean-class id="__6">app.fpp.bean.AssignRegionUserBackingBean</managed-bean-class>
+      <managed-bean-class id="__6">app.fpp.bean.useraccess.AssignRegionUserBackingBean</managed-bean-class>
       <managed-bean-scope id="__8">backingBean</managed-bean-scope>
     </managed-bean>
     <view id="assignRegion">

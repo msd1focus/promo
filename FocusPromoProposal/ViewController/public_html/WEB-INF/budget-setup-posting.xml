@@ -4,7 +4,7 @@
     <default-activity id="__1">bsPosting</default-activity>
     <managed-bean id="__5">
       <managed-bean-name id="__3">BudgetPostingBean</managed-bean-name>
-      <managed-bean-class id="__2">app.fpp.bean.settingbudget.BudgetPostingBean</managed-bean-class>
+      <managed-bean-class id="__2">app.fpp.bean.budgetsetting.BudgetPostingBean</managed-bean-class>
       <managed-bean-scope id="__4">request</managed-bean-scope>
     </managed-bean>
     <view id="bsPosting">

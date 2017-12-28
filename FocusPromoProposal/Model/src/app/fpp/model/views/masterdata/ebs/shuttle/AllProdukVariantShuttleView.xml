@@ -77,7 +77,7 @@
   </Variable>
   <SQLQuery>
     <![CDATA[SELECT FcsViewItemMasterCategory.SET_VARIANT, 
-       FcsViewItemMasterCategory.SET_VARIANT_DESC, 
+       NVL(FcsViewItemMasterCategory.SET_VARIANT_DESC, FcsViewItemMasterCategory.SET_VARIANT) AS SET_VARIANT_DESC, 
        FcsViewItemMasterCategory.SET_PACKAGING
 FROM APPS.FCS_VIEW_ITEM_MASTER_CATEGORY FcsViewItemMasterCategory
 WHERE FcsViewItemMasterCategory.SET_CATEGORY = :setCategory
@@ -85,6 +85,7 @@ AND FcsViewItemMasterCategory.SET_CLASS = :setClass
 AND FcsViewItemMasterCategory.SET_BRAND = :setBrand
 AND FcsViewItemMasterCategory.SET_EXT = :setExt
 AND FcsViewItemMasterCategory.SET_PACKAGING = :setPack
+AND FcsViewItemMasterCategory.SET_VARIANT <> (CASE WHEN FcsViewItemMasterCategory.SET_PACKAGING = 'ALL' THEN 'A' ELSE 'ALL' END)
 AND FcsViewItemMasterCategory.TYPE_TABLE = 'MASTER'
 AND FcsViewItemMasterCategory.ITEM_ID IS NULL
 GROUP BY FcsViewItemMasterCategory.SET_VARIANT, FcsViewItemMasterCategory.SET_VARIANT_DESC, FcsViewItemMasterCategory.SET_PACKAGING]]>

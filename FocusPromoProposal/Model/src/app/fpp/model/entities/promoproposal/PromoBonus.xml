@@ -280,6 +280,51 @@
       </SchemaBasedProperties>
     </Properties>
   </Attribute>
+  <Attribute
+    Name="InputPriceBy"
+    Precision="20"
+    ColumnName="INPUT_PRICE_BY"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PROMO_BONUS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="INPUT_HARGA_BY"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="PriceVal"
+    Precision="18"
+    Scale="2"
+    ColumnName="PRICE_VAL"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROMO_BONUS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.entities.promoproposal.PromoBonus.PriceVal_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.entities.promoproposal.PromoBonus.PriceVal_FMT_FORMAT"/>
+        <LABEL
+          ResId="PRICE"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
   <AccessorAttribute
     Name="PromoProduk"
     Association="app.fpp.model.entities.promoproposal.PromoBonusPromoProdukFk1Assoc"

@@ -12,11 +12,27 @@ public interface ApprovalAM extends ApplicationModule {
                             String promoDtFrom, String promoDtTo,
                             String docRegion, String usrRole, String userNm,
                             String aprvlCodeRun, String idDocAprvl,
-                            String reasonDocAprvl, String usrAction);
+                            String reasonDocAprvl, String usrAction,
+                            String propDt);
 
     void rejectDocApproval(String propId, String docNo, String docStatus,
                            String promoDtFrom, String promoDtTo,
                            String docRegion, String usrRole, String userNm,
                            String aprvlCodeRun, String idDocAprvl,
-                           String reasonDocAprvl, String usrAction);
+                           String reasonDocAprvl, String usrAction,
+                           String propDt);
+
+    void forwardDocApproval(String propId, String docNo, String docStatus,
+                            String promoDtFrom, String promoDtTo,
+                            String docRegion, String usrRole, String userNm,
+                            String aprvlCodeRun, String idDocAprvl,
+                            String reasonDocAprvl, String usrAction,
+                            String propDt);
+
+    void rejectFwdDocApproval(String propId, String docNo, String docStatus,
+                              String promoDtFrom, String promoDtTo,
+                              String docRegion, String usrRole, String userNm,
+                              String aprvlCodeRun, String idDocAprvl,
+                              String reasonDocAprvl, String usrAction,
+                              String propDt);
 }

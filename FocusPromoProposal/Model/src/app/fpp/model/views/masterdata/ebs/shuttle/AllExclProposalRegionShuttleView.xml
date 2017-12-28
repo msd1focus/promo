@@ -6,20 +6,18 @@
   Name="AllExclProposalRegionShuttleView"
   Version="11.1.1.64.93"
   InheritPersonalization="true"
-  FromList="FCS_EXCL_SHUTTLE_REGION FcsExclShuttleRegion, PROPOSAL Proposal, PROP_REGION_CUST_GROUP PropRegionCustGroup"
-  Where="Proposal.PROPOSAL_ID = PropRegionCustGroup.PROPOSAL_ID
-AND FcsExclShuttleRegion.CUST_GROUP_CODE = PropRegionCustGroup.CUST_GROUP
-AND FcsExclShuttleRegion.USER_NAME = :userName
-AND Proposal.PROPOSAL_ID = :proposalId
-GROUP BY FcsExclShuttleRegion.REGION_CODE, 
-       FcsExclShuttleRegion.REGION_LABEL"
-  OrderBy="FcsExclShuttleRegion.REGION_LABEL"
+  FromList="FCS_EXCL_SHUTTLE_REGION_PROP FcsExclShuttleRegionProp"
+  OrderBy="FcsExclShuttleRegionProp.REGION_LABEL"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
-  SelectList="FcsExclShuttleRegion.REGION_CODE, 
-       FcsExclShuttleRegion.REGION_LABEL">
+  SelectList="FcsExclShuttleRegionProp.REGION_CODE, 
+       FcsExclShuttleRegionProp.REGION_LABEL"
+  Where="FcsExclShuttleRegionProp.USER_NAME = :userName
+AND FcsExclShuttleRegionProp.PROMO_PRODUK_ID = :promoProdukId
+GROUP BY FcsExclShuttleRegionProp.REGION_CODE, 
+       FcsExclShuttleRegionProp.REGION_LABEL">
   <Properties>
     <SchemaBasedProperties>
       <LABEL
@@ -31,39 +29,12 @@ GROUP BY FcsExclShuttleRegion.REGION_CODE,
     Kind="where"
     Type="java.lang.String"/>
   <Variable
-    Name="proposalId"
+    Name="promoProdukId"
     Kind="where"
     Type="java.lang.String"/>
   <EntityUsage
-    Name="FcsExclShuttleRegion"
-    Entity="app.fpp.model.entities.masterdata.ebs.shuttle.FcsExclShuttleRegion"/>
-  <EntityUsage
-    Name="Proposal"
-    Entity="app.fpp.model.entities.promoproposal.Proposal"
-    SourceUsage="app.fpp.model.views.masterdata.ebs.shuttle.AllExclProposalRegionShuttleView.FcsExclShuttleRegion"
-    ReadOnly="true"
-    Reference="true"
-    DeleteParticipant="false"/>
-  <EntityUsage
-    Name="PropRegionCustGroup"
-    Entity="app.fpp.model.entities.promoproposal.PropRegionCustGroup"
-    Association="app.fpp.model.entities.promoproposal.PropRegionCustGroupProposalFk1Assoc"
-    AssociationEnd="app.fpp.model.entities.promoproposal.PropRegionCustGroupProposalFk1Assoc.PropRegionCustGroup"
-    SourceUsage="app.fpp.model.views.masterdata.ebs.shuttle.AllExclProposalRegionShuttleView.Proposal"
-    ReadOnly="true"
-    Reference="true"
-    DeleteParticipant="false"
-    JoinType="INNER JOIN">
-    <DesignTime>
-      <AttrArray Name="_srcAttributes">
-        <Item Value="app.fpp.model.entities.promoproposal.Proposal.ProposalId"/>
-      </AttrArray>
-      <AttrArray Name="_dstAttributes">
-        <Item
-          Value="app.fpp.model.entities.promoproposal.PropRegionCustGroup.ProposalId"/>
-      </AttrArray>
-    </DesignTime>
-  </EntityUsage>
+    Name="FcsExclShuttleRegionProp"
+    Entity="app.fpp.model.entities.masterdata.ebs.shuttle.FcsExclShuttleRegionProp"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="app.fpp.model.ModelBundle"/>
@@ -73,12 +44,12 @@ GROUP BY FcsExclShuttleRegion.REGION_CODE,
     IsNotNull="true"
     PrecisionRule="true"
     EntityAttrName="RegionCode"
-    EntityUsage="FcsExclShuttleRegion"
+    EntityUsage="FcsExclShuttleRegionProp"
     AliasName="REGION_CODE"/>
   <ViewAttribute
     Name="RegionLabel"
     PrecisionRule="true"
     EntityAttrName="RegionLabel"
-    EntityUsage="FcsExclShuttleRegion"
+    EntityUsage="FcsExclShuttleRegionProp"
     AliasName="REGION_LABEL"/>
 </ViewObject>

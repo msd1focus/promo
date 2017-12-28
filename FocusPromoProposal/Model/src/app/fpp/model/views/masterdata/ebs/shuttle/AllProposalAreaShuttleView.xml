@@ -14,7 +14,11 @@
   SelectList="FcsShuttleArea.AREA_CODE, 
        FcsShuttleArea.AREA_LABEL, 
        FcsShuttleArea.DESCRIPTION"
-  Where="FcsShuttleArea.USER_NAME = :userName">
+  Where="FcsShuttleArea.USER_NAME = :userName
+GROUP BY FcsShuttleArea.AREA_CODE, 
+       FcsShuttleArea.AREA_LABEL, 
+       FcsShuttleArea.DESCRIPTION"
+  OrderBy="FcsShuttleArea.AREA_LABEL">
   <Properties>
     <SchemaBasedProperties>
       <LABEL

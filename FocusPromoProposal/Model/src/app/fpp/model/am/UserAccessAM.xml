@@ -53,6 +53,63 @@
   <ViewUsage
     Name="AppUserAccessChangePasswordView1"
     ViewObjectName="app.fpp.model.views.useraccess.AppUserAccessChangePasswordView"/>
+  <ViewUsage
+    Name="AppUserAreaView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserAreaView"/>
+  <ViewUsage
+    Name="AppUserCustView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserCustView"/>
+  <ViewUsage
+    Name="AppUserLocView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserLocView"/>
+  <ViewUsage
+    Name="AllUserMgmtAreaShuttleView1"
+    ViewObjectName="app.fpp.model.views.masterdata.ebs.shuttle.AllUserMgmtAreaShuttleView"/>
+  <ViewUsage
+    Name="AllUserMgmtCustomerShuttleView1"
+    ViewObjectName="app.fpp.model.views.masterdata.ebs.shuttle.AllUserMgmtCustomerShuttleView"/>
+  <ViewUsage
+    Name="AllUserMgmtLocationShuttleView1"
+    ViewObjectName="app.fpp.model.views.masterdata.ebs.shuttle.AllUserMgmtLocationShuttleView"/>
+  <ViewUsage
+    Name="AllUserMgmtRegionShuttleView1"
+    ViewObjectName="app.fpp.model.views.masterdata.ebs.shuttle.AllUserMgmtRegionShuttleView"/>
+  <ViewUsage
+    Name="AppUserCustGroupView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserCustGroupView"/>
+  <ViewUsage
+    Name="AllUserMgmtCustGroupShuttleView1"
+    ViewObjectName="app.fpp.model.views.masterdata.ebs.shuttle.AllUserMgmtCustGroupShuttleView"/>
+  <ViewUsage
+    Name="AppUserRemoveAreaByRegionView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveAreaByRegionView"/>
+  <ViewUsage
+    Name="AppUserRemoveCustByRegionView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveCustByRegionView"/>
+  <ViewUsage
+    Name="AppUserRemoveCustGroupByRegionView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveCustGroupByRegionView"/>
+  <ViewUsage
+    Name="AppUserRemoveLocByRegionView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveLocByRegionView"/>
+  <ViewUsage
+    Name="AppUserRemoveCustByAreaView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveCustByAreaView"/>
+  <ViewUsage
+    Name="AppUserRemoveCustGroupByAreaView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveCustGroupByAreaView"/>
+  <ViewUsage
+    Name="AppUserRemoveLocByAreaView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveLocByAreaView"/>
+  <ViewUsage
+    Name="AppUserRemoveCustGroupByLocView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveCustGroupByLocView"/>
+  <ViewUsage
+    Name="AppUserRemoveCustByLocView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveCustByLocView"/>
+  <ViewUsage
+    Name="AppUserRemoveCustByCustGroupView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveCustByCustGroupView"/>
   <ViewLinkUsage
     Name="AppMenuItemsAppMenuFk1Link1"
     ViewLinkObjectName="app.fpp.model.views.useraccess.AppMenuItemsAppMenuFk1Link"
@@ -67,7 +124,7 @@
     Reversed="false"/>
   <ViewLinkUsage
     Name="AppUserAccessRegionFk1Link1"
-    ViewLinkObjectName="app.fpp.model.views.useraccess.AppUserAccessRegionFk1Link"
+    ViewLinkObjectName="app.fpp.model.views.useraccess.AppUserRegionUserAccessFk1Link"
     SrcViewUsageName="app.fpp.model.am.UserAccessAM.AppUserAccessView1"
     DstViewUsageName="app.fpp.model.am.UserAccessAM.AppUserRegionView1"
     Reversed="false"/>
@@ -77,10 +134,151 @@
     SrcViewUsageName="app.fpp.model.am.UserAccessAM.AppRolesView1"
     DstViewUsageName="app.fpp.model.am.UserAccessAM.AppRoleMenuItemsView1"
     Reversed="false"/>
+  <ViewLinkUsage
+    Name="AppUserAreaUserAccessFk1Link1"
+    ViewLinkObjectName="app.fpp.model.views.useraccess.AppUserAreaUserAccessFk1Link"
+    SrcViewUsageName="app.fpp.model.am.UserAccessAM.AppUserAccessView1"
+    DstViewUsageName="app.fpp.model.am.UserAccessAM.AppUserAreaView1"
+    Reversed="false"/>
+  <ViewLinkUsage
+    Name="AppUserCustUserAccessFk1Link1"
+    ViewLinkObjectName="app.fpp.model.views.useraccess.AppUserCustUserAccessFk1Link"
+    SrcViewUsageName="app.fpp.model.am.UserAccessAM.AppUserAccessView1"
+    DstViewUsageName="app.fpp.model.am.UserAccessAM.AppUserCustView1"
+    Reversed="false"/>
+  <ViewLinkUsage
+    Name="AppUserLocUserAccessFk1Link1"
+    ViewLinkObjectName="app.fpp.model.views.useraccess.AppUserLocUserAccessFk1Link"
+    SrcViewUsageName="app.fpp.model.am.UserAccessAM.AppUserAccessView1"
+    DstViewUsageName="app.fpp.model.am.UserAccessAM.AppUserLocView1"
+    Reversed="false"/>
+  <ViewLinkUsage
+    Name="AppUserCustGroupUserAccessFk1Link1"
+    ViewLinkObjectName="app.fpp.model.views.useraccess.AppUserCustGroupUserAccessFk1Link"
+    SrcViewUsageName="app.fpp.model.am.UserAccessAM.AppUserAccessView1"
+    DstViewUsageName="app.fpp.model.am.UserAccessAM.AppUserCustGroupView1"
+    Reversed="false"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="app.fpp.model.ModelBundle"/>
   </ResourceBundle>
+  <ClientInterface>
+    <Method
+      Name="changePassword">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="userId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="newPassword"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ClientInterface>
+    <Method
+      Name="changePassword">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="userId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="newPassword"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ClientInterface>
+    <Method
+      Name="changePassword">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="userId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="newPassword"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ClientInterface>
+    <Method
+      Name="changePassword">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="userId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="newPassword"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ClientInterface>
+    <Method
+      Name="changePassword">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="userId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="newPassword"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ClientInterface>
+    <Method
+      Name="changePassword">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="userId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="newPassword"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ClientInterface>
+    <Method
+      Name="changePassword">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="userId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="newPassword"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ClientInterface>
+    <Method
+      Name="changePassword">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="userId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="newPassword"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ClientInterface>
+    <Method
+      Name="changePassword">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="userId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="newPassword"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
   <ClientInterface>
     <Method
       Name="changePassword">

@@ -40,7 +40,10 @@
        Proposal.HIST_TRAN_DT_TO, 
        Proposal.HIST_TRAN_DT_FROM, 
        Proposal.HIST_REMARK, 
-       UserAccess.USER_DIVISION"
+       UserAccess.USER_DIVISION, 
+       (SELECT UCP.USER_CUSTOMER FROM FCS_USER_CUST_PRIV UCP WHERE UCP.USER_NAME = Proposal.CREATED_BY) AS USER_CUSTOMER, 
+       Proposal.CUST_REG_FLAG_LOV, 
+       Proposal.MIX_QTY_PROMO"
   FromList="PROPOSAL Proposal, APP_USER_ACCESS UserAccess"
   OrderBy="Proposal.CREATION_DATE"
   BindingStyle="OracleName"
@@ -142,11 +145,65 @@ AND Proposal.STATUS &lt;> 'CLOSED'">
     ViewObjectName="app.fpp.model.views.masterdata.lov.UserAccessLov"
     RowLevelBinds="true"/>
   <ViewAccessor
-    Name="RegionCustFlagLov"
+    Name="CustByRegionLov"
     ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
     <ParameterMap>
       <PIMap Variable="luTitle">
-        <TransientExpression><![CDATA['APP_PROP_REG_CUS_FLG']]></TransientExpression>
+        <TransientExpression><![CDATA['APP_PROP_USR_REGION']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CustByAreaLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_PROP_USR_AREA']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CustByLocLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_PROP_USR_LOC']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CustByCustGroupLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_PROP_USR_CUSTGROUP']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CustByCustomerLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_PROP_USR_CUST']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CustByInvalid"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_PROP_USR_INVALID']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="MixQtyPromoLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_MIX_QTY_PROMO_FLG']]></TransientExpression>
       </PIMap>
     </ParameterMap>
   </ViewAccessor>
@@ -154,8 +211,8 @@ AND Proposal.STATUS &lt;> 'CLOSED'">
     Name="LOV_ProposalType"
     ListVOName="ProposalTypeLov"
     ListRangeSize="-1"
-    NullValueFlag="none"
-    NullValueId="LOV_ProposalType_LOVUIHints_NullValueId"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
     MRUCount="0">
     <AttrArray Name="AttrNames">
       <Item Value="ProposalType"/>
@@ -172,8 +229,8 @@ AND Proposal.STATUS &lt;> 'CLOSED'">
     Name="LOV_DiscountType"
     ListVOName="DiscountTypeLov"
     ListRangeSize="-1"
-    NullValueFlag="none"
-    NullValueId="LOV_DiscountType_LOVUIHints_NullValueId"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
     MRUCount="0">
     <AttrArray Name="AttrNames">
       <Item Value="DiscountType"/>
@@ -262,8 +319,8 @@ AND Proposal.STATUS &lt;> 'CLOSED'">
     Name="LOV_ProgPromo"
     ListVOName="ProgramPromoLov"
     ListRangeSize="-1"
-    NullValueFlag="none"
-    NullValueId="LOV_ProgPromo_LOVUIHints_NullValueId"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
     MRUCount="0">
     <AttrArray Name="AttrNames">
       <Item Value="ProgPromo"/>
@@ -313,11 +370,11 @@ AND Proposal.STATUS &lt;> 'CLOSED'">
     <DisplayCriteria/>
   </ListBinding>
   <ListBinding
-    Name="LOV_CustRegFlag"
-    ListVOName="RegionCustFlagLov"
+    Name="LOV_CustByRegion"
+    ListVOName="CustByRegionLov"
     ListRangeSize="10"
     NullValueFlag="none"
-    NullValueId="LOV_CustRegFlag_LOVUIHints_NullValueId"
+    NullValueId="LOV_CustByRegion_LOVUIHints_NullValueId"
     MRUCount="0">
     <AttrArray Name="AttrNames">
       <Item Value="CustRegFlag"/>
@@ -330,6 +387,138 @@ AND Proposal.STATUS &lt;> 'CLOSED'">
     </AttrArray>
     <DisplayCriteria
       Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CustByArea"
+    ListVOName="CustByAreaLov"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="CustRegFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CustByLoc"
+    ListVOName="CustByLocLov"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="CustRegFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CustByCustGroup"
+    ListVOName="CustByCustGroupLov"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="CustRegFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CustByCustomer"
+    ListVOName="CustByCustomerLov"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="CustRegFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CustByInvalid"
+    ListVOName="CustByInvalid"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="CustRegFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CustRegFlag"
+    ListVOName="CustByRegionLov"
+    ListRangeSize="-1"
+    NullValueFlag="start"
+    NullValueId="${adfBundle['oracle.javatools.resourcebundle.SystemBundle']['NULL_VALUE_RESID']}"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="CustRegFlag"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_MixQtyPromo"
+    ListVOName="MixQtyPromoLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_MixQtyPromo_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="MixQtyPromo"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
   </ListBinding>
   <EntityUsage
     Name="Proposal"
@@ -362,7 +551,8 @@ AND Proposal.STATUS &lt;> 'CLOSED'">
     PrecisionRule="true"
     EntityAttrName="CompanyId"
     EntityUsage="Proposal"
-    AliasName="COMPANY_ID"/>
+    AliasName="COMPANY_ID"
+    DefaultValue="I"/>
   <ViewAttribute
     Name="ProposalDate"
     IsUpdateable="false"
@@ -386,7 +576,6 @@ AND Proposal.STATUS &lt;> 'CLOSED'">
     EntityAttrName="PeriodeProgFrom"
     EntityUsage="Proposal"
     AliasName="PERIODE_PROG_FROM">
-    <TransientExpression><![CDATA[adf.currentDate + 7]]></TransientExpression>
     <Properties>
       <SchemaBasedProperties>
         <FMT_FORMATTER
@@ -402,7 +591,6 @@ AND Proposal.STATUS &lt;> 'CLOSED'">
     EntityAttrName="PeriodeProgTo"
     EntityUsage="Proposal"
     AliasName="PERIODE_PROG_TO">
-    <TransientExpression><![CDATA[adf.currentDate	 + 30]]></TransientExpression>
     <Properties>
       <SchemaBasedProperties>
         <FMT_FORMATTER
@@ -417,7 +605,8 @@ AND Proposal.STATUS &lt;> 'CLOSED'">
     PrecisionRule="true"
     EntityAttrName="ProgDays"
     EntityUsage="Proposal"
-    AliasName="PROG_DAYS">
+    AliasName="PROG_DAYS"
+    DefaultValue="0">
     <Properties>
       <SchemaBasedProperties>
         <DISPLAYWIDTH
@@ -435,7 +624,6 @@ AND Proposal.STATUS &lt;> 'CLOSED'">
     AliasName="PROG_DAYS_COUNT"
     SQLType="NUMERIC">
     <RecalcCondition><![CDATA[true]]></RecalcCondition>
-    <TransientExpression><![CDATA[(PeriodeProgTo - PeriodeProgFrom) + 1]]></TransientExpression>
     <Dependencies>
       <Item
         Value="PeriodeProgFrom"/>
@@ -457,8 +645,7 @@ AND Proposal.STATUS &lt;> 'CLOSED'">
     PrecisionRule="true"
     EntityAttrName="ProgPromo"
     EntityUsage="Proposal"
-    AliasName="PROG_PROMO"
-    DefaultValue="POTONGANHARGA">
+    AliasName="PROG_PROMO">
     <Properties>
       <SchemaBasedProperties>
         <CONTROLTYPE
@@ -473,15 +660,6 @@ AND Proposal.STATUS &lt;> 'CLOSED'">
     EntityAttrName="ProposalType"
     EntityUsage="Proposal"
     AliasName="PROPOSAL_TYPE">
-    <TransientExpression><![CDATA[if (UserDivision == 'NONFOOD') {
-return 'NONFOOD';
-} else {
-return 'FOOD';
-}]]></TransientExpression>
-    <Dependencies>
-      <Item
-        Value="UserDivision"/>
-    </Dependencies>
     <Properties>
       <SchemaBasedProperties>
         <CONTROLTYPE
@@ -495,8 +673,7 @@ return 'FOOD';
     PrecisionRule="true"
     EntityAttrName="DiscountType"
     EntityUsage="Proposal"
-    AliasName="DISCOUNT_TYPE"
-    DefaultValue="BIAYA">
+    AliasName="DISCOUNT_TYPE">
     <Properties>
       <SchemaBasedProperties>
         <CONTROLTYPE
@@ -625,13 +802,14 @@ return 'FOOD';
     AliasName="ADDENDUM_KE"/>
   <ViewAttribute
     Name="CustRegFlag"
-    LOVName="LOV_CustRegFlag"
     IsNotNull="true"
     PrecisionRule="true"
     EntityAttrName="CustRegFlag"
     EntityUsage="Proposal"
     AliasName="CUST_REG_FLAG"
-    DefaultValue="REGION">
+    DefaultValue="REGION"
+    LOVName="LOV_CustByInvalid"
+    LOVFinder="CustRegFlagSwitcher">
     <Properties>
       <SchemaBasedProperties>
         <CONTROLTYPE
@@ -739,7 +917,6 @@ return 'FOOD';
     EntityAttrName="HistTranDtTo"
     EntityUsage="Proposal"
     AliasName="HIST_TRAN_DT_TO">
-    <TransientExpression><![CDATA[adf.currentDate + 7]]></TransientExpression>
     <Properties>
       <SchemaBasedProperties>
         <FMT_FORMATTER
@@ -759,7 +936,6 @@ return 'FOOD';
     EntityAttrName="HistTranDtFrom"
     EntityUsage="Proposal"
     AliasName="HIST_TRAN_DT_FROM">
-    <TransientExpression><![CDATA[adf.currentDate]]></TransientExpression>
     <Properties>
       <SchemaBasedProperties>
         <FMT_FORMATTER
@@ -795,6 +971,74 @@ return 'FOOD';
     EntityAttrName="UserDivision"
     EntityUsage="UserAccess"
     AliasName="USER_DIVISION"/>
+  <ViewAttribute
+    Name="UserCustomer"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="USER_CUSTOMER"
+    SQLType="VARCHAR"
+    Precision="255"
+    Expression="SELECT UCP.USER_CUSTOMER FROM FCS_USER_CUST_PRIV UCP WHERE UCP.USER_NAME = Proposal.CREATED_BY"/>
+  <ViewAttribute
+    Name="CustRegFlagSwitcher"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Precision="255">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[CustRegFlagLov =='REGION' ? 'LOV_CustByRegion' : CustRegFlagLov=='AREA' ? 'LOV_CustByArea' : CustRegFlagLov =='LOCATION' ? 'LOV_CustByLoc' : CustRegFlagLov=='CUSTGROUP' ? 'LOV_CustByCustGroup' : CustRegFlagLov =='CUSTOMER' ? 'LOV_CustByCustomer' : 'LOV_CustByInvalid']]></TransientExpression>
+    <Dependencies>
+      <Item
+        Value="CustRegFlag"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="CustRegFlagLov"
+    PrecisionRule="true"
+    EntityAttrName="CustRegFlagLov"
+    EntityUsage="Proposal"
+    AliasName="CUST_REG_FLAG_LOV"/>
+  <ViewAttribute
+    Name="MixQtyPromo"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="MixQtyPromo"
+    EntityUsage="Proposal"
+    AliasName="MIX_QTY_PROMO"
+    LOVName="LOV_MixQtyPromo">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="HistTranDtToTemp"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="VIEW_ATTR"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="HistTranDtFromTemp"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="VIEW_ATTR"
+    SQLType="DATE"/>
   <AttrArray Name="KeyAttributes">
     <Item Value="ProposalId"/>
     <Item Value="Id"/>
@@ -846,22 +1090,27 @@ return 'FOOD';
     IsUpdateable="false"/>
   <ViewLinkAccessor
     Name="ExclPropCustAreaView"
-    ViewLink="app.fpp.model.views.promoproposal.ExclPropCustAreaProposalFk1Link"
+    ViewLink="app.fpp.model.views.promoproposal.ExclPropCustAreaPromoProdukFk1Link"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <ViewLinkAccessor
     Name="ExclPropCustCustView"
-    ViewLink="app.fpp.model.views.promoproposal.ExclPropCustCustProposalFk1Link"
+    ViewLink="app.fpp.model.views.promoproposal.ExclPropCustCustPromoProdukFk1Link"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <ViewLinkAccessor
     Name="ExclPropCustLocView"
-    ViewLink="app.fpp.model.views.promoproposal.ExclPropCustLocProposalFk1Link"
+    ViewLink="app.fpp.model.views.promoproposal.ExclPropCustLocPromoProdukFk1Link"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <ViewLinkAccessor
     Name="ExclPropCustRegionView"
-    ViewLink="app.fpp.model.views.promoproposal.ExclPropCustRegionProposalFk1Link"
+    ViewLink="app.fpp.model.views.promoproposal.ExclPropCustRegionPromoProdukFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="UploadDownloadView"
+    ViewLink="app.fpp.model.views.promoproposal.UploadDownloadProposalFk1Link"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <ResourceBundle>

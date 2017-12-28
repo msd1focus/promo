@@ -6,9 +6,9 @@
   <executables>
     <variableIterator id="variables"/>
     <iterator id="AppUserRegionView1Iterator" Binds="AppUserRegionView1"
-              DataControl="UserAccessAMDataControl" RangeSize="50"/>
+              DataControl="UserAccessAMDataControl" RangeSize="-1"/>
     <iterator id="AllRegionShuttleView1Iterator" Binds="AllRegionShuttleView1"
-              DataControl="UserAccessAMDataControl" RangeSize="50"/>
+              DataControl="UserAccessAMDataControl" RangeSize="-1"/>
   </executables>
   <bindings>
     <action id="Commit" DataControl="UserAccessAMDataControl"

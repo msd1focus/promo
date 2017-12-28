@@ -5,5 +5,6 @@
    <family>focuspp-skin</family>
    <extends>skyros-v1.desktop</extends>
    <style-sheet-name>css/focuspp.css</style-sheet-name>
+   <bundle-name>app.fpp.adfextensions.SkinBundle</bundle-name>
 </skin>
 </skins>

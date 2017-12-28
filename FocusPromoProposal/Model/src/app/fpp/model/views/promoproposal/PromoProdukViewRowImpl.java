@@ -500,6 +500,176 @@ public class PromoProdukViewRowImpl extends ViewRowImpl {
             }
         }
         ,
+        DiscMf {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getDiscMf();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setDiscMf((Number)value);
+            }
+        }
+        ,
+        DiscOnTop {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getDiscOnTop();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setDiscOnTop((Number)value);
+            }
+        }
+        ,
+        DiscRasioMf {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getDiscRasioMf();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setDiscRasioMf((Number)value);
+            }
+        }
+        ,
+        DiscRasioOnTop {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getDiscRasioOnTop();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setDiscRasioOnTop((Number)value);
+            }
+        }
+        ,
+        DiscRasioTotal1 {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getDiscRasioTotal1();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setDiscRasioTotal1((Number)value);
+            }
+        }
+        ,
+        UserCustomer {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getUserCustomer();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setUserCustomer((String)value);
+            }
+        }
+        ,
+        RegCustFlagSwitcher {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getRegCustFlagSwitcher();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setRegCustFlagSwitcher((String)value);
+            }
+        }
+        ,
+        BrgBonusMf {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getBrgBonusMf();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setBrgBonusMf((Number)value);
+            }
+        }
+        ,
+        BrgBonusOnTop {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getBrgBonusOnTop();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setBrgBonusOnTop((Number)value);
+            }
+        }
+        ,
+        BrgBonusRasioMf {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getBrgBonusRasioMf();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setBrgBonusRasioMf((Number)value);
+            }
+        }
+        ,
+        BrgBonusRasioOnTop {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getBrgBonusRasioOnTop();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setBrgBonusRasioOnTop((Number)value);
+            }
+        }
+        ,
+        BrgBonusRasioTotal {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getBrgBonusRasioTotal();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setBrgBonusRasioTotal((Number)value);
+            }
+        }
+        ,
+        BiaMf {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getBiaMf();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setBiaMf((Number)value);
+            }
+        }
+        ,
+        BiaOntop {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getBiaOntop();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setBiaOntop((Number)value);
+            }
+        }
+        ,
+        BiaRasioMf {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getBiaRasioMf();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setBiaRasioMf((Number)value);
+            }
+        }
+        ,
+        BiaRasioTotal {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getBiaRasioTotal();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setBiaRasioTotal((Number)value);
+            }
+        }
+        ,
+        BiaRasionOntop {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getBiaRasionOntop();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setBiaRasionOntop((Number)value);
+            }
+        }
+        ,
         DiscountView {
             public Object get(PromoProdukViewRowImpl obj) {
                 return obj.getDiscountView();
@@ -670,6 +840,56 @@ public class PromoProdukViewRowImpl extends ViewRowImpl {
             }
         }
         ,
+        ExclPropCustAreaView {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getExclPropCustAreaView();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        ExclPropCustCustView {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getExclPropCustCustView();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        ExclPropCustLocView {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getExclPropCustLocView();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        ExclPropCustRegionView {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getExclPropCustRegionView();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        RealisasiItemPaketView {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getRealisasiItemPaketView();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
         ProductByCategoryLov {
             public Object get(PromoProdukViewRowImpl obj) {
                 return obj.getProductByCategoryLov();
@@ -769,6 +989,66 @@ public class PromoProdukViewRowImpl extends ViewRowImpl {
                 obj.setAttributeInternal(index(), value);
             }
         }
+        ,
+        CustByRegionLov {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getCustByRegionLov();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        CustByAreaLov {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getCustByAreaLov();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        CustByLocLov {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getCustByLocLov();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        CustByCustGroupLov {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getCustByCustGroupLov();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        CustByCustomerLov {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getCustByCustomerLov();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        CustByInvalidLov {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getCustByInvalidLov();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static final int firstIndex = 0;
@@ -846,6 +1126,23 @@ public class PromoProdukViewRowImpl extends ViewRowImpl {
     public static final int EXCLCUSTLOVPARAM = AttributesEnum.ExclCustLovParam.index();
     public static final int PRODUCTVARCODE = AttributesEnum.ProductVarCode.index();
     public static final int PRODUCTITEMCODE = AttributesEnum.ProductItemCode.index();
+    public static final int DISCMF = AttributesEnum.DiscMf.index();
+    public static final int DISCONTOP = AttributesEnum.DiscOnTop.index();
+    public static final int DISCRASIOMF = AttributesEnum.DiscRasioMf.index();
+    public static final int DISCRASIOONTOP = AttributesEnum.DiscRasioOnTop.index();
+    public static final int DISCRASIOTOTAL1 = AttributesEnum.DiscRasioTotal1.index();
+    public static final int USERCUSTOMER = AttributesEnum.UserCustomer.index();
+    public static final int REGCUSTFLAGSWITCHER = AttributesEnum.RegCustFlagSwitcher.index();
+    public static final int BRGBONUSMF = AttributesEnum.BrgBonusMf.index();
+    public static final int BRGBONUSONTOP = AttributesEnum.BrgBonusOnTop.index();
+    public static final int BRGBONUSRASIOMF = AttributesEnum.BrgBonusRasioMf.index();
+    public static final int BRGBONUSRASIOONTOP = AttributesEnum.BrgBonusRasioOnTop.index();
+    public static final int BRGBONUSRASIOTOTAL = AttributesEnum.BrgBonusRasioTotal.index();
+    public static final int BIAMF = AttributesEnum.BiaMf.index();
+    public static final int BIAONTOP = AttributesEnum.BiaOntop.index();
+    public static final int BIARASIOMF = AttributesEnum.BiaRasioMf.index();
+    public static final int BIARASIOTOTAL = AttributesEnum.BiaRasioTotal.index();
+    public static final int BIARASIONONTOP = AttributesEnum.BiaRasionOntop.index();
     public static final int DISCOUNTVIEW = AttributesEnum.DiscountView.index();
     public static final int TARGETVIEW = AttributesEnum.TargetView.index();
     public static final int PRODUKITEMVIEW = AttributesEnum.ProdukItemView.index();
@@ -863,6 +1160,11 @@ public class PromoProdukViewRowImpl extends ViewRowImpl {
     public static final int EXCLCUSTLOCVIEW = AttributesEnum.ExclCustLocView.index();
     public static final int EXCLCUSTREGIONVIEW = AttributesEnum.ExclCustRegionView.index();
     public static final int EXCLCUSTCUSTVIEW = AttributesEnum.ExclCustCustView.index();
+    public static final int EXCLPROPCUSTAREAVIEW = AttributesEnum.ExclPropCustAreaView.index();
+    public static final int EXCLPROPCUSTCUSTVIEW = AttributesEnum.ExclPropCustCustView.index();
+    public static final int EXCLPROPCUSTLOCVIEW = AttributesEnum.ExclPropCustLocView.index();
+    public static final int EXCLPROPCUSTREGIONVIEW = AttributesEnum.ExclPropCustRegionView.index();
+    public static final int REALISASIITEMPAKETVIEW = AttributesEnum.RealisasiItemPaketView.index();
     public static final int PRODUCTBYCATEGORYLOV = AttributesEnum.ProductByCategoryLov.index();
     public static final int PRODUCTBYCLASSLOV = AttributesEnum.ProductByClassLov.index();
     public static final int PRODUCTBYBRANDLOV = AttributesEnum.ProductByBrandLov.index();
@@ -873,6 +1175,12 @@ public class PromoProdukViewRowImpl extends ViewRowImpl {
     public static final int KODEPOSTINGLOV = AttributesEnum.KodePostingLov.index();
     public static final int KODEITEMEXPENSELOV = AttributesEnum.KodeItemExpenseLov.index();
     public static final int EXCLUDECUSTLOV = AttributesEnum.ExcludeCustLov.index();
+    public static final int CUSTBYREGIONLOV = AttributesEnum.CustByRegionLov.index();
+    public static final int CUSTBYAREALOV = AttributesEnum.CustByAreaLov.index();
+    public static final int CUSTBYLOCLOV = AttributesEnum.CustByLocLov.index();
+    public static final int CUSTBYCUSTGROUPLOV = AttributesEnum.CustByCustGroupLov.index();
+    public static final int CUSTBYCUSTOMERLOV = AttributesEnum.CustByCustomerLov.index();
+    public static final int CUSTBYINVALIDLOV = AttributesEnum.CustByInvalidLov.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1753,6 +2061,279 @@ public class PromoProdukViewRowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for DISC_MF using the alias name DiscMf.
+     * @return the DISC_MF
+     */
+    public Number getDiscMf() {
+        return (Number) getAttributeInternal(DISCMF);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for DISC_MF using the alias name DiscMf.
+     * @param value value to set the DISC_MF
+     */
+    public void setDiscMf(Number value) {
+        setAttributeInternal(DISCMF, value);
+    }
+
+    /**
+     * Gets the attribute value for DISC_ON_TOP using the alias name DiscOnTop.
+     * @return the DISC_ON_TOP
+     */
+    public Number getDiscOnTop() {
+        return (Number) getAttributeInternal(DISCONTOP);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for DISC_ON_TOP using the alias name DiscOnTop.
+     * @param value value to set the DISC_ON_TOP
+     */
+    public void setDiscOnTop(Number value) {
+        setAttributeInternal(DISCONTOP, value);
+    }
+
+    /**
+     * Gets the attribute value for DISC_RASIO_MF using the alias name DiscRasioMf.
+     * @return the DISC_RASIO_MF
+     */
+    public Number getDiscRasioMf() {
+        return (Number) getAttributeInternal(DISCRASIOMF);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for DISC_RASIO_MF using the alias name DiscRasioMf.
+     * @param value value to set the DISC_RASIO_MF
+     */
+    public void setDiscRasioMf(Number value) {
+        setAttributeInternal(DISCRASIOMF, value);
+    }
+
+    /**
+     * Gets the attribute value for DISC_RASIO_ON_TOP using the alias name DiscRasioOnTop.
+     * @return the DISC_RASIO_ON_TOP
+     */
+    public Number getDiscRasioOnTop() {
+        return (Number) getAttributeInternal(DISCRASIOONTOP);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for DISC_RASIO_ON_TOP using the alias name DiscRasioOnTop.
+     * @param value value to set the DISC_RASIO_ON_TOP
+     */
+    public void setDiscRasioOnTop(Number value) {
+        setAttributeInternal(DISCRASIOONTOP, value);
+    }
+
+    /**
+     * Gets the attribute value for DISC_RASIO_TOTAL using the alias name DiscRasioTotal1.
+     * @return the DISC_RASIO_TOTAL
+     */
+    public Number getDiscRasioTotal1() {
+        return (Number) getAttributeInternal(DISCRASIOTOTAL1);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for DISC_RASIO_TOTAL using the alias name DiscRasioTotal1.
+     * @param value value to set the DISC_RASIO_TOTAL
+     */
+    public void setDiscRasioTotal1(Number value) {
+        setAttributeInternal(DISCRASIOTOTAL1, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute UserCustomer.
+     * @return the UserCustomer
+     */
+    public String getUserCustomer() {
+        return (String) getAttributeInternal(USERCUSTOMER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute UserCustomer.
+     * @param value value to set the  UserCustomer
+     */
+    public void setUserCustomer(String value) {
+        setAttributeInternal(USERCUSTOMER, value);
+    }
+
+
+    /**
+     * Gets the attribute value for the calculated attribute RegCustFlagSwitcher.
+     * @return the RegCustFlagSwitcher
+     */
+    public String getRegCustFlagSwitcher() {
+        return (String) getAttributeInternal(REGCUSTFLAGSWITCHER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute RegCustFlagSwitcher.
+     * @param value value to set the  RegCustFlagSwitcher
+     */
+    public void setRegCustFlagSwitcher(String value) {
+        setAttributeInternal(REGCUSTFLAGSWITCHER, value);
+    }
+
+    /**
+     * Gets the attribute value for BRG_BONUS_MF using the alias name BrgBonusMf.
+     * @return the BRG_BONUS_MF
+     */
+    public Number getBrgBonusMf() {
+        return (Number) getAttributeInternal(BRGBONUSMF);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for BRG_BONUS_MF using the alias name BrgBonusMf.
+     * @param value value to set the BRG_BONUS_MF
+     */
+    public void setBrgBonusMf(Number value) {
+        setAttributeInternal(BRGBONUSMF, value);
+    }
+
+    /**
+     * Gets the attribute value for BRG_BONUS_ON_TOP using the alias name BrgBonusOnTop.
+     * @return the BRG_BONUS_ON_TOP
+     */
+    public Number getBrgBonusOnTop() {
+        return (Number) getAttributeInternal(BRGBONUSONTOP);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for BRG_BONUS_ON_TOP using the alias name BrgBonusOnTop.
+     * @param value value to set the BRG_BONUS_ON_TOP
+     */
+    public void setBrgBonusOnTop(Number value) {
+        setAttributeInternal(BRGBONUSONTOP, value);
+    }
+
+    /**
+     * Gets the attribute value for BRG_BONUS_RASIO_MF using the alias name BrgBonusRasioMf.
+     * @return the BRG_BONUS_RASIO_MF
+     */
+    public Number getBrgBonusRasioMf() {
+        return (Number) getAttributeInternal(BRGBONUSRASIOMF);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for BRG_BONUS_RASIO_MF using the alias name BrgBonusRasioMf.
+     * @param value value to set the BRG_BONUS_RASIO_MF
+     */
+    public void setBrgBonusRasioMf(Number value) {
+        setAttributeInternal(BRGBONUSRASIOMF, value);
+    }
+
+    /**
+     * Gets the attribute value for BRG_BONUS_RASIO_ON_TOP using the alias name BrgBonusRasioOnTop.
+     * @return the BRG_BONUS_RASIO_ON_TOP
+     */
+    public Number getBrgBonusRasioOnTop() {
+        return (Number) getAttributeInternal(BRGBONUSRASIOONTOP);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for BRG_BONUS_RASIO_ON_TOP using the alias name BrgBonusRasioOnTop.
+     * @param value value to set the BRG_BONUS_RASIO_ON_TOP
+     */
+    public void setBrgBonusRasioOnTop(Number value) {
+        setAttributeInternal(BRGBONUSRASIOONTOP, value);
+    }
+
+    /**
+     * Gets the attribute value for BRG_BONUS_RASIO_TOTAL using the alias name BrgBonusRasioTotal.
+     * @return the BRG_BONUS_RASIO_TOTAL
+     */
+    public Number getBrgBonusRasioTotal() {
+        return (Number) getAttributeInternal(BRGBONUSRASIOTOTAL);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for BRG_BONUS_RASIO_TOTAL using the alias name BrgBonusRasioTotal.
+     * @param value value to set the BRG_BONUS_RASIO_TOTAL
+     */
+    public void setBrgBonusRasioTotal(Number value) {
+        setAttributeInternal(BRGBONUSRASIOTOTAL, value);
+    }
+
+    /**
+     * Gets the attribute value for BIA_MF using the alias name BiaMf.
+     * @return the BIA_MF
+     */
+    public Number getBiaMf() {
+        return (Number) getAttributeInternal(BIAMF);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for BIA_MF using the alias name BiaMf.
+     * @param value value to set the BIA_MF
+     */
+    public void setBiaMf(Number value) {
+        setAttributeInternal(BIAMF, value);
+    }
+
+    /**
+     * Gets the attribute value for BIA_ONTOP using the alias name BiaOntop.
+     * @return the BIA_ONTOP
+     */
+    public Number getBiaOntop() {
+        return (Number) getAttributeInternal(BIAONTOP);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for BIA_ONTOP using the alias name BiaOntop.
+     * @param value value to set the BIA_ONTOP
+     */
+    public void setBiaOntop(Number value) {
+        setAttributeInternal(BIAONTOP, value);
+    }
+
+    /**
+     * Gets the attribute value for BIA_RASIO_MF using the alias name BiaRasioMf.
+     * @return the BIA_RASIO_MF
+     */
+    public Number getBiaRasioMf() {
+        return (Number) getAttributeInternal(BIARASIOMF);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for BIA_RASIO_MF using the alias name BiaRasioMf.
+     * @param value value to set the BIA_RASIO_MF
+     */
+    public void setBiaRasioMf(Number value) {
+        setAttributeInternal(BIARASIOMF, value);
+    }
+
+    /**
+     * Gets the attribute value for BIA_RASIO_TOTAL using the alias name BiaRasioTotal.
+     * @return the BIA_RASIO_TOTAL
+     */
+    public Number getBiaRasioTotal() {
+        return (Number) getAttributeInternal(BIARASIOTOTAL);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for BIA_RASIO_TOTAL using the alias name BiaRasioTotal.
+     * @param value value to set the BIA_RASIO_TOTAL
+     */
+    public void setBiaRasioTotal(Number value) {
+        setAttributeInternal(BIARASIOTOTAL, value);
+    }
+
+    /**
+     * Gets the attribute value for BIA_RASION_ONTOP using the alias name BiaRasionOntop.
+     * @return the BIA_RASION_ONTOP
+     */
+    public Number getBiaRasionOntop() {
+        return (Number) getAttributeInternal(BIARASIONONTOP);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for BIA_RASION_ONTOP using the alias name BiaRasionOntop.
+     * @param value value to set the BIA_RASION_ONTOP
+     */
+    public void setBiaRasionOntop(Number value) {
+        setAttributeInternal(BIARASIONONTOP, value);
+    }
+
+    /**
      * Gets the associated <code>RowIterator</code> using master-detail link DiscountView.
      */
     public RowIterator getDiscountView() {
@@ -1874,6 +2455,41 @@ public class PromoProdukViewRowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the associated <code>RowIterator</code> using master-detail link ExclPropCustAreaView.
+     */
+    public RowIterator getExclPropCustAreaView() {
+        return (RowIterator)getAttributeInternal(EXCLPROPCUSTAREAVIEW);
+    }
+
+    /**
+     * Gets the associated <code>RowIterator</code> using master-detail link ExclPropCustCustView.
+     */
+    public RowIterator getExclPropCustCustView() {
+        return (RowIterator)getAttributeInternal(EXCLPROPCUSTCUSTVIEW);
+    }
+
+    /**
+     * Gets the associated <code>RowIterator</code> using master-detail link ExclPropCustLocView.
+     */
+    public RowIterator getExclPropCustLocView() {
+        return (RowIterator)getAttributeInternal(EXCLPROPCUSTLOCVIEW);
+    }
+
+    /**
+     * Gets the associated <code>RowIterator</code> using master-detail link ExclPropCustRegionView.
+     */
+    public RowIterator getExclPropCustRegionView() {
+        return (RowIterator)getAttributeInternal(EXCLPROPCUSTREGIONVIEW);
+    }
+
+    /**
+     * Gets the associated <code>RowIterator</code> using master-detail link RealisasiItemPaketView.
+     */
+    public RowIterator getRealisasiItemPaketView() {
+        return (RowIterator)getAttributeInternal(REALISASIITEMPAKETVIEW);
+    }
+
+    /**
      * Gets the view accessor <code>RowSet</code> ProductByCategoryLov.
      */
     public RowSet getProductByCategoryLov() {
@@ -1942,6 +2558,48 @@ public class PromoProdukViewRowImpl extends ViewRowImpl {
      */
     public RowSet getExcludeCustLov() {
         return (RowSet)getAttributeInternal(EXCLUDECUSTLOV);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> CustByRegionLov.
+     */
+    public RowSet getCustByRegionLov() {
+        return (RowSet)getAttributeInternal(CUSTBYREGIONLOV);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> CustByAreaLov.
+     */
+    public RowSet getCustByAreaLov() {
+        return (RowSet)getAttributeInternal(CUSTBYAREALOV);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> CustByLocLov.
+     */
+    public RowSet getCustByLocLov() {
+        return (RowSet)getAttributeInternal(CUSTBYLOCLOV);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> CustByCustGroupLov.
+     */
+    public RowSet getCustByCustGroupLov() {
+        return (RowSet)getAttributeInternal(CUSTBYCUSTGROUPLOV);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> CustByCustomerLov.
+     */
+    public RowSet getCustByCustomerLov() {
+        return (RowSet)getAttributeInternal(CUSTBYCUSTOMERLOV);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> CustByInvalidLov.
+     */
+    public RowSet getCustByInvalidLov() {
+        return (RowSet)getAttributeInternal(CUSTBYINVALIDLOV);
     }
 
     /**

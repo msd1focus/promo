@@ -12,10 +12,19 @@
        BudgetCustTran.BUDGET_DATE, 
        BudgetCustTran.PERCENTAGE, 
        BudgetCustTran.AMOUNT, 
-       (BudgetCustomer.BUDGET_CATEGORY || '.' || BudgetCustomer.BUDGET_CLASS || '.' || BudgetCustomer.BUDGET_BRAND || '.' || BudgetCustomer.BUDGET_EXTENTION || '.' || BudgetCustomer.BUDGET_PACKAGING || '.' || BudgetCustomer.BUDGET_VARIANT) AS BRAND_NAME"
-  FromList="BUDGET_CUST_TRAN BudgetCustTran, BUDGET_CUSTOMER BudgetCustomer"
-  Where="BudgetCustTran.BUDGET_CUSTOMER_ID = BudgetCustomer.BUDGET_CUSTOMER_ID"
-  OrderBy="BudgetCustTran.BUDGET_DATE"
+       BudgetCustTran.REMARKS, 
+       FcsViewCategCombDesc.COMBINATION_DESCRIPTION, 
+       FcsViewCategCombDesc.COMBINATION_CATEGORY, 
+       BudgetCustTran.ACTION, 
+       BudgetCustTran.ACTION_BY, 
+       BudgetCustTran.ACTION_DATE"
+  FromList="BUDGET_CUST_TRAN BudgetCustTran, BUDGET_CUSTOMER BudgetCustomer, APPS.FCS_VIEW_CATEG_COMB_DESC FcsViewCategCombDesc"
+  Where="BudgetCustTran.BUDGET_CUSTOMER_ID = BudgetCustomer.BUDGET_CUSTOMER_ID
+AND BudgetCustomer.BUDGET_CUSTOMER_ID =:CustId
+AND (BudgetCustomer.BUDGET_CATEGORY || '.' || BudgetCustomer.BUDGET_CLASS || '.' || BudgetCustomer.BUDGET_BRAND || '.' || BudgetCustomer.BUDGET_EXTENTION || '.' || BudgetCustomer.BUDGET_PACKAGING || '.' || BudgetCustomer.BUDGET_VARIANT) = FcsViewCategCombDesc.COMBINATION_CATEGORY(+)
+AND  (BudgetCustTran.PERCENTAGE + BudgetCustTran.AMOUNT != 0)
+AND BudgetCustTran.ACTION ='APPROVED'"
+  OrderBy="BudgetCustTran.BUDGET_DATE, BudgetCustTran.BUDGET_TYPE DESC"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
@@ -26,6 +35,10 @@
         ResId="app.fpp.model.views.budgetsetting.BudgetCustTranHistoryView_LABEL"/>
     </SchemaBasedProperties>
   </Properties>
+  <Variable
+    Name="CustId"
+    Kind="where"
+    Type="java.lang.String"/>
   <EntityUsage
     Name="BudgetCustTran"
     Entity="app.fpp.model.entities.budgetsetting.BudgetCustTran"
@@ -52,6 +65,13 @@
       </AttrArray>
     </DesignTime>
   </EntityUsage>
+  <EntityUsage
+    Name="FcsViewCategCombDesc"
+    Entity="app.fpp.model.entities.masterdata.ebs.FcsViewCategCombDesc"
+    SourceUsage="app.fpp.model.views.budgetsetting.BudgetCustTranHistoryView.BudgetCustomer"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"/>
   <ViewAttribute
     Name="BudgetCustomerId"
     IsUpdateable="false"
@@ -91,16 +111,43 @@
     EntityUsage="BudgetCustTran"
     AliasName="AMOUNT"/>
   <ViewAttribute
-    Name="BrandName"
-    IsUpdateable="false"
-    IsPersistent="false"
+    Name="Remarks"
     PrecisionRule="true"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="BRAND_NAME"
-    SQLType="VARCHAR"
-    Precision="255"
-    Expression="BudgetCustomer.BUDGET_CATEGORY || '.' || BudgetCustomer.BUDGET_CLASS || '.' || BudgetCustomer.BUDGET_BRAND || '.' || BudgetCustomer.BUDGET_EXTENTION || '.' || BudgetCustomer.BUDGET_PACKAGING || '.' || BudgetCustomer.BUDGET_VARIANT"/>
+    EntityAttrName="Remarks"
+    EntityUsage="BudgetCustTran"
+    AliasName="REMARKS"/>
+  <ViewAttribute
+    Name="CombinationDescription"
+    PrecisionRule="true"
+    EntityAttrName="CombinationDescription"
+    EntityUsage="FcsViewCategCombDesc"
+    AliasName="COMBINATION_DESCRIPTION"/>
+  <ViewAttribute
+    Name="CombinationCategory"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="CombinationCategory"
+    EntityUsage="FcsViewCategCombDesc"
+    AliasName="COMBINATION_CATEGORY"/>
+  <ViewAttribute
+    Name="Action"
+    PrecisionRule="true"
+    EntityAttrName="Action"
+    EntityUsage="BudgetCustTran"
+    AliasName="ACTION"/>
+  <ViewAttribute
+    Name="ActionBy"
+    PrecisionRule="true"
+    EntityAttrName="ActionBy"
+    EntityUsage="BudgetCustTran"
+    AliasName="ACTION_BY"/>
+  <ViewAttribute
+    Name="ActionDate"
+    IsUpdateable="false"
+    PrecisionRule="true"
+    EntityAttrName="ActionDate"
+    EntityUsage="BudgetCustTran"
+    AliasName="ACTION_DATE"/>
   <AttrArray Name="KeyAttributes">
     <Item Value="BudgetCustTranId"/>
   </AttrArray>

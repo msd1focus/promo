@@ -17,6 +17,15 @@
     <iterator Binds="BudgetCustTranHistoryView1" RangeSize="25"
               DataControl="BudgetSettingAMDataControl"
               id="BudgetCustTranHistoryView1Iterator"/>
+    <iterator id="BudgetCustTranGetData1Iterator" Binds="BudgetCustTranGetData1"
+              DataControl="BudgetSettingAMDataControl" RangeSize="25"/>
+    <searchRegion Criteria="BudgetCustHdrViewCriteria"
+                  Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
+                  Binds="BudgetCustHdrView1Iterator"
+                  id="BudgetCustHdrViewCriteriaQuery"/>
+    <iterator Binds="BudgetCustTranApprovalView1" RangeSize="10"
+              DataControl="BudgetSettingAMDataControl"
+              id="BudgetCustTranApprovalView1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="BudgetCustHdrView1Iterator" id="BudgetCustHdrView1">
@@ -33,19 +42,16 @@
                   Uses="LOV_CustomerId" id="CustomerId"/>
     <action IterBinding="BudgetCustHdrView1Iterator" id="Execute"
             RequiresUpdateModel="true" Action="iteratorExecute"/>
-    <action IterBinding="BudgetCustHdrView1Iterator" id="CreateInsert"
-            RequiresUpdateModel="true" Action="createInsertRow"/>
-    <action IterBinding="BudgetCustHdrView1Iterator" id="Delete"
+    <action IterBinding="BudgetCustHdrView1Iterator" id="DeleteBudgetCustHdr"
             RequiresUpdateModel="false" Action="removeCurrentRow"/>
     <action IterBinding="BudgetCustomerView1Iterator" id="CreateInsert1"
             RequiresUpdateModel="true" Action="createInsertRow"/>
     <action IterBinding="BudgetCustomerView1Iterator" id="Delete1"
             RequiresUpdateModel="false" Action="removeCurrentRow"/>
-    <action id="Commit" RequiresUpdateModel="true" Action="commitTransaction"
-            DataControl="BudgetSettingAMDataControl"/>
-    <action id="Rollback" RequiresUpdateModel="false"
-            Action="rollbackTransaction"
-            DataControl="BudgetSettingAMDataControl"/>
+    <action id="Commit" DataControl="BudgetSettingAMDataControl"
+            RequiresUpdateModel="true" Action="commitTransaction"/>
+    <action id="Rollback" DataControl="BudgetSettingAMDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
     <tree IterBinding="BudgetCustomerView1Iterator" id="BudgetCustomerView1">
       <nodeDefinition DefName="app.fpp.model.views.budgetsetting.BudgetCustomerView"
                       Name="BudgetCustomerView10">
@@ -66,6 +72,11 @@
           <Item Value="BudgetVariantDesc"/>
           <Item Value="YearlyBudgetRemaining"/>
           <Item Value="TranRow"/>
+          <Item Value="BudgetCustomerId"/>
+          <Item Value="BudgetAsToDate"/>
+          <Item Value="BudgetAsToDateUsed"/>
+          <Item Value="BudgetAsToDateRemaining"/>
+          <Item Value="PercentAsToDateVsYearly"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -96,19 +107,6 @@
             InstanceName="BudgetSettingAMDataControl.BudgetCustTranView1"
             DataControl="BudgetSettingAMDataControl" RequiresUpdateModel="true"
             Action="createInsertRow"/>
-    <tree IterBinding="BudgetCustTranHistoryView1Iterator"
-          id="BudgetCustTranHistoryView1">
-      <nodeDefinition DefName="app.fpp.model.views.budgetsetting.BudgetCustTranHistoryView"
-                      Name="BudgetCustTranHistoryView10">
-        <AttrNames>
-          <Item Value="BudgetType"/>
-          <Item Value="BudgetDate"/>
-          <Item Value="BrandName"/>
-          <Item Value="Percentage"/>
-          <Item Value="Amount"/>
-        </AttrNames>
-      </nodeDefinition>
-    </tree>
     <action IterBinding="BudgetCustTranHistoryView1Iterator"
             id="CustTranRefresh"
             InstanceName="BudgetSettingAMDataControl.BudgetCustTranHistoryView1"
@@ -126,5 +124,142 @@
     </attributeValues>
     <listOfValues StaticList="false" IterBinding="BudgetCustHdrView1Iterator"
                   Uses="LOV_BudgetYear" id="BudgetYear"/>
+    <attributeValues IterBinding="BudgetCustTranView1Iterator"
+                     id="BudgetCustomerId">
+      <AttrNames>
+        <Item Value="BudgetCustomerId"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="BudgetCustTranHistoryView1Iterator"
+          id="BudgetCustTranHistoryView1">
+      <nodeDefinition DefName="app.fpp.model.views.budgetsetting.BudgetCustTranHistoryView"
+                      Name="BudgetCustTranHistoryView10">
+        <AttrNames>
+          <Item Value="BudgetCustomerId"/>
+          <Item Value="BudgetCustTranId"/>
+          <Item Value="BudgetType"/>
+          <Item Value="BudgetDate"/>
+          <Item Value="Percentage"/>
+          <Item Value="Amount"/>
+          <Item Value="Remarks"/>
+          <Item Value="CombinationDescription"/>
+          <Item Value="Action"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <listOfValues StaticList="false" Uses="LOV_KodePosting"
+                  IterBinding="BudgetCustHdrView1Iterator" id="KodePosting"/>
+    <listOfValues StaticList="false" Uses="LOV_BudgetType"
+                  IterBinding="BudgetCustHdrView1Iterator" id="BudgetType1"/>
+    <attributeValues IterBinding="BudgetCustTranView1Iterator" id="Remarks">
+      <AttrNames>
+        <Item Value="Remarks"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BudgetCustomerView1Iterator"
+                     id="YearlyBudgetAmount">
+      <AttrNames>
+        <Item Value="YearlyBudgetAmount"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues StaticList="false" IterBinding="BudgetCustTranView1Iterator"
+                  Uses="LOV_BudgetType" id="BudgetType2"/>
+    <attributeValues IterBinding="BudgetCustomerView1Iterator"
+                     id="BudgetAsToDate1">
+      <AttrNames>
+        <Item Value="BudgetAsToDate"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BudgetCustomerView1Iterator"
+                     id="BudgetHistoryNum">
+      <AttrNames>
+        <Item Value="BudgetHistoryNum"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BudgetCustomerView1Iterator"
+                     id="BudgetCategory">
+      <AttrNames>
+        <Item Value="BudgetCategory"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BudgetCustomerView1Iterator" id="BudgetClass">
+      <AttrNames>
+        <Item Value="BudgetClass"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BudgetCustomerView1Iterator" id="BudgetBrand">
+      <AttrNames>
+        <Item Value="BudgetBrand"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BudgetCustomerView1Iterator"
+                     id="BudgetCategoryDesc">
+      <AttrNames>
+        <Item Value="BudgetCategoryDesc"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BudgetCustomerView1Iterator"
+                     id="BudgetClassDesc">
+      <AttrNames>
+        <Item Value="BudgetClassDesc"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BudgetCustomerView1Iterator"
+                     id="BudgetBrandDesc">
+      <AttrNames>
+        <Item Value="BudgetBrandDesc"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BudgetCustomerView1Iterator"
+                     id="BudgetExtentionDesc">
+      <AttrNames>
+        <Item Value="BudgetExtentionDesc"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BudgetCustomerView1Iterator"
+                     id="BudgetPackagingDesc">
+      <AttrNames>
+        <Item Value="BudgetPackagingDesc"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BudgetCustomerView1Iterator"
+                     id="BudgetVariantDesc">
+      <AttrNames>
+        <Item Value="BudgetVariantDesc"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="BudgetCustHdrView1Iterator"
+                     id="CheckRowStatus">
+      <AttrNames>
+        <Item Value="CheckRowStatus"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="BudgetCustTranApprovalView1Iterator"
+          id="BudgetCustTranApprovalView1">
+      <nodeDefinition DefName="app.fpp.model.views.budgetsetting.BudgetCustTranApprovalView"
+                      Name="BudgetCustTranApprovalView10">
+        <AttrNames>
+          <Item Value="BudgetCustHdrId"/>
+          <Item Value="Action"/>
+          <Item Value="ActionBy"/>
+          <Item Value="ActionDate"/>
+          <Item Value="Amount"/>
+          <Item Value="BudgetCustomerId"/>
+          <Item Value="BudgetCustTranId"/>
+          <Item Value="BudgetDate"/>
+          <Item Value="BudgetType"/>
+          <Item Value="CombinationCategory"/>
+          <Item Value="CombinationDescription"/>
+          <Item Value="Percentage"/>
+          <Item Value="Remarks"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="BudgetCustomerView1Iterator"
+                     id="BudgetApprovalNum">
+      <AttrNames>
+        <Item Value="BudgetApprovalNum"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

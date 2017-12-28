@@ -15,9 +15,9 @@
       <property
          name="exceptionHandler">false</property>
       <property
-         name="y">188.59766</property>
+         name="y">186.89648</property>
       <property
-         name="x">271.0</property>
+         name="x">296.0</property>
    </View>
    <MethodCall
       id="MethodCall3">
@@ -42,7 +42,7 @@
       <property
          name="fromOutcome">setCurrentRowWithKeyValue</property>
       <property
-         name="sdm:polyPoints">R50,151.7002,188.69531,230.0,188.24707,L50</property>
+         name="sdm:polyPoints">R50,151.7002,188.69531,255.0,186.5459,L50</property>
    </ControlFlowCase>
    <TaskFlowReturn
       id="TaskFlowReturn5">
@@ -67,6 +67,6 @@
       <property
          name="fromOutcome">close</property>
       <property
-         name="sdm:polyPoints">R50,312.0,188.24707,457.0,185.59766,L50</property>
+         name="sdm:polyPoints">R50,337.0,186.5459,457.0,185.59766,L50</property>
    </ControlFlowCase>
 </SDM>

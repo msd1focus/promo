@@ -139,6 +139,16 @@ public class DiscountViewRowImpl extends ViewRowImpl {
             }
         }
         ,
+        Kelipatan {
+            public Object get(DiscountViewRowImpl obj) {
+                return obj.getKelipatan();
+            }
+
+            public void put(DiscountViewRowImpl obj, Object value) {
+                obj.setKelipatan((Number)value);
+            }
+        }
+        ,
         LovTipePerhitungan {
             public Object get(DiscountViewRowImpl obj) {
                 return obj.getLovTipePerhitungan();
@@ -195,6 +205,7 @@ public class DiscountViewRowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
     public static final int DISCOUNTID = AttributesEnum.DiscountId.index();
     public static final int PROMOPRODUKID = AttributesEnum.PromoProdukId.index();
     public static final int TIPEPERHITUNGAN = AttributesEnum.TipePerhitungan.index();
@@ -207,6 +218,7 @@ public class DiscountViewRowImpl extends ViewRowImpl {
     public static final int TIPEPERHITUNGANDESC = AttributesEnum.TipePerhitunganDesc.index();
     public static final int SATUANPOTONGANDESC = AttributesEnum.SatuanPotonganDesc.index();
     public static final int TIPEPOTONGANDESC = AttributesEnum.TipePotonganDesc.index();
+    public static final int KELIPATAN = AttributesEnum.Kelipatan.index();
     public static final int LOVTIPEPERHITUNGAN = AttributesEnum.LovTipePerhitungan.index();
     public static final int LOVTIPEPOTONGAN = AttributesEnum.LovTipePotongan.index();
     public static final int PRODUCTUOMLOV = AttributesEnum.ProductUomLov.index();
@@ -451,6 +463,22 @@ public class DiscountViewRowImpl extends ViewRowImpl {
      */
     public void setTipePotonganDesc(String value) {
         setAttributeInternal(TIPEPOTONGANDESC, value);
+    }
+
+    /**
+     * Gets the attribute value for KELIPATAN using the alias name Kelipatan.
+     * @return the KELIPATAN
+     */
+    public Number getKelipatan() {
+        return (Number) getAttributeInternal(KELIPATAN);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for KELIPATAN using the alias name Kelipatan.
+     * @param value value to set the KELIPATAN
+     */
+    public void setKelipatan(Number value) {
+        setAttributeInternal(KELIPATAN, value);
     }
 
     /**

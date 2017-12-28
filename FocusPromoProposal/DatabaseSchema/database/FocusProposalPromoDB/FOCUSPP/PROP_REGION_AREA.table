@@ -23,6 +23,32 @@
     </column>
     <column>
       <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">ac7edf49-cb05-447b-986c-cb3ae000de5d</identifier>
+      </ID>
+      <name>AREADISCRIPTION</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">95694c93-54d7-4618-938c-24387224ec42</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">391</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">CHAR</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+    </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
         <identifier class="java.lang.String">d78a95d8-4946-4be5-b2da-c5c2459a7eb8</identifier>
       </ID>
       <name>AREA_CODE</name>
@@ -64,7 +90,6 @@
             <schemaName>FOCUSPP</schemaName>
             <type>TABLE</type>
           </parent>
-          <schemaName>FOCUSPP</schemaName>
           <type>COLUMN</type>
         </columnID>
       </columnIDs>
@@ -97,7 +122,6 @@
             <schemaName>FOCUSPP</schemaName>
             <type>TABLE</type>
           </parent>
-          <schemaName>FOCUSPP</schemaName>
           <type>COLUMN</type>
         </columnID>
         <columnID class="oracle.javatools.db.IdentifierBasedID">
@@ -109,7 +133,6 @@
             <schemaName>FOCUSPP</schemaName>
             <type>TABLE</type>
           </parent>
-          <schemaName>FOCUSPP</schemaName>
           <type>COLUMN</type>
         </columnID>
       </columnIDs>

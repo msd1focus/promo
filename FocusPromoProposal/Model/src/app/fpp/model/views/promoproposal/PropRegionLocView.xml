@@ -8,20 +8,29 @@
   InheritPersonalization="true"
   SelectList="PropRegionLoc.PROPOSAL_ID, 
        PropRegionLoc.LOCATION_CODE, 
-       (PropRegionLoc.LOCATION_CODE) AS LOCATION_NAME, 
-       (SELECT ArCustomers.ATTRIBUTE3 FROM APPS.AR_CUSTOMERS ArCustomers WHERE ArCustomers.ATTRIBUTE5 = PropRegionLoc.LOCATION_CODE GROUP BY ArCustomers.ATTRIBUTE3) AS REGION_CODE"
-  FromList="PROP_REGION_LOC PropRegionLoc"
+       FcsFlexValuesVl.DESCRIPTION, 
+       FcsFlexValuesVl.FLEX_VALUE_ID, 
+       PropRegionLoc.LOCDESCRIPTION"
+  FromList="PROP_REGION_LOC PropRegionLoc, APPS.FCS_FLEX_VALUES_VL FcsFlexValuesVl"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
-  OrderBy='"LOCATION_NAME",PropRegionLoc.LOCATION_CODE'>
+  OrderBy='PropRegionLoc.LOCATION_CODE,PropRegionLoc.LOCDESCRIPTION'
+  Where="PropRegionLoc.LOCATION_CODE = FcsFlexValuesVl.FLEX_VALUE">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|VarAccess"/>
   </DesignTime>
   <EntityUsage
     Name="PropRegionLoc"
     Entity="app.fpp.model.entities.promoproposal.PropRegionLoc"/>
+  <EntityUsage
+    Name="FcsFlexValuesVl"
+    Entity="app.fpp.model.entities.masterdata.ebs.FcsFlexValuesVl"
+    SourceUsage="app.fpp.model.views.promoproposal.PropRegionLocView.PropRegionLoc"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"/>
   <ViewAttribute
     Name="ProposalId"
     IsNotNull="true"
@@ -37,27 +46,22 @@
     EntityUsage="PropRegionLoc"
     AliasName="LOCATION_CODE"/>
   <ViewAttribute
-    Name="LocationName"
-    IsUpdateable="false"
-    IsPersistent="false"
+    Name="Description"
     PrecisionRule="true"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="LOCATION_NAME"
-    SQLType="VARCHAR"
-    Precision="255"
-    Expression="PropRegionLoc.LOCATION_CODE">
-    <RecalcCondition><![CDATA[true]]></RecalcCondition>
-  </ViewAttribute>
+    EntityAttrName="Description"
+    EntityUsage="FcsFlexValuesVl"
+    AliasName="DESCRIPTION"/>
   <ViewAttribute
-    Name="RegionCode"
-    IsUpdateable="false"
-    IsPersistent="false"
+    Name="FlexValueId"
+    IsNotNull="true"
     PrecisionRule="true"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="REGION_CODE"
-    SQLType="VARCHAR"
-    Precision="255"
-    Expression="SELECT ArCustomers.ATTRIBUTE3 FROM APPS.AR_CUSTOMERS ArCustomers WHERE ArCustomers.ATTRIBUTE5 = PropRegionLoc.LOCATION_CODE GROUP BY ArCustomers.ATTRIBUTE3"/>
+    EntityAttrName="FlexValueId"
+    EntityUsage="FcsFlexValuesVl"
+    AliasName="FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="Locdescription"
+    PrecisionRule="true"
+    EntityAttrName="Locdescription"
+    EntityUsage="PropRegionLoc"
+    AliasName="LOCDESCRIPTION"/>
 </ViewObject>

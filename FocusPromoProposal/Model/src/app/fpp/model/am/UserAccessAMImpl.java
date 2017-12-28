@@ -2,7 +2,16 @@ package app.fpp.model.am;
 
 import app.fpp.model.am.common.UserAccessAM;
 import app.fpp.model.views.useraccess.AppUserAccessChangePasswordViewImpl;
-
+import app.fpp.model.views.useraccess.AppUserRemoveAreaByRegionViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustByAreaViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustByCustGroupViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustByLocViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustByRegionViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustGroupByAreaViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustGroupByLocViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustGroupByRegionViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveLocByAreaViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveLocByRegionViewImpl;
 import oracle.jbo.Row;
 import oracle.jbo.ViewCriteria;
 import oracle.jbo.ViewCriteriaRow;
@@ -154,5 +163,190 @@ public class UserAccessAMImpl extends ApplicationModuleImpl implements UserAcces
      */
     public AppUserAccessChangePasswordViewImpl getAppUserAccessChangePasswordView1() {
         return (AppUserAccessChangePasswordViewImpl)findViewObject("AppUserAccessChangePasswordView1");
+    }
+
+    /**
+     * Container's getter for AppUserAreaView1.
+     * @return AppUserAreaView1
+     */
+    public ViewObjectImpl getAppUserAreaView1() {
+        return (ViewObjectImpl)findViewObject("AppUserAreaView1");
+    }
+
+    /**
+     * Container's getter for AppUserAreaUserAccessFk1Link1.
+     * @return AppUserAreaUserAccessFk1Link1
+     */
+    public ViewLinkImpl getAppUserAreaUserAccessFk1Link1() {
+        return (ViewLinkImpl)findViewLink("AppUserAreaUserAccessFk1Link1");
+    }
+
+    /**
+     * Container's getter for AppUserCustView1.
+     * @return AppUserCustView1
+     */
+    public ViewObjectImpl getAppUserCustView1() {
+        return (ViewObjectImpl)findViewObject("AppUserCustView1");
+    }
+
+    /**
+     * Container's getter for AppUserCustUserAccessFk1Link1.
+     * @return AppUserCustUserAccessFk1Link1
+     */
+    public ViewLinkImpl getAppUserCustUserAccessFk1Link1() {
+        return (ViewLinkImpl)findViewLink("AppUserCustUserAccessFk1Link1");
+    }
+
+    /**
+     * Container's getter for AppUserLocView1.
+     * @return AppUserLocView1
+     */
+    public ViewObjectImpl getAppUserLocView1() {
+        return (ViewObjectImpl)findViewObject("AppUserLocView1");
+    }
+
+    /**
+     * Container's getter for AppUserLocUserAccessFk1Link1.
+     * @return AppUserLocUserAccessFk1Link1
+     */
+    public ViewLinkImpl getAppUserLocUserAccessFk1Link1() {
+        return (ViewLinkImpl)findViewLink("AppUserLocUserAccessFk1Link1");
+    }
+
+    /**
+     * Container's getter for AllUserMgmtAreaShuttleView1.
+     * @return AllUserMgmtAreaShuttleView1
+     */
+    public ViewObjectImpl getAllUserMgmtAreaShuttleView1() {
+        return (ViewObjectImpl)findViewObject("AllUserMgmtAreaShuttleView1");
+    }
+
+    /**
+     * Container's getter for AllUserMgmtCustomerShuttleView1.
+     * @return AllUserMgmtCustomerShuttleView1
+     */
+    public ViewObjectImpl getAllUserMgmtCustomerShuttleView1() {
+        return (ViewObjectImpl)findViewObject("AllUserMgmtCustomerShuttleView1");
+    }
+
+    /**
+     * Container's getter for AllUserMgmtLocationShuttleView1.
+     * @return AllUserMgmtLocationShuttleView1
+     */
+    public ViewObjectImpl getAllUserMgmtLocationShuttleView1() {
+        return (ViewObjectImpl)findViewObject("AllUserMgmtLocationShuttleView1");
+    }
+
+    /**
+     * Container's getter for AllUserMgmtRegionShuttleView1.
+     * @return AllUserMgmtRegionShuttleView1
+     */
+    public ViewObjectImpl getAllUserMgmtRegionShuttleView1() {
+        return (ViewObjectImpl)findViewObject("AllUserMgmtRegionShuttleView1");
+    }
+
+    /**
+     * Container's getter for AppUserCustGroupView1.
+     * @return AppUserCustGroupView1
+     */
+    public ViewObjectImpl getAppUserCustGroupView1() {
+        return (ViewObjectImpl)findViewObject("AppUserCustGroupView1");
+    }
+
+    /**
+     * Container's getter for AppUserCustGroupUserAccessFk1Link1.
+     * @return AppUserCustGroupUserAccessFk1Link1
+     */
+    public ViewLinkImpl getAppUserCustGroupUserAccessFk1Link1() {
+        return (ViewLinkImpl)findViewLink("AppUserCustGroupUserAccessFk1Link1");
+    }
+
+    /**
+     * Container's getter for AllUserMgmtCustGroupShuttleView1.
+     * @return AllUserMgmtCustGroupShuttleView1
+     */
+    public ViewObjectImpl getAllUserMgmtCustGroupShuttleView1() {
+        return (ViewObjectImpl)findViewObject("AllUserMgmtCustGroupShuttleView1");
+    }
+
+
+    /**
+     * Container's getter for AppUserRemoveAreaByRegionView1.
+     * @return AppUserRemoveAreaByRegionView1
+     */
+    public AppUserRemoveAreaByRegionViewImpl getAppUserRemoveAreaByRegionView1() {
+        return (AppUserRemoveAreaByRegionViewImpl)findViewObject("AppUserRemoveAreaByRegionView1");
+    }
+
+    /**
+     * Container's getter for AppUserRemoveCustByRegionView1.
+     * @return AppUserRemoveCustByRegionView1
+     */
+    public AppUserRemoveCustByRegionViewImpl getAppUserRemoveCustByRegionView1() {
+        return (AppUserRemoveCustByRegionViewImpl)findViewObject("AppUserRemoveCustByRegionView1");
+    }
+
+    /**
+     * Container's getter for AppUserRemoveCustGroupByRegionView1.
+     * @return AppUserRemoveCustGroupByRegionView1
+     */
+    public AppUserRemoveCustGroupByRegionViewImpl getAppUserRemoveCustGroupByRegionView1() {
+        return (AppUserRemoveCustGroupByRegionViewImpl)findViewObject("AppUserRemoveCustGroupByRegionView1");
+    }
+
+    /**
+     * Container's getter for AppUserRemoveLocByRegionView1.
+     * @return AppUserRemoveLocByRegionView1
+     */
+    public AppUserRemoveLocByRegionViewImpl getAppUserRemoveLocByRegionView1() {
+        return (AppUserRemoveLocByRegionViewImpl)findViewObject("AppUserRemoveLocByRegionView1");
+    }
+
+    /**
+     * Container's getter for AppUserRemoveCustByAreaView1.
+     * @return AppUserRemoveCustByAreaView1
+     */
+    public AppUserRemoveCustByAreaViewImpl getAppUserRemoveCustByAreaView1() {
+        return (AppUserRemoveCustByAreaViewImpl)findViewObject("AppUserRemoveCustByAreaView1");
+    }
+
+    /**
+     * Container's getter for AppUserRemoveCustGroupByAreaView1.
+     * @return AppUserRemoveCustGroupByAreaView1
+     */
+    public AppUserRemoveCustGroupByAreaViewImpl getAppUserRemoveCustGroupByAreaView1() {
+        return (AppUserRemoveCustGroupByAreaViewImpl)findViewObject("AppUserRemoveCustGroupByAreaView1");
+    }
+
+    /**
+     * Container's getter for AppUserRemoveLocByAreaView1.
+     * @return AppUserRemoveLocByAreaView1
+     */
+    public AppUserRemoveLocByAreaViewImpl getAppUserRemoveLocByAreaView1() {
+        return (AppUserRemoveLocByAreaViewImpl)findViewObject("AppUserRemoveLocByAreaView1");
+    }
+
+    /**
+     * Container's getter for AppUserRemoveCustGroupByLocView1.
+     * @return AppUserRemoveCustGroupByLocView1
+     */
+    public AppUserRemoveCustGroupByLocViewImpl getAppUserRemoveCustGroupByLocView1() {
+        return (AppUserRemoveCustGroupByLocViewImpl)findViewObject("AppUserRemoveCustGroupByLocView1");
+    }
+
+    /**
+     * Container's getter for AppUserRemoveCustByLocView1.
+     * @return AppUserRemoveCustByLocView1
+     */
+    public AppUserRemoveCustByLocViewImpl getAppUserRemoveCustByLocView1() {
+        return (AppUserRemoveCustByLocViewImpl)findViewObject("AppUserRemoveCustByLocView1");
+    }
+
+    /**
+     * Container's getter for AppUserRemoveCustByCustGroupView1.
+     * @return AppUserRemoveCustByCustGroupView1
+     */
+    public AppUserRemoveCustByCustGroupViewImpl getAppUserRemoveCustByCustGroupView1() {
+        return (AppUserRemoveCustByCustGroupViewImpl)findViewObject("AppUserRemoveCustByCustGroupView1");
     }
 }

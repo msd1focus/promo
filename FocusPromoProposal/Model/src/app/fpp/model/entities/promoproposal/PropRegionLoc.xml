@@ -42,6 +42,18 @@
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="Locdescription"
+    Precision="200"
+    ColumnName="LOCDESCRIPTION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PROP_REGION_LOC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="200"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="Proposal"
     Association="app.fpp.model.entities.promoproposal.PropRegionLocProposalFk1Assoc"

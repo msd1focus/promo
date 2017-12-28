@@ -16,7 +16,7 @@
     </input-parameter-definition>
     <managed-bean id="__24">
       <managed-bean-name id="__25">PaProdExclCustomerBackingBean</managed-bean-name>
-      <managed-bean-class id="__26">app.fpp.bean.PaProdExclCustomerBackingBean</managed-bean-class>
+      <managed-bean-class id="__26">app.fpp.bean.approval.PaProdExclCustomerBackingBean</managed-bean-class>
       <managed-bean-scope id="__27">backingBean</managed-bean-scope>
     </managed-bean>
     <method-call id="setUserCustCust">

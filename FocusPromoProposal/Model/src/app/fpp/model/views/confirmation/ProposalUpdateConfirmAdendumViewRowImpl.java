@@ -72,6 +72,17 @@ public class ProposalUpdateConfirmAdendumViewRowImpl extends ViewRowImpl {
                 obj.setNextAddendum((Number)value);
             }
         }
+        ,
+        CategoryPc {
+            public Object get(ProposalUpdateConfirmAdendumViewRowImpl obj) {
+                return obj.getCategoryPc();
+            }
+
+            public void put(ProposalUpdateConfirmAdendumViewRowImpl obj,
+                            Object value) {
+                obj.setCategoryPc((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static final int firstIndex = 0;
@@ -100,11 +111,13 @@ public class ProposalUpdateConfirmAdendumViewRowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
     public static final int PROPOSALID = AttributesEnum.ProposalId.index();
     public static final int CONFIRMDATE = AttributesEnum.ConfirmDate.index();
     public static final int CONFIRMNO = AttributesEnum.ConfirmNo.index();
     public static final int ADDENDUMKE = AttributesEnum.AddendumKe.index();
     public static final int NEXTADDENDUM = AttributesEnum.NextAddendum.index();
+    public static final int CATEGORYPC = AttributesEnum.CategoryPc.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -198,6 +211,22 @@ public class ProposalUpdateConfirmAdendumViewRowImpl extends ViewRowImpl {
      */
     public void setNextAddendum(Number value) {
         setAttributeInternal(NEXTADDENDUM, value);
+    }
+
+    /**
+     * Gets the attribute value for CATEGORY_PC using the alias name CategoryPc.
+     * @return the CATEGORY_PC
+     */
+    public String getCategoryPc() {
+        return (String) getAttributeInternal(CATEGORYPC);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for CATEGORY_PC using the alias name CategoryPc.
+     * @param value value to set the CATEGORY_PC
+     */
+    public void setCategoryPc(String value) {
+        setAttributeInternal(CATEGORYPC, value);
     }
 
     /**

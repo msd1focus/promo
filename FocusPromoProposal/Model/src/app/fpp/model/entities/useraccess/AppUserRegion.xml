@@ -45,9 +45,9 @@
   </Attribute>
   <AccessorAttribute
     Name="AppUserAccess"
-    Association="app.fpp.model.entities.useraccess.AppUserAccessRegionFk1Assoc"
-    AssociationEnd="app.fpp.model.entities.useraccess.AppUserAccessRegionFk1Assoc.AppUserAccess"
-    AssociationOtherEnd="app.fpp.model.entities.useraccess.AppUserAccessRegionFk1Assoc.AppUserRegion"
+    Association="app.fpp.model.entities.useraccess.AppUserRegionAppUserAccessFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.useraccess.AppUserRegionAppUserAccessFk1Assoc.AppUserAccess"
+    AssociationOtherEnd="app.fpp.model.entities.useraccess.AppUserRegionAppUserAccessFk1Assoc.AppUserRegion"
     Type="app.fpp.model.entities.useraccess.AppUserAccessImpl"
     IsUpdateable="true"/>
   <Key

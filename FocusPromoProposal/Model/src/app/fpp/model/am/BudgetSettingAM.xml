@@ -38,6 +38,18 @@
   <ViewUsage
     Name="BudgetCustTranHistoryView1"
     ViewObjectName="app.fpp.model.views.budgetsetting.BudgetCustTranHistoryView"/>
+  <ViewUsage
+    Name="BudgetCustomerHeaderView1"
+    ViewObjectName="app.fpp.model.views.budgetsetting.BudgetCustomerHeaderView"/>
+  <ViewUsage
+    Name="BudgetCustTranGetData1"
+    ViewObjectName="app.fpp.model.views.budgetsetting.BudgetCustTranGetData"/>
+  <ViewUsage
+    Name="CheckDuplicateBudgetView1"
+    ViewObjectName="app.fpp.model.views.budgetsetting.CheckDuplicateBudgetView"/>
+  <ViewUsage
+    Name="BudgetCustTranApprovalView1"
+    ViewObjectName="app.fpp.model.views.budgetsetting.BudgetCustTranApprovalView"/>
   <ViewLinkUsage
     Name="BudgetCustomerBudgetCustHdrFk1Link1"
     ViewLinkObjectName="app.fpp.model.views.budgetsetting.BudgetCustomerBudgetCustHdrFk1Link"
@@ -61,6 +73,12 @@
     ViewLinkObjectName="app.fpp.model.views.budgetsetting.BudgetCustTranHistoryBudgetCustomerFk1Link"
     SrcViewUsageName="app.fpp.model.am.BudgetSettingAM.BudgetCustomerView1"
     DstViewUsageName="app.fpp.model.am.BudgetSettingAM.BudgetCustTranHistoryView1"
+    Reversed="false"/>
+  <ViewLinkUsage
+    Name="BudgetCustTranApprovalBudgetCustomerFk1Link1"
+    ViewLinkObjectName="app.fpp.model.views.budgetsetting.BudgetCustTranApprovalBudgetCustomerFk1Link"
+    SrcViewUsageName="app.fpp.model.am.BudgetSettingAM.BudgetCustomerView1"
+    DstViewUsageName="app.fpp.model.am.BudgetSettingAM.BudgetCustTranApprovalView1"
     Reversed="false"/>
   <ResourceBundle>
     <PropertiesBundle

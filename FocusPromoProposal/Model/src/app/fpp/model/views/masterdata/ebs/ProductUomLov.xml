@@ -21,7 +21,7 @@
     </SchemaBasedProperties>
   </Properties>
   <SQLQuery>
-    <![CDATA[SELECT UOM.UOM_CODE, UOM.UNIT_OF_MEASURE FROM APPS.MTL_UNITS_OF_MEASURE_VL UOM WHERE UOM.UOM_CLASS IN ('Ctn', 'Unt', 'Pcs', 'Jrg', 'Quantity', 'Volume')]]>
+    <![CDATA[SELECT UOM.UOM_CODE, UOM.UNIT_OF_MEASURE FROM APPS.MTL_UNITS_OF_MEASURE_VL UOM WHERE UOM.UOM_CLASS IN ('Ctn', 'Unt', 'Pcs', 'Jrg', 'Pkt', 'Quantity', 'Volume')]]>
   </SQLQuery>
   <ViewAttribute
     Name="UomCode"

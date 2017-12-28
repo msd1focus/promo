@@ -27,7 +27,7 @@
           <af:panelCollection id="pc2" styleClass="AFStretchWidth"
                               featuresOff="detach viewMenu columnsMenuItem">
             <f:facet name="toolbar">
-              <af:toolbar id="t2">
+              <af:toolbar id="t2" visible="false">
                 <af:commandToolbarButton actionListener="#{bindings.Execute.execute}"
                                          text="Refresh"
                                          disabled="#{!bindings.Execute.enabled}"

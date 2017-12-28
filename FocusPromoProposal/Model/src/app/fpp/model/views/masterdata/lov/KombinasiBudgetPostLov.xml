@@ -33,43 +33,76 @@
     </Properties>
   </Variable>
   <SQLQuery>
-    <![CDATA[SELECT BudgetPosting.BUDGET_POSTING_ID, 
-       BudgetPosting.KODE_POSTING, 
-       BudgetPosting.BUDGET_YEAR
-FROM BUDGET_POSTING BudgetPosting, BUDGET_CUSTOMER BudgetCustomer
-group by BudgetPosting.BUDGET_POSTING_ID, BudgetPosting.KODE_POSTING,  BudgetPosting.BUDGET_YEAR]]>
+    <![CDATA[SELECT BudgetCustomer.BUDGET_CUST_HDR_ID, 
+       BudgetCustomer.CUSTOMER_ID, 
+       BudgetCustomer.BUDGET_YEAR, 
+       BudgetCustomer.BUDGET_CUSTOMER_ID,
+       BudgetCustomer.KODE_POSTING,  'POSTING.' ||
+       descr.COMBINATION_DESCRIPTION AS KOMBINASI_NAME
+FROM FOCUSPP.LOVBUDGETCUSTOMER_VIEW BudgetCustomer, APPS.fcs_view_categ_comb_desc descr
+where BudgetCustomer.KOMBINASI_CODE = DESCR.COMBINATION_CATEGORY(+)
+AND BudgetCustomer.budget_type = 'POSTING']]>
   </SQLQuery>
-  <EntityUsage
-    Name="BudgetPosting"
-    Entity="app.fpp.model.entities.budgetsetting.BudgetPosting"
-    ReadOnly="true"
-    DeleteParticipant="false"/>
   <ViewAttribute
-    Name="BudgetPostingId"
-    IsUpdateable="while_insert"
+    Name="BudgetCustHdrId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
     PrecisionRule="true"
-    EntityAttrName="BudgetPostingId"
-    EntityUsage="BudgetPosting"
-    AliasName="BUDGET_POSTING_ID"/>
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="BUDGET_CUST_HDR_ID"
+    Expression="BUDGET_CUST_HDR_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
-    Name="KodePosting"
+    Name="CustomerId"
+    IsUpdateable="false"
+    IsPersistent="false"
     PrecisionRule="true"
-    EntityAttrName="KodePosting"
-    EntityUsage="BudgetPosting"
-    AliasName="KODE_POSTING"/>
+    Precision="15"
+    Scale="0"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="CUSTOMER_ID"
+    Expression="CUSTOMER_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="16"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
-    Name="BudgetYear"
+    Name="BudgetCustomerId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
     PrecisionRule="true"
-    EntityAttrName="BudgetYear"
-    EntityUsage="BudgetPosting"
-    AliasName="BUDGET_YEAR"
-    IsUpdateable="false">
-    <Properties>
-      <SchemaBasedProperties>
-        <DISPLAYWIDTH
-          Value="10"/>
-      </SchemaBasedProperties>
-    </Properties>
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="BUDGET_CUSTOMER_ID"
+    Expression="BUDGET_CUSTOMER_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="KombinasiName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="248"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="KOMBINASI_NAME"
+    Expression="KOMBINASI_NAME"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="248"/>
+    </DesignTime>
   </ViewAttribute>
   <ViewCriteria
     Name="KombinasiBudgetPostLovCriteria"
@@ -95,18 +128,6 @@ group by BudgetPosting.BUDGET_POSTING_ID, BudgetPosting.KODE_POSTING,  BudgetPos
           Value="Basic"/>
       </CustomProperties>
     </Properties>
-    <ViewCriteriaRow
-      Name="vcrow15"
-      UpperColumns="1">
-      <ViewCriteriaItem
-        Name="KodePosting"
-        ViewAttribute="KodePosting"
-        Operator="CONTAINS"
-        Conjunction="AND"
-        Value=":kodePosting"
-        IsBindVarValue="true"
-        Required="Optional"/>
-    </ViewCriteriaRow>
   </ViewCriteria>
   <ResourceBundle>
     <PropertiesBundle

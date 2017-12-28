@@ -4,7 +4,7 @@
     <default-activity id="__9">FilterByCompRoleRegion</default-activity>
     <managed-bean id="__2">
       <managed-bean-name id="__4">ApprovalPromoBean</managed-bean-name>
-      <managed-bean-class id="__1">app.fpp.bean.ApprovalPromoBean</managed-bean-class>
+      <managed-bean-class id="__1">app.fpp.bean.approval.ApprovalPromoBean</managed-bean-class>
       <managed-bean-scope id="__3">request</managed-bean-scope>
     </managed-bean>
     <view id="approvalProposal">
@@ -495,13 +495,13 @@
         <document>/WEB-INF/pa-excl-prop-area.xml</document>
         <id>pa-excl-prop-area</id>
       </task-flow-reference>
-      <input-parameter id="__172">
-        <name>propId</name>
-        <value>#{pageFlowScope.propId}</value>
+      <input-parameter id="__132">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
       </input-parameter>
-      <input-parameter id="__173">
-        <name>propNo</name>
-        <value>#{pageFlowScope.propNo}</value>
+      <input-parameter id="__133">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
       </input-parameter>
       <run-as-dialog>
         <display-type id="__158">
@@ -514,13 +514,13 @@
         <document>/WEB-INF/pa-excl-prop-customer.xml</document>
         <id>pa-excl-prop-customer</id>
       </task-flow-reference>
-      <input-parameter id="__170">
-        <name>propId</name>
-        <value>#{pageFlowScope.propId}</value>
+      <input-parameter id="__120">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
       </input-parameter>
-      <input-parameter id="__171">
-        <name>propNo</name>
-        <value>#{pageFlowScope.propNo}</value>
+      <input-parameter id="__121">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
       </input-parameter>
       <run-as-dialog>
         <display-type id="__161">
@@ -533,13 +533,13 @@
         <document>/WEB-INF/pa-excl-prop-region.xml</document>
         <id>pa-excl-prop-region</id>
       </task-flow-reference>
-      <input-parameter id="__176">
-        <name>propId</name>
-        <value>#{pageFlowScope.propId}</value>
+      <input-parameter id="__136">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
       </input-parameter>
-      <input-parameter id="__177">
-        <name>propNo</name>
-        <value>#{pageFlowScope.propNo}</value>
+      <input-parameter id="__137">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
       </input-parameter>
       <run-as-dialog>
         <display-type id="__160">
@@ -552,16 +552,35 @@
         <document>/WEB-INF/pa-excl-prop-loc.xml</document>
         <id>pa-excl-prop-loc</id>
       </task-flow-reference>
-      <input-parameter id="__174">
+      <input-parameter id="__134">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
+      </input-parameter>
+      <input-parameter id="__135">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__159">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pa-upload-download">
+      <task-flow-reference>
+        <document>/WEB-INF/pa-upload-download.xml</document>
+        <id>pa-upload-download</id>
+      </task-flow-reference>
+      <input-parameter id="__172">
         <name>propId</name>
         <value>#{pageFlowScope.propId}</value>
       </input-parameter>
-      <input-parameter id="__175">
+      <input-parameter id="__173">
         <name>propNo</name>
         <value>#{pageFlowScope.propNo}</value>
       </input-parameter>
       <run-as-dialog>
-        <display-type id="__159">
+        <display-type id="__174">
           <inline-popup/>
         </display-type>
       </run-as-dialog>
@@ -677,6 +696,10 @@
       <control-flow-case id="__151">
         <from-outcome id="__153">exclpropregion</from-outcome>
         <to-activity-id id="__152">pa-excl-prop-region</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__138">
+        <from-outcome id="__171">pa-upload-download</from-outcome>
+        <to-activity-id id="__170">pa-upload-download</to-activity-id>
       </control-flow-case>
     </control-flow-rule>
     <use-page-fragments/>

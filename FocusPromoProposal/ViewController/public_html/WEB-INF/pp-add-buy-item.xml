@@ -46,7 +46,7 @@
     </input-parameter-definition>
     <managed-bean id="__15">
       <managed-bean-name id="__16">PpAddBuyItemBackingBean</managed-bean-name>
-      <managed-bean-class id="__14">app.fpp.bean.PpAddBuyItemBackingBean</managed-bean-class>
+      <managed-bean-class id="__14">app.fpp.bean.promoproposal.PpAddBuyItemBackingBean</managed-bean-class>
       <managed-bean-scope id="__17">backingBean</managed-bean-scope>
     </managed-bean>
     <view id="ppAddBuyItem">

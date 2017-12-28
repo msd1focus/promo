@@ -65,6 +65,28 @@
       <Attr Name="_DisplaySize" Value="150"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="PromoProdukId"
+    ColumnName="PROMO_PRODUK_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="FCS_EXCL_SHUTTLE_REGION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ProposalId"
+    ColumnName="PROPOSAL_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="FCS_EXCL_SHUTTLE_REGION">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </Attribute>
   <Key
     Name="FcsexclshuttleregionPrimaryKey"
     PrimaryKey="true">

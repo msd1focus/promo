@@ -209,6 +209,156 @@ public class PromoProdukImpl extends EntityImpl {
             }
         }
         ,
+        DiscMf {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getDiscMf();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setDiscMf((Number)value);
+            }
+        }
+        ,
+        DiscOnTop {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getDiscOnTop();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setDiscOnTop((Number)value);
+            }
+        }
+        ,
+        DiscRasioMf {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getDiscRasioMf();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setDiscRasioMf((Number)value);
+            }
+        }
+        ,
+        DiscRasioOnTop {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getDiscRasioOnTop();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setDiscRasioOnTop((Number)value);
+            }
+        }
+        ,
+        DiscRasioTotal {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getDiscRasioTotal();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setDiscRasioTotal((Number)value);
+            }
+        }
+        ,
+        BrgBonusMf {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getBrgBonusMf();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setBrgBonusMf((Number)value);
+            }
+        }
+        ,
+        BrgBonusOnTop {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getBrgBonusOnTop();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setBrgBonusOnTop((Number)value);
+            }
+        }
+        ,
+        BrgBonusRasioMf {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getBrgBonusRasioMf();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setBrgBonusRasioMf((Number)value);
+            }
+        }
+        ,
+        BrgBonusRasioOnTop {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getBrgBonusRasioOnTop();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setBrgBonusRasioOnTop((Number)value);
+            }
+        }
+        ,
+        BrgBonusRasioTotal {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getBrgBonusRasioTotal();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setBrgBonusRasioTotal((Number)value);
+            }
+        }
+        ,
+        BiaMf {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getBiaMf();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setBiaMf((Number)value);
+            }
+        }
+        ,
+        BiaOntop {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getBiaOntop();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setBiaOntop((Number)value);
+            }
+        }
+        ,
+        BiaRasionOntop {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getBiaRasionOntop();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setBiaRasionOntop((Number)value);
+            }
+        }
+        ,
+        BiaRasioMf {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getBiaRasioMf();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setBiaRasioMf((Number)value);
+            }
+        }
+        ,
+        BiaRasioTotal {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getBiaRasioTotal();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setBiaRasioTotal((Number)value);
+            }
+        }
+        ,
         Discount {
             public Object get(PromoProdukImpl obj) {
                 return obj.getDiscount();
@@ -378,6 +528,56 @@ public class PromoProdukImpl extends EntityImpl {
                 obj.setAttributeInternal(index(), value);
             }
         }
+        ,
+        ExclPropCustArea {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getExclPropCustArea();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        ExclPropCustRegion {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getExclPropCustRegion();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        ExclPropCustLoc {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getExclPropCustLoc();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        ExclPropCustCust {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getExclPropCustCust();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        RealisasiItemPaket {
+            public Object get(PromoProdukImpl obj) {
+                return obj.getRealisasiItemPaket();
+            }
+
+            public void put(PromoProdukImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static final int firstIndex = 0;
@@ -426,6 +626,21 @@ public class PromoProdukImpl extends EntityImpl {
     public static final int VALIDCOMB = AttributesEnum.ValidComb.index();
     public static final int ITEMEXPENSE = AttributesEnum.ItemExpense.index();
     public static final int EXCLCUSTBY = AttributesEnum.ExclCustBy.index();
+    public static final int DISCMF = AttributesEnum.DiscMf.index();
+    public static final int DISCONTOP = AttributesEnum.DiscOnTop.index();
+    public static final int DISCRASIOMF = AttributesEnum.DiscRasioMf.index();
+    public static final int DISCRASIOONTOP = AttributesEnum.DiscRasioOnTop.index();
+    public static final int DISCRASIOTOTAL = AttributesEnum.DiscRasioTotal.index();
+    public static final int BRGBONUSMF = AttributesEnum.BrgBonusMf.index();
+    public static final int BRGBONUSONTOP = AttributesEnum.BrgBonusOnTop.index();
+    public static final int BRGBONUSRASIOMF = AttributesEnum.BrgBonusRasioMf.index();
+    public static final int BRGBONUSRASIOONTOP = AttributesEnum.BrgBonusRasioOnTop.index();
+    public static final int BRGBONUSRASIOTOTAL = AttributesEnum.BrgBonusRasioTotal.index();
+    public static final int BIAMF = AttributesEnum.BiaMf.index();
+    public static final int BIAONTOP = AttributesEnum.BiaOntop.index();
+    public static final int BIARASIONONTOP = AttributesEnum.BiaRasionOntop.index();
+    public static final int BIARASIOMF = AttributesEnum.BiaRasioMf.index();
+    public static final int BIARASIOTOTAL = AttributesEnum.BiaRasioTotal.index();
     public static final int DISCOUNT = AttributesEnum.Discount.index();
     public static final int PROPOSAL = AttributesEnum.Proposal.index();
     public static final int TARGET = AttributesEnum.Target.index();
@@ -443,6 +658,11 @@ public class PromoProdukImpl extends EntityImpl {
     public static final int EXCLCUSTLOC = AttributesEnum.ExclCustLoc.index();
     public static final int EXCLCUSTREGION = AttributesEnum.ExclCustRegion.index();
     public static final int EXCLCUSTCUST = AttributesEnum.ExclCustCust.index();
+    public static final int EXCLPROPCUSTAREA = AttributesEnum.ExclPropCustArea.index();
+    public static final int EXCLPROPCUSTREGION = AttributesEnum.ExclPropCustRegion.index();
+    public static final int EXCLPROPCUSTLOC = AttributesEnum.ExclPropCustLoc.index();
+    public static final int EXCLPROPCUSTCUST = AttributesEnum.ExclPropCustCust.index();
+    public static final int REALISASIITEMPAKET = AttributesEnum.RealisasiItemPaket.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -651,6 +871,246 @@ public class PromoProdukImpl extends EntityImpl {
      */
     public void setExclCustBy(String value) {
         setAttributeInternal(EXCLCUSTBY, value);
+    }
+
+    /**
+     * Gets the attribute value for DiscMf, using the alias name DiscMf.
+     * @return the DiscMf
+     */
+    public Number getDiscMf() {
+        return (Number)getAttributeInternal(DISCMF);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for DiscMf.
+     * @param value value to set the DiscMf
+     */
+    public void setDiscMf(Number value) {
+        setAttributeInternal(DISCMF, value);
+    }
+
+    /**
+     * Gets the attribute value for DiscOnTop, using the alias name DiscOnTop.
+     * @return the DiscOnTop
+     */
+    public Number getDiscOnTop() {
+        return (Number)getAttributeInternal(DISCONTOP);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for DiscOnTop.
+     * @param value value to set the DiscOnTop
+     */
+    public void setDiscOnTop(Number value) {
+        setAttributeInternal(DISCONTOP, value);
+    }
+
+    /**
+     * Gets the attribute value for DiscRasioMf, using the alias name DiscRasioMf.
+     * @return the DiscRasioMf
+     */
+    public Number getDiscRasioMf() {
+        return (Number)getAttributeInternal(DISCRASIOMF);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for DiscRasioMf.
+     * @param value value to set the DiscRasioMf
+     */
+    public void setDiscRasioMf(Number value) {
+        setAttributeInternal(DISCRASIOMF, value);
+    }
+
+    /**
+     * Gets the attribute value for DiscRasioOnTop, using the alias name DiscRasioOnTop.
+     * @return the DiscRasioOnTop
+     */
+    public Number getDiscRasioOnTop() {
+        return (Number)getAttributeInternal(DISCRASIOONTOP);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for DiscRasioOnTop.
+     * @param value value to set the DiscRasioOnTop
+     */
+    public void setDiscRasioOnTop(Number value) {
+        setAttributeInternal(DISCRASIOONTOP, value);
+    }
+
+    /**
+     * Gets the attribute value for DiscRasioTotal, using the alias name DiscRasioTotal.
+     * @return the DiscRasioTotal
+     */
+    public Number getDiscRasioTotal() {
+        return (Number)getAttributeInternal(DISCRASIOTOTAL);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for DiscRasioTotal.
+     * @param value value to set the DiscRasioTotal
+     */
+    public void setDiscRasioTotal(Number value) {
+        setAttributeInternal(DISCRASIOTOTAL, value);
+    }
+
+    /**
+     * Gets the attribute value for BrgBonusMf, using the alias name BrgBonusMf.
+     * @return the BrgBonusMf
+     */
+    public Number getBrgBonusMf() {
+        return (Number)getAttributeInternal(BRGBONUSMF);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BrgBonusMf.
+     * @param value value to set the BrgBonusMf
+     */
+    public void setBrgBonusMf(Number value) {
+        setAttributeInternal(BRGBONUSMF, value);
+    }
+
+    /**
+     * Gets the attribute value for BrgBonusOnTop, using the alias name BrgBonusOnTop.
+     * @return the BrgBonusOnTop
+     */
+    public Number getBrgBonusOnTop() {
+        return (Number)getAttributeInternal(BRGBONUSONTOP);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BrgBonusOnTop.
+     * @param value value to set the BrgBonusOnTop
+     */
+    public void setBrgBonusOnTop(Number value) {
+        setAttributeInternal(BRGBONUSONTOP, value);
+    }
+
+    /**
+     * Gets the attribute value for BrgBonusRasioMf, using the alias name BrgBonusRasioMf.
+     * @return the BrgBonusRasioMf
+     */
+    public Number getBrgBonusRasioMf() {
+        return (Number)getAttributeInternal(BRGBONUSRASIOMF);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BrgBonusRasioMf.
+     * @param value value to set the BrgBonusRasioMf
+     */
+    public void setBrgBonusRasioMf(Number value) {
+        setAttributeInternal(BRGBONUSRASIOMF, value);
+    }
+
+    /**
+     * Gets the attribute value for BrgBonusRasioOnTop, using the alias name BrgBonusRasioOnTop.
+     * @return the BrgBonusRasioOnTop
+     */
+    public Number getBrgBonusRasioOnTop() {
+        return (Number)getAttributeInternal(BRGBONUSRASIOONTOP);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BrgBonusRasioOnTop.
+     * @param value value to set the BrgBonusRasioOnTop
+     */
+    public void setBrgBonusRasioOnTop(Number value) {
+        setAttributeInternal(BRGBONUSRASIOONTOP, value);
+    }
+
+    /**
+     * Gets the attribute value for BrgBonusRasioTotal, using the alias name BrgBonusRasioTotal.
+     * @return the BrgBonusRasioTotal
+     */
+    public Number getBrgBonusRasioTotal() {
+        return (Number)getAttributeInternal(BRGBONUSRASIOTOTAL);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BrgBonusRasioTotal.
+     * @param value value to set the BrgBonusRasioTotal
+     */
+    public void setBrgBonusRasioTotal(Number value) {
+        setAttributeInternal(BRGBONUSRASIOTOTAL, value);
+    }
+
+    /**
+     * Gets the attribute value for BiaMf, using the alias name BiaMf.
+     * @return the BiaMf
+     */
+    public Number getBiaMf() {
+        return (Number)getAttributeInternal(BIAMF);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BiaMf.
+     * @param value value to set the BiaMf
+     */
+    public void setBiaMf(Number value) {
+        setAttributeInternal(BIAMF, value);
+    }
+
+    /**
+     * Gets the attribute value for BiaOntop, using the alias name BiaOntop.
+     * @return the BiaOntop
+     */
+    public Number getBiaOntop() {
+        return (Number)getAttributeInternal(BIAONTOP);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BiaOntop.
+     * @param value value to set the BiaOntop
+     */
+    public void setBiaOntop(Number value) {
+        setAttributeInternal(BIAONTOP, value);
+    }
+
+    /**
+     * Gets the attribute value for BiaRasionOntop, using the alias name BiaRasionOntop.
+     * @return the BiaRasionOntop
+     */
+    public Number getBiaRasionOntop() {
+        return (Number)getAttributeInternal(BIARASIONONTOP);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BiaRasionOntop.
+     * @param value value to set the BiaRasionOntop
+     */
+    public void setBiaRasionOntop(Number value) {
+        setAttributeInternal(BIARASIONONTOP, value);
+    }
+
+    /**
+     * Gets the attribute value for BiaRasioMf, using the alias name BiaRasioMf.
+     * @return the BiaRasioMf
+     */
+    public Number getBiaRasioMf() {
+        return (Number)getAttributeInternal(BIARASIOMF);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BiaRasioMf.
+     * @param value value to set the BiaRasioMf
+     */
+    public void setBiaRasioMf(Number value) {
+        setAttributeInternal(BIARASIOMF, value);
+    }
+
+    /**
+     * Gets the attribute value for BiaRasioTotal, using the alias name BiaRasioTotal.
+     * @return the BiaRasioTotal
+     */
+    public Number getBiaRasioTotal() {
+        return (Number)getAttributeInternal(BIARASIOTOTAL);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BiaRasioTotal.
+     * @param value value to set the BiaRasioTotal
+     */
+    public void setBiaRasioTotal(Number value) {
+        setAttributeInternal(BIARASIOTOTAL, value);
     }
 
     /**
@@ -934,6 +1394,43 @@ public class PromoProdukImpl extends EntityImpl {
      */
     public RowIterator getExclCustCust() {
         return (RowIterator)getAttributeInternal(EXCLCUSTCUST);
+    }
+
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getExclPropCustArea() {
+        return (RowIterator)getAttributeInternal(EXCLPROPCUSTAREA);
+    }
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getExclPropCustRegion() {
+        return (RowIterator)getAttributeInternal(EXCLPROPCUSTREGION);
+    }
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getExclPropCustLoc() {
+        return (RowIterator)getAttributeInternal(EXCLPROPCUSTLOC);
+    }
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getExclPropCustCust() {
+        return (RowIterator)getAttributeInternal(EXCLPROPCUSTCUST);
+    }
+
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getRealisasiItemPaket() {
+        return (RowIterator)getAttributeInternal(REALISASIITEMPAKET);
     }
 
 

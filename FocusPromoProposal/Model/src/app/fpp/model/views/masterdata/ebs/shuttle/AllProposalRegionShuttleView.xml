@@ -11,9 +11,12 @@
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
-  Where="FcsShuttleRegion.USER_NAME = :userName"
+  Where="FcsShuttleRegion.USER_NAME = :userName
+GROUP BY FcsShuttleRegion.REGION_CODE, 
+       FcsShuttleRegion.REGION_LABEL"
   SelectList="FcsShuttleRegion.REGION_CODE, 
-       FcsShuttleRegion.REGION_LABEL">
+       FcsShuttleRegion.REGION_LABEL"
+  OrderBy="FcsShuttleRegion.REGION_LABEL">
   <Properties>
     <SchemaBasedProperties>
       <LABEL

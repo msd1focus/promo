@@ -14,7 +14,10 @@
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
-  Where="FcsShuttleCustGroup.USER_NAME = :userName"
+  Where="FcsShuttleCustGroup.USER_NAME = :userName
+GROUP BY FcsShuttleCustGroup.CUST_GROUP_CODE, 
+       FcsShuttleCustGroup.CUST_GROUP_LABEL, 
+       FcsShuttleCustGroup.USER_NAME"
   OrderBy="FcsShuttleCustGroup.CUST_GROUP_LABEL">
   <Properties>
     <SchemaBasedProperties>

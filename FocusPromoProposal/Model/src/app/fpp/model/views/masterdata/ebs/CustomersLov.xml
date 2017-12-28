@@ -9,16 +9,19 @@
   SelectList="ArCustomers.CUSTOMER_ID, 
        ArCustomers.CUSTOMER_NAME, 
        ArCustomers.CUSTOMER_NUMBER, 
-       (SELECT ArCustomers.ATTRIBUTE3 || ' ' || ArCustomers.CUSTOMER_NAME FROM DUAL) AS CUSTOMER_FULL_NAME, 
+       (ArCustomers.customer_number || ' - ' || FcsCustAccountsView.ACCOUNT_NAME || ' - ' || FcsFlexValuesVl.description) AS CUSTOMER_FULL_NAME, 
        ArCustomers.ATTRIBUTE3"
-  FromList="APPS.AR_CUSTOMERS ArCustomers, APP_USER_REGION AppUserRegion"
+  FromList="APPS.AR_CUSTOMERS ArCustomers, APP_USER_REGION AppUserRegion, APPS.FCS_CUST_ACCOUNTS_VIEW FcsCustAccountsView, APPS.FCS_FLEX_VALUES_VL FcsFlexValuesVl"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
-  Where="ArCustomers.ATTRIBUTE3 = AppUserRegion.REGION_CODE
-AND AppUserRegion.USER_NAME = :userName"
-  OrderBy='"CUSTOMER_FULL_NAME"'>
+  OrderBy='"CUSTOMER_FULL_NAME"'
+  Where="ArCustomers.ATTRIBUTE3 = AppUserRegion.REGION_CODE 
+and FcsFlexValuesVl.flex_value = ArCustomers.attribute5
+and ArCustomers.status = 'A'
+AND ArCustomers.CUSTOMER_ID = FcsCustAccountsView.CUST_ACCOUNT_ID
+AND AppUserRegion.USER_NAME = :userName">
   <Properties>
     <SchemaBasedProperties>
       <LABEL
@@ -45,7 +48,7 @@ AND AppUserRegion.USER_NAME = :userName"
         <LABEL
           ResId="app.fpp.model.views.masterdata.ebs.CustomersLov.custName_LABEL"/>
         <DISPLAYWIDTH
-          Value="30"/>
+          Value="55"/>
       </SchemaBasedProperties>
     </Properties>
   </Variable>
@@ -58,6 +61,20 @@ AND AppUserRegion.USER_NAME = :userName"
     Name="AppUserRegion"
     Entity="app.fpp.model.entities.useraccess.AppUserRegion"
     SourceUsage="app.fpp.model.views.masterdata.ebs.CustomersLov.ArCustomers"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"/>
+  <EntityUsage
+    Name="FcsCustAccountsView"
+    Entity="app.fpp.model.entities.masterdata.ebs.FcsCustAccountsView"
+    SourceUsage="app.fpp.model.views.masterdata.ebs.CustomersLov.AppUserRegion"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"/>
+  <EntityUsage
+    Name="FcsFlexValuesVl"
+    Entity="app.fpp.model.entities.masterdata.ebs.FcsFlexValuesVl"
+    SourceUsage="app.fpp.model.views.masterdata.ebs.CustomersLov.FcsCustAccountsView"
     ReadOnly="true"
     Reference="true"
     DeleteParticipant="false"/>
@@ -104,13 +121,13 @@ AND AppUserRegion.USER_NAME = :userName"
     AliasName="CUSTOMER_FULL_NAME"
     SQLType="VARCHAR"
     Precision="255"
-    Expression="SELECT ArCustomers.ATTRIBUTE3 || ' ' || ArCustomers.CUSTOMER_NAME FROM DUAL">
+    Expression="ArCustomers.customer_number || ' - ' || FcsCustAccountsView.ACCOUNT_NAME || ' - ' || FcsFlexValuesVl.description">
     <Properties>
       <SchemaBasedProperties>
         <LABEL
           ResId="CUSTOMER_NAME"/>
         <DISPLAYWIDTH
-          Value="30"/>
+          Value="40"/>
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>

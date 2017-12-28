@@ -9,7 +9,7 @@
               Binds="AllProdukLocationShuttleView1"
               DataControl="ApprovalAMDataControl" RangeSize="-1"/>
     <iterator id="ProdRegionLocView1Iterator" Binds="ProdRegionLocView1"
-              DataControl="PromoProposalAMDataControl" RangeSize="-1"/>
+              DataControl="ApprovalAMDataControl" RangeSize="25"/>
   </executables>
   <bindings>
     <action id="Commit" DataControl="ApprovalAMDataControl"

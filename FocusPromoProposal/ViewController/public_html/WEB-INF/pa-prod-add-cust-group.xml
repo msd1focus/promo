@@ -16,7 +16,7 @@
     </input-parameter-definition>
     <managed-bean id="__24">
       <managed-bean-name id="__27">PaProdAddCustGroupBackingBean</managed-bean-name>
-      <managed-bean-class id="__25">app.fpp.bean.PaProdAddCustGroupBackingBean</managed-bean-class>
+      <managed-bean-class id="__25">app.fpp.bean.approval.PaProdAddCustGroupBackingBean</managed-bean-class>
       <managed-bean-scope id="__26">backingBean</managed-bean-scope>
     </managed-bean>
     <method-call id="setKeyPromoProdukId">

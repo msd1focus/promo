@@ -14,9 +14,21 @@
     <iterator Binds="AppUserAccessRolesView1" RangeSize="25"
               DataControl="UserAccessAMDataControl"
               id="AppUserAccessRolesView1Iterator"/>
-    <iterator Binds="AppUserRegionView1" RangeSize="50"
+    <iterator Binds="AppUserRegionView1" RangeSize="-1"
               DataControl="UserAccessAMDataControl"
               id="AppUserRegionView1Iterator"/>
+    <iterator Binds="AppUserAreaView1" RangeSize="-1"
+              DataControl="UserAccessAMDataControl"
+              id="AppUserAreaView1Iterator"/>
+    <iterator Binds="AppUserLocView1" RangeSize="-1"
+              DataControl="UserAccessAMDataControl"
+              id="AppUserLocView1Iterator"/>
+    <iterator Binds="AppUserCustView1" RangeSize="-1"
+              DataControl="UserAccessAMDataControl"
+              id="AppUserCustView1Iterator"/>
+    <iterator Binds="AppUserCustGroupView1" RangeSize="-1"
+              DataControl="UserAccessAMDataControl"
+              id="AppUserCustGroupView1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="AppUserAccessView1Iterator" id="AppUserAccessView1">
@@ -98,7 +110,26 @@
       <nodeDefinition DefName="app.fpp.model.views.useraccess.AppUserRegionView"
                       Name="AppUserRegionView10">
         <AttrNames>
+          <Item Value="RegionCode"/>
           <Item Value="RegionLabel"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="AppUserAreaView1Iterator" id="AppUserAreaView1">
+      <nodeDefinition DefName="app.fpp.model.views.useraccess.AppUserAreaView"
+                      Name="AppUserAreaView10">
+        <AttrNames>
+          <Item Value="AreaCode"/>
+          <Item Value="Description"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="AppUserLocView1Iterator" id="AppUserLocView1">
+      <nodeDefinition DefName="app.fpp.model.views.useraccess.AppUserLocView"
+                      Name="AppUserLocView10">
+        <AttrNames>
+          <Item Value="LocationCode"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -108,6 +139,22 @@
             Action="iteratorExecute"/>
     <action IterBinding="AppUserRegionView1Iterator" id="ExecuteRegion"
             InstanceName="UserAccessAMDataControl.AppUserRegionView1"
+            DataControl="UserAccessAMDataControl" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <action IterBinding="AppUserAreaView1Iterator" id="ExecuteArea"
+            InstanceName="UserAccessAMDataControl.AppUserAreaView1"
+            DataControl="UserAccessAMDataControl" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <action IterBinding="AppUserLocView1Iterator" id="ExecuteLoc"
+            InstanceName="UserAccessAMDataControl.AppUserLocView1"
+            DataControl="UserAccessAMDataControl" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <action IterBinding="AppUserCustView1Iterator" id="ExecuteCust"
+            InstanceName="UserAccessAMDataControl.AppUserCustView1"
+            DataControl="UserAccessAMDataControl" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
+    <action IterBinding="AppUserCustGroupView1Iterator" id="ExecuteCustGroup"
+            InstanceName="UserAccessAMDataControl.AppUserCustGroupView1"
             DataControl="UserAccessAMDataControl" RequiresUpdateModel="true"
             Action="iteratorExecute"/>
     <attributeValues IterBinding="AppUserAccessView1Iterator" id="UserInitial">
@@ -124,5 +171,31 @@
     </attributeValues>
     <list IterBinding="AppUserAccessView1Iterator" StaticList="false"
           Uses="LOV_UserDivision" id="UserDivision" DTSupportsMRU="true"/>
+    <tree IterBinding="AppUserCustView1Iterator" id="AppUserCustView1">
+      <nodeDefinition DefName="app.fpp.model.views.useraccess.AppUserCustView"
+                      Name="AppUserCustView10">
+        <AttrNames>
+          <Item Value="CustomerName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <tree IterBinding="AppUserCustGroupView1Iterator"
+          id="AppUserCustGroupView1">
+      <nodeDefinition DefName="app.fpp.model.views.useraccess.AppUserCustGroupView"
+                      Name="AppUserCustGroupView10">
+        <AttrNames>
+          <Item Value="CustGroup"/>
+          <Item Value="Description"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <listOfValues StaticList="false" IterBinding="AppUserAccessView1Iterator"
+                  Uses="LOV_DirectSpv" id="DirectSpv"/>
+    <attributeValues IterBinding="AppUserAccessView1Iterator"
+                     id="DirectSpvDesc">
+      <AttrNames>
+        <Item Value="DirectSpvDesc"/>
+      </AttrNames>
+    </attributeValues>
   </bindings>
 </pageDefinition>

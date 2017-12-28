@@ -16,7 +16,7 @@
     </input-parameter-definition>
     <managed-bean id="__21">
       <managed-bean-name id="__20">PpProdAddLocationBackingBean</managed-bean-name>
-      <managed-bean-class id="__22">app.fpp.bean.PpProdAddLocationBackingBean</managed-bean-class>
+      <managed-bean-class id="__22">app.fpp.bean.promoproposal.PpProdAddLocationBackingBean</managed-bean-class>
       <managed-bean-scope id="__23">backingBean</managed-bean-scope>
     </managed-bean>
     <method-call id="setUserLocation">

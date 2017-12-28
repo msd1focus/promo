@@ -9,7 +9,7 @@
   SelectList="ProdRegionCustomer.PROMO_PRODUK_ID, 
        ProdRegionCustomer.CUSTOMER_ID, 
        ProdRegionCustomer.NOTES, 
-       (SELECT ARC.CUSTOMER_NUMBER || ' ' || ARC.CUSTOMER_NAME FROM APPS.AR_CUSTOMERS ARC WHERE ARC.CUSTOMER_ID = ProdRegionCustomer.CUSTOMER_ID) AS CUSTOMER_NAME, 
+       (SELECT ARC.CUSTOMER_NUMBER || ' - ' || ARC.CUSTOMER_NAME || ' - ' || flex.description FROM APPS.AR_CUSTOMERS ARC, APPS.FCS_FLEX_VALUES_VL FLEX WHERE flex.flex_value = arc.attribute5 AND ARC.CUSTOMER_ID = ProdRegionCustomer.CUSTOMER_ID) AS CUSTOMER_NAME, 
        (SELECT ARC.ATTRIBUTE3 FROM APPS.AR_CUSTOMERS ARC WHERE ARC.CUSTOMER_ID = ProdRegionCustomer.CUSTOMER_ID) AS REGION_CODE"
   FromList="PROD_REGION_CUSTOMER ProdRegionCustomer"
   BindingStyle="OracleName"
@@ -53,7 +53,7 @@
     AliasName="CUSTOMER_NAME"
     SQLType="VARCHAR"
     Precision="255"
-    Expression="SELECT ARC.CUSTOMER_NUMBER || ' ' || ARC.CUSTOMER_NAME FROM APPS.AR_CUSTOMERS ARC WHERE ARC.CUSTOMER_ID = ProdRegionCustomer.CUSTOMER_ID"/>
+    Expression="SELECT ARC.CUSTOMER_NUMBER || ' - ' || ARC.CUSTOMER_NAME || ' - ' || flex.description FROM APPS.AR_CUSTOMERS ARC, APPS.FCS_FLEX_VALUES_VL FLEX WHERE flex.flex_value = arc.attribute5 AND ARC.CUSTOMER_ID = ProdRegionCustomer.CUSTOMER_ID"/>
   <ViewAttribute
     Name="RegionCode"
     IsUpdateable="false"

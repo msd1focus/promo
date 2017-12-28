@@ -34,8 +34,8 @@
                            inlineStyle="background-color:rgb(0,52,82);">
       <f:facet name="top">
         <af:panelStretchLayout id="pt_psl4"
-                               endWidth="230px"
-                               startWidth="330px">
+                               endWidth="260px"
+                               startWidth="310px">
           <f:facet name="start">
             <af:panelGroupLayout layout="horizontal"
                                  xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
@@ -50,8 +50,9 @@
           </f:facet>
           <f:facet name="end">
             <af:menuBar id="pt_mb1">
-              <af:menu text="#{UserData.fullNameSubstr} #{UserData.companyId == 'I' ? '[FDI]' : UserData.companyId == 'N' ? '[FDN]' : '' }" id="menu1"
-                       icon="/Images/user.png">
+              <af:menu text="#{UserData.companyId == 'I' ? '[FDI]' : UserData.companyId == 'N' ? '[FDN]' : '' } #{UserData.fullNameSubstr}" id="menu1"
+                       icon="/Images/user.png"
+                       inlineStyle="text-transform: uppercase;">
                 <af:commandMenuItem text="Ganti Password" id="commandMenuItem1"
                                     icon="/Images/ganti_password.png" useWindow="true"
                                         windowEmbedStyle="inlineDocument"
@@ -65,7 +66,7 @@
             </af:menuBar>
           </f:facet>
           <f:facet name="center">
-              <af:panelSplitter id="pt_ps1" splitterPosition="80"
+              <af:panelSplitter id="pt_ps1" splitterPosition="82"
                                 disabled="true" orientation="horizontal">
                 <f:facet name="first">
                   <af:panelSplitter id="pt_ps2" orientation="horizontal"

@@ -91,10 +91,10 @@
    </Containee>
    <Containee
       Name="shuttle"
-      PackageName="app.fpp.model.entities.masterdata.ebs.shuttle"
-      ObjectType="JboPackage">
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.entities.masterdata.ebs.shuttle" >
       <DesignTime>
-         <Attr Name="_EO" Value="true"/>
+         <Attr Name="_EO" Value="true" />
       </DesignTime>
    </Containee>
    <Containee
@@ -242,10 +242,10 @@
    </Containee>
    <Containee
       Name="pricelist"
-      PackageName="app.fpp.model.views.promoproposal.pricelist"
-      ObjectType="JboPackage">
+      ObjectType="JboPackage"
+      PackageName="app.fpp.model.views.promoproposal.pricelist" >
       <DesignTime>
-         <Attr Name="_VO" Value="true"/>
+         <Attr Name="_VO" Value="true" />
       </DesignTime>
    </Containee>
    <Containee

@@ -16,12 +16,14 @@
        BudgetCustTran.CREATED_BY, 
        BudgetCustTran.CREATION_DATE, 
        BudgetCustTran.MODIFIED_BY, 
-       BudgetCustTran.MODIFIED_DATE"
+       BudgetCustTran.MODIFIED_DATE, 
+       BudgetCustTran.REMARKS"
   FromList="BUDGET_CUST_TRAN BudgetCustTran"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  OrderBy="BudgetCustTran.BUDGET_CUST_TRAN_ID ASC">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|VarAccess"/>
   </DesignTime>
@@ -50,7 +52,8 @@
     <AttrArray Name="ListDisplayAttrNames">
       <Item Value="Descr"/>
     </AttrArray>
-    <DisplayCriteria/>
+    <DisplayCriteria
+      Hint="hide"/>
   </ListBinding>
   <EntityUsage
     Name="BudgetCustTran"
@@ -75,12 +78,11 @@
     EntityAttrName="BudgetType"
     EntityUsage="BudgetCustTran"
     AliasName="BUDGET_TYPE"
-    LOVName="LOV_BudgetType"
-    DefaultValue="BALANCE">
+    LOVName="LOV_BudgetType">
     <Properties>
       <SchemaBasedProperties>
         <CONTROLTYPE
-          Value="choice"/>
+          Value="input_text_lov"/>
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>
@@ -172,6 +174,23 @@
     EntityUsage="BudgetCustTran"
     AliasName="MODIFIED_DATE"
     IsUpdateable="false"/>
+  <ViewAttribute
+    Name="Remarks"
+    PrecisionRule="true"
+    EntityAttrName="Remarks"
+    EntityUsage="BudgetCustTran"
+    AliasName="REMARKS"/>
+  <ViewAttribute
+    Name="PercentageTemp"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    DefaultValue="100 %"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="app.fpp.model.ModelBundle"/>

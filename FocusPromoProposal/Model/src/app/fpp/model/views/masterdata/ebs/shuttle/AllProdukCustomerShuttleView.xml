@@ -14,9 +14,15 @@
   SelectList="FcsShuttleCustomer.CUSTOMER_ID, 
        FcsShuttleCustomer.CUSTOMER_NAME, 
        FcsShuttleCustomer.CUSTOMER_NUMBER, 
-       FcsShuttleCustomer.ATTRIBUTE3, 
+       FcsShuttleCustomer.REGION_CODE, 
        FcsShuttleCustomer.CUSTOMER_FULL_NAME"
-  Where="FcsShuttleCustomer.USER_NAME = :userName">
+  Where="FcsShuttleCustomer.USER_NAME = :userName
+GROUP BY FcsShuttleCustomer.CUSTOMER_ID, 
+       FcsShuttleCustomer.CUSTOMER_NAME, 
+       FcsShuttleCustomer.CUSTOMER_NUMBER, 
+       FcsShuttleCustomer.REGION_CODE, 
+       FcsShuttleCustomer.CUSTOMER_FULL_NAME"
+  OrderBy="FcsShuttleCustomer.CUSTOMER_FULL_NAME">
   <Properties>
     <SchemaBasedProperties>
       <LABEL
@@ -54,11 +60,11 @@
     EntityUsage="FcsShuttleCustomer"
     AliasName="CUSTOMER_NUMBER"/>
   <ViewAttribute
-    Name="Attribute3"
+    Name="RegionCode"
     PrecisionRule="true"
-    EntityAttrName="Attribute3"
+    EntityAttrName="RegionCode"
     EntityUsage="FcsShuttleCustomer"
-    AliasName="ATTRIBUTE3"/>
+    AliasName="REGION_CODE"/>
   <ViewAttribute
     Name="CustomerFullName"
     PrecisionRule="true"

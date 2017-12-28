@@ -21,10 +21,18 @@
     <param-name>org.apache.myfaces.trinidad.DISABLE_CONTENT_COMPRESSION</param-name>
     <param-value>true</param-value>
   </context-param>
+  <context-param>
+    <param-name>org.apache.myfaces.trinidad.UPLOAD_MAX_DISK_SPACE</param-name>
+    <param-value>524288000</param-value>
+  </context-param>
   <!--context-param>
     <param-name>oracle.adf.view.rich.security.FRAME_BUSTING</param-name>
     <param-value>never</param-value>
   </context-param-->
+  <context-param> 
+      <param-name>shiroConfigLocations</param-name> 
+      <param-value>/WEB-INF/shiro.ini</param-value> 
+ </context-param> 
   <filter>
     <filter-name>JpsFilter</filter-name>
     <filter-class>oracle.security.jps.ee.http.JpsFilter</filter-class>
@@ -44,6 +52,10 @@
   <filter>
     <filter-name>adfBindings</filter-name>
     <filter-class>oracle.adf.model.servlet.ADFBindingFilter</filter-class>
+  </filter>
+  <filter>
+    <filter-name>shiroFilter</filter-name>
+    <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>JpsFilter</filter-name>
@@ -70,6 +82,14 @@
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>REQUEST</dispatcher>
   </filter-mapping>
+  <filter-mapping>
+    <filter-name>shiroFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
   <listener>
     <listener-class>oracle.adf.mbean.share.config.ADFConfigLifeCycleCallBack</listener-class>
   </listener>
@@ -78,6 +98,9 @@
   </listener>
   <listener>
     <listener-class>oracle.bc4j.mbean.BC4JConfigLifeCycleCallBack</listener-class>
+  </listener>
+  <listener>
+    <listener-class>org.apache.shiro.web.env.EnvironmentLoaderListener</listener-class>
   </listener>
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
@@ -162,7 +185,7 @@
       <is-xml>true</is-xml>
     </jsp-property-group>
   </jsp-config>
-  <security-constraint>
+  <!--security-constraint>
     <web-resource-collection>
       <web-resource-name>allPages</web-resource-name>
       <url-pattern>/*</url-pattern>
@@ -195,5 +218,5 @@
   </login-config>
   <security-role>
     <role-name>valid-users</role-name>
-  </security-role>
+  </security-role-->
 </web-app>

@@ -202,6 +202,32 @@
     </Properties>
   </Attribute>
   <Attribute
+    Name="BudgetAsToDate"
+    Precision="18"
+    Scale="2"
+    ColumnName="BUDGET_AS_TO_DATE"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="BUDGET_CUSTOMER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="BudgetAsToDateUsed"
+    Precision="18"
+    Scale="2"
+    ColumnName="BUDGET_AS_TO_DATE_USED"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="BUDGET_CUSTOMER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
     Name="Status"
     Precision="1"
     ColumnName="STATUS"

@@ -1,6 +1,5 @@
 package app.fpp.model.am;
 
-
 import app.fpp.adfextensions.CustomApplicationModuleImpl;
 import app.fpp.model.am.common.SecurityAM;
 import app.fpp.model.views.useraccessmenu.UserAccessRolesViewImpl;
@@ -53,6 +52,8 @@ public class SecurityAMImpl extends CustomApplicationModuleImpl implements Secur
             String userType = (String)userRow.getAttribute("UserType");
             String userInitial = (String)userRow.getAttribute("UserInitial");
             String userDivision = (String)userRow.getAttribute("UserDivision");
+            String userCustomer = (String)userRow.getAttribute("UserCustomer");
+            String reportDomain = (String)userRow.getAttribute("ReportDomain");
             userData.put("FullName", fullName);
             userData.put("Password", userPassword);
             userData.put("UserName", userNameLogin);
@@ -63,6 +64,8 @@ public class SecurityAMImpl extends CustomApplicationModuleImpl implements Secur
             userData.put("UserType", userType);
             userData.put("UserInitial", userInitial);
             userData.put("UserDivision", userDivision);
+            userData.put("UserCustomer", userCustomer);
+            userData.put("ReportDomain", reportDomain);
             setToSession("UserId", userLogin); // Save Login ID to BC session
             
             //Retrive User Roles

@@ -84,6 +84,17 @@
     <iterator id="KombinasiBudgetPostLov1Iterator"
               Binds="KombinasiBudgetPostLov1"
               DataControl="ConfirmationAMDataControl" RangeSize="25"/>
+    <iterator id="BudgetCustomerView1Iterator" Binds="BudgetCustomerView1"
+              DataControl="BudgetSettingAMDataControl" RangeSize="25"/>
+    <iterator id="BudgetCustomerHeaderView1Iterator"
+              Binds="BudgetCustomerHeaderView1"
+              DataControl="BudgetSettingAMDataControl" RangeSize="25"/>
+    <iterator Binds="UploadDownloadView1" RangeSize="25"
+              DataControl="ConfirmationAMDataControl"
+              id="UploadDownloadView1Iterator"/>
+    <iterator Binds="RealisasiItemPaketView1" RangeSize="25"
+              DataControl="ConfirmationAMDataControl"
+              id="RealisasiItemPaketView1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="ProposalConfirmationView1Iterator"
@@ -373,6 +384,9 @@
           <Item Value="ValuePotongan"/>
           <Item Value="UomDesc"/>
           <Item Value="TipePotonganDesc"/>
+          <Item Value="InputPriceBy"/>
+          <Item Value="PromoProdukId"/>
+          <Item Value="PriceVal"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -404,7 +418,6 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.ProdRegionAreaView"
                       Name="ProdRegionAreaView10">
         <AttrNames>
-          <Item Value="RegionCode"/>
           <Item Value="AreaCode"/>
           <Item Value="Description"/>
         </AttrNames>
@@ -415,7 +428,7 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.ProdRegionCustomerView"
                       Name="ProdRegionCustomerView10">
         <AttrNames>
-          <Item Value="RegionCode"/>
+          <Item Value="CustomerId"/>
           <Item Value="CustomerName"/>
         </AttrNames>
       </nodeDefinition>
@@ -425,7 +438,7 @@
                       Name="ProdRegionView10">
         <AttrNames>
           <Item Value="RegionCode"/>
-          <Item Value="RegionLabel"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -433,7 +446,8 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.ProdRegionLocView"
                       Name="ProdRegionLocView10">
         <AttrNames>
-          <Item Value="LocationName"/>
+          <Item Value="LocationCode"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -442,7 +456,8 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.ProdRegionCustGroupView"
                       Name="ProdRegionCustGroupView10">
         <AttrNames>
-          <Item Value="CustGroupName"/>
+          <Item Value="CustGroup"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -568,6 +583,8 @@
           <Item Value="Amount"/>
           <Item Value="Percentage"/>
           <Item Value="BudgetPercent"/>
+          <Item Value="BudgetById"/>
+          <Item Value="BudgetCustId"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -585,7 +602,7 @@
           <Item Value="Percentage"/>
           <Item Value="BudgetPercent"/>
           <Item Value="BudgetById"/>
-          <Item Value="BudgetPostingId"/>
+          <Item Value="BudgetCustId"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -647,6 +664,9 @@
                       Name="PropRegionAreaView10">
         <AttrNames>
           <Item Value="AreaCode"/>
+          <Item Value="Description"/>
+          <Item Value="ProposalId"/>
+          <Item Value="Areadiscription"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -655,7 +675,8 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.PropRegionCustomerView"
                       Name="PropRegionCustomerView10">
         <AttrNames>
-          <Item Value="CustomerName"/>
+          <Item Value="CustomerId"/>
+          <Item Value="Custdescription"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -663,7 +684,10 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.PropRegionView"
                       Name="PropRegionView10">
         <AttrNames>
-          <Item Value="RegionLabel"/>
+          <Item Value="RegionCode"/>
+          <Item Value="Description"/>
+          <Item Value="ProposalId"/>
+          <Item Value="Description1"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -671,7 +695,10 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.PropRegionLocView"
                       Name="PropRegionLocView10">
         <AttrNames>
-          <Item Value="LocationName"/>
+          <Item Value="LocationCode"/>
+          <Item Value="Description"/>
+          <Item Value="ProposalId"/>
+          <Item Value="Locdescription"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -680,7 +707,10 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.PropRegionCustGroupView"
                       Name="PropRegionCustGroupView10">
         <AttrNames>
-          <Item Value="CustGroupName"/>
+          <Item Value="CustGroup"/>
+          <Item Value="Description"/>
+          <Item Value="ProposalId"/>
+          <Item Value="Custgroupdesc"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -752,6 +782,7 @@
                       Name="ExclPropCustRegionView10">
         <AttrNames>
           <Item Value="RegionCode"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -761,6 +792,7 @@
                       Name="ExclPropCustCustView10">
         <AttrNames>
           <Item Value="CustomerId"/>
+          <Item Value="CustomerName"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -770,6 +802,7 @@
                       Name="ExclPropCustAreaView10">
         <AttrNames>
           <Item Value="AreaCode"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -778,6 +811,7 @@
                       Name="ExclPropCustLocView10">
         <AttrNames>
           <Item Value="LocationCode"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -786,6 +820,7 @@
                       Name="ExclCustLocView10">
         <AttrNames>
           <Item Value="LocationCode"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -794,6 +829,7 @@
                       Name="ExclCustCustView10">
         <AttrNames>
           <Item Value="CustomerId"/>
+          <Item Value="CustomerName"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -802,6 +838,7 @@
                       Name="ExclCustAreaView10">
         <AttrNames>
           <Item Value="AreaCode"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -809,6 +846,7 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.ExclCustRegionView"
                       Name="ExclCustRegionView10">
         <AttrNames>
+          <Item Value="RegionCode"/>
           <Item Value="RegionLabel"/>
         </AttrNames>
       </nodeDefinition>
@@ -821,5 +859,120 @@
     <listOfValues StaticList="false" Uses="LOV_KombinasiBudget"
                   IterBinding="ProdBudgetByPostView1Iterator"
                   id="KombinasiBudget"/>
+    <listOfValues StaticList="false"
+                  IterBinding="ProposalConfirmationView1Iterator"
+                  Uses="LOV_CategoryPc" id="CategoryPc"/>
+    <listOfValues StaticList="false" Uses="LOV_KombinasiBudget1"
+                  IterBinding="ProdBudgetByCustView1Iterator"
+                  id="KombinasiBudget1"/>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="DiscOnTop">
+      <AttrNames>
+        <Item Value="DiscOnTop"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="DiscMf">
+      <AttrNames>
+        <Item Value="DiscMf"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="DiscRasioOnTop">
+      <AttrNames>
+        <Item Value="DiscRasioOnTop"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="DiscRasioMf">
+      <AttrNames>
+        <Item Value="DiscRasioMf"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator"
+                     id="DiscRasioTotal1">
+      <AttrNames>
+        <Item Value="DiscRasioTotal1"/>
+      </AttrNames>
+    </attributeValues>
+    <tree IterBinding="UploadDownloadView1Iterator" id="UploadDownloadView1">
+      <nodeDefinition DefName="app.fpp.model.views.promoproposal.UploadDownloadView"
+                      Name="UploadDownloadView10">
+        <AttrNames>
+          <Item Value="ProposalId"/>
+          <Item Value="FileName"/>
+          <Item Value="Path"/>
+          <Item Value="ContentType"/>
+          <Item Value="Idfile"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="BrgBonusOnTop">
+      <AttrNames>
+        <Item Value="BrgBonusOnTop"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="BrgBonusMf">
+      <AttrNames>
+        <Item Value="BrgBonusMf"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator"
+                     id="BrgBonusRasioOnTop">
+      <AttrNames>
+        <Item Value="BrgBonusRasioOnTop"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator"
+                     id="BrgBonusRasioMf">
+      <AttrNames>
+        <Item Value="BrgBonusRasioMf"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator"
+                     id="BrgBonusRasioTotal">
+      <AttrNames>
+        <Item Value="BrgBonusRasioTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="BiaOntop">
+      <AttrNames>
+        <Item Value="BiaOntop"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="BiaMf">
+      <AttrNames>
+        <Item Value="BiaMf"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="BiaRasionOntop">
+      <AttrNames>
+        <Item Value="BiaRasionOntop"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="BiaRasioMf">
+      <AttrNames>
+        <Item Value="BiaRasioMf"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="BiaRasioTotal">
+      <AttrNames>
+        <Item Value="BiaRasioTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="ProposalConfirmationView1Iterator" StaticList="false"
+          Uses="LOV_MixQtyPromo" id="MixQtyPromo" DTSupportsMRU="true"/>
+    <action IterBinding="RealisasiItemPaketView1Iterator"
+            id="CreateInsertItemPaket"
+            RequiresUpdateModel="true" Action="createInsertRow"/>
+    <action IterBinding="RealisasiItemPaketView1Iterator" id="DeleteItemPaket"
+            RequiresUpdateModel="false" Action="removeCurrentRow"/>
+    <tree IterBinding="RealisasiItemPaketView1Iterator"
+          id="RealisasiItemPaketView1">
+      <nodeDefinition DefName="app.fpp.model.views.confirmation.RealisasiItemPaketView"
+                      Name="RealisasiItemPaketView10">
+        <AttrNames>
+          <Item Value="KdItemPaket"/>
+          <Item Value="Descr"/>
+          <Item Value="KdItemPaketDesc"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
   </bindings>
 </pageDefinition>

@@ -11,7 +11,8 @@
   RowClass="app.fpp.model.views.promoproposal.duplicate.DuplicateProdRegionAreaViewRowImpl"
   ComponentClass="app.fpp.model.views.promoproposal.duplicate.DuplicateProdRegionAreaViewImpl"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  OrderBy='"PROMO_PRODUK_ID" DESC'>
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
     <Attr Name="_isExpertMode" Value="true"/>
@@ -30,14 +31,9 @@
   <SQLQuery>
     <![CDATA[SELECT ProdRegionArea.PROMO_PRODUK_ID, 
        ProdRegionArea.AREA_CODE, 
-       ProdRegionArea.NOTES, 
-       FcsViewTerritoryArea.DESCRIPTION, 
-       FcsViewTerritoryArea.VALUE, 
-       (SELECT ARC.ATTRIBUTE3 FROM APPS.AR_CUSTOMERS ARC WHERE ARC.ATTRIBUTE4 = ProdRegionArea.AREA_CODE GROUP BY ARC.ATTRIBUTE3) AS REGION_CODE
-FROM PROD_REGION_AREA ProdRegionArea, APPS.FCS_VIEW_TERRITORY_AREA FcsViewTerritoryArea
-WHERE FcsViewTerritoryArea.VALUE = ProdRegionArea.AREA_CODE
-AND ProdRegionArea.PROMO_PRODUK_ID = :promoProdukId
-ORDER BY "REGION_CODE",ProdRegionArea.AREA_CODE,FcsViewTerritoryArea.DESCRIPTION]]>
+       ProdRegionArea.NOTES
+FROM PROD_REGION_AREA ProdRegionArea
+WHERE ProdRegionArea.PROMO_PRODUK_ID = :promoProdukId]]>
   </SQLQuery>
   <ViewAttribute
     Name="PromoProdukId"
@@ -85,56 +81,9 @@ ORDER BY "REGION_CODE",ProdRegionArea.AREA_CODE,FcsViewTerritoryArea.DESCRIPTION
       <Attr Name="_DisplaySize" Value="500"/>
     </DesignTime>
   </ViewAttribute>
-  <ViewAttribute
-    Name="Description"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="240"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="DESCRIPTION"
-    Expression="DESCRIPTION"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="240"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="Value"
-    IsUpdateable="false"
-    IsPersistent="false"
-    IsNotNull="true"
-    PrecisionRule="true"
-    Precision="150"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="VALUE"
-    Expression="VALUE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="150"/>
-    </DesignTime>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="RegionCode"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Precision="150"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="REGION_CODE"
-    Expression="REGION_CODE"
-    SQLType="VARCHAR">
-    <DesignTime>
-      <Attr Name="_DisplaySize" Value="150"/>
-    </DesignTime>
-  </ViewAttribute>
   <AttrArray Name="KeyAttributes">
     <Item Value="PromoProdukId"/>
     <Item Value="AreaCode"/>
-    <Item Value="Value"/>
   </AttrArray>
   <ResourceBundle>
     <PropertiesBundle

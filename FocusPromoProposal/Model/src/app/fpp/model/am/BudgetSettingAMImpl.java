@@ -1,8 +1,13 @@
 package app.fpp.model.am;
 
 import app.fpp.adfextensions.CustomApplicationModuleImpl;
-
 import app.fpp.model.am.common.BudgetSettingAM;
+import app.fpp.model.views.budgetsetting.BudgetCustHdrViewImpl;
+import app.fpp.model.views.budgetsetting.BudgetCustTranGetDataImpl;
+import app.fpp.model.views.budgetsetting.BudgetCustomerViewImpl;
+import app.fpp.model.views.budgetsetting.CheckDuplicateBudgetViewImpl;
+
+import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.jbo.server.ViewLinkImpl;
 import oracle.jbo.server.ViewObjectImpl;
 // ---------------------------------------------------------------------
@@ -101,5 +106,47 @@ public class BudgetSettingAMImpl extends CustomApplicationModuleImpl implements 
      */
     public ViewLinkImpl getBudgetCustTranHistoryBudgetCustomerFk1Link1() {
         return (ViewLinkImpl)findViewLink("BudgetCustTranHistoryBudgetCustomerFk1Link1");
+    }
+
+
+    /**
+     * Container's getter for BudgetCustomerHeaderView1.
+     * @return BudgetCustomerHeaderView1
+     */
+    public ViewObjectImpl getBudgetCustomerHeaderView1() {
+        return (ViewObjectImpl)findViewObject("BudgetCustomerHeaderView1");
+    }
+
+    /**
+     * Container's getter for BudgetCustTranGetData1.
+     * @return BudgetCustTranGetData1
+     */
+    public BudgetCustTranGetDataImpl getBudgetCustTranGetData1() {
+        return (BudgetCustTranGetDataImpl)findViewObject("BudgetCustTranGetData1");
+    }
+
+    /**
+     * Container's getter for CheckDuplicateBudgetView1.
+     * @return CheckDuplicateBudgetView1
+     */
+    public CheckDuplicateBudgetViewImpl getCheckDuplicateBudgetView1() {
+        return (CheckDuplicateBudgetViewImpl)findViewObject("CheckDuplicateBudgetView1");
+    }
+
+
+    /**
+     * Container's getter for BudgetCustTranApprovalView1.
+     * @return BudgetCustTranApprovalView1
+     */
+    public ViewObjectImpl getBudgetCustTranApprovalView1() {
+        return (ViewObjectImpl)findViewObject("BudgetCustTranApprovalView1");
+    }
+
+    /**
+     * Container's getter for BudgetCustTranApprovalBudgetCustomerFk1Link1.
+     * @return BudgetCustTranApprovalBudgetCustomerFk1Link1
+     */
+    public ViewLinkImpl getBudgetCustTranApprovalBudgetCustomerFk1Link1() {
+        return (ViewLinkImpl)findViewLink("BudgetCustTranApprovalBudgetCustomerFk1Link1");
     }
 }

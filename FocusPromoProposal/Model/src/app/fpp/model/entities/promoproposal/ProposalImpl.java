@@ -412,6 +412,46 @@ public class ProposalImpl extends EntityImpl {
             }
         }
         ,
+        CategoryPc {
+            public Object get(ProposalImpl obj) {
+                return obj.getCategoryPc();
+            }
+
+            public void put(ProposalImpl obj, Object value) {
+                obj.setCategoryPc((String)value);
+            }
+        }
+        ,
+        CustRegFlagLov {
+            public Object get(ProposalImpl obj) {
+                return obj.getCustRegFlagLov();
+            }
+
+            public void put(ProposalImpl obj, Object value) {
+                obj.setCustRegFlagLov((String)value);
+            }
+        }
+        ,
+        MixQtyPromo {
+            public Object get(ProposalImpl obj) {
+                return obj.getMixQtyPromo();
+            }
+
+            public void put(ProposalImpl obj, Object value) {
+                obj.setMixQtyPromo((String)value);
+            }
+        }
+        ,
+        ReportRunNumber {
+            public Object get(ProposalImpl obj) {
+                return obj.getReportRunNumber();
+            }
+
+            public void put(ProposalImpl obj, Object value) {
+                obj.setReportRunNumber((String)value);
+            }
+        }
+        ,
         Posting {
             public Object get(ProposalImpl obj) {
                 return obj.getPosting();
@@ -502,39 +542,9 @@ public class ProposalImpl extends EntityImpl {
             }
         }
         ,
-        ExclPropCustLoc {
+        UploadDownload {
             public Object get(ProposalImpl obj) {
-                return obj.getExclPropCustLoc();
-            }
-
-            public void put(ProposalImpl obj, Object value) {
-                obj.setAttributeInternal(index(), value);
-            }
-        }
-        ,
-        ExclPropCustRegion {
-            public Object get(ProposalImpl obj) {
-                return obj.getExclPropCustRegion();
-            }
-
-            public void put(ProposalImpl obj, Object value) {
-                obj.setAttributeInternal(index(), value);
-            }
-        }
-        ,
-        ExclPropCustArea {
-            public Object get(ProposalImpl obj) {
-                return obj.getExclPropCustArea();
-            }
-
-            public void put(ProposalImpl obj, Object value) {
-                obj.setAttributeInternal(index(), value);
-            }
-        }
-        ,
-        ExclPropCustCust {
-            public Object get(ProposalImpl obj) {
-                return obj.getExclPropCustCust();
+                return obj.getUploadDownload();
             }
 
             public void put(ProposalImpl obj, Object value) {
@@ -609,6 +619,10 @@ public class ProposalImpl extends EntityImpl {
     public static final int HISTTRANDTFROM = AttributesEnum.HistTranDtFrom.index();
     public static final int HISTTRANDTTO = AttributesEnum.HistTranDtTo.index();
     public static final int HISTREMARK = AttributesEnum.HistRemark.index();
+    public static final int CATEGORYPC = AttributesEnum.CategoryPc.index();
+    public static final int CUSTREGFLAGLOV = AttributesEnum.CustRegFlagLov.index();
+    public static final int MIXQTYPROMO = AttributesEnum.MixQtyPromo.index();
+    public static final int REPORTRUNNUMBER = AttributesEnum.ReportRunNumber.index();
     public static final int POSTING = AttributesEnum.Posting.index();
     public static final int DOCAPPROVAL = AttributesEnum.DocApproval.index();
     public static final int PROMOPRODUK = AttributesEnum.PromoProduk.index();
@@ -618,10 +632,7 @@ public class ProposalImpl extends EntityImpl {
     public static final int PROPREGIONLOC = AttributesEnum.PropRegionLoc.index();
     public static final int APPROVALREGPROP = AttributesEnum.ApprovalRegProp.index();
     public static final int PROPREGIONCUSTGROUP = AttributesEnum.PropRegionCustGroup.index();
-    public static final int EXCLPROPCUSTLOC = AttributesEnum.ExclPropCustLoc.index();
-    public static final int EXCLPROPCUSTREGION = AttributesEnum.ExclPropCustRegion.index();
-    public static final int EXCLPROPCUSTAREA = AttributesEnum.ExclPropCustArea.index();
-    public static final int EXCLPROPCUSTCUST = AttributesEnum.ExclPropCustCust.index();
+    public static final int UPLOADDOWNLOAD = AttributesEnum.UploadDownload.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1175,6 +1186,70 @@ public class ProposalImpl extends EntityImpl {
     }
 
     /**
+     * Gets the attribute value for CategoryPc, using the alias name CategoryPc.
+     * @return the CategoryPc
+     */
+    public String getCategoryPc() {
+        return (String)getAttributeInternal(CATEGORYPC);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for CategoryPc.
+     * @param value value to set the CategoryPc
+     */
+    public void setCategoryPc(String value) {
+        setAttributeInternal(CATEGORYPC, value);
+    }
+
+    /**
+     * Gets the attribute value for CustRegFlagLov, using the alias name CustRegFlagLov.
+     * @return the CustRegFlagLov
+     */
+    public String getCustRegFlagLov() {
+        return (String)getAttributeInternal(CUSTREGFLAGLOV);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for CustRegFlagLov.
+     * @param value value to set the CustRegFlagLov
+     */
+    public void setCustRegFlagLov(String value) {
+        setAttributeInternal(CUSTREGFLAGLOV, value);
+    }
+
+    /**
+     * Gets the attribute value for MixQtyPromo, using the alias name MixQtyPromo.
+     * @return the MixQtyPromo
+     */
+    public String getMixQtyPromo() {
+        return (String)getAttributeInternal(MIXQTYPROMO);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for MixQtyPromo.
+     * @param value value to set the MixQtyPromo
+     */
+    public void setMixQtyPromo(String value) {
+        setAttributeInternal(MIXQTYPROMO, value);
+    }
+
+    /**
+     * Gets the attribute value for ReportRunNumber, using the alias name ReportRunNumber.
+     * @return the ReportRunNumber
+     */
+    public String getReportRunNumber() {
+        return (String)getAttributeInternal(REPORTRUNNUMBER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for ReportRunNumber.
+     * @param value value to set the ReportRunNumber
+     */
+    public void setReportRunNumber(String value) {
+        setAttributeInternal(REPORTRUNNUMBER, value);
+    }
+
+    /**
      * Gets the attribute value for HistTranDtFrom, using the alias name HistTranDtFrom.
      * @return the HistTranDtFrom
      */
@@ -1326,30 +1401,8 @@ public class ProposalImpl extends EntityImpl {
     /**
      * @return the associated entity oracle.jbo.RowIterator.
      */
-    public RowIterator getExclPropCustLoc() {
-        return (RowIterator)getAttributeInternal(EXCLPROPCUSTLOC);
-    }
-
-
-    /**
-     * @return the associated entity oracle.jbo.RowIterator.
-     */
-    public RowIterator getExclPropCustRegion() {
-        return (RowIterator)getAttributeInternal(EXCLPROPCUSTREGION);
-    }
-
-    /**
-     * @return the associated entity oracle.jbo.RowIterator.
-     */
-    public RowIterator getExclPropCustArea() {
-        return (RowIterator)getAttributeInternal(EXCLPROPCUSTAREA);
-    }
-
-    /**
-     * @return the associated entity oracle.jbo.RowIterator.
-     */
-    public RowIterator getExclPropCustCust() {
-        return (RowIterator)getAttributeInternal(EXCLPROPCUSTCUST);
+    public RowIterator getUploadDownload() {
+        return (RowIterator)getAttributeInternal(UPLOADDOWNLOAD);
     }
 
 
@@ -1376,10 +1429,7 @@ public class ProposalImpl extends EntityImpl {
 
     @Override
     protected void doDML(int operation, TransactionEvent transactionEvent) {
-
-        long days =
-            daysBetween(getPeriodeProgTo().getValue(), getPeriodeProgFrom().getValue());
-
+    long days = 0;
         if (operation == DML_INSERT) {
             Number runNumber;
             String userInitial = null;
@@ -1442,12 +1492,18 @@ public class ProposalImpl extends EntityImpl {
             String noProp =
                 userInitial + numYearFormatted + numMonthFormatted + runNumberFormatted;
             this.setProposalNo(noProp);
-            this.setProgDays(new Number(days));
             
             // Set off invoice if biaya
             if (this.getDiscountType().equalsIgnoreCase("BIAYA")) {
                 this.setMekanismePenagihan("OFFINVOICE");
             }
+            
+            // Set random run number for report; format ddMMyyHHmmss + 2 digit random num
+            DateFormat dfddMMyy = new SimpleDateFormat("ddHHMMmmyyss");
+            String dateNumber = dfddMMyy.format(date);
+            String randNumber = String.format("%02d", (int) Math.floor(Math.random() * (99 - 1 + 1)) + 1);
+            String reportRunNum = dateNumber + randNumber;
+            this.setReportRunNumber(reportRunNum);
         }
 
         if (operation == DML_UPDATE) {
@@ -1455,14 +1511,13 @@ public class ProposalImpl extends EntityImpl {
             if (this.getDiscountType().equalsIgnoreCase("BIAYA")) {
                 this.setMekanismePenagihan("OFFINVOICE");
             }
-            this.setProgDays(new Number(days));
+            // Set N to mix qty promo if null or no
+            if (this.getDiscountType().equalsIgnoreCase("BIAYA")) {
+                this.setMekanismePenagihan("OFFINVOICE");
+            }
+            
         }
 
         super.doDML(operation, transactionEvent);
-    }
-
-    private static long daysBetween(java.util.Date one, java.util.Date two) {
-        long difference = (one.getTime() - two.getTime()) / 86400000;
-        return Math.abs(difference);
     }
 }

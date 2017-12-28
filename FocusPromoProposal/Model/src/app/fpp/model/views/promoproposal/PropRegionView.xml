@@ -8,15 +8,16 @@
   InheritPersonalization="true"
   SelectList="PropRegion.PROPOSAL_ID, 
        PropRegion.REGION_CODE, 
-       FcsViewRegion.DESCRIPTION, 
-       FcsViewRegion.VALUE"
-  FromList="PROP_REGION PropRegion, APPS.FCS_VIEW_REGION FcsViewRegion"
+       FcsFlexValuesVl.DESCRIPTION, 
+       FcsFlexValuesVl.FLEX_VALUE_ID, 
+       PropRegion.DESCRIPTION AS DESCRIPTION1"
+  FromList="PROP_REGION PropRegion, APPS.FCS_FLEX_VALUES_VL FcsFlexValuesVl"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
-  Where="PropRegion.REGION_CODE = FcsViewRegion.VALUE"
-  OrderBy="FcsViewRegion.DESCRIPTION">
+  OrderBy="PropRegion.REGION_CODE,FcsFlexValuesVl.DESCRIPTION"
+  Where="PropRegion.REGION_CODE = FcsFlexValuesVl.FLEX_VALUE">
   <Properties>
     <SchemaBasedProperties>
       <LABEL
@@ -27,8 +28,8 @@
     Name="PropRegion"
     Entity="app.fpp.model.entities.promoproposal.PropRegion"/>
   <EntityUsage
-    Name="FcsViewRegion"
-    Entity="app.fpp.model.entities.masterdata.ebs.FcsViewRegion"
+    Name="FcsFlexValuesVl"
+    Entity="app.fpp.model.entities.masterdata.ebs.FcsFlexValuesVl"
     SourceUsage="app.fpp.model.views.promoproposal.PropRegionView.PropRegion"
     ReadOnly="true"
     Reference="true"
@@ -52,16 +53,22 @@
       PropertiesFile="app.fpp.model.ModelBundle"/>
   </ResourceBundle>
   <ViewAttribute
-    Name="RegionLabel"
+    Name="Description"
     PrecisionRule="true"
     EntityAttrName="Description"
-    EntityUsage="FcsViewRegion"
+    EntityUsage="FcsFlexValuesVl"
     AliasName="DESCRIPTION"/>
   <ViewAttribute
-    Name="Value"
+    Name="FlexValueId"
     IsNotNull="true"
     PrecisionRule="true"
-    EntityAttrName="Value"
-    EntityUsage="FcsViewRegion"
-    AliasName="VALUE"/>
+    EntityAttrName="FlexValueId"
+    EntityUsage="FcsFlexValuesVl"
+    AliasName="FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="Description1"
+    PrecisionRule="true"
+    EntityAttrName="Description"
+    EntityUsage="PropRegion"
+    AliasName="DESCRIPTION1"/>
 </ViewObject>

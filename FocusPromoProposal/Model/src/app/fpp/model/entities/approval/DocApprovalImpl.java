@@ -196,6 +196,36 @@ public class DocApprovalImpl extends EntityImpl {
             }
         }
         ,
+        ActionTo {
+            public Object get(DocApprovalImpl obj) {
+                return obj.getActionTo();
+            }
+
+            public void put(DocApprovalImpl obj, Object value) {
+                obj.setActionTo((String)value);
+            }
+        }
+        ,
+        ProposalDate {
+            public Object get(DocApprovalImpl obj) {
+                return obj.getProposalDate();
+            }
+
+            public void put(DocApprovalImpl obj, Object value) {
+                obj.setProposalDate((Date)value);
+            }
+        }
+        ,
+        ForwardTo {
+            public Object get(DocApprovalImpl obj) {
+                return obj.getForwardTo();
+            }
+
+            public void put(DocApprovalImpl obj, Object value) {
+                obj.setForwardTo((String)value);
+            }
+        }
+        ,
         Proposal {
             public Object get(DocApprovalImpl obj) {
                 return obj.getProposal();
@@ -251,6 +281,9 @@ public class DocApprovalImpl extends EntityImpl {
     public static final int LASTUPDATEDBY = AttributesEnum.LastUpdatedBy.index();
     public static final int LASTUPDATEDATE = AttributesEnum.LastUpdateDate.index();
     public static final int APRVLCODE = AttributesEnum.AprvlCode.index();
+    public static final int ACTIONTO = AttributesEnum.ActionTo.index();
+    public static final int PROPOSALDATE = AttributesEnum.ProposalDate.index();
+    public static final int FORWARDTO = AttributesEnum.ForwardTo.index();
     public static final int PROPOSAL = AttributesEnum.Proposal.index();
 
     /**
@@ -492,6 +525,54 @@ public class DocApprovalImpl extends EntityImpl {
      */
     public void setAprvlCode(String value) {
         setAttributeInternal(APRVLCODE, value);
+    }
+
+    /**
+     * Gets the attribute value for ActionTo, using the alias name ActionTo.
+     * @return the ActionTo
+     */
+    public String getActionTo() {
+        return (String)getAttributeInternal(ACTIONTO);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for ActionTo.
+     * @param value value to set the ActionTo
+     */
+    public void setActionTo(String value) {
+        setAttributeInternal(ACTIONTO, value);
+    }
+
+    /**
+     * Gets the attribute value for ProposalDate, using the alias name ProposalDate.
+     * @return the ProposalDate
+     */
+    public Date getProposalDate() {
+        return (Date)getAttributeInternal(PROPOSALDATE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for ProposalDate.
+     * @param value value to set the ProposalDate
+     */
+    public void setProposalDate(Date value) {
+        setAttributeInternal(PROPOSALDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for ForwardTo, using the alias name ForwardTo.
+     * @return the ForwardTo
+     */
+    public String getForwardTo() {
+        return (String)getAttributeInternal(FORWARDTO);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for ForwardTo.
+     * @param value value to set the ForwardTo
+     */
+    public void setForwardTo(String value) {
+        setAttributeInternal(FORWARDTO, value);
     }
 
     /**

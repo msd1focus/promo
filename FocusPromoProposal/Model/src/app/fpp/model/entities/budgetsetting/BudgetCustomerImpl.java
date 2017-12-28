@@ -113,6 +113,26 @@ public class BudgetCustomerImpl extends EntityImpl {
             }
         }
         ,
+        BudgetAsToDate {
+            public Object get(BudgetCustomerImpl obj) {
+                return obj.getBudgetAsToDate();
+            }
+
+            public void put(BudgetCustomerImpl obj, Object value) {
+                obj.setBudgetAsToDate((Number)value);
+            }
+        }
+        ,
+        BudgetAsToDateUsed {
+            public Object get(BudgetCustomerImpl obj) {
+                return obj.getBudgetAsToDateUsed();
+            }
+
+            public void put(BudgetCustomerImpl obj, Object value) {
+                obj.setBudgetAsToDateUsed((Number)value);
+            }
+        }
+        ,
         Status {
             public Object get(BudgetCustomerImpl obj) {
                 return obj.getStatus();
@@ -220,6 +240,8 @@ public class BudgetCustomerImpl extends EntityImpl {
     public static final int BUDGETPACKAGING = AttributesEnum.BudgetPackaging.index();
     public static final int BUDGETVARIANT = AttributesEnum.BudgetVariant.index();
     public static final int YEARLYBUDGETAMOUNT = AttributesEnum.YearlyBudgetAmount.index();
+    public static final int BUDGETASTODATE = AttributesEnum.BudgetAsToDate.index();
+    public static final int BUDGETASTODATEUSED = AttributesEnum.BudgetAsToDateUsed.index();
     public static final int STATUS = AttributesEnum.Status.index();
     public static final int CREATEDBY = AttributesEnum.CreatedBy.index();
     public static final int CREATIONDATE = AttributesEnum.CreationDate.index();
@@ -341,6 +363,38 @@ public class BudgetCustomerImpl extends EntityImpl {
      */
     public Date getModifiedOn() {
         return (Date)getAttributeInternal(MODIFIEDON);
+    }
+
+    /**
+     * Gets the attribute value for BudgetAsToDate, using the alias name BudgetAsToDate.
+     * @return the BudgetAsToDate
+     */
+    public Number getBudgetAsToDate() {
+        return (Number)getAttributeInternal(BUDGETASTODATE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BudgetAsToDate.
+     * @param value value to set the BudgetAsToDate
+     */
+    public void setBudgetAsToDate(Number value) {
+        setAttributeInternal(BUDGETASTODATE, value);
+    }
+
+    /**
+     * Gets the attribute value for BudgetAsToDateUsed, using the alias name BudgetAsToDateUsed.
+     * @return the BudgetAsToDateUsed
+     */
+    public Number getBudgetAsToDateUsed() {
+        return (Number)getAttributeInternal(BUDGETASTODATEUSED);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BudgetAsToDateUsed.
+     * @param value value to set the BudgetAsToDateUsed
+     */
+    public void setBudgetAsToDateUsed(Number value) {
+        setAttributeInternal(BUDGETASTODATEUSED, value);
     }
 
     /**

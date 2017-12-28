@@ -9,20 +9,17 @@
   SelectList="FcsExclShuttleArea.AREA_CODE, 
        FcsExclShuttleArea.AREA_LABEL, 
        FcsExclShuttleArea.DESCRIPTION"
-  FromList="FCS_EXCL_SHUTTLE_AREA FcsExclShuttleArea, PROMO_PRODUK PromoProduk, PROD_REGION ProdRegion"
-  Where="PromoProduk.PROMO_PRODUK_ID = ProdRegion.PROMO_PRODUK_ID
-AND ProdRegion.REGION_CODE = FcsExclShuttleArea.REGION_CODE
-AND FcsExclShuttleArea.USER_NAME = :userName
-AND ProdRegion.PROMO_PRODUK_ID = :promoProdId
-GROUP BY FcsExclShuttleArea.AREA_CODE, 
-       FcsExclShuttleArea.DESCRIPTION, 
-       FcsExclShuttleArea.AREA_LABEL,
-       ProdRegion.PROMO_PRODUK_ID"
+  FromList="FCS_EXCL_SHUTTLE_AREA FcsExclShuttleArea"
   OrderBy="FcsExclShuttleArea.AREA_LABEL"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  Where="FcsExclShuttleArea.USER_NAME = :userName
+AND FcsExclShuttleArea.PROMO_PRODUK_ID = :promoProdId
+GROUP BY FcsExclShuttleArea.AREA_CODE, 
+       FcsExclShuttleArea.DESCRIPTION, 
+       FcsExclShuttleArea.AREA_LABEL">
   <Properties>
     <SchemaBasedProperties>
       <LABEL
@@ -40,34 +37,6 @@ GROUP BY FcsExclShuttleArea.AREA_CODE,
   <EntityUsage
     Name="FcsExclShuttleArea"
     Entity="app.fpp.model.entities.masterdata.ebs.shuttle.FcsExclShuttleArea"/>
-  <EntityUsage
-    Name="PromoProduk"
-    Entity="app.fpp.model.entities.promoproposal.PromoProduk"
-    SourceUsage="app.fpp.model.views.masterdata.ebs.shuttle.AllExcludeProdAreaShuttleView.FcsExclShuttleArea"
-    ReadOnly="true"
-    Reference="true"
-    DeleteParticipant="false"/>
-  <EntityUsage
-    Name="ProdRegion"
-    Entity="app.fpp.model.entities.promoproposal.ProdRegion"
-    Association="app.fpp.model.entities.promoproposal.ProdRegionPromoProdukFk1Assoc"
-    AssociationEnd="app.fpp.model.entities.promoproposal.ProdRegionPromoProdukFk1Assoc.ProdRegion"
-    SourceUsage="app.fpp.model.views.masterdata.ebs.shuttle.AllExcludeProdAreaShuttleView.PromoProduk"
-    ReadOnly="true"
-    Reference="true"
-    DeleteParticipant="false"
-    JoinType="INNER JOIN">
-    <DesignTime>
-      <AttrArray Name="_srcAttributes">
-        <Item
-          Value="app.fpp.model.entities.promoproposal.PromoProduk.PromoProdukId"/>
-      </AttrArray>
-      <AttrArray Name="_dstAttributes">
-        <Item
-          Value="app.fpp.model.entities.promoproposal.ProdRegion.PromoProdukId"/>
-      </AttrArray>
-    </DesignTime>
-  </EntityUsage>
   <ViewAttribute
     Name="AreaCode"
     IsNotNull="true"

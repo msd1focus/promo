@@ -22,7 +22,14 @@
        DocApproval.CREATED_BY, 
        DocApproval.CREATION_DATE, 
        DocApproval.LAST_UPDATED_BY, 
-       DocApproval.LAST_UPDATE_DATE"
+       DocApproval.LAST_UPDATE_DATE, 
+       DocApproval.ACTION_TO, 
+       (SELECT NVL(UA.FULL_NAME, DocApproval.ACTION_BY) FROM APP_USER_ACCESS UA WHERE UA.USER_NAME = DocApproval.ACTION_TO) AS FULL_NAME, 
+       DocApproval.PROPOSAL_DATE, 
+       (SELECT CASE WHEN DocApproval.PROMO_DATE_FROM &lt; DocApproval.PROPOSAL_DATE THEN 'Y' ELSE 'N' END FROM DUAL) AS IS_BACK_DATE, 
+       (SELECT CASE WHEN COUNT(AppUserAccess.USER_NAME) = 0 THEN 'N' ELSE 'Y' END AS IS_LAST_APRVR FROM APPROVAL_FLOW ApprovalFlow, APPROVAL_STEPS ApprovalSteps, APP_USER_ACCESS AppUserAccess, APP_USER_ACCESS_ROLES AppUserAccessRoles  WHERE ApprovalFlow.ID_APRVL_FLOW = ApprovalSteps.ID_APRVL_FLOW  AND ApprovalFlow.APRVL_CODE = DocApproval.APRVL_CODE  AND ApprovalFlow.STATUS = 'A'  AND AppUserAccessRoles.USER_NAME = AppUserAccess.USER_NAME  AND AppUserAccessRoles.ROLE = ApprovalSteps.ROLE_NAME  AND ApprovalSteps.STEP_SEQUENCE = (SELECT MAX(ASTEP.STEP_SEQUENCE) FROM APPROVAL_FLOW AFLOW, APPROVAL_STEPS ASTEP, APP_USER_ACCESS_ROLES UAR WHERE AFLOW.APRVL_FLOW_NM = ApprovalFlow.APRVL_FLOW_NM AND ASTEP.ID_APRVL_FLOW = AFLOW.ID_APRVL_FLOW) AND AppUserAccess.USER_NAME = DocApproval.ACTION_TO) AS IS_LAST_APRVR, 
+       DocApproval.FORWARD_TO, 
+       (SELECT CASE WHEN COUNT(ApprovalSteps.ROLE_NAME) = 0 THEN 'N' ELSE 'Y' END AS IS_ON_APP_FLOW  FROM APPROVAL_FLOW ApprovalFlow, APPROVAL_STEPS ApprovalSteps  WHERE ApprovalFlow.ID_APRVL_FLOW = ApprovalSteps.ID_APRVL_FLOW   AND ApprovalFlow.APRVL_CODE =  DocApproval.APRVL_CODE AND ApprovalFlow.STATUS = 'A'   AND ApprovalSteps.ROLE_NAME = DocApproval.ROLE_NAME) AS IS_ON_APVR_FLOW"
   FromList="DOC_APPROVAL DocApproval"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -44,6 +51,19 @@
       </PIMap>
     </ParameterMap>
   </ViewAccessor>
+  <ViewAccessor
+    Name="ActionForwardLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.ActionForwardLov"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="ForwardUserLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.ForwardUserLov">
+    <ParameterMap>
+      <PIMap Variable="userName">
+        <TransientExpression><![CDATA[adf.context.securityContext.getUserPrincipal().getName()]]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
   <ListBinding
     Name="LOV_Action"
     ListVOName="DocActionLov"
@@ -59,6 +79,42 @@
     </AttrArray>
     <AttrArray Name="ListDisplayAttrNames">
       <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_ActionFwd"
+    ListVOName="ActionForwardLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_ActionFwd_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="Action"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_ForwardTo"
+    ListVOName="ForwardUserLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_ForwardTo_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="ForwardTo"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="UserName"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="FullName"/>
     </AttrArray>
     <DisplayCriteria/>
   </ListBinding>
@@ -110,7 +166,8 @@
     EntityUsage="DocApproval"
     AliasName="ACTION"
     LOVName="LOV_Action"
-    DefaultValue="APPROVED">
+    DefaultValue="APPROVED"
+    LOVFinder="CanForward">
     <Properties>
       <SchemaBasedProperties>
         <CONTROLTYPE
@@ -195,6 +252,111 @@
     EntityUsage="DocApproval"
     AliasName="LAST_UPDATE_DATE"
     IsUpdateable="false"/>
+  <ViewAttribute
+    Name="ActionTo"
+    PrecisionRule="true"
+    EntityAttrName="ActionTo"
+    EntityUsage="DocApproval"
+    AliasName="ACTION_TO"/>
+  <ViewAttribute
+    Name="FullName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="FULL_NAME"
+    SQLType="VARCHAR"
+    Precision="255"
+    Expression="SELECT NVL(UA.FULL_NAME, DocApproval.ACTION_BY) FROM APP_USER_ACCESS UA WHERE UA.USER_NAME = DocApproval.ACTION_TO">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="BY"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ProposalDate"
+    PrecisionRule="true"
+    EntityAttrName="ProposalDate"
+    EntityUsage="DocApproval"
+    AliasName="PROPOSAL_DATE"/>
+  <ViewAttribute
+    Name="IsBackDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="IS_BACK_DATE"
+    SQLType="VARCHAR"
+    Precision="255"
+    Expression="SELECT CASE WHEN DocApproval.PROMO_DATE_FROM &lt; DocApproval.PROPOSAL_DATE THEN 'Y' ELSE 'N' END FROM DUAL">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="IsLastAprvr"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="IS_LAST_APRVR"
+    SQLType="VARCHAR"
+    Precision="1"
+    Expression="SELECT CASE WHEN COUNT(AppUserAccess.USER_NAME) = 0 THEN 'N' ELSE 'Y' END AS IS_LAST_APRVR FROM APPROVAL_FLOW ApprovalFlow, APPROVAL_STEPS ApprovalSteps, APP_USER_ACCESS AppUserAccess, APP_USER_ACCESS_ROLES AppUserAccessRoles  WHERE ApprovalFlow.ID_APRVL_FLOW = ApprovalSteps.ID_APRVL_FLOW  AND ApprovalFlow.APRVL_CODE = DocApproval.APRVL_CODE  AND ApprovalFlow.STATUS = 'A'  AND AppUserAccessRoles.USER_NAME = AppUserAccess.USER_NAME  AND AppUserAccessRoles.ROLE = ApprovalSteps.ROLE_NAME  AND ApprovalSteps.STEP_SEQUENCE = (SELECT MAX(ASTEP.STEP_SEQUENCE) FROM APPROVAL_FLOW AFLOW, APPROVAL_STEPS ASTEP, APP_USER_ACCESS_ROLES UAR WHERE AFLOW.APRVL_FLOW_NM = ApprovalFlow.APRVL_FLOW_NM AND ASTEP.ID_APRVL_FLOW = AFLOW.ID_APRVL_FLOW) AND AppUserAccess.USER_NAME = DocApproval.ACTION_TO"/>
+  <ViewAttribute
+    Name="CanForward"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"
+    Precision="255">
+    <RecalcCondition><![CDATA[true]]></RecalcCondition>
+    <TransientExpression><![CDATA[if (IsBackDate == 'Y' && IsLastAprvr == 'Y' && IsOnApvrFlow == 'Y') {
+return 'LOV_ActionFwd'
+} else {
+return 'LOV_Action'
+}]]></TransientExpression>
+    <Dependencies>
+      <Item
+        Value="IsBackDate"/>
+      <Item
+        Value="IsLastAprvr"/>
+      <Item
+        Value="IsOnApvrFlow"/>
+    </Dependencies>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="ForwardTo"
+    PrecisionRule="true"
+    EntityAttrName="ForwardTo"
+    EntityUsage="DocApproval"
+    AliasName="FORWARD_TO"
+    LOVName="LOV_ForwardTo">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="IsOnApvrFlow"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="IS_ON_APVR_FLOW"
+    SQLType="VARCHAR"
+    Precision="1"
+    Expression="SELECT CASE WHEN COUNT(ApprovalSteps.ROLE_NAME) = 0 THEN 'N' ELSE 'Y' END AS IS_ON_APP_FLOW  FROM APPROVAL_FLOW ApprovalFlow, APPROVAL_STEPS ApprovalSteps  WHERE ApprovalFlow.ID_APRVL_FLOW = ApprovalSteps.ID_APRVL_FLOW   AND ApprovalFlow.APRVL_CODE =  DocApproval.APRVL_CODE AND ApprovalFlow.STATUS = 'A'   AND ApprovalSteps.ROLE_NAME = DocApproval.ROLE_NAME"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="app.fpp.model.ModelBundle"/>

@@ -23,6 +23,7 @@
           <Item Value="Descr"/>
           <Item Value="Label"/>
           <Item Value="RoleType"/>
+          <Item Value="ForwardFlg"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -73,5 +74,7 @@
             Action="iteratorExecute"/>
     <list IterBinding="AppRolesView1Iterator" StaticList="false"
           Uses="LOV_RoleType" id="RoleType" DTSupportsMRU="true"/>
+    <list IterBinding="AppRolesView1Iterator" StaticList="false"
+          Uses="LOV_ForwardFlg" id="ForwardFlg" DTSupportsMRU="true"/>
   </bindings>
 </pageDefinition>

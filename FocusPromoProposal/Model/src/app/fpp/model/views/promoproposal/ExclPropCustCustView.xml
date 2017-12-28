@@ -6,13 +6,15 @@
   Name="ExclPropCustCustView"
   Version="11.1.1.64.93"
   InheritPersonalization="true"
-  SelectList="ExclPropCustCust.PROPOSAL_ID, 
-       ExclPropCustCust.CUSTOMER_ID"
+  SelectList="ExclPropCustCust.PROMO_PRODUK_ID, 
+       ExclPropCustCust.CUSTOMER_ID, 
+       (SELECT ARC.CUSTOMER_NUMBER || ' - ' || ARC.CUSTOMER_NAME || ' - ' || flex.description FROM APPS.AR_CUSTOMERS ARC, APPS.FCS_FLEX_VALUES_VL FLEX WHERE flex.flex_value = arc.attribute5 AND ARC.CUSTOMER_ID = ExclPropCustCust.CUSTOMER_ID) AS CUSTOMER_NAME"
   FromList="EXCL_PROP_CUST_CUST ExclPropCustCust"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  OrderBy='ExclPropCustCust.CUSTOMER_ID,"CUSTOMER_NAME"'>
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|VarAccess"/>
   </DesignTime>
@@ -20,12 +22,12 @@
     Name="ExclPropCustCust"
     Entity="app.fpp.model.entities.promoproposal.ExclPropCustCust"/>
   <ViewAttribute
-    Name="ProposalId"
+    Name="PromoProdukId"
     IsNotNull="true"
     PrecisionRule="true"
-    EntityAttrName="ProposalId"
+    EntityAttrName="PromoProdukId"
     EntityUsage="ExclPropCustCust"
-    AliasName="PROPOSAL_ID"/>
+    AliasName="PROMO_PRODUK_ID"/>
   <ViewAttribute
     Name="CustomerId"
     IsNotNull="true"
@@ -33,4 +35,15 @@
     EntityAttrName="CustomerId"
     EntityUsage="ExclPropCustCust"
     AliasName="CUSTOMER_ID"/>
+  <ViewAttribute
+    Name="CustomerName"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="CUSTOMER_NAME"
+    SQLType="VARCHAR"
+    Precision="255"
+    Expression="SELECT ARC.CUSTOMER_NUMBER || ' - ' || ARC.CUSTOMER_NAME || ' - ' || flex.description FROM APPS.AR_CUSTOMERS ARC, APPS.FCS_FLEX_VALUES_VL FLEX WHERE flex.flex_value = arc.attribute5 AND ARC.CUSTOMER_ID = ExclPropCustCust.CUSTOMER_ID"/>
 </ViewObject>

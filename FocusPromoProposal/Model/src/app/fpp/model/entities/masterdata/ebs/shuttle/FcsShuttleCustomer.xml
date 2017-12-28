@@ -66,9 +66,9 @@
     </DesignTime>
   </Attribute>
   <Attribute
-    Name="Attribute3"
+    Name="RegionCode"
     Precision="150"
-    ColumnName="ATTRIBUTE3"
+    ColumnName="REGION_CODE"
     SQLType="VARCHAR"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
@@ -88,6 +88,30 @@
     TableName="FCS_SHUTTLE_CUSTOMER">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="AreaCode"
+    Precision="150"
+    ColumnName="AREA_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FCS_SHUTTLE_CUSTOMER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="LocCode"
+    Precision="150"
+    ColumnName="LOC_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FCS_SHUTTLE_CUSTOMER">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
     </DesignTime>
   </Attribute>
   <Key

@@ -11,21 +11,19 @@
        FcsExclShuttleCustomer.CUSTOMER_NUMBER, 
        FcsExclShuttleCustomer.LOCATION_CODE, 
        FcsExclShuttleCustomer.CUSTOMER_FULL_NAME"
-  FromList="FCS_EXCL_SHUTTLE_CUSTOMER FcsExclShuttleCustomer, PROMO_PRODUK PromoProduk, PROD_REGION_LOC ProdRegionLoc"
-  Where="PromoProduk.PROMO_PRODUK_ID = ProdRegionLoc.PROMO_PRODUK_ID
-AND FcsExclShuttleCustomer.LOCATION_CODE = ProdRegionLoc.LOCATION_CODE
-AND FcsExclShuttleCustomer.USER_NAME = :userName
-AND PromoProduk.PROMO_PRODUK_ID = :promoProdId
-GROUP BY FcsExclShuttleCustomer.CUSTOMER_ID, 
-       FcsExclShuttleCustomer.CUSTOMER_NAME, 
-       FcsExclShuttleCustomer.CUSTOMER_NUMBER, 
-       FcsExclShuttleCustomer.LOCATION_CODE, 
-       FcsExclShuttleCustomer.CUSTOMER_FULL_NAME"
+  FromList="FCS_EXCL_SHUTTLE_CUSTOMER FcsExclShuttleCustomer"
   OrderBy="FcsExclShuttleCustomer.CUSTOMER_FULL_NAME"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  Where="FcsExclShuttleCustomer.USER_NAME = :userName
+AND FcsExclShuttleCustomer.PROMO_PRODUK_ID = :promoProdId
+GROUP BY FcsExclShuttleCustomer.CUSTOMER_ID, 
+       FcsExclShuttleCustomer.CUSTOMER_NAME, 
+       FcsExclShuttleCustomer.CUSTOMER_NUMBER, 
+       FcsExclShuttleCustomer.LOCATION_CODE, 
+       FcsExclShuttleCustomer.CUSTOMER_FULL_NAME">
   <Properties>
     <SchemaBasedProperties>
       <LABEL
@@ -43,34 +41,6 @@ GROUP BY FcsExclShuttleCustomer.CUSTOMER_ID,
   <EntityUsage
     Name="FcsExclShuttleCustomer"
     Entity="app.fpp.model.entities.masterdata.ebs.shuttle.FcsExclShuttleCustomer"/>
-  <EntityUsage
-    Name="PromoProduk"
-    Entity="app.fpp.model.entities.promoproposal.PromoProduk"
-    SourceUsage="app.fpp.model.views.masterdata.ebs.shuttle.AllExcludeProdCustomerShuttleView.FcsExclShuttleCustomer"
-    ReadOnly="true"
-    Reference="true"
-    DeleteParticipant="false"/>
-  <EntityUsage
-    Name="ProdRegionLoc"
-    Entity="app.fpp.model.entities.promoproposal.ProdRegionLoc"
-    Association="app.fpp.model.entities.promoproposal.ProdRegionLocPromoProdukFk1Assoc"
-    AssociationEnd="app.fpp.model.entities.promoproposal.ProdRegionLocPromoProdukFk1Assoc.ProdRegionLoc"
-    SourceUsage="app.fpp.model.views.masterdata.ebs.shuttle.AllExcludeProdCustomerShuttleView.PromoProduk"
-    ReadOnly="true"
-    Reference="true"
-    DeleteParticipant="false"
-    JoinType="INNER JOIN">
-    <DesignTime>
-      <AttrArray Name="_srcAttributes">
-        <Item
-          Value="app.fpp.model.entities.promoproposal.PromoProduk.PromoProdukId"/>
-      </AttrArray>
-      <AttrArray Name="_dstAttributes">
-        <Item
-          Value="app.fpp.model.entities.promoproposal.ProdRegionLoc.PromoProdukId"/>
-      </AttrArray>
-    </DesignTime>
-  </EntityUsage>
   <ViewAttribute
     Name="CustomerId"
     IsNotNull="true"

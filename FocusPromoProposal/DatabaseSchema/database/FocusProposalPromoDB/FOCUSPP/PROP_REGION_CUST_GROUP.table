@@ -47,6 +47,32 @@
       </dataTypeUsage>
       <notNull>true</notNull>
     </column>
+    <column>
+      <ID class="oracle.javatools.db.IdentifierBasedID">
+        <identifier class="java.lang.String">c0daa4cc-ff84-4249-810e-cf97abd24376</identifier>
+      </ID>
+      <name>CUSTGROUPDESC</name>
+      <dataTypeUsage class="oracle.javatools.db.datatypes.PredefinedDataTypeUsage">
+        <ID class="oracle.javatools.db.IdentifierBasedID">
+          <identifier class="java.lang.String">5cfbca46-d214-4abb-9c88-465428d587ce</identifier>
+        </ID>
+        <attributeValues>
+          <entry>
+            <key>size</key>
+            <value class="java.lang.Long">200</value>
+          </entry>
+          <entry>
+            <key>unit</key>
+            <value class="java.lang.String">CHAR</value>
+          </entry>
+        </attributeValues>
+        <dataTypeID class="oracle.javatools.db.datatypes.DataTypeID">
+          <providerClass>oracle.javatools.db.ora.Oracle9i</providerClass>
+          <typeName>VARCHAR2</typeName>
+        </dataTypeID>
+      </dataTypeUsage>
+      <notNull>false</notNull>
+    </column>
   </columns>
   <constraints>
     <constraint class="oracle.javatools.db.FKConstraint">
@@ -64,7 +90,6 @@
             <schemaName>FOCUSPP</schemaName>
             <type>TABLE</type>
           </parent>
-          <schemaName>FOCUSPP</schemaName>
           <type>COLUMN</type>
         </columnID>
       </columnIDs>
@@ -97,7 +122,6 @@
             <schemaName>FOCUSPP</schemaName>
             <type>TABLE</type>
           </parent>
-          <schemaName>FOCUSPP</schemaName>
           <type>COLUMN</type>
         </columnID>
         <columnID class="oracle.javatools.db.IdentifierBasedID">
@@ -109,7 +133,6 @@
             <schemaName>FOCUSPP</schemaName>
             <type>TABLE</type>
           </parent>
-          <schemaName>FOCUSPP</schemaName>
           <type>COLUMN</type>
         </columnID>
       </columnIDs>

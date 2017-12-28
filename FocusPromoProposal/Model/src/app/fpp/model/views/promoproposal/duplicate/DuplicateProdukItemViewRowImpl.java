@@ -61,6 +61,8 @@ public class DuplicateProdukItemViewRowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
+
     public static final int PRODITEM = AttributesEnum.ProdItem.index();
     public static final int PROMOPRODUKID = AttributesEnum.PromoProdukId.index();
 

@@ -46,28 +46,6 @@ public class DuplicateProdRegionLocViewRowImpl extends ViewRowImpl {
                 obj.setNotes((String)value);
             }
         }
-        ,
-        LocationName {
-            public Object get(DuplicateProdRegionLocViewRowImpl obj) {
-                return obj.getLocationName();
-            }
-
-            public void put(DuplicateProdRegionLocViewRowImpl obj,
-                            Object value) {
-                obj.setLocationName((String)value);
-            }
-        }
-        ,
-        RegionCode {
-            public Object get(DuplicateProdRegionLocViewRowImpl obj) {
-                return obj.getRegionCode();
-            }
-
-            public void put(DuplicateProdRegionLocViewRowImpl obj,
-                            Object value) {
-                obj.setRegionCode((String)value);
-            }
-        }
         ;
         private static AttributesEnum[] vals = null;
         private static final int firstIndex = 0;
@@ -96,11 +74,11 @@ public class DuplicateProdRegionLocViewRowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
+
     public static final int PROMOPRODUKID = AttributesEnum.PromoProdukId.index();
     public static final int LOCATIONCODE = AttributesEnum.LocationCode.index();
     public static final int NOTES = AttributesEnum.Notes.index();
-    public static final int LOCATIONNAME = AttributesEnum.LocationName.index();
-    public static final int REGIONCODE = AttributesEnum.RegionCode.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -156,37 +134,6 @@ public class DuplicateProdRegionLocViewRowImpl extends ViewRowImpl {
         setAttributeInternal(NOTES, value);
     }
 
-    /**
-     * Gets the attribute value for the calculated attribute LocationName.
-     * @return the LocationName
-     */
-    public String getLocationName() {
-        return (String) getAttributeInternal(LOCATIONNAME);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute LocationName.
-     * @param value value to set the  LocationName
-     */
-    public void setLocationName(String value) {
-        setAttributeInternal(LOCATIONNAME, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute RegionCode.
-     * @return the RegionCode
-     */
-    public String getRegionCode() {
-        return (String) getAttributeInternal(REGIONCODE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute RegionCode.
-     * @param value value to set the  RegionCode
-     */
-    public void setRegionCode(String value) {
-        setAttributeInternal(REGIONCODE, value);
-    }
 
     /**
      * getAttrInvokeAccessor: generated method. Do not modify.

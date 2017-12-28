@@ -57,7 +57,7 @@
   </Variable>
   <SQLQuery>
     <![CDATA[SELECT FcsViewItemMasterCategory.SET_BRAND, 
-       FcsViewItemMasterCategory.SET_BRAND_DESC, 
+       NVL(FcsViewItemMasterCategory.SET_BRAND_DESC, FcsViewItemMasterCategory.SET_BRAND) AS SET_BRAND_DESC, 
        (FcsViewItemMasterCategory.SET_BRAND || ' ' || FcsViewItemMasterCategory.SET_BRAND_DESC) AS BRAND_SEARCH,
 FcsViewItemMasterCategory.SET_CLASS
 FROM APPS.FCS_VIEW_ITEM_MASTER_CATEGORY FcsViewItemMasterCategory

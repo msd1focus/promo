@@ -4,6 +4,8 @@ import app.fpp.adfextensions.ADFUtils;
 
 import app.fpp.adfextensions.JSFUtils;
 
+import app.fpp.bean.useraccessmenu.UserData;
+
 import java.io.IOException;
 
 import java.util.HashMap;
@@ -80,16 +82,18 @@ public class LoginBean {
             String userType = (String)m.get("UserType");
             String userInitial = (String)m.get("UserInitial");
             String userDivision = (String)m.get("UserDivision");
+            String userCustomer = (String)m.get("UserCustomer");
 
             un = userNameLogin;
             pw = (userPassword).getBytes();
-
+            
             //CallbackHandler handler = new URLCallbackHandler(un, pw);
             CallbackHandler handler = new SimpleCallbackHandler(un, pw);
             Subject mySubject =
                 weblogic.security.services.Authentication.login(handler);
             weblogic.servlet.security.ServletAuthentication.runAs(mySubject,
                                                                   request);
+            
             ServletAuthentication.generateNewSessionID(request);
             if (accessStatus.equalsIgnoreCase(userAccessDisabled)) {
                 StringBuilder message = new StringBuilder("<html><body>");
@@ -104,7 +108,7 @@ public class LoginBean {
                 userData.setLoggedIn(Boolean.TRUE);
                 userData.setFullName(fullName);
                 String fullNameSub = null;
-                if (fullName.length() > 20) {
+                if (fullName.length() > 16) {
                     fullNameSub = (fullName.substring(0, 12)).concat("...");
                 } else {
                     fullNameSub = fullName;
@@ -120,6 +124,7 @@ public class LoginBean {
                 userData.setUserType(userType);
                 userData.setUserInitial(userInitial);
                 userData.setUserDivision(userDivision);
+                userData.setUserCustomer(userCustomer);
 
                 OperationBinding _dashboardAMSession =
                     ADFUtils.findOperation("setLoginToSession_DashboardAM");

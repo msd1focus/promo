@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
   <task-flow-definition id="dashboard-main">
-    <default-activity id="__1">ExecuteApproval</default-activity>
+    <default-activity id="__1">UserMenuPriv</default-activity>
     <view id="dashboardMain">
       <page>/Pages/Dashboard/dashboardMain.jsff</page>
     </view>
@@ -17,6 +17,18 @@
         <fixed-outcome>ExecuteWithParams</fixed-outcome>
       </outcome>
     </method-call>
+    <method-call id="UserMenuPriv">
+      <method>#{bindings.ExecuteWithParams.execute}</method>
+      <outcome id="__14">
+        <fixed-outcome>ExecuteWithParams</fixed-outcome>
+      </outcome>
+    </method-call>
+    <method-call id="WaitingPC">
+      <method>#{bindings.Execute.execute}</method>
+      <outcome id="__20">
+        <fixed-outcome>Execute</fixed-outcome>
+      </outcome>
+    </method-call>
     <control-flow-rule id="__4">
       <from-activity-id id="__5">ExecuteApproval</from-activity-id>
       <control-flow-case id="__6">
@@ -29,6 +41,20 @@
       <control-flow-case id="__13">
         <from-outcome id="__12">ExecuteWithParams</from-outcome>
         <to-activity-id id="__11">dashboardMain</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__15">
+      <from-activity-id id="__16">UserMenuPriv</from-activity-id>
+      <control-flow-case id="__19">
+        <from-outcome id="__18">ExecuteWithParams</from-outcome>
+        <to-activity-id id="__17">WaitingPC</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__21">
+      <from-activity-id id="__22">WaitingPC</from-activity-id>
+      <control-flow-case id="__24">
+        <from-outcome id="__23">Execute</from-outcome>
+        <to-activity-id id="__25">ExecuteApproval</to-activity-id>
       </control-flow-case>
     </control-flow-rule>
     <use-page-fragments/>

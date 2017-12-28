@@ -42,6 +42,18 @@
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="Custgroupdesc"
+    Precision="200"
+    ColumnName="CUSTGROUPDESC"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PROP_REGION_CUST_GROUP">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="200"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="Proposal"
     Association="app.fpp.model.entities.promoproposal.PropRegionCustGroupProposalFk1Assoc"

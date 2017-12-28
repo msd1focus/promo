@@ -16,7 +16,7 @@
     </input-parameter-definition>
     <managed-bean id="__25">
       <managed-bean-name id="__26">PaProdAddRegionBackingBean</managed-bean-name>
-      <managed-bean-class id="__24">app.fpp.bean.PaProdAddRegionBackingBean</managed-bean-class>
+      <managed-bean-class id="__24">app.fpp.bean.approval.PaProdAddRegionBackingBean</managed-bean-class>
       <managed-bean-scope id="__27">backingBean</managed-bean-scope>
     </managed-bean>
     <method-call id="setKeyPromoProdukId">

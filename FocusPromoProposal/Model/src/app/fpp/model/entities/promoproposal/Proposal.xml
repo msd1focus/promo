@@ -11,7 +11,8 @@
   AliasName="Proposal"
   BindingStyle="OracleName"
   UseGlueCode="false"
-  RowClass="app.fpp.model.entities.promoproposal.ProposalImpl">
+  RowClass="app.fpp.model.entities.promoproposal.ProposalImpl"
+  xmlns:validation="http://xmlns.oracle.com/adfm/validation">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Init|Access"/>
     <AttrArray Name="_publishEvents"/>
@@ -35,7 +36,6 @@
   </Attribute>
   <Attribute
     Name="CompanyId"
-    IsNotNull="true"
     Precision="1"
     ColumnName="COMPANY_ID"
     SQLType="VARCHAR"
@@ -107,12 +107,12 @@
   </Attribute>
   <Attribute
     Name="PeriodeProgFrom"
-    IsNotNull="true"
     ColumnName="PERIODE_PROG_FROM"
     SQLType="TIMESTAMP"
     Type="oracle.jbo.domain.Date"
     ColumnType="DATE"
-    TableName="PROPOSAL">
+    TableName="PROPOSAL"
+    IsNotNull="true">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -126,15 +126,20 @@
           Value="40"/>
       </SchemaBasedProperties>
     </Properties>
+    <validation:PreDefinedValidationBean
+      Name="PeriodeProgFrom_Rule_0"
+      ResId="app.fpp.model.entities.promoproposal.Proposal.PeriodeProgFrom_Rule_0"
+      ValName="Mandatory"
+      Subtype="MANDATORY"/>
   </Attribute>
   <Attribute
     Name="PeriodeProgTo"
-    IsNotNull="true"
     ColumnName="PERIODE_PROG_TO"
     SQLType="TIMESTAMP"
     Type="oracle.jbo.domain.Date"
     ColumnType="DATE"
-    TableName="PROPOSAL">
+    TableName="PROPOSAL"
+    IsNotNull="true">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
@@ -148,6 +153,11 @@
           Value="40"/>
       </SchemaBasedProperties>
     </Properties>
+    <validation:PreDefinedValidationBean
+      Name="PeriodeProgTo_Rule_0"
+      ResId="app.fpp.model.entities.promoproposal.Proposal.PeriodeProgTo_Rule_0"
+      ValName="Mandatory"
+      Subtype="MANDATORY"/>
   </Attribute>
   <Attribute
     Name="ProgDays"
@@ -192,6 +202,11 @@
           Value="40"/>
       </SchemaBasedProperties>
     </Properties>
+    <validation:PreDefinedValidationBean
+      Name="ProgPromo_Rule_0"
+      ResId="app.fpp.model.entities.promoproposal.Proposal.ProgPromo_Rule_0"
+      ValName="Mandatory"
+      Subtype="MANDATORY"/>
   </Attribute>
   <Attribute
     Name="ProposalType"
@@ -238,6 +253,11 @@
           Value="40"/>
       </SchemaBasedProperties>
     </Properties>
+    <validation:PreDefinedValidationBean
+      Name="DiscountType_Rule_0"
+      ResId="app.fpp.model.entities.promoproposal.Proposal.DiscountType_Rule_0"
+      ValName="Mandatory"
+      Subtype="MANDATORY"/>
   </Attribute>
   <Attribute
     Name="StdStm"
@@ -777,6 +797,73 @@
       <Attr Name="_DisplaySize" Value="2000"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="CategoryPc"
+    Precision="5"
+    ColumnName="CATEGORY_PC"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PROPOSAL">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="5"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="CATEGORY_PC"/>
+        <DISPLAYWIDTH
+          Value="20"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="CustRegFlagLov"
+    Precision="10"
+    ColumnName="CUST_REG_FLAG_LOV"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PROPOSAL">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="10"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="MixQtyPromo"
+    Precision="1"
+    ColumnName="MIX_QTY_PROMO"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PROPOSAL">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="MIX_QTY_PROMO"/>
+      </SchemaBasedProperties>
+    </Properties>
+    <validation:PreDefinedValidationBean
+      Name="MixQtyPromo_Rule_0"
+      ResId="MIX_QTY_PROMO_HARUS_DIPILIH"
+      ValName="Mandatory"
+      Subtype="MANDATORY"/>
+  </Attribute>
+  <Attribute
+    Name="ReportRunNumber"
+    Precision="14"
+    ColumnName="REPORT_RUN_NUMBER"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PROPOSAL">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="14"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="Posting"
     Association="app.fpp.model.entities.confirmation.PostingProposalFk1Assoc"
@@ -841,31 +928,10 @@
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <AccessorAttribute
-    Name="ExclPropCustLoc"
-    Association="app.fpp.model.entities.promoproposal.ExclPropCustLocProposalFk1Assoc"
-    AssociationEnd="app.fpp.model.entities.promoproposal.ExclPropCustLocProposalFk1Assoc.ExclPropCustLoc"
-    AssociationOtherEnd="app.fpp.model.entities.promoproposal.ExclPropCustLocProposalFk1Assoc.Proposal"
-    Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
-  <AccessorAttribute
-    Name="ExclPropCustRegion"
-    Association="app.fpp.model.entities.promoproposal.ExclPropCustRegionProposalFk1Assoc"
-    AssociationEnd="app.fpp.model.entities.promoproposal.ExclPropCustRegionProposalFk1Assoc.ExclPropCustRegion"
-    AssociationOtherEnd="app.fpp.model.entities.promoproposal.ExclPropCustRegionProposalFk1Assoc.Proposal"
-    Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
-  <AccessorAttribute
-    Name="ExclPropCustArea"
-    Association="app.fpp.model.entities.promoproposal.ExclPropCustAreaProposalFk1Assoc"
-    AssociationEnd="app.fpp.model.entities.promoproposal.ExclPropCustAreaProposalFk1Assoc.ExclPropCustArea"
-    AssociationOtherEnd="app.fpp.model.entities.promoproposal.ExclPropCustAreaProposalFk1Assoc.Proposal"
-    Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
-  <AccessorAttribute
-    Name="ExclPropCustCust"
-    Association="app.fpp.model.entities.promoproposal.ExclPropCustCustProposalFk1Assoc"
-    AssociationEnd="app.fpp.model.entities.promoproposal.ExclPropCustCustProposalFk1Assoc.ExclPropCustCust"
-    AssociationOtherEnd="app.fpp.model.entities.promoproposal.ExclPropCustCustProposalFk1Assoc.Proposal"
+    Name="UploadDownload"
+    Association="app.fpp.model.entities.promoproposal.UploadDownloadFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.promoproposal.UploadDownloadFk1Assoc.UploadDownload"
+    AssociationOtherEnd="app.fpp.model.entities.promoproposal.UploadDownloadFk1Assoc.Proposal"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <Key

@@ -29,6 +29,12 @@
   <ViewUsage
     Name="ProposalDashView1"
     ViewObjectName="app.fpp.model.views.dashboard.ProposalDashView"/>
+  <ViewUsage
+    Name="UserDashPrivView1"
+    ViewObjectName="app.fpp.model.views.dashboard.UserDashPrivView"/>
+  <ViewUsage
+    Name="ProposalReadyConfirmAdendumView1"
+    ViewObjectName="app.fpp.model.views.confirmation.ProposalReadyConfirmAdendumView"/>
   <ClientInterface>
     <Method
       Name="setLoginToSession_DashboardAM">

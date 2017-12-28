@@ -44,10 +44,11 @@
        Proposal.MOD_REQUEST_ID, 
        Proposal.HIST_REMARK, 
        Proposal.HIST_TRAN_DT_FROM, 
-       Proposal.HIST_TRAN_DT_TO"
+       Proposal.HIST_TRAN_DT_TO, 
+       Proposal.CATEGORY_PC, 
+       Proposal.MIX_QTY_PROMO"
   FromList="PROPOSAL Proposal"
-  Where="Proposal.CONFIRM_NO IS NOT NULL AND Proposal.STATUS = 'ACTIVE'
-AND Proposal.LAST_UPDATED_BY = :userLogin"
+  Where="Proposal.CONFIRM_NO IS NOT NULL AND Proposal.STATUS = 'ACTIVE'"
   OrderBy="Proposal.LAST_UPDATE_DATE DESC"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -59,10 +60,6 @@ AND Proposal.LAST_UPDATED_BY = :userLogin"
         ResId="app.fpp.model.views.confirmation.ProposalConfirmationView_LABEL"/>
     </SchemaBasedProperties>
   </Properties>
-  <Variable
-    Name="userLogin"
-    Kind="where"
-    Type="java.lang.String"/>
   <ViewAccessor
     Name="CurrencyLov"
     ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
@@ -172,6 +169,24 @@ AND Proposal.LAST_UPDATED_BY = :userLogin"
     <ParameterMap>
       <PIMap Variable="luTitle">
         <TransientExpression><![CDATA['APP_PROP_REG_CUS_FLG']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="CategoryPcLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_CATEGORY_PC']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="MixQtyPromoLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_MIX_QTY_PROMO_FLG']]></TransientExpression>
       </PIMap>
     </ParameterMap>
   </ViewAccessor>
@@ -409,6 +424,43 @@ AND Proposal.LAST_UPDATED_BY = :userLogin"
     </AttrArray>
     <DisplayCriteria
       Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_CategoryPc"
+    ListVOName="CategoryPcLov"
+    ListRangeSize="10"
+    NullValueFlag="none"
+    NullValueId="LOV_CategoryPc_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="CategoryPc"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="hide"/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_MixQtyPromo"
+    ListVOName="MixQtyPromoLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_MixQtyPromo_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="MixQtyPromo"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
   </ListBinding>
   <EntityUsage
     Name="Proposal"
@@ -857,6 +909,35 @@ AND Proposal.LAST_UPDATED_BY = :userLogin"
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>
+  <ViewAttribute
+    Name="CategoryPc"
+    PrecisionRule="true"
+    EntityAttrName="CategoryPc"
+    EntityUsage="Proposal"
+    AliasName="CATEGORY_PC"
+    LOVName="LOV_CategoryPc">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="input_text_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="MixQtyPromo"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="MixQtyPromo"
+    EntityUsage="Proposal"
+    AliasName="MIX_QTY_PROMO"
+    LOVName="LOV_MixQtyPromo">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
   <ViewLinkAccessor
     Name="PostingView"
     ViewLink="app.fpp.model.views.confirmation.PostingProposalProposalConfirmationFk1Link"
@@ -890,26 +971,6 @@ AND Proposal.LAST_UPDATED_BY = :userLogin"
   <ViewLinkAccessor
     Name="PropRegionCustGroupView"
     ViewLink="app.fpp.model.views.confirmation.ProposalConfirmationPropRegionCustGroupFk1Link"
-    Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
-  <ViewLinkAccessor
-    Name="ExclPropCustAreaView"
-    ViewLink="app.fpp.model.views.confirmation.ExclPropCustAreaProposalConfirmationFk1Link"
-    Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
-  <ViewLinkAccessor
-    Name="ExclPropCustCustView"
-    ViewLink="app.fpp.model.views.confirmation.ExclPropCustCustProposalConfirmationFk1Link"
-    Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
-  <ViewLinkAccessor
-    Name="ExclPropCustLocView"
-    ViewLink="app.fpp.model.views.confirmation.ExclPropCustLocProposalConfirmationFk1Link"
-    Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
-  <ViewLinkAccessor
-    Name="ExclPropCustRegionView"
-    ViewLink="app.fpp.model.views.confirmation.ExclPropCustRegionProposalConfirmationFk1Link"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
 </ViewObject>

@@ -251,14 +251,22 @@
                                      title="Add Posting Budget Transaction"
                                      dialogListener="#{BudgetPostingBean.addBudgetPostTranDialogListener}">
                             <af:panelFormLayout id="pfl2" labelWidth="150">
-                              <af:selectOneChoice value="#{bindings.BudgetType.inputValue}"
-                                                  label="#{bindings.BudgetType.label}"
-                                                  required="#{bindings.BudgetType.hints.mandatory}"
-                                                  shortDesc="#{bindings.BudgetType.hints.tooltip}"
-                                                  id="soc3" readOnly="true">
-                                <f:selectItems value="#{bindings.BudgetType.items}"
-                                               id="si3"/>
-                              </af:selectOneChoice>
+                              <af:panelLabelAndMessage label="#{bindings.BudgetType.label}"
+                                                       id="plam7">
+                                <af:panelGroupLayout id="pgl10"
+                                                     layout="horizontal">
+                                  <af:selectOneChoice value="#{bindings.BudgetType.inputValue}"
+                                                      label="#{bindings.BudgetType.label}"
+                                                      required="#{bindings.BudgetType.hints.mandatory}"
+                                                      shortDesc="#{bindings.BudgetType.hints.tooltip}"
+                                                      id="soc3" readOnly="true"
+                                                      simple="true">
+                                    <f:selectItems value="#{bindings.BudgetType.items}"
+                                                   id="si3"/>
+                                  </af:selectOneChoice>
+                                  <af:spacer width="10" height="25" id="s8"/>
+                                </af:panelGroupLayout>
+                              </af:panelLabelAndMessage>
                               <af:inputDate value="#{bindings.BudgetDate.inputValue}"
                                             label="#{bindings.BudgetDate.hints.label}"
                                             required="#{bindings.BudgetDate.hints.mandatory}"
@@ -280,19 +288,28 @@
                                 <af:convertNumber groupingUsed="false"
                                                   pattern="#{bindings.Amount.format}"/>
                               </af:inputText>
-                              <af:inputText value="#{bindings.BudgetAsToDate.inputValue}"
-                                            label="#{bindings.BudgetAsToDate.hints.label}"
-                                            required="#{bindings.BudgetAsToDate.hints.mandatory}"
-                                            columns="#{bindings.BudgetAsToDate.hints.displayWidth}"
-                                            maximumLength="#{bindings.BudgetAsToDate.hints.precision}"
-                                            shortDesc="#{bindings.BudgetAsToDate.hints.tooltip}"
-                                            id="it5"
-                                            binding="#{BudgetPostingBean.yearBudAsToDate}"
-                                            partialTriggers="it3">
-                                <f:validator binding="#{bindings.BudgetAsToDate.validator}"/>
-                                <af:convertNumber groupingUsed="false"
-                                                  pattern="#{bindings.BudgetAsToDate.format}"/>
-                              </af:inputText>
+                              <af:panelLabelAndMessage label="#{bindings.BudgetAsToDate.hints.label}"
+                                                       id="plam6">
+                                <af:panelGroupLayout id="pgl9"
+                                                     layout="horizontal">
+                                  <af:inputText value="#{bindings.BudgetAsToDate.inputValue}"
+                                                label="#{bindings.BudgetAsToDate.hints.label}"
+                                                required="#{bindings.BudgetAsToDate.hints.mandatory}"
+                                                columns="#{bindings.BudgetAsToDate.hints.displayWidth}"
+                                                maximumLength="#{bindings.BudgetAsToDate.hints.precision}"
+                                                shortDesc="#{bindings.BudgetAsToDate.hints.tooltip}"
+                                                id="it5"
+                                                binding="#{BudgetPostingBean.yearBudAsToDate}"
+                                                partialTriggers="it3"
+                                                readOnly="true" simple="true"
+                                                contentStyle="font-weight:bold;">
+                                    <f:validator binding="#{bindings.BudgetAsToDate.validator}"/>
+                                    <af:convertNumber groupingUsed="false"
+                                                      pattern="#{bindings.BudgetAsToDate.format}"/>
+                                  </af:inputText>
+                                  <af:spacer width="10" height="30" id="s7"/>
+                                </af:panelGroupLayout>
+                              </af:panelLabelAndMessage>
                             </af:panelFormLayout>
                           </af:dialog>
                         </af:popup>

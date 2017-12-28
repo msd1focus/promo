@@ -10,7 +10,8 @@
        Proposal.CONFIRM_DATE, 
        Proposal.CONFIRM_NO, 
        Proposal.ADDENDUM_KE, 
-       (SELECT MAX(NVL(Proposal.ADDENDUM_KE,0))+1 FROM DUAL) AS NEXT_ADDENDUM"
+       (SELECT MAX(NVL(Proposal.ADDENDUM_KE,0))+1 FROM DUAL) AS NEXT_ADDENDUM, 
+       Proposal.CATEGORY_PC"
   FromList="PROPOSAL Proposal"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -66,6 +67,12 @@
     AliasName="NEXT_ADDENDUM"
     SQLType="NUMERIC"
     Expression="SELECT MAX(NVL(Proposal.ADDENDUM_KE,0))+1 FROM DUAL"/>
+  <ViewAttribute
+    Name="CategoryPc"
+    PrecisionRule="true"
+    EntityAttrName="CategoryPc"
+    EntityUsage="Proposal"
+    AliasName="CATEGORY_PC"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="app.fpp.model.ModelBundle"/>

@@ -11,6 +11,11 @@
               DataControl="DashboardAMDataControl" RangeSize="25"/>
     <iterator id="ProposalDashView1Iterator" Binds="ProposalDashView1"
               DataControl="DashboardAMDataControl" RangeSize="25"/>
+    <iterator id="UserDashPrivView1Iterator" Binds="UserDashPrivView1"
+              DataControl="DashboardAMDataControl" RangeSize="25"/>
+    <iterator id="ProposalReadyConfirmAdendumView1Iterator"
+              Binds="ProposalReadyConfirmAdendumView1"
+              DataControl="DashboardAMDataControl" RangeSize="25"/>
   </executables>
   <bindings>
     <attributeValues IterBinding="ProposalDashView1Iterator" id="PdraftNum">
@@ -36,6 +41,21 @@
     <attributeValues IterBinding="ProposalDashView1Iterator" id="Pall">
       <AttrNames>
         <Item Value="Pall"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="UserDashPrivView1Iterator" id="IsProp">
+      <AttrNames>
+        <Item Value="IsProp"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="UserDashPrivView1Iterator" id="IsApvr">
+      <AttrNames>
+        <Item Value="IsApvr"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="UserDashPrivView1Iterator" id="IsConf">
+      <AttrNames>
+        <Item Value="IsConf"/>
       </AttrNames>
     </attributeValues>
   </bindings>

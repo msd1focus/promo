@@ -46,28 +46,6 @@ public class DuplicateProdRegionCustomerViewRowImpl extends ViewRowImpl {
                 obj.setNotes((String)value);
             }
         }
-        ,
-        CustomerName {
-            public Object get(DuplicateProdRegionCustomerViewRowImpl obj) {
-                return obj.getCustomerName();
-            }
-
-            public void put(DuplicateProdRegionCustomerViewRowImpl obj,
-                            Object value) {
-                obj.setCustomerName((String)value);
-            }
-        }
-        ,
-        RegionCode {
-            public Object get(DuplicateProdRegionCustomerViewRowImpl obj) {
-                return obj.getRegionCode();
-            }
-
-            public void put(DuplicateProdRegionCustomerViewRowImpl obj,
-                            Object value) {
-                obj.setRegionCode((String)value);
-            }
-        }
         ;
         private static AttributesEnum[] vals = null;
         private static final int firstIndex = 0;
@@ -101,8 +79,6 @@ public class DuplicateProdRegionCustomerViewRowImpl extends ViewRowImpl {
     public static final int PROMOPRODUKID = AttributesEnum.PromoProdukId.index();
     public static final int CUSTOMERID = AttributesEnum.CustomerId.index();
     public static final int NOTES = AttributesEnum.Notes.index();
-    public static final int CUSTOMERNAME = AttributesEnum.CustomerName.index();
-    public static final int REGIONCODE = AttributesEnum.RegionCode.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -158,37 +134,6 @@ public class DuplicateProdRegionCustomerViewRowImpl extends ViewRowImpl {
         setAttributeInternal(NOTES, value);
     }
 
-    /**
-     * Gets the attribute value for the calculated attribute CustomerName.
-     * @return the CustomerName
-     */
-    public String getCustomerName() {
-        return (String) getAttributeInternal(CUSTOMERNAME);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CustomerName.
-     * @param value value to set the  CustomerName
-     */
-    public void setCustomerName(String value) {
-        setAttributeInternal(CUSTOMERNAME, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute RegionCode.
-     * @return the RegionCode
-     */
-    public String getRegionCode() {
-        return (String) getAttributeInternal(REGIONCODE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute RegionCode.
-     * @param value value to set the  RegionCode
-     */
-    public void setRegionCode(String value) {
-        setAttributeInternal(REGIONCODE, value);
-    }
 
     /**
      * getAttrInvokeAccessor: generated method. Do not modify.

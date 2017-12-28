@@ -6,26 +6,24 @@
   Name="AllExclProposalCustomerShuttleView"
   Version="11.1.1.64.93"
   InheritPersonalization="true"
-  SelectList="FcsExclShuttleCustomer.CUSTOMER_ID, 
-       FcsExclShuttleCustomer.CUSTOMER_NAME, 
-       FcsExclShuttleCustomer.CUSTOMER_NUMBER, 
-       FcsExclShuttleCustomer.LOCATION_CODE, 
-       FcsExclShuttleCustomer.CUSTOMER_FULL_NAME"
-  FromList="FCS_EXCL_SHUTTLE_CUSTOMER FcsExclShuttleCustomer, PROPOSAL Proposal, PROP_REGION_LOC PropRegionLoc"
-  Where="Proposal.PROPOSAL_ID = PropRegionLoc.PROPOSAL_ID
-AND FcsExclShuttleCustomer.LOCATION_CODE = PropRegionLoc.LOCATION_CODE
-AND FcsExclShuttleCustomer.USER_NAME = :userName
-AND Proposal.PROPOSAL_ID = :proposalId
-GROUP BY FcsExclShuttleCustomer.CUSTOMER_ID, 
-       FcsExclShuttleCustomer.CUSTOMER_NAME, 
-       FcsExclShuttleCustomer.CUSTOMER_NUMBER, 
-       FcsExclShuttleCustomer.LOCATION_CODE, 
-       FcsExclShuttleCustomer.CUSTOMER_FULL_NAME"
-  OrderBy="FcsExclShuttleCustomer.CUSTOMER_FULL_NAME"
+  SelectList="FcsExclShuttleCustomerProp.CUSTOMER_ID, 
+       FcsExclShuttleCustomerProp.CUSTOMER_NAME, 
+       FcsExclShuttleCustomerProp.CUSTOMER_NUMBER, 
+       FcsExclShuttleCustomerProp.LOCATION_CODE, 
+       FcsExclShuttleCustomerProp.CUSTOMER_FULL_NAME"
+  FromList="FCS_EXCL_SHUTTLE_CUSTOMER_PROP FcsExclShuttleCustomerProp"
+  OrderBy="FcsExclShuttleCustomerProp.CUSTOMER_FULL_NAME"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
-  UseGlueCode="false">
+  UseGlueCode="false"
+  Where="FcsExclShuttleCustomerProp.USER_NAME = :userName
+AND FcsExclShuttleCustomerProp.PROMO_PRODUK_ID = :promoProdukId
+GROUP BY FcsExclShuttleCustomerProp.CUSTOMER_ID, 
+       FcsExclShuttleCustomerProp.CUSTOMER_NAME, 
+       FcsExclShuttleCustomerProp.CUSTOMER_NUMBER, 
+       FcsExclShuttleCustomerProp.LOCATION_CODE, 
+       FcsExclShuttleCustomerProp.CUSTOMER_FULL_NAME">
   <Properties>
     <SchemaBasedProperties>
       <LABEL
@@ -37,69 +35,42 @@ GROUP BY FcsExclShuttleCustomer.CUSTOMER_ID,
     Kind="where"
     Type="java.lang.String"/>
   <Variable
-    Name="proposalId"
+    Name="promoProdukId"
     Kind="where"
     Type="java.lang.String"/>
   <EntityUsage
-    Name="FcsExclShuttleCustomer"
-    Entity="app.fpp.model.entities.masterdata.ebs.shuttle.FcsExclShuttleCustomer"/>
-  <EntityUsage
-    Name="Proposal"
-    Entity="app.fpp.model.entities.promoproposal.Proposal"
-    SourceUsage="app.fpp.model.views.masterdata.ebs.shuttle.AllExclProposalCustomerShuttleView.FcsExclShuttleCustomer"
-    ReadOnly="true"
-    Reference="true"
-    DeleteParticipant="false"/>
-  <EntityUsage
-    Name="PropRegionLoc"
-    Entity="app.fpp.model.entities.promoproposal.PropRegionLoc"
-    Association="app.fpp.model.entities.promoproposal.PropRegionLocProposalFk1Assoc"
-    AssociationEnd="app.fpp.model.entities.promoproposal.PropRegionLocProposalFk1Assoc.PropRegionLoc"
-    SourceUsage="app.fpp.model.views.masterdata.ebs.shuttle.AllExclProposalCustomerShuttleView.Proposal"
-    ReadOnly="true"
-    Reference="true"
-    DeleteParticipant="false"
-    JoinType="INNER JOIN">
-    <DesignTime>
-      <AttrArray Name="_srcAttributes">
-        <Item Value="app.fpp.model.entities.promoproposal.Proposal.ProposalId"/>
-      </AttrArray>
-      <AttrArray Name="_dstAttributes">
-        <Item
-          Value="app.fpp.model.entities.promoproposal.PropRegionLoc.ProposalId"/>
-      </AttrArray>
-    </DesignTime>
-  </EntityUsage>
+    Name="FcsExclShuttleCustomerProp"
+    Entity="app.fpp.model.entities.masterdata.ebs.shuttle.FcsExclShuttleCustomerProp"/>
   <ViewAttribute
     Name="CustomerId"
     IsNotNull="true"
     PrecisionRule="true"
     EntityAttrName="CustomerId"
-    EntityUsage="FcsExclShuttleCustomer"
+    EntityUsage="FcsExclShuttleCustomerProp"
     AliasName="CUSTOMER_ID"/>
   <ViewAttribute
     Name="CustomerName"
     PrecisionRule="true"
     EntityAttrName="CustomerName"
-    EntityUsage="FcsExclShuttleCustomer"
+    EntityUsage="FcsExclShuttleCustomerProp"
     AliasName="CUSTOMER_NAME"/>
   <ViewAttribute
     Name="CustomerNumber"
     PrecisionRule="true"
     EntityAttrName="CustomerNumber"
-    EntityUsage="FcsExclShuttleCustomer"
+    EntityUsage="FcsExclShuttleCustomerProp"
     AliasName="CUSTOMER_NUMBER"/>
   <ViewAttribute
     Name="LocationCode"
     PrecisionRule="true"
     EntityAttrName="LocationCode"
-    EntityUsage="FcsExclShuttleCustomer"
+    EntityUsage="FcsExclShuttleCustomerProp"
     AliasName="LOCATION_CODE"/>
   <ViewAttribute
     Name="CustomerFullName"
     PrecisionRule="true"
     EntityAttrName="CustomerFullName"
-    EntityUsage="FcsExclShuttleCustomer"
+    EntityUsage="FcsExclShuttleCustomerProp"
     AliasName="CUSTOMER_FULL_NAME"/>
   <ResourceBundle>
     <PropertiesBundle

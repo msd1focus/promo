@@ -77,7 +77,7 @@
   </Variable>
   <SQLQuery>
     <![CDATA[SELECT FcsViewItemMasterCategory.ITEM, 
-       FcsViewItemMasterCategory.ITEM_DESCRIPTION, 
+       NVL(FcsViewItemMasterCategory.ITEM_DESCRIPTION, FcsViewItemMasterCategory.ITEM) AS ITEM_DESCRIPTION, 
        FcsViewItemMasterCategory.SET_PACKAGING
 FROM APPS.FCS_VIEW_ITEM_MASTER_CATEGORY FcsViewItemMasterCategory
 WHERE FcsViewItemMasterCategory.SET_CATEGORY = :setCategory

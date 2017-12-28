@@ -8,16 +8,16 @@
   InheritPersonalization="true"
   SelectList="PropRegionArea.PROPOSAL_ID, 
        PropRegionArea.AREA_CODE, 
-       FcsViewTerritoryArea.VALUE, 
-       FcsViewTerritoryArea.DESCRIPTION, 
-       (SELECT ARC.ATTRIBUTE3 FROM APPS.AR_CUSTOMERS ARC WHERE ARC.ATTRIBUTE4 = PropRegionArea.AREA_CODE GROUP BY ARC.ATTRIBUTE3) AS REGION_CODE"
-  FromList="PROP_REGION_AREA PropRegionArea, APPS.FCS_VIEW_TERRITORY_AREA FcsViewTerritoryArea"
+       FcsFlexValuesVl.DESCRIPTION, 
+       FcsFlexValuesVl.FLEX_VALUE_ID, 
+       PropRegionArea.AREADISCRIPTION"
+  FromList="PROP_REGION_AREA PropRegionArea, APPS.FCS_FLEX_VALUES_VL FcsFlexValuesVl"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
-  Where="FcsViewTerritoryArea.VALUE = PropRegionArea.AREA_CODE"
-  OrderBy='"REGION_CODE",PropRegionArea.AREA_CODE,FcsViewTerritoryArea.DESCRIPTION'>
+  OrderBy='PropRegionArea.AREA_CODE,FcsFlexValuesVl.DESCRIPTION'
+  Where="FcsFlexValuesVl.FLEX_VALUE = PropRegionArea.AREA_CODE">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|VarAccess"/>
   </DesignTime>
@@ -25,8 +25,8 @@
     Name="PropRegionArea"
     Entity="app.fpp.model.entities.promoproposal.PropRegionArea"/>
   <EntityUsage
-    Name="FcsViewTerritoryArea"
-    Entity="app.fpp.model.entities.masterdata.ebs.FcsViewTerritoryArea"
+    Name="FcsFlexValuesVl"
+    Entity="app.fpp.model.entities.masterdata.ebs.FcsFlexValuesVl"
     SourceUsage="app.fpp.model.views.promoproposal.PropRegionAreaView.PropRegionArea"
     ReadOnly="true"
     Reference="true"
@@ -46,27 +46,22 @@
     EntityUsage="PropRegionArea"
     AliasName="AREA_CODE"/>
   <ViewAttribute
-    Name="Value"
-    IsNotNull="true"
-    PrecisionRule="true"
-    EntityAttrName="Value"
-    EntityUsage="FcsViewTerritoryArea"
-    AliasName="VALUE"/>
-  <ViewAttribute
     Name="Description"
     PrecisionRule="true"
     EntityAttrName="Description"
-    EntityUsage="FcsViewTerritoryArea"
+    EntityUsage="FcsFlexValuesVl"
     AliasName="DESCRIPTION"/>
   <ViewAttribute
-    Name="RegionCode"
-    IsUpdateable="false"
-    IsPersistent="false"
+    Name="FlexValueId"
+    IsNotNull="true"
     PrecisionRule="true"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="REGION_CODE"
-    SQLType="VARCHAR"
-    Precision="255"
-    Expression="SELECT ARC.ATTRIBUTE3 FROM APPS.AR_CUSTOMERS ARC WHERE ARC.ATTRIBUTE4 = PropRegionArea.AREA_CODE GROUP BY ARC.ATTRIBUTE3"/>
+    EntityAttrName="FlexValueId"
+    EntityUsage="FcsFlexValuesVl"
+    AliasName="FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="Areadiscription"
+    PrecisionRule="true"
+    EntityAttrName="Areadiscription"
+    EntityUsage="PropRegionArea"
+    AliasName="AREADISCRIPTION"/>
 </ViewObject>

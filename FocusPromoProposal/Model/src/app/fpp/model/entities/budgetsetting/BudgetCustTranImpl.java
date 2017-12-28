@@ -132,6 +132,46 @@ public class BudgetCustTranImpl extends EntityImpl {
             }
         }
         ,
+        Remarks {
+            public Object get(BudgetCustTranImpl obj) {
+                return obj.getRemarks();
+            }
+
+            public void put(BudgetCustTranImpl obj, Object value) {
+                obj.setRemarks((String)value);
+            }
+        }
+        ,
+        Action {
+            public Object get(BudgetCustTranImpl obj) {
+                return obj.getAction();
+            }
+
+            public void put(BudgetCustTranImpl obj, Object value) {
+                obj.setAction((String)value);
+            }
+        }
+        ,
+        ActionBy {
+            public Object get(BudgetCustTranImpl obj) {
+                return obj.getActionBy();
+            }
+
+            public void put(BudgetCustTranImpl obj, Object value) {
+                obj.setActionBy((String)value);
+            }
+        }
+        ,
+        ActionDate {
+            public Object get(BudgetCustTranImpl obj) {
+                return obj.getActionDate();
+            }
+
+            public void put(BudgetCustTranImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
         BudgetCustomer {
             public Object get(BudgetCustTranImpl obj) {
                 return obj.getBudgetCustomer();
@@ -181,6 +221,10 @@ public class BudgetCustTranImpl extends EntityImpl {
     public static final int CREATIONDATE = AttributesEnum.CreationDate.index();
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDDATE = AttributesEnum.ModifiedDate.index();
+    public static final int REMARKS = AttributesEnum.Remarks.index();
+    public static final int ACTION = AttributesEnum.Action.index();
+    public static final int ACTIONBY = AttributesEnum.ActionBy.index();
+    public static final int ACTIONDATE = AttributesEnum.ActionDate.index();
     public static final int BUDGETCUSTOMER = AttributesEnum.BudgetCustomer.index();
 
     /**
@@ -327,6 +371,63 @@ public class BudgetCustTranImpl extends EntityImpl {
     public Date getModifiedDate() {
         return (Date)getAttributeInternal(MODIFIEDDATE);
     }
+
+    /**
+     * Gets the attribute value for Remarks, using the alias name Remarks.
+     * @return the Remarks
+     */
+    public String getRemarks() {
+        return (String)getAttributeInternal(REMARKS);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for Remarks.
+     * @param value value to set the Remarks
+     */
+    public void setRemarks(String value) {
+        setAttributeInternal(REMARKS, value);
+    }
+
+    /**
+     * Gets the attribute value for Action, using the alias name Action.
+     * @return the Action
+     */
+    public String getAction() {
+        return (String)getAttributeInternal(ACTION);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for Action.
+     * @param value value to set the Action
+     */
+    public void setAction(String value) {
+        setAttributeInternal(ACTION, value);
+    }
+
+    /**
+     * Gets the attribute value for ActionBy, using the alias name ActionBy.
+     * @return the ActionBy
+     */
+    public String getActionBy() {
+        return (String)getAttributeInternal(ACTIONBY);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for ActionBy.
+     * @param value value to set the ActionBy
+     */
+    public void setActionBy(String value) {
+        setAttributeInternal(ACTIONBY, value);
+    }
+
+    /**
+     * Gets the attribute value for ActionDate, using the alias name ActionDate.
+     * @return the ActionDate
+     */
+    public Date getActionDate() {
+        return (Date)getAttributeInternal(ACTIONDATE);
+    }
+
 
     /**
      * Gets the attribute value for BudgetAsToDate, using the alias name BudgetAsToDate.

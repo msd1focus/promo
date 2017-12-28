@@ -11,65 +11,71 @@
     </variableIterator>
     <iterator Binds="ProposalView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="ProposalView1Iterator"/>
+              id="ProposalView1Iterator" ChangeEventPolicy="ppr"/>
     <searchRegion Binds="ProposalView1Iterator" Criteria=""
                   Customizer="oracle.jbo.uicli.binding.JUSearchBindingCustomizer"
                   id="ProposalView1Query"/>
     <iterator Binds="TargetView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="TargetView1Iterator"/>
+              id="TargetView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="PropRegionView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="PropRegionView1Iterator"/>
+              id="PropRegionView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="PropRegionCustomerView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="PropRegionCustomerView1Iterator"/>
+              id="PropRegionCustomerView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="PropRegionAreaView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="PropRegionAreaView1Iterator"/>
+              id="PropRegionAreaView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="PropRegionLocView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="PropRegionLocView1Iterator"/>
+              id="PropRegionLocView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="PropRegionCustGroupView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="PropRegionCustGroupView1Iterator"/>
+              id="PropRegionCustGroupView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="DiscountView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="DiscountView1Iterator"/>
+              id="DiscountView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="BiayaView1" RangeSize="25"
-              DataControl="PromoProposalAMDataControl" id="BiayaView1Iterator"/>
+              DataControl="PromoProposalAMDataControl" id="BiayaView1Iterator"
+              ChangeEventPolicy="ppr"/>
     <iterator Binds="PromoBonusView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="PromoBonusView1Iterator"/>
+              id="PromoBonusView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator id="ProdukItemView1Iterator" Binds="ProdukItemView1"
-              DataControl="PromoProposalAMDataControl" RangeSize="25"/>
+              DataControl="PromoProposalAMDataControl" RangeSize="25"
+              ChangeEventPolicy="ppr"/>
     <iterator id="ProdukVariantView1Iterator" Binds="ProdukVariantView1"
-              DataControl="PromoProposalAMDataControl" RangeSize="25"/>
+              DataControl="PromoProposalAMDataControl" RangeSize="25"
+              ChangeEventPolicy="ppr"/>
     <iterator Binds="PromoProdukView1" RangeSize="100"
               DataControl="PromoProposalAMDataControl"
-              id="PromoProdukView1Iterator"/>
+              id="PromoProdukView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="ProdRegionCustomerView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="ProdRegionCustomerView1Iterator"/>
+              id="ProdRegionCustomerView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="ProdRegionView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="ProdRegionView1Iterator"/>
+              id="ProdRegionView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="ProdRegionAreaView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="ProdRegionAreaView1Iterator"/>
+              id="ProdRegionAreaView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="ProdRegionLocView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="ProdRegionLocView1Iterator"/>
+              id="ProdRegionLocView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="ProdRegionCustGroupView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="ProdRegionCustGroupView1Iterator"/>
+              id="ProdRegionCustGroupView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator id="PromoBonusVariantView1Iterator" Binds="PromoBonusVariantView1"
-              DataControl="PromoProposalAMDataControl" RangeSize="25"/>
+              DataControl="PromoProposalAMDataControl" RangeSize="25"
+              ChangeEventPolicy="ppr"/>
     <iterator id="PromoBonusProdItemView1Iterator"
               Binds="PromoBonusProdItemView1"
-              DataControl="PromoProposalAMDataControl" RangeSize="25"/>
+              DataControl="PromoProposalAMDataControl" RangeSize="25"
+              ChangeEventPolicy="ppr"/>
     <iterator id="ApprovalRegPropView1Iterator" Binds="ApprovalRegPropView1"
-              DataControl="PromoProposalAMDataControl" RangeSize="25"/>
+              DataControl="PromoProposalAMDataControl" RangeSize="25"
+              ChangeEventPolicy="ppr"/>
     <iterator Binds="FcsPppcPriceListView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
               id="FcsPppcPriceListView1Iterator"/>
@@ -78,28 +84,31 @@
                   id="FcsPppcPriceListView1Query"/>
     <iterator Binds="ExclPropCustRegionView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="ExclPropCustRegionView1Iterator"/>
+              id="ExclPropCustRegionView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="ExclPropCustAreaView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="ExclPropCustAreaView1Iterator"/>
+              id="ExclPropCustAreaView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="ExclPropCustLocView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="ExclPropCustLocView1Iterator"/>
+              id="ExclPropCustLocView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="ExclPropCustCustView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="ExclPropCustCustView1Iterator"/>
+              id="ExclPropCustCustView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="ExclCustAreaView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="ExclCustAreaView1Iterator"/>
+              id="ExclCustAreaView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="ExclCustLocView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="ExclCustLocView1Iterator"/>
+              id="ExclCustLocView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="ExclCustCustView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="ExclCustCustView1Iterator"/>
+              id="ExclCustCustView1Iterator" ChangeEventPolicy="ppr"/>
     <iterator Binds="ExclCustRegionView1" RangeSize="25"
               DataControl="PromoProposalAMDataControl"
-              id="ExclCustRegionView1Iterator"/>
+              id="ExclCustRegionView1Iterator" ChangeEventPolicy="ppr"/>
+    <iterator Binds="DocApprovalView1" RangeSize="25"
+              DataControl="PromoProposalAMDataControl"
+              id="DocApprovalView1Iterator" ChangeEventPolicy="ppr"/>
   </executables>
   <bindings>
     <attributeValues IterBinding="ProposalView1Iterator" id="ProposalId">
@@ -143,11 +152,6 @@
     <list IterBinding="ProposalView1Iterator" StaticList="false"
           Uses="LOV_MekanismePenagihan" id="MekanismePenagihan"
           DTSupportsMRU="true"/>
-    <attributeValues IterBinding="ProposalView1Iterator" id="ProgDaysCount">
-      <AttrNames>
-        <Item Value="ProgDaysCount"/>
-      </AttrNames>
-    </attributeValues>
     <list IterBinding="ProposalView1Iterator" StaticList="false"
           Uses="LOV_StdStm" id="StdStm" DTSupportsMRU="true"/>
     <list IterBinding="ProposalView1Iterator" StaticList="false"
@@ -180,11 +184,6 @@
     </attributeValues>
     <list IterBinding="ProposalView1Iterator" StaticList="false"
           Uses="LOV_CustRegFlag" id="CustRegFlag" DTSupportsMRU="false"/>
-    <attributeValues IterBinding="ProposalView1Iterator" id="UserTypeCreator">
-      <AttrNames>
-        <Item Value="UserTypeCreator"/>
-      </AttrNames>
-    </attributeValues>
     <action IterBinding="ProposalView1Iterator" id="CreateInsert"
             RequiresUpdateModel="true" Action="createInsertRow"/>
     <attributeValues IterBinding="ProposalView1Iterator" id="CanEdit">
@@ -194,8 +193,6 @@
     </attributeValues>
     <action id="Commit" DataControl="PromoProposalAMDataControl"
             RequiresUpdateModel="true" Action="commitTransaction"/>
-    <action id="Rollback" DataControl="PromoProposalAMDataControl"
-            RequiresUpdateModel="false" Action="rollbackTransaction"/>
     <action IterBinding="ProposalView1Iterator" id="Execute"
             RequiresUpdateModel="true" Action="iteratorExecute"/>
     <methodAction id="addDocApproval"
@@ -222,6 +219,8 @@
                  NDType="java.lang.String"/>
       <NamedData NDName="aprvlFlowNm"
                  NDValue="#{(bindings.ProposalType.inputValue == 0 and UserData.userType == 'HO') ? 'PROPOSAL FOOD HO' : (bindings.ProposalType.inputValue == 0 and UserData.userType == 'AREA') ? 'PROPOSAL FOOD' : (bindings.ProposalType.inputValue == 1 and UserData.userType == 'HO') ? 'PROPOSAL NON FOOD HO' : 'PROPOSAL NON FOOD'}"
+                 NDType="java.lang.String"/>
+      <NamedData NDName="propDt" NDValue="#{bindings.ProposalDate.inputValue}"
                  NDType="java.lang.String"/>
     </methodAction>
     <action IterBinding="PropRegionAreaView1Iterator" id="ExecuteArea"
@@ -287,7 +286,10 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.PropRegionView"
                       Name="PropRegionView10">
         <AttrNames>
-          <Item Value="RegionLabel"/>
+          <Item Value="Description"/>
+          <Item Value="RegionCode"/>
+          <Item Value="ProposalId"/>
+          <Item Value="Description1"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -296,7 +298,9 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.PropRegionCustomerView"
                       Name="PropRegionCustomerView10">
         <AttrNames>
-          <Item Value="CustomerName"/>
+          <Item Value="CustomerId"/>
+          <Item Value="Custdescription"/>
+          <Item Value="ProposalId"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -304,7 +308,10 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.PropRegionLocView"
                       Name="PropRegionLocView10">
         <AttrNames>
-          <Item Value="LocationName"/>
+          <Item Value="Description"/>
+          <Item Value="ProposalId"/>
+          <Item Value="FlexValueId"/>
+          <Item Value="Locdescription"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -313,6 +320,9 @@
                       Name="PropRegionAreaView10">
         <AttrNames>
           <Item Value="AreaCode"/>
+          <Item Value="Description"/>
+          <Item Value="ProposalId"/>
+          <Item Value="Areadiscription"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -321,7 +331,10 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.PropRegionCustGroupView"
                       Name="PropRegionCustGroupView10">
         <AttrNames>
-          <Item Value="CustGroupName"/>
+          <Item Value="CustGroup"/>
+          <Item Value="Description"/>
+          <Item Value="ProposalId"/>
+          <Item Value="Custgroupdesc"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -386,7 +399,7 @@
                   Uses="LOV_RegCustFlag" id="RegCustFlag2"/>
     <action IterBinding="DiscountView1Iterator" id="CreateInsert2"
             RequiresUpdateModel="true" Action="createInsertRow"/>
-    <action IterBinding="DiscountView1Iterator" id="Delete"
+    <action IterBinding="DiscountView1Iterator" id="DeleteDiskon"
             RequiresUpdateModel="false" Action="removeCurrentRow"/>
     <tree IterBinding="BiayaView1Iterator" id="BiayaView1">
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.BiayaView"
@@ -426,6 +439,8 @@
           <Item Value="ProductNameBonus"/>
           <Item Value="DiscNonYearly"/>
           <Item Value="DiscYearly"/>
+          <Item Value="InputPriceBy"/>
+          <Item Value="PriceVal"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -437,16 +452,6 @@
             InstanceName="PromoProposalAMDataControl.PromoBonusView1"
             DataControl="PromoProposalAMDataControl" RequiresUpdateModel="true"
             Action="iteratorExecute"/>
-    <attributeValues IterBinding="PromoProdukView1Iterator" id="DiscNonYearly">
-      <AttrNames>
-        <Item Value="DiscNonYearly"/>
-      </AttrNames>
-    </attributeValues>
-    <attributeValues IterBinding="PromoProdukView1Iterator" id="DiscYearly">
-      <AttrNames>
-        <Item Value="DiscYearly"/>
-      </AttrNames>
-    </attributeValues>
     <list IterBinding="PromoProdukView1Iterator" StaticList="false"
           Uses="LOV_RegCustFlag" id="RegCustFlag" DTSupportsMRU="true"/>
     <tree IterBinding="ProdRegionView1Iterator" id="ProdRegionView1">
@@ -454,7 +459,7 @@
                       Name="ProdRegionView10">
         <AttrNames>
           <Item Value="RegionCode"/>
-          <Item Value="RegionLabel"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -463,8 +468,8 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.ProdRegionCustomerView"
                       Name="ProdRegionCustomerView10">
         <AttrNames>
+          <Item Value="CustomerId"/>
           <Item Value="CustomerName"/>
-          <Item Value="RegionCode"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -472,7 +477,6 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.ProdRegionAreaView"
                       Name="ProdRegionAreaView10">
         <AttrNames>
-          <Item Value="RegionCode"/>
           <Item Value="AreaCode"/>
           <Item Value="Description"/>
         </AttrNames>
@@ -483,6 +487,7 @@
                       Name="ProdRegionLocView10">
         <AttrNames>
           <Item Value="LocationCode"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -491,7 +496,8 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.ProdRegionCustGroupView"
                       Name="ProdRegionCustGroupView10">
         <AttrNames>
-          <Item Value="CustGroupName"/>
+          <Item Value="CustGroup"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -517,23 +523,6 @@
             InstanceName="PromoProposalAMDataControl.ProdRegionCustGroupView1"
             DataControl="PromoProposalAMDataControl" RequiresUpdateModel="true"
             Action="iteratorExecute"/>
-    <attributeValues IterBinding="PromoProdukView1Iterator" id="DiscRasioTotal">
-      <AttrNames>
-        <Item Value="DiscRasioTotal"/>
-      </AttrNames>
-    </attributeValues>
-    <attributeValues IterBinding="PromoProdukView1Iterator"
-                     id="DiscRasioYearly">
-      <AttrNames>
-        <Item Value="DiscRasioYearly"/>
-      </AttrNames>
-    </attributeValues>
-    <attributeValues IterBinding="PromoProdukView1Iterator"
-                     id="DiscRasioNonYearly">
-      <AttrNames>
-        <Item Value="DiscRasioNonYearly"/>
-      </AttrNames>
-    </attributeValues>
     <attributeValues IterBinding="PromoProdukView1Iterator" id="BiayaNonYearly">
       <AttrNames>
         <Item Value="BiayaNonYearly"/>
@@ -615,6 +604,7 @@
           <Item Value="TipePotongan"/>
           <Item Value="DiscNonYearly"/>
           <Item Value="DiscYearly"/>
+          <Item Value="Kelipatan"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -645,6 +635,7 @@
           <Item Value="ProposalNo"/>
           <Item Value="ProposalDate"/>
           <Item Value="Status"/>
+          <Item Value="ConfirmNo"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -691,6 +682,7 @@
                       Name="ExclPropCustRegionView10">
         <AttrNames>
           <Item Value="RegionCode"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -700,6 +692,7 @@
                       Name="ExclPropCustAreaView10">
         <AttrNames>
           <Item Value="AreaCode"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -708,6 +701,7 @@
                       Name="ExclPropCustLocView10">
         <AttrNames>
           <Item Value="LocationCode"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -717,6 +711,7 @@
                       Name="ExclPropCustCustView10">
         <AttrNames>
           <Item Value="CustomerId"/>
+          <Item Value="CustomerName"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -742,6 +737,7 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.ExclCustRegionView"
                       Name="ExclCustRegionView10">
         <AttrNames>
+          <Item Value="RegionCode"/>
           <Item Value="RegionLabel"/>
         </AttrNames>
       </nodeDefinition>
@@ -751,6 +747,7 @@
                       Name="ExclCustAreaView10">
         <AttrNames>
           <Item Value="AreaCode"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -759,6 +756,7 @@
                       Name="ExclCustLocView10">
         <AttrNames>
           <Item Value="LocationCode"/>
+          <Item Value="Description"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -766,7 +764,7 @@
       <nodeDefinition DefName="app.fpp.model.views.promoproposal.ExclCustCustView"
                       Name="ExclCustCustView10">
         <AttrNames>
-          <Item Value="CustomerId"/>
+          <Item Value="CustomerName"/>
         </AttrNames>
       </nodeDefinition>
     </tree>
@@ -802,5 +800,131 @@
         <Item Value="ProductItemCode"/>
       </AttrNames>
     </attributeValues>
+    <tree IterBinding="DocApprovalView1Iterator" id="DocApprovalView1">
+      <nodeDefinition DefName="app.fpp.model.views.approval.DocApprovalView"
+                      Name="DocApprovalView10">
+        <AttrNames>
+          <Item Value="Action"/>
+          <Item Value="ActionDate"/>
+          <Item Value="ActionBy"/>
+          <Item Value="Reason"/>
+          <Item Value="ActionTo"/>
+          <Item Value="FullName"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
+    <action IterBinding="DocApprovalView1Iterator" id="ExecuteAprvlHist"
+            RequiresUpdateModel="true" Action="iteratorExecute"/>
+    <attributeValues IterBinding="ProposalView1Iterator" id="UserTypeCreator">
+      <AttrNames>
+        <Item Value="UserTypeCreator"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="DiscOnTop">
+      <AttrNames>
+        <Item Value="DiscOnTop"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="DiscMf">
+      <AttrNames>
+        <Item Value="DiscMf"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="DiscRasioOnTop">
+      <AttrNames>
+        <Item Value="DiscRasioOnTop"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="DiscRasioMf">
+      <AttrNames>
+        <Item Value="DiscRasioMf"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator"
+                     id="DiscRasioTotal1">
+      <AttrNames>
+        <Item Value="DiscRasioTotal1"/>
+      </AttrNames>
+    </attributeValues>
+    <listOfValues StaticList="false" Uses="LOV_InputPriceBy"
+                  IterBinding="PromoBonusView1Iterator" id="InputPriceBy"/>
+<attributeValues IterBinding="ProposalView1Iterator"
+                     id="CustRegFlagSwitcher">
+      <AttrNames>
+        <Item Value="CustRegFlagSwitcher"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="BrgBonusOnTop">
+      <AttrNames>
+        <Item Value="BrgBonusOnTop"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="BrgBonusMf">
+      <AttrNames>
+        <Item Value="BrgBonusMf"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator"
+                     id="BrgBonusRasioOnTop">
+      <AttrNames>
+        <Item Value="BrgBonusRasioOnTop"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator"
+                     id="BrgBonusRasioMf">
+      <AttrNames>
+        <Item Value="BrgBonusRasioMf"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator"
+                     id="BrgBonusRasioTotal">
+      <AttrNames>
+        <Item Value="BrgBonusRasioTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ProposalView1Iterator" id="ConfirmNo">
+      <AttrNames>
+        <Item Value="ConfirmNo"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="BiaOntop">
+      <AttrNames>
+        <Item Value="BiaOntop"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="BiaMf">
+      <AttrNames>
+        <Item Value="BiaMf"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="BiaRasionOntop">
+      <AttrNames>
+        <Item Value="BiaRasionOntop"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="BiaRasioMf">
+      <AttrNames>
+        <Item Value="BiaRasioMf"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="PromoProdukView1Iterator" id="BiaRasioTotal">
+      <AttrNames>
+        <Item Value="BiaRasioTotal"/>
+      </AttrNames>
+    </attributeValues>
+    <action id="Rollback" DataControl="PromoProposalAMDataControl"
+            RequiresUpdateModel="false" Action="rollbackTransaction"/>
+    <attributeValues IterBinding="ProposalView1Iterator" id="ProgDays">
+      <AttrNames>
+        <Item Value="ProgDays"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="ProposalView1Iterator" id="ProgDays1">
+      <AttrNames>
+        <Item Value="ProgDays"/>
+      </AttrNames>
+    </attributeValues>
+    <list IterBinding="ProposalView1Iterator" StaticList="false"
+          Uses="LOV_MixQtyPromo" id="MixQtyPromo" DTSupportsMRU="true"/>
   </bindings>
 </pageDefinition>

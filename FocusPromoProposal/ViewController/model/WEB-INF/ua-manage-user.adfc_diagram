@@ -1,7 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <SDM>
    <OverallProperties
-      id="OverallProperties1"/>
+      id="OverallProperties1">
+      <property
+         name="linkStyle">Orthogonal</property>
+   </OverallProperties>
    <View
       id="View2">
       <property
@@ -36,9 +39,9 @@
       <property
          name="exceptionHandler">false</property>
       <property
-         name="y">174.74121</property>
+         name="y">170.04004</property>
       <property
-         name="x">620.0</property>
+         name="x">615.0</property>
    </TaskFlowCall>
    <ControlFlowCase
       islink="true"
@@ -48,7 +51,7 @@
       <property
          name="fromOutcome">assignrole</property>
       <property
-         name="sdm:polyPoints">R50,441.0,173.5459,579.0,174.39062,L50</property>
+         name="sdm:polyPoints">R46,507.5,170.0459,507.5,169.68945,L50</property>
    </ControlFlowCase>
    <TaskFlowCall
       id="TaskFlowCall6">
@@ -65,7 +68,7 @@
       <property
          name="exceptionHandler">false</property>
       <property
-         name="y">342.39062</property>
+         name="y">309.98828</property>
       <property
          name="x">400.0</property>
    </TaskFlowCall>
@@ -77,6 +80,122 @@
       <property
          name="fromOutcome">assignregion</property>
       <property
-         name="sdm:polyPoints">B50,400.0,227.5459,400.0,288.04004,T50</property>
+         name="sdm:polyPoints">B50,400.0,241.5918,400.0,241.5918,T50</property>
+   </ControlFlowCase>
+   <TaskFlowCall
+      id="TaskFlowCall8">
+      <property
+         name="taskFlowId">ua-assign-loc</property>
+      <property
+         name="activityId">ua-assign-loc</property>
+      <property
+         name="documentReference">/WEB-INF/ua-assign-loc.xml</property>
+      <property
+         name="runAsDialog">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>ua-assign-loc&lt;/b>&lt;/p>&lt;p>Activity Type:  Task Flow Call&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">309.53418</property>
+      <property
+         name="x">501.0</property>
+   </TaskFlowCall>
+   <TaskFlowCall
+      id="TaskFlowCall9">
+      <property
+         name="taskFlowId">ua-assign-area</property>
+      <property
+         name="activityId">ua-assign-area</property>
+      <property
+         name="documentReference">/WEB-INF/ua-assign-area.xml</property>
+      <property
+         name="runAsDialog">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>ua-assign-area&lt;/b>&lt;/p>&lt;p>Activity Type:  Task Flow Call&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">307.833</property>
+      <property
+         name="x">296.0</property>
+   </TaskFlowCall>
+   <TaskFlowCall
+      id="TaskFlowCall10">
+      <property
+         name="taskFlowId">ua-assign-cust</property>
+      <property
+         name="activityId">ua-assign-cust</property>
+      <property
+         name="documentReference">/WEB-INF/ua-assign-cust.xml</property>
+      <property
+         name="runAsDialog">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>ua-assign-cust&lt;/b>&lt;/p>&lt;p>Activity Type:  Task Flow Call&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">308.39062</property>
+      <property
+         name="x">196.0</property>
+   </TaskFlowCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase11"
+      from="View2"
+      to="TaskFlowCall10">
+      <property
+         name="fromOutcome">assigncust</property>
+      <property
+         name="sdm:polyPoints">L42,196.0,166.5459,T50</property>
+   </ControlFlowCase>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase12"
+      from="View2"
+      to="TaskFlowCall9">
+      <property
+         name="fromOutcome">assignarea</property>
+      <property
+         name="sdm:polyPoints">L50,296.0,173.5459,T50</property>
+   </ControlFlowCase>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase13"
+      from="View2"
+      to="TaskFlowCall8">
+      <property
+         name="fromOutcome">assignloc</property>
+      <property
+         name="sdm:polyPoints">R54,501.0,177.0459,T50</property>
+   </ControlFlowCase>
+   <TaskFlowCall
+      id="TaskFlowCall14">
+      <property
+         name="taskFlowId">ua-assign-cust-group</property>
+      <property
+         name="activityId">ua-assign-cust-group</property>
+      <property
+         name="documentReference">/WEB-INF/ua-assign-cust-group.xml</property>
+      <property
+         name="runAsDialog">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>ua-assign-cust-group&lt;/b>&lt;/p>&lt;p>Activity Type:  Task Flow Call&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">308.02832</property>
+      <property
+         name="x">607.0</property>
+   </TaskFlowCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase15"
+      from="View2"
+      to="TaskFlowCall14">
+      <property
+         name="fromOutcome">assigncustgroup</property>
+      <property
+         name="sdm:polyPoints">L58,359.0,180.5459,359.0,361.67773,607.0,361.67773,B50</property>
    </ControlFlowCase>
 </SDM>

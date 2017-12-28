@@ -12,15 +12,25 @@
   UseGlueCode="false"
   SelectList="PropRegionCustGroup.PROPOSAL_ID, 
        PropRegionCustGroup.CUST_GROUP, 
-       (SELECT DISTINCT LISTAGG(AC.ATTRIBUTE3,'|') WITHIN GROUP (ORDER BY PRCG.PROPOSAL_ID,  PRCG.CUST_GROUP) OVER (PARTITION BY PRCG.PROPOSAL_ID,  PRCG.CUST_GROUP) AS REGION_CODE FROM PROP_REGION_CUST_GROUP PRCG, APPS.AR_CUSTOMERS AC, APP_USER_REGION AUR WHERE AC.ATTRIBUTE1 = PRCG.CUST_GROUP AND AC.ATTRIBUTE3 = AUR.REGION_CODE AND PRCG.PROPOSAL_ID = PropRegionCustGroup.PROPOSAL_ID AND PRCG.CUST_GROUP = PropRegionCustGroup.CUST_GROUP GROUP BY PRCG.PROPOSAL_ID, PRCG.CUST_GROUP, PRCG.CUST_GROUP, AC.ATTRIBUTE3) AS REGION_CODE"
-  FromList="PROP_REGION_CUST_GROUP PropRegionCustGroup"
-  OrderBy="PropRegionCustGroup.CUST_GROUP">
+       FcsFlexValuesVl.DESCRIPTION, 
+       FcsFlexValuesVl.FLEX_VALUE_ID, 
+       PropRegionCustGroup.CUSTGROUPDESC"
+  FromList="PROP_REGION_CUST_GROUP PropRegionCustGroup, APPS.FCS_FLEX_VALUES_VL FcsFlexValuesVl"
+  OrderBy="PropRegionCustGroup.CUST_GROUP,PropRegionCustGroup.CUSTGROUPDESC"
+  Where="PropRegionCustGroup.CUST_GROUP = FcsFlexValuesVl.FLEX_VALUE">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|VarAccess"/>
   </DesignTime>
   <EntityUsage
     Name="PropRegionCustGroup"
     Entity="app.fpp.model.entities.promoproposal.PropRegionCustGroup"/>
+  <EntityUsage
+    Name="FcsFlexValuesVl"
+    Entity="app.fpp.model.entities.masterdata.ebs.FcsFlexValuesVl"
+    SourceUsage="app.fpp.model.views.promoproposal.PropRegionCustGroupView.PropRegionCustGroup"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"/>
   <ViewAttribute
     Name="ProposalId"
     IsNotNull="true"
@@ -36,32 +46,22 @@
     EntityUsage="PropRegionCustGroup"
     AliasName="CUST_GROUP"/>
   <ViewAttribute
-    Name="CustGroupName"
-    IsUpdateable="false"
-    IsPersistent="false"
+    Name="Description"
     PrecisionRule="true"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CUST_GROUP_NAME"
-    SQLType="VARCHAR"
-    Precision="255"
-    IsSelected="false">
-    <RecalcCondition><![CDATA[true]]></RecalcCondition>
-    <TransientExpression><![CDATA[return CustGroup;]]></TransientExpression>
-    <Dependencies>
-      <Item
-        Value="CustGroup"/>
-    </Dependencies>
-  </ViewAttribute>
+    EntityAttrName="Description"
+    EntityUsage="FcsFlexValuesVl"
+    AliasName="DESCRIPTION"/>
   <ViewAttribute
-    Name="RegionCode"
-    IsUpdateable="false"
-    IsPersistent="false"
+    Name="FlexValueId"
+    IsNotNull="true"
     PrecisionRule="true"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="REGION_CODE"
-    SQLType="VARCHAR"
-    Precision="255"
-    Expression="SELECT DISTINCT LISTAGG(AC.ATTRIBUTE3,'|') WITHIN GROUP (ORDER BY PRCG.PROPOSAL_ID,  PRCG.CUST_GROUP) OVER (PARTITION BY PRCG.PROPOSAL_ID,  PRCG.CUST_GROUP) AS REGION_CODE FROM PROP_REGION_CUST_GROUP PRCG, APPS.AR_CUSTOMERS AC, APP_USER_REGION AUR WHERE AC.ATTRIBUTE1 = PRCG.CUST_GROUP AND AC.ATTRIBUTE3 = AUR.REGION_CODE AND PRCG.PROPOSAL_ID = PropRegionCustGroup.PROPOSAL_ID AND PRCG.CUST_GROUP = PropRegionCustGroup.CUST_GROUP GROUP BY PRCG.PROPOSAL_ID, PRCG.CUST_GROUP, PRCG.CUST_GROUP, AC.ATTRIBUTE3"/>
+    EntityAttrName="FlexValueId"
+    EntityUsage="FcsFlexValuesVl"
+    AliasName="FLEX_VALUE_ID"/>
+  <ViewAttribute
+    Name="Custgroupdesc"
+    PrecisionRule="true"
+    EntityAttrName="Custgroupdesc"
+    EntityUsage="PropRegionCustGroup"
+    AliasName="CUSTGROUPDESC"/>
 </ViewObject>

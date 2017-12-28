@@ -111,6 +111,25 @@
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="ForwardFlg"
+    IsNotNull="true"
+    Precision="1"
+    ColumnName="FORWARD_FLG"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="APP_ROLES">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="1"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="FORWARD"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
   <AccessorAttribute
     Name="AppRoleMenuItems"
     Association="app.fpp.model.entities.useraccess.AppRoleMenuItemsAppRFk2Assoc"

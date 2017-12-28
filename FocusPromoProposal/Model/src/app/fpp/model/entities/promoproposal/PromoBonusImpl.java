@@ -152,6 +152,26 @@ public class PromoBonusImpl extends EntityImpl {
             }
         }
         ,
+        InputPriceBy {
+            public Object get(PromoBonusImpl obj) {
+                return obj.getInputPriceBy();
+            }
+
+            public void put(PromoBonusImpl obj, Object value) {
+                obj.setInputPriceBy((String)value);
+            }
+        }
+        ,
+        PriceVal {
+            public Object get(PromoBonusImpl obj) {
+                return obj.getPriceVal();
+            }
+
+            public void put(PromoBonusImpl obj, Object value) {
+                obj.setPriceVal((Number)value);
+            }
+        }
+        ,
         PromoProduk {
             public Object get(PromoBonusImpl obj) {
                 return obj.getPromoProduk();
@@ -209,6 +229,7 @@ public class PromoBonusImpl extends EntityImpl {
         }
     }
 
+
     public static final int PROMOBONUSID = AttributesEnum.PromoBonusId.index();
     public static final int PROMOPRODUKID = AttributesEnum.PromoProdukId.index();
     public static final int PRODUCTCATEGORY = AttributesEnum.ProductCategory.index();
@@ -222,6 +243,8 @@ public class PromoBonusImpl extends EntityImpl {
     public static final int VALUEPOTONGAN = AttributesEnum.ValuePotongan.index();
     public static final int DISCNONYEARLY = AttributesEnum.DiscNonYearly.index();
     public static final int DISCYEARLY = AttributesEnum.DiscYearly.index();
+    public static final int INPUTPRICEBY = AttributesEnum.InputPriceBy.index();
+    public static final int PRICEVAL = AttributesEnum.PriceVal.index();
     public static final int PROMOPRODUK = AttributesEnum.PromoProduk.index();
     public static final int PROMOBONUSPRODITEM = AttributesEnum.PromoBonusProdItem.index();
     public static final int PROMOBONUSVARIANT = AttributesEnum.PromoBonusVariant.index();
@@ -231,6 +254,7 @@ public class PromoBonusImpl extends EntityImpl {
      */
     public PromoBonusImpl() {
     }
+
 
     /**
      * @return the definition object for this instance class.
@@ -448,6 +472,38 @@ public class PromoBonusImpl extends EntityImpl {
      */
     public void setDiscYearly(Number value) {
         setAttributeInternal(DISCYEARLY, value);
+    }
+
+    /**
+     * Gets the attribute value for InputPriceBy, using the alias name InputPriceBy.
+     * @return the InputPriceBy
+     */
+    public String getInputPriceBy() {
+        return (String)getAttributeInternal(INPUTPRICEBY);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for InputPriceBy.
+     * @param value value to set the InputPriceBy
+     */
+    public void setInputPriceBy(String value) {
+        setAttributeInternal(INPUTPRICEBY, value);
+    }
+
+    /**
+     * Gets the attribute value for PriceVal, using the alias name PriceVal.
+     * @return the PriceVal
+     */
+    public Number getPriceVal() {
+        return (Number)getAttributeInternal(PRICEVAL);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for PriceVal.
+     * @param value value to set the PriceVal
+     */
+    public void setPriceVal(Number value) {
+        setAttributeInternal(PRICEVAL, value);
     }
 
     /**

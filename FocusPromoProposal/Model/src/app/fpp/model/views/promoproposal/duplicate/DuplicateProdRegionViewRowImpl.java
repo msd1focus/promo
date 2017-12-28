@@ -43,26 +43,6 @@ public class DuplicateProdRegionViewRowImpl extends ViewRowImpl {
                 obj.setNotes((String)value);
             }
         }
-        ,
-        RegionLabel {
-            public Object get(DuplicateProdRegionViewRowImpl obj) {
-                return obj.getRegionLabel();
-            }
-
-            public void put(DuplicateProdRegionViewRowImpl obj, Object value) {
-                obj.setRegionLabel((String)value);
-            }
-        }
-        ,
-        SalesRegionId {
-            public Object get(DuplicateProdRegionViewRowImpl obj) {
-                return obj.getSalesRegionId();
-            }
-
-            public void put(DuplicateProdRegionViewRowImpl obj, Object value) {
-                obj.setSalesRegionId((Number)value);
-            }
-        }
         ;
         private static AttributesEnum[] vals = null;
         private static final int firstIndex = 0;
@@ -91,11 +71,11 @@ public class DuplicateProdRegionViewRowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
+
     public static final int PROMOPRODUKID = AttributesEnum.PromoProdukId.index();
     public static final int REGIONCODE = AttributesEnum.RegionCode.index();
     public static final int NOTES = AttributesEnum.Notes.index();
-    public static final int REGIONLABEL = AttributesEnum.RegionLabel.index();
-    public static final int SALESREGIONID = AttributesEnum.SalesRegionId.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -151,37 +131,6 @@ public class DuplicateProdRegionViewRowImpl extends ViewRowImpl {
         setAttributeInternal(NOTES, value);
     }
 
-    /**
-     * Gets the attribute value for the calculated attribute RegionLabel.
-     * @return the RegionLabel
-     */
-    public String getRegionLabel() {
-        return (String) getAttributeInternal(REGIONLABEL);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute RegionLabel.
-     * @param value value to set the  RegionLabel
-     */
-    public void setRegionLabel(String value) {
-        setAttributeInternal(REGIONLABEL, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute SalesRegionId.
-     * @return the SalesRegionId
-     */
-    public Number getSalesRegionId() {
-        return (Number) getAttributeInternal(SALESREGIONID);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute SalesRegionId.
-     * @param value value to set the  SalesRegionId
-     */
-    public void setSalesRegionId(Number value) {
-        setAttributeInternal(SALESREGIONID, value);
-    }
 
     /**
      * getAttrInvokeAccessor: generated method. Do not modify.

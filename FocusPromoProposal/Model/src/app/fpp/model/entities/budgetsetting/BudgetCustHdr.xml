@@ -35,12 +35,11 @@
   </Attribute>
   <Attribute
     Name="CustomerId"
-    Precision="15"
-    Scale="0"
+    Precision="40"
     ColumnName="CUSTOMER_ID"
     SQLType="NUMERIC"
-    Type="oracle.jbo.domain.Number"
-    ColumnType="NUMBER"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
     TableName="BUDGET_CUST_HDR">
     <DesignTime>
       <Attr Name="_DisplaySize" Value="22"/>
@@ -126,6 +125,36 @@
       <Attr Name="_DisplaySize" Value="7"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="KodePosting"
+    Precision="40"
+    ColumnName="KODE_POSTING"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BUDGET_CUST_HDR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="40"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="app.fpp.model.views.budgetsetting.BudgetCustHdrView.KodePosting_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
+  <Attribute
+    Name="BudgetType"
+    Precision="20"
+    ColumnName="BUDGET_TYPE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="BUDGET_CUST_HDR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="BudgetCustomer"
     Association="app.fpp.model.entities.budgetsetting.BudgetCustomerBudgetCustHdrFk1Assoc"
@@ -133,6 +162,16 @@
     AssociationOtherEnd="app.fpp.model.entities.budgetsetting.BudgetCustomerBudgetCustHdrFk1Assoc.BudgetCustHdr"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
+  <Key
+    Name="BudgetCustHdrBudgetYearCheck">
+    <DesignTime>
+      <Attr Name="_isNotNull" Value="true"/>
+      <Attr Name="_DBObjectName" Value="BUDGET_CUST_HDR_BUDGET_YEAR_CH"/>
+      <Attr Name="_checkCondition" Value='"BUDGET_YEAR" IS NOT NULL'/>
+      <Attr Name="_isCheck" Value="true"/>
+    </DesignTime>
+    <AttrArray Name="Attributes"/>
+  </Key>
   <Key
     Name="BudgetCustHdrPk"
     PrimaryKey="true">

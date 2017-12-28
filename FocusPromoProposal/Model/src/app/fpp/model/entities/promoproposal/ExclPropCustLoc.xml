@@ -16,9 +16,9 @@
     <AttrArray Name="_publishEvents"/>
   </DesignTime>
   <Attribute
-    Name="ProposalId"
+    Name="PromoProdukId"
     IsNotNull="true"
-    ColumnName="PROPOSAL_ID"
+    ColumnName="PROMO_PRODUK_ID"
     SQLType="NUMERIC"
     Type="oracle.jbo.domain.Number"
     ColumnType="NUMBER"
@@ -43,11 +43,11 @@
     </DesignTime>
   </Attribute>
   <AccessorAttribute
-    Name="Proposal"
-    Association="app.fpp.model.entities.promoproposal.ExclPropCustLocProposalFk1Assoc"
-    AssociationEnd="app.fpp.model.entities.promoproposal.ExclPropCustLocProposalFk1Assoc.Proposal"
-    AssociationOtherEnd="app.fpp.model.entities.promoproposal.ExclPropCustLocProposalFk1Assoc.ExclPropCustLoc"
-    Type="app.fpp.model.entities.promoproposal.ProposalImpl"
+    Name="PromoProduk"
+    Association="app.fpp.model.entities.promoproposal.ExclPropCustLocPromoProdukFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.promoproposal.ExclPropCustLocPromoProdukFk1Assoc.PromoProduk"
+    AssociationOtherEnd="app.fpp.model.entities.promoproposal.ExclPropCustLocPromoProdukFk1Assoc.ExclPropCustLoc"
+    Type="app.fpp.model.entities.promoproposal.PromoProdukImpl"
     IsUpdateable="true"/>
   <Key
     Name="ExclPropCustLocPk"
@@ -60,6 +60,8 @@
         Value="app.fpp.model.entities.promoproposal.ExclPropCustLoc.ProposalId"/>
       <Item
         Value="app.fpp.model.entities.promoproposal.ExclPropCustLoc.LocationCode"/>
+      <Item
+        Value="app.fpp.model.entities.promoproposal.ExclPropCustLoc.PromoProdukId"/>
     </AttrArray>
   </Key>
   <Key

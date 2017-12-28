@@ -22,7 +22,7 @@
     </input-parameter-definition>
     <managed-bean id="__6">
       <managed-bean-name id="__9">AssignRoleUserBackingBean</managed-bean-name>
-      <managed-bean-class id="__8">app.fpp.bean.AssignRoleUserBackingBean</managed-bean-class>
+      <managed-bean-class id="__8">app.fpp.bean.useraccess.AssignRoleUserBackingBean</managed-bean-class>
       <managed-bean-scope id="__7">backingBean</managed-bean-scope>
     </managed-bean>
     <view id="assignRole">

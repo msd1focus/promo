@@ -191,6 +191,8 @@ public class DuplicatePromoBonusViewRowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
+
     public static final int PROMOBONUSID = AttributesEnum.PromoBonusId.index();
     public static final int PROMOPRODUKID = AttributesEnum.PromoProdukId.index();
     public static final int PRODUCTCATEGORY = AttributesEnum.ProductCategory.index();

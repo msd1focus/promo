@@ -8,15 +8,15 @@
   InheritPersonalization="true"
   SelectList="AppUserRegion.USER_NAME, 
        AppUserRegion.REGION_CODE, 
-       SalesRegion.REGION_LABEL, 
-       SalesRegion.SALES_REGION_ID"
-  FromList="APP_USER_REGION AppUserRegion, SALES_REGION SalesRegion"
+       FcsFlexValuesVl.DESCRIPTION, 
+       FcsFlexValuesVl.FLEX_VALUE_ID"
+  FromList="APP_USER_REGION AppUserRegion, APPS.FCS_FLEX_VALUES_VL FcsFlexValuesVl"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
-  Where="AppUserRegion.REGION_CODE = SalesRegion.REGION_CODE"
-  OrderBy="SalesRegion.REGION_LABEL">
+  OrderBy="FcsFlexValuesVl.DESCRIPTION"
+  Where="AppUserRegion.REGION_CODE = FcsFlexValuesVl.FLEX_VALUE">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|VarAccess"/>
   </DesignTime>
@@ -24,8 +24,8 @@
     Name="AppUserRegion"
     Entity="app.fpp.model.entities.useraccess.AppUserRegion"/>
   <EntityUsage
-    Name="SalesRegion"
-    Entity="app.fpp.model.entities.masterdata.SalesRegion"
+    Name="FcsFlexValuesVl"
+    Entity="app.fpp.model.entities.masterdata.ebs.FcsFlexValuesVl"
     SourceUsage="app.fpp.model.views.useraccess.AppUserRegionView.AppUserRegion"
     ReadOnly="true"
     Reference="true"
@@ -46,16 +46,15 @@
     AliasName="REGION_CODE"/>
   <ViewAttribute
     Name="RegionLabel"
-    IsNotNull="true"
     PrecisionRule="true"
-    EntityAttrName="RegionLabel"
-    EntityUsage="SalesRegion"
-    AliasName="REGION_LABEL"/>
+    EntityAttrName="Description"
+    EntityUsage="FcsFlexValuesVl"
+    AliasName="DESCRIPTION"/>
   <ViewAttribute
     Name="SalesRegionId"
-    IsUpdateable="while_insert"
+    IsNotNull="true"
     PrecisionRule="true"
-    EntityAttrName="SalesRegionId"
-    EntityUsage="SalesRegion"
-    AliasName="SALES_REGION_ID"/>
+    EntityAttrName="FlexValueId"
+    EntityUsage="FcsFlexValuesVl"
+    AliasName="FLEX_VALUE_ID"/>
 </ViewObject>

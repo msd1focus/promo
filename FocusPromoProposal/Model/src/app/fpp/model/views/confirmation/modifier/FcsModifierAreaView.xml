@@ -22,71 +22,397 @@
     Kind="where"
     Type="java.lang.String"/>
   <SQLQuery>
-    <![CDATA[SELECT FcsModifierArea.NO_CONFIRM,
-       FcsModifierArea.CURRENCY,
-       FcsModifierArea.START_DATE,
-       FcsModifierArea.END_DATE,
-       FcsModifierArea.ACTIVE,
-       FcsModifierArea.AUTOMATIC,
-       FcsModifierArea.LINE_LEVEL,
-       FcsModifierArea.LINE_TYPE,
-       FcsModifierArea.START_DATE_LINE,
-       FcsModifierArea.END_DATE_LINE,
-       FcsModifierArea.AUTOMATIC_LINE,
-       FcsModifierArea.PRICING_PHASE,
-       FcsModifierArea.BUCKET,
-       FcsModifierArea.PRODUCT_ATTRIBUTE,
-       FcsModifierArea.PRODUCT_VALUE,
-       FcsModifierArea.VOLUME_TYPE,
-       FcsModifierArea.BREAK_TYPE,
-       FcsModifierArea.UOM,
-       FcsModifierArea.VALUE_FROM,
-       FcsModifierArea.VALUE_TO,
-       FcsModifierArea.APPLICATION_METHOD,
-       FcsModifierArea.VALUE,
-       FcsModifierArea.GROUPING_NO,
-       FcsModifierArea.QUALIFIER_CONTEXT,
-       FcsModifierArea.QUALIFIER_ATTR,
-       FcsModifierArea.OPERATOR_SIGN,
-       FcsModifierArea.VALUE_QUALIFIER,
-       FcsViewItemMasterCategory.BUCKET AS BUCKET1
-FROM FCS_MODIFIER_AREA FcsModifierArea, APPS.FCS_VIEW_ITEM_MASTER_CATEGORY FcsViewItemMasterCategory
-WHERE FcsModifierArea.NO_CONFIRM = :noConfirm
-AND FcsViewItemMasterCategory.ITEM = FcsModifierArea.BUCKET
-GROUP BY FcsModifierArea.NO_CONFIRM,
-       FcsModifierArea.CURRENCY,
-       FcsModifierArea.START_DATE,
-       FcsModifierArea.END_DATE,
-       FcsModifierArea.ACTIVE,
-       FcsModifierArea.AUTOMATIC,
-       FcsModifierArea.LINE_LEVEL,
-       FcsModifierArea.LINE_TYPE,
-       FcsModifierArea.START_DATE_LINE,
-       FcsModifierArea.END_DATE_LINE,
-       FcsModifierArea.AUTOMATIC_LINE,
-       FcsModifierArea.PRICING_PHASE,
-       FcsModifierArea.BUCKET,
-       FcsModifierArea.PRODUCT_ATTRIBUTE,
-       FcsModifierArea.PRODUCT_VALUE,
-       FcsModifierArea.VOLUME_TYPE,
-       FcsModifierArea.BREAK_TYPE,
-       FcsModifierArea.UOM,
-       FcsModifierArea.VALUE_FROM,
-       FcsModifierArea.VALUE_TO,
-       FcsModifierArea.APPLICATION_METHOD,
-       FcsModifierArea.VALUE,
-       FcsModifierArea.GROUPING_NO,
-       FcsModifierArea.QUALIFIER_CONTEXT,
-       FcsModifierArea.QUALIFIER_ATTR,
-       FcsModifierArea.OPERATOR_SIGN,
-       FcsModifierArea.VALUE_QUALIFIER,
-       FcsViewItemMasterCategory.BUCKET]]>
+    <![CDATA[SELECT DENSE_RANK() OVER (ORDER BY LALA.NO_CONFIRM, LALA.BREAK_TYPE, LALA.PRODUCT_VALUE, LALA.KET) AS LINE_NUM, LALA."NO_CONFIRM",LALA."CURRENCY",LALA."START_DATE",LALA."END_DATE",LALA."ACTIVE",LALA."AUTOMATIC",LALA."LINE_LEVEL",LALA."LINE_TYPE",LALA."START_DATE_LINE",LALA."END_DATE_LINE",LALA."AUTOMATIC_LINE",LALA."PRICING_PHASE",LALA."BUCKET",LALA."PRODUCT_ATTRIBUTE",LALA."PRODUCT_VALUE",LALA."VOLUME_TYPE",LALA."BREAK_TYPE",LALA."UOM",LALA."VALUE_FROM",LALA."VALUE_TO",LALA."APPLICATION_METHOD",LALA."VALUE",LALA."GROUPING_NO",LALA."QUALIFIER_CONTEXT",LALA."QUALIFIER_ATTR",LALA."OPERATOR_SIGN",LALA."VALUE_QUALIFIER",LALA."CONFIRM_NO_DEF",LALA."PROMO_PRODUK_ID",LALA."DISC_YEARLY",LALA."KET"
+  FROM 
+  (
+   SELECT   (CASE
+                  WHEN PROP.ADDENDUM_KE IS NULL THEN PROP.CONFIRM_NO
+                  ELSE PROP.CONFIRM_NO || '-' || PROP.ADDENDUM_KE
+               END)
+                 AS NO_CONFIRM,
+              PROP.CURRENCY,
+              PROP.PERIODE_PROG_FROM AS START_DATE,
+              PROP.PERIODE_PROG_TO AS END_DATE,
+              'Y' AS ACTIVE,
+              'Y' AS AUTOMATIC,
+              'LINE' AS LINE_LEVEL,
+              'Discount' AS LINE_TYPE,
+              PROP.PERIODE_PROG_FROM AS START_DATE_LINE,
+              PROP.PERIODE_PROG_TO AS END_DATE_LINE,
+              'Y' AS AUTOMATIC_LINE,
+              'All Lines Adjustment' AS PRICING_PHASE,
+              (SELECT IM.BUCKET FROM APPS.FCS_VIEW_ITEM_MASTER_CATEGORY IM WHERE IM.TYPE_TABLE = 'MASTER' AND IM.ITEM = PROD.KODE_POSTING) AS BUCKET,
+              (CASE
+                  WHEN ITCV.SET_VARIANT_DESC = 'ALL' AND PROD_ITEM IS NOT NULL
+                  THEN
+                     PROD_ITEM.PROD_ITEM
+                  ELSE
+                     (   PROD.PRODUCT_CATEGORY
+                      || '.'
+                      || PROD.PRODUCT_CLASS
+                      || '.'
+                      || PROD.PRODUCT_BRAND
+                      || '.'
+                      || PROD.PRODUCT_EXT
+                      || '.'
+                      || PROD.PRODUCT_PACK
+                      || '.'
+                      || PROD_VARIANT)
+               END)
+                 AS PRODUCT_ATTRIBUTE,
+              (CASE
+                  WHEN ITCV.SET_VARIANT_DESC = 'ALL' AND PROD_ITEM IS NOT NULL
+                  THEN
+                     PROD_ITEM.PROD_ITEM
+                  ELSE
+                     (   PROD.PRODUCT_CATEGORY
+                      || '.'
+                      || PROD.PRODUCT_CLASS
+                      || '.'
+                      || PROD.PRODUCT_BRAND
+                      || '.'
+                      || PROD.PRODUCT_EXT
+                      || '.'
+                      || PROD.PRODUCT_PACK
+                      || '.'
+                      || PROD_VARIANT)
+               END)
+                 AS PRODUCT_VALUE,
+              'Item Quantity' AS VOLUME_TYPE,
+              (CASE
+                  WHEN DISC.TIPE_PERHITUNGAN = 'TDKKELIPATAN' THEN 'Point'
+                  ELSE 'Recurring'
+               END)
+                 AS BREAK_TYPE,
+              DISC.UOM AS UOM,
+              DISC.QTY_FROM AS VALUE_FROM,
+              NVL (DISC.QTY_TO, 999999) AS VALUE_TO,
+              DISC.TIPE_POTONGAN AS APPLICATION_METHOD,
+              DISC.DISC_YEARLY AS VALUE,
+              2 AS LINE_NUM,
+              -1 AS GROUPING_NO,
+              'Customer' AS QUALIFIER_CONTEXT,
+              (CASE
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTGROUP' THEN 'FCS_CUST_GROUP'
+                  WHEN PROP.CUST_REG_FLAG = 'REGION' THEN 'FCS_REGION'
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTOMER' THEN 'SOLD_TO_ORG_ID'
+                  WHEN PROP.CUST_REG_FLAG = 'AREA' THEN 'FCS_AREA'
+                  WHEN PROP.CUST_REG_FLAG = 'LOCATION' THEN 'FCS_LOCATION'
+                  ELSE 'NOT DEFINED'
+               END)
+                 AS QUALIFIER_ATTR,
+              '=' AS OPERATOR_SIGN,
+              (CASE
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTGROUP'
+                  THEN
+                     CGROUP.CUST_GROUP
+                  WHEN PROP.CUST_REG_FLAG = 'REGION'
+                  THEN
+                     REG.REGION_CODE
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTOMER'
+                  THEN
+                     TO_CHAR (CUST.CUSTOMER_ID)
+                  WHEN PROP.CUST_REG_FLAG = 'AREA'
+                  THEN
+                     TO_CHAR (AREA.AREA_CODE)
+                  WHEN PROP.CUST_REG_FLAG = 'LOCATION'
+                  THEN
+                     TO_CHAR (LOC.LOCATION_CODE)
+               END)
+                 AS VALUE_QUALIFIER,
+              PROP.CONFIRM_NO AS CONFIRM_NO_DEF,
+              PROD.PROMO_PRODUK_ID, DISC.DISC_YEARLY, 'MF' KET
+       FROM   PROPOSAL PROP,
+              PROMO_PRODUK PROD,
+              DISCOUNT DISC,
+              PROP_REGION REG,
+              PROP_REGION_CUSTOMER CUST,
+              PROP_REGION_AREA AREA,
+              PROP_REGION_LOC LOC,
+              PROP_REGION_CUST_GROUP CGROUP,
+              (    SELECT   LEVEL AS unpivot_row
+                     FROM   DUAL
+               CONNECT BY   LEVEL <= 2),
+              PRODUK_VARIANT PROD_VARIANT,
+              PRODUK_ITEM PROD_ITEM,
+              APPS.FCS_VIEW_ITEM_MASTER_CATEGORY ITCV
+      WHERE       PROP.CONFIRM_NO IS NOT NULL
+              AND PROD.PROPOSAL_ID = PROP.PROPOSAL_ID
+              AND DISC.PROMO_PRODUK_ID = PROD.PROMO_PRODUK_ID
+              AND REG.PROPOSAL_ID(+) = PROD.PROPOSAL_ID
+              AND CUST.PROPOSAL_ID(+) = PROD.PROPOSAL_ID
+              AND AREA.PROPOSAL_ID(+) = PROD.PROPOSAL_ID
+              AND LOC.PROPOSAL_ID(+) = PROD.PROPOSAL_ID
+              AND CGROUP.PROPOSAL_ID(+) = PROD.PROPOSAL_ID
+              AND DISC.DISC_YEARLY IS NOT NULL
+              AND PROD_VARIANT.PROMO_PRODUK_ID = PROD.PROMO_PRODUK_ID
+              AND PROD_ITEM.PROMO_PRODUK_ID(+) = PROD.PROMO_PRODUK_ID
+              AND ITCV.SET_VARIANT = PROD_VARIANT
+              AND PROP.USER_TYPE_CREATOR = 'AREA'
+              AND DISC.DISC_YEARLY <> 0
+              AND PROP.CONFIRM_NO = :noConfirm
+   GROUP BY   (CASE
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTGROUP' THEN 'FCS_CUST_GROUP'
+                  WHEN PROP.CUST_REG_FLAG = 'REGION' THEN 'FCS_REGION'
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTOMER' THEN 'SOLD_TO_ORG_ID'
+                  WHEN PROP.CUST_REG_FLAG = 'AREA' THEN 'FCS_AREA'
+                  WHEN PROP.CUST_REG_FLAG = 'LOCATION' THEN 'FCS_LOCATION'
+                  ELSE 'NOT DEFINED'
+               END),
+              (CASE
+                  WHEN PROP.ADDENDUM_KE IS NULL THEN PROP.CONFIRM_NO
+                  ELSE PROP.CONFIRM_NO || '-' || PROP.ADDENDUM_KE
+               END),
+              PROP.CURRENCY,
+              PROP.PERIODE_PROG_FROM,
+              PROP.PERIODE_PROG_TO,
+              PROP.PERIODE_PROG_FROM,
+              PROP.PERIODE_PROG_TO,
+              PROD.KODE_POSTING,
+              (   PROD.PRODUCT_CATEGORY
+               || '.'
+               || PROD.PRODUCT_CLASS
+               || '.'
+               || PROD.PRODUCT_BRAND
+               || '.'
+               || PROD.PRODUCT_EXT
+               || '.'
+               || PROD.PRODUCT_PACK
+               || '.'
+               || PROD_VARIANT),
+              (CASE
+                  WHEN DISC.TIPE_PERHITUNGAN = 'TDKKELIPATAN' THEN 'Point'
+                  ELSE 'Recurring'
+               END),
+              DISC.UOM,
+              DISC.QTY_FROM,
+              NVL (DISC.QTY_TO, 999999),
+              PROD_ITEM.PROD_ITEM,
+              ITCV.SET_VARIANT_DESC,
+              DISC.TIPE_POTONGAN,
+              (CASE
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTGROUP'
+                  THEN
+                     CGROUP.CUST_GROUP
+                  WHEN PROP.CUST_REG_FLAG = 'REGION'
+                  THEN
+                     REG.REGION_CODE
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTOMER'
+                  THEN
+                     TO_CHAR (CUST.CUSTOMER_ID)
+                  WHEN PROP.CUST_REG_FLAG = 'AREA'
+                  THEN
+                     TO_CHAR (AREA.AREA_CODE)
+                  WHEN PROP.CUST_REG_FLAG = 'LOCATION'
+                  THEN
+                     TO_CHAR (LOC.LOCATION_CODE)
+               END),
+              DISC.DISC_YEARLY,
+              PROP.CONFIRM_NO,
+              PROD.PROMO_PRODUK_ID
+   UNION ALL
+     SELECT   (CASE
+                  WHEN PROP.ADDENDUM_KE IS NULL THEN PROP.CONFIRM_NO
+                  ELSE PROP.CONFIRM_NO || '-' || PROP.ADDENDUM_KE
+               END)
+                 AS NO_CONFIRM,
+              PROP.CURRENCY,
+              PROP.PERIODE_PROG_FROM AS START_DATE,
+              PROP.PERIODE_PROG_TO AS END_DATE,
+              'Y' AS ACTIVE,
+              'Y' AS AUTOMATIC,
+              'LINE' AS LINE_LEVEL,
+              'Discount' AS LINE_TYPE,
+              PROP.PERIODE_PROG_FROM AS START_DATE_LINE,
+              PROP.PERIODE_PROG_TO AS END_DATE_LINE,
+              'Y' AS AUTOMATIC_LINE,
+              'All Lines Adjustment' AS PRICING_PHASE,
+              (SELECT IM.BUCKET FROM APPS.FCS_VIEW_ITEM_MASTER_CATEGORY IM WHERE IM.TYPE_TABLE = 'MASTER' AND IM.ITEM = PROD.KODE_POSTING) AS BUCKET,
+              (CASE
+                  WHEN ITCV.SET_VARIANT_DESC = 'ALL' AND PROD_ITEM IS NOT NULL
+                  THEN
+                     PROD_ITEM.PROD_ITEM
+                  ELSE
+                     (   PROD.PRODUCT_CATEGORY
+                      || '.'
+                      || PROD.PRODUCT_CLASS
+                      || '.'
+                      || PROD.PRODUCT_BRAND
+                      || '.'
+                      || PROD.PRODUCT_EXT
+                      || '.'
+                      || PROD.PRODUCT_PACK
+                      || '.'
+                      || PROD_VARIANT)
+               END)
+                 AS PRODUCT_ATTRIBUTE,
+              (CASE
+                  WHEN ITCV.SET_VARIANT_DESC = 'ALL' AND PROD_ITEM IS NOT NULL
+                  THEN
+                     PROD_ITEM.PROD_ITEM
+                  ELSE
+                     (   PROD.PRODUCT_CATEGORY
+                      || '.'
+                      || PROD.PRODUCT_CLASS
+                      || '.'
+                      || PROD.PRODUCT_BRAND
+                      || '.'
+                      || PROD.PRODUCT_EXT
+                      || '.'
+                      || PROD.PRODUCT_PACK
+                      || '.'
+                      || PROD_VARIANT)
+               END)
+                 AS PRODUCT_VALUE,
+              'Item Quantity' AS VOLUME_TYPE,
+              (CASE
+                  WHEN DISC.TIPE_PERHITUNGAN = 'TDKKELIPATAN' THEN 'Point'
+                  ELSE 'Recurring'
+               END)
+                 AS BREAK_TYPE,
+              DISC.UOM AS UOM,
+              DISC.QTY_FROM AS VALUE_FROM,
+              NVL (DISC.QTY_TO, 999999) AS VALUE_TO,
+              DISC.TIPE_POTONGAN AS APPLICATION_METHOD,
+              DISC.DISC_NON_YEARLY AS VALUE,
+              1 AS LINE_NUM,
+              -1 AS GROUPING_NO,
+              'Customer' AS QUALIFIER_CONTEXT,
+              (CASE
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTGROUP' THEN 'FCS_CUST_GROUP'
+                  WHEN PROP.CUST_REG_FLAG = 'REGION' THEN 'FCS_REGION'
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTOMER' THEN 'SOLD_TO_ORG_ID'
+                  WHEN PROP.CUST_REG_FLAG = 'AREA' THEN 'FCS_AREA'
+                  WHEN PROP.CUST_REG_FLAG = 'LOCATION' THEN 'FCS_LOCATION'
+                  ELSE 'NOT DEFINED'
+               END)
+                 AS QUALIFIER_ATTR,
+              '=' AS OPERATOR_SIGN,
+              (CASE
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTGROUP'
+                  THEN
+                     CGROUP.CUST_GROUP
+                  WHEN PROP.CUST_REG_FLAG = 'REGION'
+                  THEN
+                     REG.REGION_CODE
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTOMER'
+                  THEN
+                     TO_CHAR (CUST.CUSTOMER_ID)
+                  WHEN PROP.CUST_REG_FLAG = 'AREA'
+                  THEN
+                     TO_CHAR (AREA.AREA_CODE)
+                  WHEN PROP.CUST_REG_FLAG = 'LOCATION'
+                  THEN
+                     TO_CHAR (LOC.LOCATION_CODE)
+               END)
+                 AS VALUE_QUALIFIER,
+              PROP.CONFIRM_NO AS CONFIRM_NO_DEF,
+              PROD.PROMO_PRODUK_ID, DISC.DISC_NON_YEARLY, 'OT' KET
+       FROM   PROPOSAL PROP,
+              PROMO_PRODUK PROD,
+              DISCOUNT DISC,
+              PROP_REGION REG,
+              PROP_REGION_CUSTOMER CUST,
+              PROP_REGION_AREA AREA,
+              PROP_REGION_LOC LOC,
+              PROP_REGION_CUST_GROUP CGROUP,
+              (    SELECT   LEVEL AS unpivot_row
+                     FROM   DUAL
+               CONNECT BY   LEVEL <= 2),
+              PRODUK_VARIANT PROD_VARIANT,
+              PRODUK_ITEM PROD_ITEM,
+              APPS.FCS_VIEW_ITEM_MASTER_CATEGORY ITCV
+      WHERE       PROP.CONFIRM_NO IS NOT NULL
+              AND PROD.PROPOSAL_ID = PROP.PROPOSAL_ID
+              AND DISC.PROMO_PRODUK_ID = PROD.PROMO_PRODUK_ID
+              AND REG.PROPOSAL_ID(+) = PROD.PROPOSAL_ID
+              AND CUST.PROPOSAL_ID(+) = PROD.PROPOSAL_ID
+              AND AREA.PROPOSAL_ID(+) = PROD.PROPOSAL_ID
+              AND LOC.PROPOSAL_ID(+) = PROD.PROPOSAL_ID
+              AND CGROUP.PROPOSAL_ID(+) = PROD.PROPOSAL_ID
+              AND DISC.DISC_NON_YEARLY IS NOT NULL
+              AND PROD_VARIANT.PROMO_PRODUK_ID = PROD.PROMO_PRODUK_ID
+              AND PROD_ITEM.PROMO_PRODUK_ID(+) = PROD.PROMO_PRODUK_ID
+              AND ITCV.SET_VARIANT = PROD_VARIANT
+              AND PROP.USER_TYPE_CREATOR = 'AREA'
+              AND DISC.DISC_NON_YEARLY <> 0
+              AND PROP.CONFIRM_NO = :noConfirm
+   GROUP BY   (CASE
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTGROUP' THEN 'FCS_CUST_GROUP'
+                  WHEN PROP.CUST_REG_FLAG = 'REGION' THEN 'FCS_REGION'
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTOMER' THEN 'SOLD_TO_ORG_ID'
+                  WHEN PROP.CUST_REG_FLAG = 'AREA' THEN 'FCS_AREA'
+                  WHEN PROP.CUST_REG_FLAG = 'LOCATION' THEN 'FCS_LOCATION'
+                  ELSE 'NOT DEFINED'
+               END),
+              (CASE
+                  WHEN PROP.ADDENDUM_KE IS NULL THEN PROP.CONFIRM_NO
+                  ELSE PROP.CONFIRM_NO || '-' || PROP.ADDENDUM_KE
+               END),
+              PROP.CURRENCY,
+              PROP.PERIODE_PROG_FROM,
+              PROP.PERIODE_PROG_TO,
+              PROP.PERIODE_PROG_FROM,
+              PROP.PERIODE_PROG_TO,
+              PROD.KODE_POSTING,
+              (   PROD.PRODUCT_CATEGORY
+               || '.'
+               || PROD.PRODUCT_CLASS
+               || '.'
+               || PROD.PRODUCT_BRAND
+               || '.'
+               || PROD.PRODUCT_EXT
+               || '.'
+               || PROD.PRODUCT_PACK
+               || '.'
+               || PROD_VARIANT),
+              (CASE
+                  WHEN DISC.TIPE_PERHITUNGAN = 'TDKKELIPATAN' THEN 'Point'
+                  ELSE 'Recurring'
+               END),
+              DISC.UOM,
+              DISC.QTY_FROM,
+              NVL (DISC.QTY_TO, 999999),
+              PROD_ITEM.PROD_ITEM,
+              ITCV.SET_VARIANT_DESC,
+              DISC.TIPE_POTONGAN,
+              (CASE
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTGROUP'
+                  THEN
+                     CGROUP.CUST_GROUP
+                  WHEN PROP.CUST_REG_FLAG = 'REGION'
+                  THEN
+                     REG.REGION_CODE
+                  WHEN PROP.CUST_REG_FLAG = 'CUSTOMER'
+                  THEN
+                     TO_CHAR (CUST.CUSTOMER_ID)
+                  WHEN PROP.CUST_REG_FLAG = 'AREA'
+                  THEN
+                     TO_CHAR (AREA.AREA_CODE)
+                  WHEN PROP.CUST_REG_FLAG = 'LOCATION'
+                  THEN
+                     TO_CHAR (LOC.LOCATION_CODE)
+               END),
+              DISC.DISC_NON_YEARLY,
+              PROP.CONFIRM_NO,
+              PROD.PROMO_PRODUK_ID
+     ) LALA
+ORDER BY 1 ASC]]>
   </SQLQuery>
-  <EntityUsage
-    Name="FcsViewItemMasterCategory"
-    Entity="app.fpp.model.entities.masterdata.ebs.FcsViewItemMasterCategory"
-    ReadOnly="true"
-    DeleteParticipant="false"/>
+  <ViewAttribute
+    Name="LineNum"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="LINE_NUM"
+    Expression="LINE_NUM"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </ViewAttribute>
   <ViewAttribute
     Name="NoConfirm"
     IsUpdateable="false"
@@ -487,18 +813,64 @@ GROUP BY FcsModifierArea.NO_CONFIRM,
     </DesignTime>
   </ViewAttribute>
   <ViewAttribute
-    Name="Bucket1"
+    Name="ConfirmNoDef"
     IsUpdateable="false"
     IsPersistent="false"
     PrecisionRule="true"
-    Precision="240"
+    Precision="100"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
-    AliasName="BUCKET1"
-    Expression="BUCKET1"
+    AliasName="CONFIRM_NO_DEF"
+    Expression="CONFIRM_NO_DEF"
     SQLType="VARCHAR">
     <DesignTime>
-      <Attr Name="_DisplaySize" Value="240"/>
+      <Attr Name="_DisplaySize" Value="100"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="PromoProdukId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="PROMO_PRODUK_ID"
+    Expression="PROMO_PRODUK_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DiscYearly"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="18"
+    Scale="2"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="DISC_YEARLY"
+    Expression="DISC_YEARLY"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="Ket"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="2"
+    Type="java.lang.String"
+    ColumnType="CHAR"
+    AliasName="KET"
+    Expression="KET"
+    SQLType="VARCHAR">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="2"/>
     </DesignTime>
   </ViewAttribute>
 </ViewObject>

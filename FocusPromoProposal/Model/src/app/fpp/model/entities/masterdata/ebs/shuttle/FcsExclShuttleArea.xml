@@ -78,6 +78,40 @@
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="CustGroupCode"
+    Precision="150"
+    ColumnName="CUST_GROUP_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FCS_EXCL_SHUTTLE_AREA">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="PromoProdukId"
+    ColumnName="PROMO_PRODUK_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="FCS_EXCL_SHUTTLE_AREA">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </Attribute>
+  <Attribute
+    Name="ProposalId"
+    ColumnName="PROPOSAL_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="FCS_EXCL_SHUTTLE_AREA">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="22"/>
+    </DesignTime>
+  </Attribute>
   <Key
     Name="FcsexclshuttleareaPrimaryKey"
     PrimaryKey="true">
@@ -85,8 +119,6 @@
       <Attr Name="_DBObjectName" Value="FCSEXCLSHUTTLEAREA_PRIMARY_KEY"/>
     </DesignTime>
     <AttrArray Name="Attributes">
-      <Item
-        Value="app.fpp.model.entities.masterdata.ebs.shuttle.FcsExclShuttleArea.Value"/>
       <Item
         Value="app.fpp.model.entities.masterdata.ebs.shuttle.FcsExclShuttleArea.AreaCode"/>
     </AttrArray>

@@ -22,7 +22,7 @@
     </input-parameter-definition>
     <managed-bean id="__2">
       <managed-bean-name id="__4">PaAddBuyVariantBackingBean</managed-bean-name>
-      <managed-bean-class id="__5">app.fpp.bean.PaAddBuyVariantBackingBean</managed-bean-class>
+      <managed-bean-class id="__5">app.fpp.bean.approval.PaAddBuyVariantBackingBean</managed-bean-class>
       <managed-bean-scope id="__3">backingBean</managed-bean-scope>
     </managed-bean>
     <view id="paAddBuyVariant">

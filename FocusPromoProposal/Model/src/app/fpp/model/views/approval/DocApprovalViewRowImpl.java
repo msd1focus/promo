@@ -189,9 +189,109 @@ public class DocApprovalViewRowImpl extends ViewRowImpl {
             }
         }
         ,
+        ActionTo {
+            public Object get(DocApprovalViewRowImpl obj) {
+                return obj.getActionTo();
+            }
+
+            public void put(DocApprovalViewRowImpl obj, Object value) {
+                obj.setActionTo((String)value);
+            }
+        }
+        ,
+        FullName {
+            public Object get(DocApprovalViewRowImpl obj) {
+                return obj.getFullName();
+            }
+
+            public void put(DocApprovalViewRowImpl obj, Object value) {
+                obj.setFullName((String)value);
+            }
+        }
+        ,
+        ProposalDate {
+            public Object get(DocApprovalViewRowImpl obj) {
+                return obj.getProposalDate();
+            }
+
+            public void put(DocApprovalViewRowImpl obj, Object value) {
+                obj.setProposalDate((Date)value);
+            }
+        }
+        ,
+        IsBackDate {
+            public Object get(DocApprovalViewRowImpl obj) {
+                return obj.getIsBackDate();
+            }
+
+            public void put(DocApprovalViewRowImpl obj, Object value) {
+                obj.setIsBackDate((String)value);
+            }
+        }
+        ,
+        IsLastAprvr {
+            public Object get(DocApprovalViewRowImpl obj) {
+                return obj.getIsLastAprvr();
+            }
+
+            public void put(DocApprovalViewRowImpl obj, Object value) {
+                obj.setIsLastAprvr((String)value);
+            }
+        }
+        ,
+        CanForward {
+            public Object get(DocApprovalViewRowImpl obj) {
+                return obj.getCanForward();
+            }
+
+            public void put(DocApprovalViewRowImpl obj, Object value) {
+                obj.setCanForward((String)value);
+            }
+        }
+        ,
+        ForwardTo {
+            public Object get(DocApprovalViewRowImpl obj) {
+                return obj.getForwardTo();
+            }
+
+            public void put(DocApprovalViewRowImpl obj, Object value) {
+                obj.setForwardTo((String)value);
+            }
+        }
+        ,
+        IsOnApvrFlow {
+            public Object get(DocApprovalViewRowImpl obj) {
+                return obj.getIsOnApvrFlow();
+            }
+
+            public void put(DocApprovalViewRowImpl obj, Object value) {
+                obj.setIsOnApvrFlow((String)value);
+            }
+        }
+        ,
         DocActionLov {
             public Object get(DocApprovalViewRowImpl obj) {
                 return obj.getDocActionLov();
+            }
+
+            public void put(DocApprovalViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        ActionForwardLov {
+            public Object get(DocApprovalViewRowImpl obj) {
+                return obj.getActionForwardLov();
+            }
+
+            public void put(DocApprovalViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        ForwardUserLov {
+            public Object get(DocApprovalViewRowImpl obj) {
+                return obj.getForwardUserLov();
             }
 
             public void put(DocApprovalViewRowImpl obj, Object value) {
@@ -244,7 +344,17 @@ public class DocApprovalViewRowImpl extends ViewRowImpl {
     public static final int CREATIONDATE = AttributesEnum.CreationDate.index();
     public static final int LASTUPDATEDBY = AttributesEnum.LastUpdatedBy.index();
     public static final int LASTUPDATEDATE = AttributesEnum.LastUpdateDate.index();
+    public static final int ACTIONTO = AttributesEnum.ActionTo.index();
+    public static final int FULLNAME = AttributesEnum.FullName.index();
+    public static final int PROPOSALDATE = AttributesEnum.ProposalDate.index();
+    public static final int ISBACKDATE = AttributesEnum.IsBackDate.index();
+    public static final int ISLASTAPRVR = AttributesEnum.IsLastAprvr.index();
+    public static final int CANFORWARD = AttributesEnum.CanForward.index();
+    public static final int FORWARDTO = AttributesEnum.ForwardTo.index();
+    public static final int ISONAPVRFLOW = AttributesEnum.IsOnApvrFlow.index();
     public static final int DOCACTIONLOV = AttributesEnum.DocActionLov.index();
+    public static final int ACTIONFORWARDLOV = AttributesEnum.ActionForwardLov.index();
+    public static final int FORWARDUSERLOV = AttributesEnum.ForwardUserLov.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -533,10 +643,153 @@ public class DocApprovalViewRowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for ACTION_TO using the alias name ActionTo.
+     * @return the ACTION_TO
+     */
+    public String getActionTo() {
+        return (String) getAttributeInternal(ACTIONTO);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for ACTION_TO using the alias name ActionTo.
+     * @param value value to set the ACTION_TO
+     */
+    public void setActionTo(String value) {
+        setAttributeInternal(ACTIONTO, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute FullName.
+     * @return the FullName
+     */
+    public String getFullName() {
+        return (String) getAttributeInternal(FULLNAME);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute FullName.
+     * @param value value to set the  FullName
+     */
+    public void setFullName(String value) {
+        setAttributeInternal(FULLNAME, value);
+    }
+
+    /**
+     * Gets the attribute value for PROPOSAL_DATE using the alias name ProposalDate.
+     * @return the PROPOSAL_DATE
+     */
+    public Date getProposalDate() {
+        return (Date) getAttributeInternal(PROPOSALDATE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PROPOSAL_DATE using the alias name ProposalDate.
+     * @param value value to set the PROPOSAL_DATE
+     */
+    public void setProposalDate(Date value) {
+        setAttributeInternal(PROPOSALDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute IsBackDate.
+     * @return the IsBackDate
+     */
+    public String getIsBackDate() {
+        return (String) getAttributeInternal(ISBACKDATE);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute IsBackDate.
+     * @param value value to set the  IsBackDate
+     */
+    public void setIsBackDate(String value) {
+        setAttributeInternal(ISBACKDATE, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute IsLastAprvr.
+     * @return the IsLastAprvr
+     */
+    public String getIsLastAprvr() {
+        return (String) getAttributeInternal(ISLASTAPRVR);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute IsLastAprvr.
+     * @param value value to set the  IsLastAprvr
+     */
+    public void setIsLastAprvr(String value) {
+        setAttributeInternal(ISLASTAPRVR, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CanForward.
+     * @return the CanForward
+     */
+    public String getCanForward() {
+        return (String) getAttributeInternal(CANFORWARD);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CanForward.
+     * @param value value to set the  CanForward
+     */
+    public void setCanForward(String value) {
+        setAttributeInternal(CANFORWARD, value);
+    }
+
+    /**
+     * Gets the attribute value for FORWARD_TO using the alias name ForwardTo.
+     * @return the FORWARD_TO
+     */
+    public String getForwardTo() {
+        return (String) getAttributeInternal(FORWARDTO);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for FORWARD_TO using the alias name ForwardTo.
+     * @param value value to set the FORWARD_TO
+     */
+    public void setForwardTo(String value) {
+        setAttributeInternal(FORWARDTO, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute IsOnApvrFlow.
+     * @return the IsOnApvrFlow
+     */
+    public String getIsOnApvrFlow() {
+        return (String) getAttributeInternal(ISONAPVRFLOW);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute IsOnApvrFlow.
+     * @param value value to set the  IsOnApvrFlow
+     */
+    public void setIsOnApvrFlow(String value) {
+        setAttributeInternal(ISONAPVRFLOW, value);
+    }
+
+    /**
      * Gets the view accessor <code>RowSet</code> DocActionLov.
      */
     public RowSet getDocActionLov() {
         return (RowSet)getAttributeInternal(DOCACTIONLOV);
+    }
+
+
+    /**
+     * Gets the view accessor <code>RowSet</code> ActionForwardLov.
+     */
+    public RowSet getActionForwardLov() {
+        return (RowSet)getAttributeInternal(ACTIONFORWARDLOV);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> ForwardUserLov.
+     */
+    public RowSet getForwardUserLov() {
+        return (RowSet)getAttributeInternal(FORWARDUSERLOV);
     }
 
     /**

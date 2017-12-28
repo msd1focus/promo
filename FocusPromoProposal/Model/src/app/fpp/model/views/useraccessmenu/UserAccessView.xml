@@ -17,7 +17,9 @@
        UserAccess.USER_TYPE, 
        (CASE WHEN UserAccess.ACTIVE_PERIOD_FROM > SYSDATE OR UserAccess.ACTIVE_PERIOD_TO &lt; SYSDATE THEN 'D' ELSE 'A' END) AS ACCESS_STATUS, 
        UserAccess.USER_INITIAL, 
-       UserAccess.USER_DIVISION"
+       UserAccess.USER_DIVISION, 
+       (SELECT UCP.USER_CUSTOMER FROM FCS_USER_CUST_PRIV UCP WHERE UCP.USER_NAME = UserAccess.USER_NAME) AS USER_CUSTOMER, 
+       (SELECT LC.VALUE FROM LOOKUP_CODE LC WHERE LC.TITLE = 'APP_REPORT_DOMAIN') AS REPORT_DOMAIN"
   FromList="APP_USER_ACCESS UserAccess"
   Where="UPPER(UserAccess.USER_NAME) = UPPER(:userLogin)
 AND UPPER(UserAccess.PASSWORD) = UPPER(:userPassword)"
@@ -121,4 +123,26 @@ AND UPPER(UserAccess.PASSWORD) = UPPER(:userPassword)"
     EntityAttrName="UserDivision"
     EntityUsage="UserAccess"
     AliasName="USER_DIVISION"/>
+  <ViewAttribute
+    Name="UserCustomer"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="USER_CUSTOMER"
+    SQLType="VARCHAR"
+    Precision="255"
+    Expression="SELECT UCP.USER_CUSTOMER FROM FCS_USER_CUST_PRIV UCP WHERE UCP.USER_NAME = UserAccess.USER_NAME"/>
+  <ViewAttribute
+    Name="ReportDomain"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="REPORT_DOMAIN"
+    SQLType="VARCHAR"
+    Precision="255"
+    Expression="SELECT LC.VALUE FROM LOOKUP_CODE LC WHERE LC.TITLE = 'APP_REPORT_DOMAIN'"/>
 </ViewObject>

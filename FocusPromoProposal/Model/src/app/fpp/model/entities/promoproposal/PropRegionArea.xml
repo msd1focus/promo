@@ -42,6 +42,18 @@
       <Attr Name="_DisplaySize" Value="20"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="Areadiscription"
+    Precision="391"
+    ColumnName="AREADISCRIPTION"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="PROP_REGION_AREA">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="391"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="Proposal"
     Association="app.fpp.model.entities.promoproposal.PropRegionAreaProposalFk1Assoc"

@@ -46,7 +46,7 @@
     </input-parameter-definition>
     <managed-bean id="__3">
       <managed-bean-name id="__5">PaProdAddVariantBackingBean</managed-bean-name>
-      <managed-bean-class id="__4">app.fpp.bean.PaProdAddVariantBackingBean</managed-bean-class>
+      <managed-bean-class id="__4">app.fpp.bean.approval.PaProdAddVariantBackingBean</managed-bean-class>
       <managed-bean-scope id="__2">backingBean</managed-bean-scope>
     </managed-bean>
     <view id="paProdAddVariant">

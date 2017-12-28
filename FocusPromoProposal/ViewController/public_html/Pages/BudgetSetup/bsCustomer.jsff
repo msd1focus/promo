@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1"
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
-          xmlns:f="http://java.sun.com/jsf/core">
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:c="http://java.sun.com/jsp/jstl/core">
+  <c:set var="viewcontrollerBundle"
+         value="#{adfBundle['app.fpp.view.ViewControllerBundle']}"/>
   <af:panelSplitter id="ps2" orientation="vertical" splitterPosition="45"
                     disabled="true">
     <f:facet name="first">
@@ -12,20 +15,24 @@
           <af:panelGroupLayout id="panelGroupLayout1"
                                inlineStyle="padding-top:12px; padding-left:5px; color:rgb(28,65,126);"
                                layout="vertical">
-            <af:outputText value="Customer Budget Set Up" id="outputText6"
-                           inlineStyle="font-weight:bold; font-size:18.0px;margin-left:16px;"/>
+            <af:outputText value="Budget Set Up#{pageFlowScope.budgetType == null ? '' : ':'} #{pageFlowScope.budgetType == null ? '' : pageFlowScope.budgetType}" id="outputText6"
+                           inlineStyle="font-weight:bold; font-size:18.0px;margin-left:16px;"
+                           partialTriggers="qryId1"/>
           </af:panelGroupLayout>
         </f:facet>
         <f:facet name="end">
           <af:panelGroupLayout id="pgl2" layout="horizontal"
                                inlineStyle="padding-top:8px;"
-                               partialTriggers="pc2:t2">
+                               partialTriggers="qryId1 pc2:t2 pc2:ctb1 pc2:ctb2 pc2:ctb3"
+                               visible="#{bindings.BudgetCustHdrView1.estimatedRowCount > 0 and pageFlowScope.budgetType != null}"
+                               binding="#{BudgetCustomerBean.butCancelSaveGroup}">
             <af:commandButton text="Cancel" id="cb3"
                               inlineStyle="padding-left:9px;padding-right:9px;padding-top:6px;padding-bottom:7px;"
                               disabled="#{bindings.BudgetCustHdrView1.estimatedRowCount == 0}"
-                              partialTriggers="pc2:t1 pc2:ctb1 pc2:ctb2 pc2:ctb3 pc2:t1 pc1:ctb4 pc1:ctb5 pc1:t3"
-                              actionListener="#{bindings.Rollback.execute}"
-                              immediate="true">
+                              partialTriggers="pc2:ctb1 pc2:ctb2 pc2:ctb3 pc2:t1 pc1:ctb4 pc1:ctb5 pc1:t3"
+                              actionListener="#{BudgetCustomerBean.cancelAll}"
+                              immediate="true"
+                              binding="#{BudgetCustomerBean.btnCancel}">
               <af:resetActionListener/>
             </af:commandButton>
             <af:spacer width="10" height="10" id="spacer1"/>
@@ -33,237 +40,323 @@
                               inlineStyle="padding-left:9px;padding-right:9px;padding-top:6px;padding-bottom:7px;"
                               disabled="#{bindings.BudgetCustHdrView1.estimatedRowCount == 0}"
                               partialTriggers="pc2:t1 pc2:ctb1 pc2:ctb2 pc2:ctb3 pc2:t1 pc1:ctb4 pc1:ctb5 pc1:t3"
-                              actionListener="#{bindings.Commit.execute}"/>
+                              actionListener="#{BudgetCustomerBean.saveAllBudget}"/>
           </af:panelGroupLayout>
         </f:facet>
       </af:panelStretchLayout>
     </f:facet>
     <f:facet name="second">
-      <af:panelSplitter id="panelSplitter1" splitterPosition="300">
+      <af:panelSplitter id="panelSplitter1" splitterPosition="310">
         <f:facet name="first">
-          <af:panelCollection id="pc2" styleClass="AFStretchWidth"
-                              featuresOff="detach viewMenu columnsMenuItem">
-            <f:facet name="toolbar">
-              <af:toolbar id="t2">
-                <af:commandToolbarButton actionListener="#{bindings.Execute.execute}"
-                                         text="Refresh"
-                                         disabled="#{!bindings.Execute.enabled}"
-                                         id="ctb1"/>
-                <af:image source="/Images/v_spacer_toolbar.png" id="i1"
-                          shortDesc=" "/>
-                <af:commandToolbarButton actionListener="#{bindings.CreateInsert.execute}"
-                                         text="Add"
-                                         disabled="#{!bindings.CreateInsert.enabled}"
-                                         id="ctb2"/>
-                <af:commandToolbarButton actionListener="#{bindings.Delete.execute}"
-                                         text="Remove"
-                                         disabled="#{!bindings.Delete.enabled}"
-                                         id="ctb3"/>
-              </af:toolbar>
+          <af:panelSplitter id="ps3" orientation="vertical"
+                            splitterPosition="90" disabled="true">
+            <f:facet name="first">
+              <af:query id="qryId1" headerText="Search" disclosed="true"
+                        value="#{bindings.BudgetCustHdrViewCriteriaQuery.queryDescriptor}"
+                        model="#{bindings.BudgetCustHdrViewCriteriaQuery.queryModel}"
+                        queryOperationListener="#{BudgetCustomerBean.budgetQueryOperationList}"
+                        saveQueryMode="hidden" modeChangeVisible="false" displayMode="compact"
+                        type="stretch" resultComponentId="::pc2:t1"
+                        inlineStyle="margin-top:-20px; margin-right:0px;"
+                        styleClass="AFStretchWidth"
+                        queryListener="#{BudgetCustomerBean.budgetQueryListener}"/>
             </f:facet>
-            <af:table value="#{bindings.BudgetCustHdrView1.collectionModel}"
-                      var="row" rows="#{bindings.BudgetCustHdrView1.rangeSize}"
-                      emptyText="#{bindings.BudgetCustHdrView1.viewable ? 'No data to display.' : 'Access Denied.'}"
-                      fetchSize="#{bindings.BudgetCustHdrView1.rangeSize}"
-                      rowBandingInterval="0"
-                      selectedRowKeys="#{bindings.BudgetCustHdrView1.collectionModel.selectedRow}"
-                      selectionListener="#{bindings.BudgetCustHdrView1.collectionModel.makeCurrent}"
-                      rowSelection="single" id="t1"
-                      partialTriggers="::ctb1 ::ctb2 ::ctb3"
-                      columnStretching="column:c2">
-              <af:column sortProperty="#{bindings.BudgetCustHdrView1.hints.CustomerId.name}"
-                         sortable="false"
-                         headerText="#{bindings.BudgetCustHdrView1.hints.CustomerId.label}"
-                         id="c2">
-                <af:outputText value="#{row.CustomerDesc}" id="ot1"
-                               inlineStyle="margin-left:5px;"/>
-                <f:facet name="header">
-                  <af:panelGroupLayout id="pgl9" layout="horizontal"
-                                       halign="center">
-                    <af:outputText value="#{bindings.BudgetCustHdrView1.hints.CustomerId.label}" id="ot4"
-                                   inlineStyle="margin-left:5px;"/>
-                  </af:panelGroupLayout>
+            <f:facet name="second">
+              <af:panelCollection id="pc2" styleClass="AFStretchWidth"
+                                  featuresOff="detach viewMenu columnsMenuItem">
+                <f:facet name="toolbar">
+                  <af:toolbar id="t2">
+                    <af:commandToolbarButton actionListener="#{bindings.Execute.execute}"
+                                             text="Refresh"
+                                             disabled="#{pageFlowScope.budgetType == null}"
+                                             id="ctb1"
+                                             partialTriggers="::qryId1"
+                                             binding="#{BudgetCustomerBean.btnBudgetRefresh}"/>
+                    <af:image source="/Images/v_spacer_toolbar.png" id="i1"
+                              shortDesc=" "/>
+                    <af:outputText value="#{bindings.CheckRowStatus.inputValue}" id="ot24"
+                                   partialTriggers="ctb2" visible="false"/>
+                    <af:commandToolbarButton
+                                             text="Add"
+                                             disabled="#{pageFlowScope.budgetType == null}"
+                                             id="ctb2"
+                                             binding="#{BudgetCustomerBean.btnBudgetAdd}"
+                                             partialTriggers="::qryId1"
+                                             actionListener="#{BudgetCustomerBean.addBudgetSetup}"/>
+                    <af:commandToolbarButton
+                                             text="Remove"
+                                             disabled="#{pageFlowScope.budgetType == null or bindings.CheckRowStatus.inputValue == 0}"
+                                             id="ctb3"
+                                             binding="#{BudgetCustomerBean.btnBudgetDelete}"
+                                             partialTriggers="::qryId1 ctb2"
+                                             actionListener="#{BudgetCustomerBean.removeBudgetSetup}"/>
+                  </af:toolbar>
                 </f:facet>
-              </af:column>
-              <af:column sortProperty="#{bindings.BudgetCustHdrView1.hints.BudgetYear.name}"
-                         sortable="false"
-                         headerText="#{bindings.BudgetCustHdrView1.hints.BudgetYear.label}"
-                         id="c1" align="center" width="70" minimumWidth="70">
-                <af:outputText value="#{row.BudgetYear}" id="ot2"/>
-              </af:column>
-            </af:table>
-          </af:panelCollection>
+                <af:table value="#{bindings.BudgetCustHdrView1.collectionModel}"
+                          var="row"
+                          rows="#{bindings.BudgetCustHdrView1.rangeSize}"
+                          emptyText="#{bindings.BudgetCustHdrView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                          fetchSize="#{bindings.BudgetCustHdrView1.rangeSize}"
+                          rowBandingInterval="0"
+                          selectedRowKeys="#{bindings.BudgetCustHdrView1.collectionModel.selectedRow}"
+                          selectionListener="#{bindings.BudgetCustHdrView1.collectionModel.makeCurrent}"
+                          rowSelection="single" id="t1"
+                          partialTriggers="::ctb1 ::ctb2 ::ctb3"
+                          columnStretching="column:c25"
+                          disableColumnReordering="true"
+                          binding="#{BudgetCustomerBean.tblBudgetCustHdr}"
+                          blockRowNavigationOnError="always">
+                  <af:column id="c24" width="5" minimumWidth="5"
+                             rowHeader="true"/>
+                  <af:column headerText="#{bindings.BudgetCustHdrView1.hints.CustomerDesc.label}"
+                             id="c25" sortable="true"
+                             sortProperty="#{bindings.BudgetCustHdrView1.hints.CustomerDesc.name}"
+                             noWrap="false">
+                    <af:outputText value="#{row.CustomerDesc}" id="ot3"
+                                   inlineStyle="font-size:x-small;"/>
+                    <f:facet name="header">
+                      <af:panelGroupLayout id="pgl3" layout="horizontal"
+                                           halign="center">
+                        <af:outputText value="Budget Name" id="ot23"
+                                       inlineStyle="margin-left:5px;"/>
+                      </af:panelGroupLayout>
+                    </f:facet>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.BudgetCustHdrView1.hints.CustomerId.name}"
+                             sortable="true"
+                             headerText="#{bindings.BudgetCustHdrView1.hints.CustomerId.label}"
+                             id="c2" noWrap="false" visible="false">
+                    <af:outputText value="#{row.CustomerDesc}" id="ot1"
+                                   inlineStyle="font-size:x-small;"/>
+                    <f:facet name="header">
+                      <af:panelGroupLayout id="pgl9" layout="horizontal"
+                                           halign="center">
+                        <af:outputText value="Budget Name" id="ot4"
+                                       inlineStyle="margin-left:5px;"/>
+                      </af:panelGroupLayout>
+                    </f:facet>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.BudgetCustHdrView1.hints.BudgetYear.name}"
+                             sortable="true"
+                             headerText="#{bindings.BudgetCustHdrView1.hints.BudgetYear.label}"
+                             id="c1" align="center" width="70"
+                             minimumWidth="70">
+                    <af:outputText value="#{row.BudgetYear}" id="ot2"/>
+                  </af:column>
+                </af:table>
+              </af:panelCollection>
+            </f:facet>
+          </af:panelSplitter>
         </f:facet>
         <f:facet name="second">
           <af:panelSplitter id="ps1" orientation="vertical"
-                            splitterPosition="80" disabled="true"
-                            partialTriggers="pc2:ctb1 pc2:ctb2 pc2:t1 pc2:ctb3">
+                            splitterPosition="112" disabled="true"
+                            partialTriggers="pc2:ctb1 pc2:ctb2 pc2:ctb3 pc2:t1 qryId1">
             <f:facet name="first">
-              <af:panelGroupLayout id="pgl3" layout="vertical">
-                <af:panelGroupLayout id="pgl31" layout="horizontal"
-                                     inlineStyle="margin-top:10px;"
-                                     visible="#{bindings.BudgetPostingView1.estimatedRowCount == 0}">
-                  <af:outputText value="Tidak ada data yang ditampilkan."
-                                 id="ot3"/>
-                </af:panelGroupLayout>
-                <af:panelFormLayout id="pfl1" labelWidth="120">
-                  <af:spacer width="10" height="5" id="s1"/>
-                  <af:panelLabelAndMessage label="#{bindings.CustomerId.hints.label}" id="plam1">
-                    <af:panelGroupLayout id="pgl10" layout="horizontal">
-                      <af:inputListOfValues id="customerIdId"
-                                            popupTitle="Search and Select: #{bindings.CustomerId.hints.label}"
-                                            value="#{bindings.CustomerId.inputValue}"
-                                            label="#{bindings.CustomerId.hints.label}"
-                                            model="#{bindings.CustomerId.listOfValuesModel}"
-                                            required="#{bindings.CustomerId.hints.mandatory}"
-                                            columns="#{bindings.CustomerId.hints.displayWidth}"
-                                            shortDesc="#{bindings.CustomerId.hints.tooltip}"
-                                            contentStyle="padding:5px;border-color:rgb(201,202,204); border-style:solid; border-width:1.0px; width:50px;font-weight:bold;"
-                                            editMode="select" simple="true"
-                                            disabled="#{bindings.BudgetCustomerView1Iterator.estimatedRowCount > 0}">
-                        <f:validator binding="#{bindings.CustomerId.validator}"/>
-                        <af:convertNumber groupingUsed="false"
-                                          pattern="#{bindings.CustomerId.format}"/>
-                      </af:inputListOfValues>
-                      <af:spacer width="10" height="30" id="s3"/>
-                      <af:inputText value="#{bindings.CustomerDesc.inputValue}"
-                                    simple="true"
-                                    required="#{bindings.CustomerDesc.hints.mandatory}"
-                                    columns="#{bindings.CustomerDesc.hints.displayWidth}"
-                                    maximumLength="#{bindings.CustomerDesc.hints.precision}"
-                                    shortDesc="#{bindings.CustomerDesc.hints.tooltip}"
-                                    id="it8" readOnly="true"
-                                    partialTriggers="customerIdId"
-                                    contentStyle="font-weight:bold;">
-                        <f:validator binding="#{bindings.CustomerDesc.validator}"/>
-                      </af:inputText>
+              <af:panelSplitter id="ps4" orientation="vertical">
+                <f:facet name="first">
+                  <af:panelBox text=" " id="pb1" showDisclosure="false"
+                               inlineStyle="margin-top:20px;margin-bottom:20px;margin-right:20px;margin-left:20px;"
+                               showMaximize="never"
+                               visible="#{bindings.BudgetCustHdrView1Iterator.estimatedRowCount == 0}">
+                    <af:spacer width="10" height="70" id="s29"/>
+                    <af:panelGroupLayout id="panelGroupLayout5"
+                                         layout="vertical"
+                                         inlineStyle="margin-top:10px;"
+                                         visible="#{bindings.BudgetCustHdrView1Iterator.estimatedRowCount == 0}"
+                                         halign="center">
+                      <af:image source="/Images/no_doc.png" id="i4"/>
+                      <af:spacer width="10" height="10" id="s49"/>
+                      <af:outputText value="Tidak ada data yang ditampilkan."
+                                     id="outputText5"
+                                     visible="#{bindings.BudgetCustHdrView1Iterator.estimatedRowCount == 0}"/>
                     </af:panelGroupLayout>
-                  </af:panelLabelAndMessage>
-                  <af:panelLabelAndMessage label="#{bindings.BudgetYear.hints.label}" id="plam3">
-                    <af:panelGroupLayout id="pgl12" layout="horizontal">
-                      <af:inputListOfValues id="budgetYearId"
-                                            popupTitle="Search and Select: #{bindings.BudgetYear.hints.label}"
-                                            value="#{bindings.BudgetYear.inputValue}"
-                                            label="#{bindings.BudgetYear.hints.label}"
-                                            model="#{bindings.BudgetYear.listOfValuesModel}"
-                                            required="#{bindings.BudgetYear.hints.mandatory}"
-                                            columns="#{bindings.BudgetYear.hints.displayWidth}"
-                                            shortDesc="#{bindings.BudgetYear.hints.tooltip}"
-                                            contentStyle="padding:5px;border-color:rgb(201,202,204); border-style:solid; border-width:1.0px; width:50px;font-weight:bold;"
-                                            disabled="#{bindings.BudgetCustomerView1Iterator.estimatedRowCount > 0}"
-                                            simple="true">
-                        <f:validator binding="#{bindings.BudgetYear.validator}"/>
+                  </af:panelBox>
+                </f:facet>
+                <f:facet name="second">
+                  <af:panelFormLayout id="pfl1" labelWidth="120"
+                                      visible="#{bindings.BudgetCustHdrView1Iterator.estimatedRowCount > 0}">
+                    <af:spacer width="10" height="3" id="s1"/>
+                    <af:panelLabelAndMessage label="#{bindings.BudgetType1.hints.label}"
+                                             id="plam6">
+                      <af:inputListOfValues id="budgetType1Id"
+                                            popupTitle="Search and Select: #{bindings.BudgetType1.hints.label}"
+                                            value="#{bindings.BudgetType1.inputValue}"
+                                            label="#{bindings.BudgetType1.hints.label}"
+                                            model="#{bindings.BudgetType1.listOfValuesModel}"
+                                            required="#{bindings.BudgetType1.hints.mandatory}"
+                                            columns="#{bindings.BudgetType1.hints.displayWidth}"
+                                            shortDesc="#{bindings.BudgetType1.hints.tooltip}"
+                                            simple="true"
+                                            contentStyle="padding:7px;border-color:rgb(201,202,204); border-style:solid; border-width:1.0px; width:70px;font-weight:bold;"
+                                            disabled="true"
+                                            binding="#{BudgetCustomerBean.lovTypeBudgetHdr}">
+                        <f:validator binding="#{bindings.BudgetType1.validator}"/>
                       </af:inputListOfValues>
-                      <af:spacer width="1" height="30" id="s2"/>
-                    </af:panelGroupLayout>
-                  </af:panelLabelAndMessage>
-                </af:panelFormLayout>
-              </af:panelGroupLayout>
+                    </af:panelLabelAndMessage>
+                    <af:panelLabelAndMessage label="#{bindings.CustomerId.hints.label}"
+                                             id="plam1"
+                                             partialTriggers="budgetType1Id"
+                                             visible="#{bindings.BudgetType1.inputValue == 'CUSTOMER' ? true : false}">
+                      <af:panelGroupLayout id="pgl10" layout="horizontal">
+                        <af:inputListOfValues id="customerIdId"
+                                              popupTitle="Search and Select: #{bindings.CustomerId.hints.label}"
+                                              value="#{bindings.CustomerId.inputValue}"
+                                              label="#{bindings.CustomerId.hints.label}"
+                                              model="#{bindings.CustomerId.listOfValuesModel}"
+                                              required="#{bindings.BudgetType1.inputValue == 'CUSTOMER'}"
+                                              columns="#{bindings.CustomerId.hints.displayWidth}"
+                                              shortDesc="#{bindings.CustomerId.hints.tooltip}"
+                                              contentStyle="padding:7px;border-color:rgb(201,202,204); border-style:solid; border-width:1.0px; width:70px;font-weight:bold;"
+                                              editMode="select" simple="true"
+                                              disabled="#{bindings.BudgetCustomerView1Iterator.estimatedRowCount > 0}"
+                                              binding="#{BudgetCustomerBean.itLovCustIdHdr}">
+                          <f:validator binding="#{bindings.CustomerId.validator}"/>
+                        </af:inputListOfValues>
+                        <af:spacer width="10" height="30" id="s3"/>
+                        <af:inputText value="#{bindings.CustomerDesc.inputValue}"
+                                      simple="true"
+                                      required="#{bindings.CustomerDesc.hints.mandatory}"
+                                      columns="#{bindings.CustomerDesc.hints.displayWidth}"
+                                      maximumLength="#{bindings.CustomerDesc.hints.precision}"
+                                      shortDesc="#{bindings.CustomerDesc.hints.tooltip}"
+                                      id="it8" readOnly="true"
+                                      partialTriggers="customerIdId"
+                                      contentStyle="font-weight:bold;">
+                          <f:validator binding="#{bindings.CustomerDesc.validator}"/>
+                        </af:inputText>
+                      </af:panelGroupLayout>
+                    </af:panelLabelAndMessage>
+                    <af:panelLabelAndMessage id="plam5"
+                                             partialTriggers="budgetType1Id"
+                                             visible="#{bindings.BudgetType1.inputValue == 'POSTING' ? true : false}"
+                                             label="#{bindings.KodePosting.hints.label}">
+                      <af:panelGroupLayout id="pgl13" layout="horizontal">
+                        <af:inputListOfValues id="kodePostingId"
+                                              popupTitle="Search and Select: #{bindings.KodePosting.hints.label}"
+                                              value="#{bindings.KodePosting.inputValue}"
+                                              model="#{bindings.KodePosting.listOfValuesModel}"
+                                              required="#{bindings.BudgetType1.inputValue == 'POSTING'}"
+                                              columns="#{bindings.KodePosting.hints.displayWidth}"
+                                              shortDesc="#{bindings.KodePosting.hints.tooltip}"
+                                              autoSubmit="true"
+                                              contentStyle="padding:7px;border-color:rgb(201,202,204); border-style:solid; border-width:1.0px; width:70px;font-weight:bold;"
+                                              simple="true"
+                                              disabled="#{bindings.BudgetCustomerView1Iterator.estimatedRowCount > 0}"
+                                              label="#{bindings.KodePosting.hints.label}"
+                                              binding="#{BudgetCustomerBean.itLovKodePostingHdr}">
+                          <f:validator binding="#{bindings.KodePosting.validator}"/>
+                        </af:inputListOfValues>
+                        <af:spacer width="10" height="30" id="spacer2"/>
+                        <af:inputText value="#{bindings.CustomerDesc.inputValue}"
+                                      simple="true"
+                                      required="#{bindings.CustomerDesc.hints.mandatory}"
+                                      columns="#{bindings.CustomerDesc.hints.displayWidth}"
+                                      maximumLength="#{bindings.CustomerDesc.hints.precision}"
+                                      shortDesc="#{bindings.CustomerDesc.hints.tooltip}"
+                                      id="inputText1" readOnly="true"
+                                      partialTriggers="customerIdId"
+                                      contentStyle="font-weight:bold;">
+                          <f:validator binding="#{bindings.CustomerDesc.validator}"/>
+                        </af:inputText>
+                      </af:panelGroupLayout>
+                    </af:panelLabelAndMessage>
+                    <af:panelLabelAndMessage label="#{bindings.BudgetYear.hints.label}"
+                                             id="plam3">
+                      <af:panelGroupLayout id="pgl12" layout="horizontal">
+                        <af:inputListOfValues id="budgetYearId"
+                                              popupTitle="Search and Select: #{bindings.BudgetYear.hints.label}"
+                                              value="#{bindings.BudgetYear.inputValue}"
+                                              label="#{bindings.BudgetYear.hints.label}"
+                                              model="#{bindings.BudgetYear.listOfValuesModel}"
+                                              required="true"
+                                              columns="#{bindings.BudgetYear.hints.displayWidth}"
+                                              shortDesc="#{bindings.BudgetYear.hints.tooltip}"
+                                              contentStyle="padding:7px;border-color:rgb(201,202,204); border-style:solid; border-width:1.0px; width:35px;font-weight:bold;"
+                                              disabled="#{bindings.BudgetCustomerView1Iterator.estimatedRowCount > 0}"
+                                              simple="true"
+                                              binding="#{BudgetCustomerBean.itLovBudgetYearHdr}">
+                          <f:validator binding="#{bindings.BudgetYear.validator}"/>
+                        </af:inputListOfValues>
+                        <af:spacer width="1" height="30" id="s2"/>
+                      </af:panelGroupLayout>
+                    </af:panelLabelAndMessage>
+                  </af:panelFormLayout>
+                </f:facet>
+              </af:panelSplitter>
             </f:facet>
             <f:facet name="second">
               <af:panelCollection id="pc1"
-                                  featuresOff="viewMenu columnsMenuItem statusBar"
+                                  featuresOff="viewMenu formatMenu statusBar wrap freeze detach  columnsMenuItem"
                                   styleClass="AFStretchWidth"
-                                  inlineStyle="margin-right:5px; margin-bottom:5px;">
-                <f:facet name="menus"/>
+                                  inlineStyle="margin-right:5px; margin-bottom:5px;"
+                                  visible="#{bindings.BudgetCustHdrView1Iterator.estimatedRowCount > 0}">
                 <f:facet name="toolbar">
                   <af:toolbar id="t4">
-                    <af:commandToolbarButton actionListener="#{bindings.CreateInsert1.execute}"
+                    <af:commandToolbarButton actionListener="#{BudgetCustomerBean.addNewRowBudCustomer}"
                                              text="Add Budget"
-                                             disabled="#{!bindings.CreateInsert1.enabled or bindings.BudgetCustHdrView1.estimatedRowCount == 0}"
-                                             id="ctb4"/>
-                    <af:popup id="p3" contentDelivery="lazyUncached"
-                              autoCancel="disabled" childCreation="deferred"
-                              partialTriggers="t3"
-                              popupFetchListener="#{BudgetCustomerBean.addCustBudgetPopupFetchListener}">
-                      <af:dialog id="d3" title="Add Customer Budget Transaction"
-                                 closeIconVisible="false" partialTriggers="t3"
-                                 dialogListener="#{BudgetCustomerBean.addCustBudgetDialogListener}">
-                        <af:panelFormLayout id="pfl2" labelWidth="120">
-                          <af:selectOneChoice value="#{bindings.BudgetType.inputValue}"
-                                              label="#{bindings.BudgetType.label}"
-                                              required="#{bindings.BudgetType.hints.mandatory}"
-                                              shortDesc="#{bindings.BudgetType.hints.tooltip}"
-                                              id="soc3" autoSubmit="true">
-                            <f:selectItems value="#{bindings.BudgetType.items}"
-                                           id="si3"/>
-                          </af:selectOneChoice>
-                          <af:inputDate value="#{bindings.BudgetDate.inputValue}"
-                                        label="#{bindings.BudgetDate.hints.label}"
-                                        required="#{bindings.BudgetDate.hints.mandatory}"
-                                        shortDesc="#{bindings.BudgetDate.hints.tooltip}"
-                                        id="id1">
-                            <f:validator binding="#{bindings.BudgetDate.validator}"/>
-                            <af:convertDateTime pattern="#{bindings.BudgetDate.format}"/>
-                          </af:inputDate>
-                          <af:panelLabelAndMessage label="#{bindings.Percentage.hints.label}"
-                                                   id="plam2">
-                            <af:panelGroupLayout id="pgl11" layout="horizontal">
-                              <af:inputText value="#{bindings.Percentage.inputValue}"
-                                            label="#{bindings.Percentage.hints.label}"
-                                            required="#{bindings.Percentage.hints.mandatory}"
-                                            columns="#{bindings.Percentage.hints.displayWidth}"
-                                            maximumLength="#{bindings.Percentage.hints.precision}"
-                                            shortDesc="#{bindings.Percentage.hints.tooltip}"
-                                            id="it10" simple="true"
-                                            binding="#{BudgetCustomerBean.budgetCustPercentage}"
-                                            valueChangeListener="#{BudgetCustomerBean.percentValueChangeListener}"
-                                            autoSubmit="true">
-                                <f:validator binding="#{bindings.Percentage.validator}"/>
-                                <af:convertNumber groupingUsed="false"
-                                                  pattern="#{bindings.Percentage.format}"/>
-                              </af:inputText>
-                              <af:spacer width="10" height="10" id="s4"/>
-                              <af:outputText value="%" id="ot5"
-                                             inlineStyle="font-weight:bold;"/>
-                            </af:panelGroupLayout>
-                          </af:panelLabelAndMessage>
-                          <af:inputText value="#{bindings.Amount.inputValue}"
-                                        label="#{bindings.Amount.hints.label}"
-                                        required="#{bindings.Amount.hints.mandatory}"
-                                        columns="#{bindings.Amount.hints.displayWidth}"
-                                        maximumLength="#{bindings.Amount.hints.precision}"
-                                        shortDesc="#{bindings.Amount.hints.tooltip}"
-                                        id="it9"
-                                        binding="#{BudgetCustomerBean.budgetCustAmount}"
-                                        valueChangeListener="#{BudgetCustomerBean.amountValueChangeListener}"
-                                        autoSubmit="true">
-                            <f:validator binding="#{bindings.Amount.validator}"/>
-                            <af:convertNumber groupingUsed="false"
-                                              pattern="#{bindings.Amount.format}"/>
-                          </af:inputText>
-                          <af:spacer width="10" height="6" id="s6"/>
-                          <af:inputText value="#{bindings.BudgetAsToDate.inputValue}"
-                                        label="#{bindings.BudgetAsToDate.hints.label}"
-                                        required="#{bindings.BudgetAsToDate.hints.mandatory}"
-                                        columns="#{bindings.BudgetAsToDate.hints.displayWidth}"
-                                        maximumLength="#{bindings.BudgetAsToDate.hints.precision}"
-                                        shortDesc="#{bindings.BudgetAsToDate.hints.tooltip}"
-                                        id="it12"
-                                        binding="#{BudgetCustomerBean.budgetAsToDate}"
-                                        partialTriggers="it10 it9"
-                                        readOnly="true">
-                            <f:validator binding="#{bindings.BudgetAsToDate.validator}"/>
-                            <af:convertNumber groupingUsed="false"
-                                              pattern="#{bindings.BudgetAsToDate.format}"/>
-                          </af:inputText>
-                          <af:spacer width="10" height="10" id="s5"/>
-                        </af:panelFormLayout>
+                                             disabled="#{(bindings.BudgetCustHdrView1.estimatedRowCount == 0) or (bindings.BudgetType1.inputValue == null or bindings.CustomerId.inputValue == null and bindings.BudgetYear.inputValue == null) or (bindings.BudgetType1.inputValue == null or bindings.KodePosting.inputValue and bindings.BudgetYear.inputValue == null) or (bindings.CheckRowStatus.inputValue == 0)}"
+                                             id="ctb4"
+                                             partialTriggers="::budgetType1Id ::customerIdId ::kodePostingId ::budgetYearId"/>
+                    <af:commandToolbarButton text="Remove Budget"
+                                             disabled="#{bindings.BudgetCustHdrView1Iterator.estimatedRowCount == 0 or bindings.BudgetHistoryNum.inputValue  > 0 or bindings.BudgetCustomerView1Iterator.estimatedRowCount == 0}"
+                                             id="ctb5" partialTriggers="t3">
+                      <af:showPopupBehavior popupId="p2" triggerType="action"/>
+                    </af:commandToolbarButton>
+                    <af:popup id="p2">
+                      <af:dialog id="d2" title="Hapus Budget"
+                                 dialogListener="#{BudgetCustomerBean.removeRowBudCustomerDialogListener}">
+                        <af:panelGroupLayout id="pgl20" layout="vertical"
+                                             inlineStyle="padding:10px;">
+                          <af:outputText value="Yakin akan menghapus budget produk : "
+                                         id="ot15"/>
+                          <af:spacer width="10" height="10" id="s7"/>
+                          <af:panelGroupLayout id="pgl21" layout="horizontal"
+                                               inlineStyle="font-weight:bold;">
+                            <af:outputText value="#{bindings.BudgetCategoryDesc.inputValue == null ? '?' : bindings.BudgetCategoryDesc.inputValue}"
+                                           id="ot16"/>
+                            <af:outputText value="." id="ot22"/>
+                            <af:outputText value="#{bindings.BudgetClassDesc.inputValue == null ? '?' : bindings.BudgetClassDesc.inputValue}"
+                                           id="ot17"/>
+                            <af:outputText value="." id="outputText1"/>
+                            <af:outputText value="#{bindings.BudgetBrandDesc.inputValue == null ? '?' : bindings.BudgetBrandDesc.inputValue}"
+                                           id="ot18"/>
+                            <af:outputText value="." id="outputText2"/>
+                            <af:outputText value="#{bindings.BudgetExtentionDesc.inputValue == null ? '?' : bindings.BudgetExtentionDesc.inputValue}"
+                                           id="ot19"/>
+                            <af:outputText value="." id="outputText3"/>
+                            <af:outputText value="#{bindings.BudgetPackagingDesc.inputValue == null ? '?' : bindings.BudgetPackagingDesc.inputValue}"
+                                           id="ot20"/>
+                            <af:outputText value="." id="outputText4"/>
+                            <af:outputText value="#{bindings.BudgetVariantDesc.inputValue == null ? '?' : bindings.BudgetVariantDesc.inputValue}"
+                                           id="ot21"/>
+                          </af:panelGroupLayout>
+                        </af:panelGroupLayout>
                       </af:dialog>
                     </af:popup>
-                    <af:commandToolbarButton actionListener="#{bindings.Delete1.execute}"
-                                             text="Remove Budget"
-                                             disabled="#{!bindings.Delete1.enabled or bindings.BudgetCustHdrView1.estimatedRowCount == 0}"
-                                             id="ctb5"/>
-                    <af:commandToolbarButton text="Transaction History"
-                                             id="ctb6">
-                      <af:showPopupBehavior popupId="p1" triggerType="action"/>
+                    <af:commandToolbarButton text="Transaction History (#{bindings.BudgetHistoryNum.inputValue == null ? '0' : bindings.BudgetHistoryNum.inputValue})"
+                                             id="commandToolbarButton1"
+                                             actionListener="#{BudgetCustomerBean.pTranHistoryEvent}"
+                                             disabled="#{bindings.BudgetCustomerView1Iterator.estimatedRowCount == 0}"
+                                             partialTriggers="t3"
+                                             binding="#{BudgetCustomerBean.btnTranHistory}">
+                      <!--af:showPopupBehavior popupId="p1" triggerType="action"/-->
                     </af:commandToolbarButton>
-                    <af:popup id="p1" contentDelivery="lazyUncached">
+                    <af:commandToolbarButton text="Transaction Approval (#{bindings.BudgetApprovalNum.inputValue == null ? '0' : bindings.BudgetApprovalNum.inputValue})"
+                                             id="ctb6"
+                                             actionListener="#{BudgetCustomerBean.pTranApprovalEvent}"
+                                             disabled="#{bindings.BudgetCustomerView1Iterator.estimatedRowCount == 0}"
+                                             partialTriggers="t3"
+                                             binding="#{BudgetCustomerBean.btnTranApproval}">
+                      <!--af:showPopupBehavior popupId="p1" triggerType="action"/-->
+                    </af:commandToolbarButton>
+                    <af:popup id="p1" contentDelivery="lazyUncached"
+                              binding="#{BudgetCustomerBean.ptranHistory}">
                       <af:dialog id="d1"
-                                 title="#{bindings.CustomerDesc.inputValue} Transaction History" type="ok"
-                                 partialTriggers="::pc2:t1 d3">
-                        <af:panelCollection id="pc3" inlineStyle="width:700px;"
+                                 title="#{bindings.CustomerDesc.inputValue} Transaction History"
+                                 type="ok" closeIconVisible="false"
+                                 dialogListener="#{BudgetCustomerBean.closeTranDialogEvent}">
+                        <af:panelCollection id="pc3" inlineStyle="width:1000px;"
                                             featuresOff="detach viewMenu columnsMenuItem statusBar">
                           <f:facet name="statusbar"/>
                           <af:table value="#{bindings.BudgetCustTranHistoryView1.collectionModel}"
@@ -272,37 +365,46 @@
                                     emptyText="#{bindings.BudgetCustTranHistoryView1.viewable ? 'No data to display.' : 'Access Denied.'}"
                                     fetchSize="#{bindings.BudgetCustTranHistoryView1.rangeSize}"
                                     rowBandingInterval="0" id="t5"
-                                    columnStretching="column:c14"
-                                    partialTriggers="::::pc2:t1">
+                                    disableColumnReordering="true"
+                                    columnStretching="column:c23">
+                            <af:column sortProperty="#{bindings.BudgetCustTranHistoryView1.hints.BudgetCustomerId.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.BudgetCustTranHistoryView1.hints.BudgetCustomerId.label}"
+                                       id="c13" visible="false">
+                              <af:outputText value="#{row.BudgetCustomerId}"
+                                             id="ot8"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.BudgetCustTranHistoryView1.hints.BudgetCustTranId.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.BudgetCustTranHistoryView1.hints.BudgetCustTranId.label}"
+                                       id="c22" visible="false">
+                              <af:outputText value="#{row.BudgetCustTranId}"
+                                             id="ot6"/>
+                            </af:column>
                             <af:column sortProperty="#{bindings.BudgetCustTranHistoryView1.hints.BudgetType.name}"
                                        sortable="false"
                                        headerText="#{bindings.BudgetCustTranHistoryView1.hints.BudgetType.label}"
-                                       id="c13" align="center">
-                              <af:outputText value="#{row.BudgetType}"
-                                             id="ot8"/>
+                                       id="c11" width="90" align="center"
+                                       minimumWidth="90">
+                              <af:outputText value="#{row.bindings.BudgetType.inputValue}"
+                                             id="ot12"/>
                             </af:column>
                             <af:column sortProperty="#{bindings.BudgetCustTranHistoryView1.hints.BudgetDate.name}"
                                        sortable="false"
                                        headerText="#{bindings.BudgetCustTranHistoryView1.hints.BudgetDate.label}"
-                                       id="c15" align="center"
-                                       minimumWidth="100">
+                                       id="c14" align="center" width="80"
+                                       minimumWidth="80">
                               <af:outputText value="#{row.BudgetDate}"
-                                             id="ot10">
+                                             id="ot13">
                                 <af:convertDateTime pattern="#{bindings.BudgetCustTranHistoryView1.hints.BudgetDate.format}"/>
                               </af:outputText>
-                            </af:column>
-                            <af:column sortProperty="#{bindings.BudgetCustTranHistoryView1.hints.BrandName.name}"
-                                       sortable="false"
-                                       headerText="#{bindings.BudgetCustTranHistoryView1.hints.BrandName.label}"
-                                       id="c14" align="center">
-                              <af:outputText value="#{row.BrandName}" id="ot9"/>
                             </af:column>
                             <af:column sortProperty="#{bindings.BudgetCustTranHistoryView1.hints.Percentage.name}"
                                        sortable="false"
                                        headerText="#{bindings.BudgetCustTranHistoryView1.hints.Percentage.label}"
-                                       id="c12" align="center" width="80"
+                                       id="c21" align="center" width="80"
                                        minimumWidth="80">
-                              <af:outputText value="#{row.Percentage} %" id="ot7">
+                              <af:outputText value="#{row.Percentage}" id="ot9">
                                 <af:convertNumber groupingUsed="false"
                                                   pattern="#{bindings.BudgetCustTranHistoryView1.hints.Percentage.format}"/>
                               </af:outputText>
@@ -310,22 +412,362 @@
                             <af:column sortProperty="#{bindings.BudgetCustTranHistoryView1.hints.Amount.name}"
                                        sortable="false"
                                        headerText="#{bindings.BudgetCustTranHistoryView1.hints.Amount.label}"
-                                       id="c11" align="center" width="120"
+                                       id="c12" align="center" width="120"
                                        minimumWidth="120">
-                              <af:outputText value="#{row.Amount}" id="ot6">
+                              <af:outputText value="#{row.Amount}" id="ot10">
                                 <af:convertNumber groupingUsed="false"
                                                   pattern="#{bindings.BudgetCustTranHistoryView1.hints.Amount.format}"/>
                               </af:outputText>
                             </af:column>
+                            <af:column sortProperty="#{bindings.BudgetCustTranHistoryView1.hints.CombinationDescription.name}"
+                                       sortable="false"
+                                       headerText="#{viewcontrollerBundle.PROUCT_DETAIL}"
+                                       id="c15" width="250" align="center"
+                                       minimumWidth="250" noWrap="false">
+                              <af:outputText value="#{row.CombinationDescription}"
+                                             id="ot7"
+                                             inlineStyle="text-transform: uppercase;font-size:x-small;"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.BudgetCustTranHistoryView1.hints.Remarks.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.BudgetCustTranHistoryView1.hints.Remarks.label}"
+                                       id="c23" width="150" align="center"
+                                       minimumWidth="150" noWrap="false">
+                              <af:outputText value="#{row.Remarks}" id="ot27"
+                                             inlineStyle="font-size:x-small;"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.BudgetCustTranHistoryView1.hints.Action.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.BudgetCustTranHistoryView1.hints.Action.label}"
+                                       id="c27" align="center" width="80"
+                                       minimumWidth="80">
+                              <af:outputText value="#{row.Action}" id="ot29"/>
+                              <f:facet name="header">
+                                <af:outputText value="Status" id="ot28"/>
+                              </f:facet>
+                            </af:column>
                           </af:table>
                         </af:panelCollection>
+                      </af:dialog>
+                    </af:popup>
+                    <af:popup id="p3" contentDelivery="lazyUncached"
+                              autoCancel="disabled"
+                              binding="#{BudgetCustomerBean.pbudCusTran}"
+                              partialTriggers="t3">
+                      <af:dialog id="d3" title="Add Budget Transaction"
+                                 closeIconVisible="false"
+                                 partialTriggers="t3 ::pc2:t1 ::pc2:ctb1 ::pc2:ctb2 ::pc2:ctb3 ctb4 ctb5"
+                                 type="none">
+                        <af:panelFormLayout id="pfl2">
+                          <af:panelLabelAndMessage label="#{bindings.BudgetType2.hints.label}"
+                                                   id="plam8">
+                            <af:panelGroupLayout id="pgl15" layout="horizontal">
+                              <af:inputListOfValues id="budgetType2Id"
+                                                    popupTitle="Search and Select: #{bindings.BudgetType2.hints.label}"
+                                                    value="#{bindings.BudgetType2.inputValue}"
+                                                    label="#{bindings.BudgetType2.hints.label}"
+                                                    model="#{bindings.BudgetType2.listOfValuesModel}"
+                                                    required="#{bindings.BudgetType2.hints.mandatory}"
+                                                    columns="#{bindings.BudgetType2.hints.displayWidth}"
+                                                    shortDesc="#{bindings.BudgetType2.hints.tooltip}"
+                                                    autoSubmit="true"
+                                                    valueChangeListener="#{BudgetCustomerBean.BudgetTypeIfEvent}"
+                                                    binding="#{BudgetCustomerBean.lovBudgetTypeTran}"
+                                                    contentStyle="padding:7px;border-color:rgb(201,202,204); border-style:solid; border-width:1.0px; width:170px; font-weight:bold;"
+                                                    simple="true">
+                                <f:validator binding="#{bindings.BudgetType2.validator}"/>
+                              </af:inputListOfValues>
+                              <af:spacer width="5" height="30" id="spacer7"/>
+                            </af:panelGroupLayout>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.BudgetCustomerId.hints.label}"
+                                                   id="plam4" visible="false">
+                            <af:outputText value="#{bindings.BudgetCustomerId.inputValue}"
+                                           id="ot11"
+                                           binding="#{BudgetCustomerBean.otValue}">
+                              <af:convertNumber groupingUsed="false"
+                                                pattern="#{bindings.BudgetCustomerId.format}"/>
+                            </af:outputText>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.BudgetDate.hints.label}"
+                                                   id="plam9">
+                            <af:panelGroupLayout id="pgl16" layout="horizontal">
+                              <af:inputDate value="#{bindings.BudgetDate.inputValue}"
+                                            label="#{bindings.BudgetDate.hints.label}"
+                                            required="#{bindings.BudgetDate.hints.mandatory}"
+                                            shortDesc="#{bindings.BudgetDate.hints.tooltip}"
+                                            id="id1" simple="true">
+                                <f:validator binding="#{bindings.BudgetDate.validator}"/>
+                                <af:convertDateTime pattern="#{bindings.BudgetDate.format}"/>
+                              </af:inputDate>
+                              <af:spacer width="5" height="35" id="spacer6"/>
+                            </af:panelGroupLayout>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="Trading Term"
+                                                   id="plam7"
+                                                   visible="#{(bindings.BudgetType1.inputValue == 'CUSTOMER' &amp;&amp; bindings.BudgetType2.inputValue == 'BALANCE' )  ? 'true' : 'false'}"
+                                                   partialTriggers="budgetType2Id">
+                            <af:panelGroupLayout id="pgl14" layout="horizontal">
+                              <af:inputText value="#{bindings.Percentage.inputValue}"
+                                            label="Trading Term"
+                                            required="#{bindings.Percentage.hints.mandatory}"
+                                            columns="#{bindings.Percentage.hints.displayWidth}"
+                                            maximumLength="#{bindings.Percentage.hints.precision}"
+                                            shortDesc="#{bindings.Percentage.hints.tooltip}"
+                                            id="it10" contentStyle="width:50px;"
+                                            partialTriggers="budgetType2Id"
+                                            visible="#{(bindings.BudgetType1.inputValue == 'CUSTOMER' &amp;&amp; bindings.BudgetType2.inputValue == 'BALANCE' )  ? 'true' : 'false'}"
+                                            simple="true"
+                                            autoSubmit="true">
+                                <f:validator binding="#{bindings.Percentage.validator}"/>
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.Percentage.format}"/>
+                              </af:inputText>
+                              <af:spacer width="5" height="30" id="spacer5"/>
+                              <af:outputText value="%" id="ot14"
+                                             inlineStyle="font-weight:bold;"/>
+                            </af:panelGroupLayout>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="Trading Term"
+                                                   id="plam2" visible="false">
+                            <af:panelGroupLayout id="pgl11" layout="horizontal">
+                              <af:spacer width="10" height="10" id="s4"/>
+                              <af:outputText value="%" id="ot5"
+                                             inlineStyle="font-weight:bold;"/>
+                            </af:panelGroupLayout>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.Amount.hints.label}"
+                                                   id="plam10">
+                            <af:panelGroupLayout id="pgl17" layout="horizontal">
+                              <af:inputText value="#{bindings.Amount.inputValue}"
+                                            label="#{bindings.Amount.hints.label}"
+                                            required="#{bindings.Amount.hints.mandatory}"
+                                            columns="#{bindings.Amount.hints.displayWidth}"
+                                            maximumLength="#{bindings.Amount.hints.precision}"
+                                            shortDesc="#{bindings.Amount.hints.tooltip}"
+                                            id="it9"
+                                            binding="#{BudgetCustomerBean.budgetCustAmount}"
+                                            autoSubmit="true" simple="true"
+                                            contentStyle="width:200px;">
+                                <f:validator binding="#{bindings.Amount.validator}"/>
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.Amount.format}"/>
+                              </af:inputText>
+                              <af:spacer width="5" height="28" id="spacer4"/>
+                            </af:panelGroupLayout>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.YearlyBudgetAmount.hints.label}"
+                                                   id="plam11"
+                                                   visible="#{((bindings.BudgetType1.inputValue == 'CUSTOMER' &amp;&amp; bindings.BudgetType2.inputValue == 'BALANCE' ) or (bindings.BudgetType1.inputValue == 'POSTING' &amp;&amp; bindings.BudgetType2.inputValue == 'BALANCE' ) )? 'true' : 'false'}"
+                                                   partialTriggers="budgetType2Id">
+                            <af:panelGroupLayout id="pgl18" layout="horizontal">
+                              <af:inputText value="#{bindings.YearlyBudgetAmount.inputValue}"
+                                            label="#{bindings.YearlyBudgetAmount.hints.label}"
+                                            required="#{bindings.YearlyBudgetAmount.hints.mandatory}"
+                                            columns="#{bindings.YearlyBudgetAmount.hints.displayWidth}"
+                                            maximumLength="#{bindings.YearlyBudgetAmount.hints.precision}"
+                                            shortDesc="#{bindings.YearlyBudgetAmount.hints.tooltip}"
+                                            id="it18" readOnly="true"
+                                            autoSubmit="true"
+                                            binding="#{BudgetCustomerBean.budgetYearlyAmount}"
+                                            partialTriggers="budgetType2Id"
+                                            visible="#{((bindings.BudgetType1.inputValue == 'CUSTOMER' &amp;&amp; bindings.BudgetType2.inputValue == 'BALANCE' ) or (bindings.BudgetType1.inputValue == 'POSTING' &amp;&amp; bindings.BudgetType2.inputValue == 'BALANCE' ) )? 'true' : 'false'}"
+                                            simple="true">
+                                <f:validator binding="#{bindings.YearlyBudgetAmount.validator}"/>
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.YearlyBudgetAmount.format}"/>
+                              </af:inputText>
+                              <af:spacer width="5" height="28" id="spacer3"/>
+                            </af:panelGroupLayout>
+                          </af:panelLabelAndMessage>
+                          <af:panelLabelAndMessage label="#{bindings.BudgetAsToDate1.hints.label}"
+                                                   id="plam12"
+                                                   visible="#{((bindings.BudgetType1.inputValue == 'CUSTOMER' &amp;&amp; bindings.BudgetType2.inputValue == 'ADJUSTMENT' ) or (bindings.BudgetType1.inputValue == 'POSTING' &amp;&amp; bindings.BudgetType2.inputValue == 'ADJUSTMENT' ) )? 'true' : 'false'}"
+                                                   partialTriggers="budgetType2Id">
+                            <af:panelGroupLayout id="pgl19" layout="horizontal">
+                              <af:inputText value="#{bindings.BudgetAsToDate1.inputValue}"
+                                            label="#{bindings.BudgetAsToDate1.hints.label}"
+                                            required="#{bindings.BudgetAsToDate1.hints.mandatory}"
+                                            columns="#{bindings.BudgetAsToDate1.hints.displayWidth}"
+                                            maximumLength="#{bindings.BudgetAsToDate1.hints.precision}"
+                                            shortDesc="#{bindings.BudgetAsToDate1.hints.tooltip}"
+                                            id="it19" autoSubmit="true"
+                                            readOnly="true"
+                                            visible="#{((bindings.BudgetType1.inputValue == 'CUSTOMER' &amp;&amp; bindings.BudgetType2.inputValue == 'ADJUSTMENT' ) or (bindings.BudgetType1.inputValue == 'POSTING' &amp;&amp; bindings.BudgetType2.inputValue == 'ADJUSTMENT' ) )? 'true' : 'false'}"
+                                            binding="#{BudgetCustomerBean.budgetAsToDate}"
+                                            partialTriggers="budgetType2Id"
+                                            simple="true">
+                                <f:validator binding="#{bindings.BudgetAsToDate1.validator}"/>
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.BudgetAsToDate1.format}"/>
+                              </af:inputText>
+                              <af:spacer width="5" height="25" id="s5"/>
+                            </af:panelGroupLayout>
+                          </af:panelLabelAndMessage>
+                          <af:spacer width="10" height="2" id="s6"/>
+                          <af:inputText value="#{bindings.Remarks.inputValue}"
+                                        label="#{bindings.Remarks.hints.label}"
+                                        required="#{bindings.Remarks.hints.mandatory}"
+                                        columns="#{bindings.Remarks.hints.displayWidth}"
+                                        maximumLength="#{bindings.Remarks.hints.precision}"
+                                        shortDesc="#{bindings.Remarks.hints.tooltip}"
+                                        id="it17" rows="4"
+                                        contentStyle="width:200px;">
+                            <f:validator binding="#{bindings.Remarks.validator}"/>
+                          </af:inputText>
+                        </af:panelFormLayout>
+                        <f:facet name="buttonBar">
+                          <af:panelGroupLayout id="pgl22"
+                                               inlineStyle="margin-bottom:5px;">
+                            <af:commandButton text="OK" id="cb5"
+                                              actionListener="#{BudgetCustomerBean.OKEvt}"/>
+                            <af:spacer width="5" height="10" id="s10"/>
+                            <af:commandButton text="Cancel" id="cb4"
+                                              actionListener="#{BudgetCustomerBean.cancelEvt}"/>
+                          </af:panelGroupLayout>
+                        </f:facet>
+                      </af:dialog>
+                    </af:popup>
+                    <af:popup id="popup1" contentDelivery="lazyUncached"
+                              binding="#{BudgetCustomerBean.ptranApproval}">
+                      <af:dialog id="dialog1"
+                                 title="#{bindings.CustomerDesc.inputValue} Transaction Approval"
+                                 type="ok" closeIconVisible="false"
+                                 dialogListener="#{BudgetCustomerBean.closeTranApprovalDialogEvent}">
+                        <af:panelCollection id="panelCollection1"
+                                            inlineStyle="width:1000px;"
+                                            featuresOff="detach viewMenu columnsMenuItem statusBar">
+                          <f:facet name="statusbar"/>
+                          <af:table value="#{bindings.BudgetCustTranApprovalView1.collectionModel}"
+                                    var="row"
+                                    rows="#{bindings.BudgetCustTranHistoryView1.rangeSize}"
+                                    emptyText="#{bindings.BudgetCustTranApprovalView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                    fetchSize="#{bindings.BudgetCustTranApprovalView1.rangeSize}"
+                                    rowBandingInterval="0" id="table1"
+                                    disableColumnReordering="true"
+                                    columnStretching="column:column9"
+                                    rowSelection="single"
+                                    selectionListener="#{bindings.BudgetCustTranApprovalView1.collectionModel.makeCurrent}"
+                                    partialTriggers="cb1">
+                            <af:column sortProperty="#{bindings.BudgetCustTranHistoryView1.hints.BudgetCustomerId.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.BudgetCustTranHistoryView1.hints.BudgetCustomerId.label}"
+                                       id="column2" visible="false">
+                              <af:outputText value="#{row.BudgetCustomerId}"
+                                             id="outputText7"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.BudgetCustTranApprovalView1.hints.BudgetCustTranId.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.BudgetCustTranApprovalView1.hints.BudgetCustTranId.label}"
+                                       id="column3" visible="false">
+                              <af:outputText value="#{row.BudgetCustTranId}"
+                                             id="outputText8"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.BudgetCustTranApprovalView1.hints.BudgetType.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.BudgetCustTranApprovalView1.hints.BudgetType.label}"
+                                       id="column4" width="90" align="center"
+                                       minimumWidth="90">
+                              <af:outputText value="#{row.bindings.BudgetType.inputValue}"
+                                             id="outputText9"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.BudgetCustTranApprovalView1.hints.BudgetDate.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.BudgetCustTranApprovalView1.hints.BudgetDate.label}"
+                                       id="column5" align="center" width="80"
+                                       minimumWidth="80">
+                              <af:outputText value="#{row.BudgetDate}"
+                                             id="outputText10">
+                                <af:convertDateTime pattern="#{bindings.BudgetCustTranHistoryView1.hints.BudgetDate.format}"/>
+                              </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.BudgetCustTranApprovalView1.hints.Percentage.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.BudgetCustTranApprovalView1.hints.Percentage.label}"
+                                       id="column6" align="center" width="80"
+                                       minimumWidth="80">
+                              <af:outputText value="#{row.Percentage}"
+                                             id="outputText11">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.BudgetCustTranHistoryView1.hints.Percentage.format}"/>
+                              </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.BudgetCustTranApprovalView1.hints.Amount.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.BudgetCustTranApprovalView1.hints.Amount.label}"
+                                       id="column7" align="center" width="120"
+                                       minimumWidth="120">
+                              <af:outputText value="#{row.Amount}"
+                                             id="outputText12">
+                                <af:convertNumber groupingUsed="false"
+                                                  pattern="#{bindings.BudgetCustTranHistoryView1.hints.Amount.format}"/>
+                              </af:outputText>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.BudgetCustTranApprovalView1.hints.CombinationDescription.name}"
+                                       sortable="false"
+                                       headerText="#{viewcontrollerBundle.PROUCT_DETAIL}"
+                                       id="column8" width="250" align="center"
+                                       minimumWidth="250" noWrap="false">
+                              <af:outputText value="#{row.CombinationDescription}"
+                                             id="outputText13"
+                                             inlineStyle="text-transform:uppercase; font-size:x-small;"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.BudgetCustTranApprovalView1.hints.Remarks.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.BudgetCustTranApprovalView1.hints.Remarks.label}"
+                                       id="column9" width="150" align="center"
+                                       minimumWidth="150" noWrap="false">
+                              <af:outputText value="#{row.Remarks}" id="ot26"
+                                             inlineStyle="font-size:x-small;"/>
+                            </af:column>
+                            <af:column sortProperty="#{bindings.BudgetCustTranApprovalView1.hints.Action.name}"
+                                       sortable="false"
+                                       headerText="#{bindings.BudgetCustTranApprovalView1.hints.Action.label}"
+                                       id="column10" align="center">
+                              <af:inputText value="#{row.bindings.Action.inputValue}"
+                                            label="#{bindings.BudgetCustTranHistoryView1.hints.Action.label}"
+                                            required="#{bindings.BudgetCustTranHistoryView1.hints.Action.mandatory}"
+                                            columns="#{bindings.BudgetCustTranHistoryView1.hints.Action.displayWidth}"
+                                            maximumLength="#{bindings.BudgetCustTranHistoryView1.hints.Action.precision}"
+                                            shortDesc="#{bindings.BudgetCustTranHistoryView1.hints.Action.tooltip}"
+                                            id="inputText3" readOnly="true">
+                                <f:validator binding="#{row.bindings.Action.validator}"/>
+                              </af:inputText>
+                              <f:facet name="header">
+                                <af:outputText value="Status" id="ot25"/>
+                              </f:facet>
+                            </af:column>
+                            <af:column id="c26" align="center"
+                                       headerText="Action" width="80"
+                                       minimumWidth="80">
+                              <af:commandButton text="Confirm"
+                                                id="cb1"
+                                                actionListener="#{BudgetCustomerBean.btnSetBudgetEvent}"
+                                                partialSubmit="true"
+                                                partialTriggers="::::pc2:t1"/>
+                            </af:column>
+                          </af:table>
+                        </af:panelCollection>
+                      </af:dialog>
+                    </af:popup>
+                    <af:popup id="p112"
+                              binding="#{BudgetCustomerBean.potmessage}"
+                              contentDelivery="lazyUncached">
+                      <af:dialog id="d21" type="ok" title="Warning"
+                                 titleIconSource="/Images/warning.png">
+                        <af:panelGroupLayout id="panelGroupLayout2"
+                                             layout="vertical" halign="center">
+                          <af:outputText value="outputText1" id="ot51"
+                                         binding="#{BudgetCustomerBean.otpesan}"
+                                         inlineStyle="padding-left:15px;padding-right:15px;"/>
+                        </af:panelGroupLayout>
                       </af:dialog>
                     </af:popup>
                   </af:toolbar>
                 </f:facet>
                 <f:facet name="statusbar"/>
                 <af:table value="#{bindings.BudgetCustomerView1.collectionModel}"
-                          var="row"
+                          var="row" columnSelection="multiple"
                           rows="#{bindings.BudgetCustomerView1.rangeSize}"
                           emptyText="#{bindings.BudgetCustomerView1.viewable ? 'No data to display.' : 'Access Denied.'}"
                           fetchSize="#{bindings.BudgetCustomerView1.rangeSize}"
@@ -333,14 +775,22 @@
                           selectedRowKeys="#{bindings.BudgetCustomerView1.collectionModel.selectedRow}"
                           selectionListener="#{bindings.BudgetCustomerView1.collectionModel.makeCurrent}"
                           rowSelection="single" id="t3"
-                          partialTriggers="::ctb4 ::ctb5 ::d3">
+                          partialTriggers="::ctb4 ::ctb5 ::d3"
+                          binding="#{BudgetCustomerBean.tblBudgetCustomer}"
+                          freezeDirection="start"
+                          disableColumnReordering="true">
                   <af:column id="column1" width="25" align="center"
-                             headerText=" ">
+                             headerText=" " rowHeader="true">
                     <af:commandImageLink id="cil1"
                                          icon="/Images/add_transaction.png"
-                                         partialSubmit="true">
-                      <af:showPopupBehavior popupId="::p3"
-                                            triggerType="action"/>
+                                         partialSubmit="true"
+                                         actionListener="#{BudgetCustomerBean.showPopupBudTran}"
+                                         disabledIcon="/Images/add_transaction_dis.png"
+                                         disabled="#{row.bindings.BudgetCategory.inputValue == null or row.bindings.BudgetClass.inputValue == null or row.bindings.BudgetBrand.inputValue == null or row.bindings.BudgetExtention.inputValue == null or row.bindings.BudgetPackaging.inputValue == null or row.bindings.BudgetVariant.inputValue == null}"
+                                         hoverIcon="/Images/add_transaction.png"
+                                         depressedIcon="/Images/add_transaction.png">
+                      <!--af:showPopupBehavior popupId="::p3"
+                                            triggerType="action"/-->
                     </af:commandImageLink>
                   </af:column>
                   <af:column sortProperty="#{bindings.BudgetCustomerView1.hints.BudgetCategory.name}"
@@ -351,8 +801,7 @@
                     <af:panelGroupLayout id="pgl1" layout="horizontal">
                       <af:outputText value="#{row.bindings.BudgetCategoryDesc.inputValue == null ? '-' : row.bindings.BudgetCategoryDesc.inputValue}"
                                      shortDesc="#{row.bindings.BudgetCategoryDesc.inputValue == null ? '-' : row.bindings.BudgetCategoryDesc.inputValue}"
-                                     id="it2"
-                                     partialTriggers="budgetCategoryId"
+                                     id="it2" partialTriggers="budgetCategoryId"
                                      inlineStyle="margin-right:3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 70px; display: inline-block;"/>
                       <af:inputListOfValues id="budgetCategoryId"
                                             popupTitle="Search and Select: #{bindings.BudgetCustomerView1.hints.BudgetCategory.label}"
@@ -419,7 +868,8 @@
                                             disabled="#{row.TranRow == 'T' or row.bindings.BudgetClass.inputValue == null}"
                                             partialTriggers="budgetClassId"
                                             valueChangeListener="#{BudgetCustomerBean.productBrandChanged}"
-                                            binding="#{BudgetCustomerBean.itlovBudBrand}">
+                                            binding="#{BudgetCustomerBean.itlovBudBrand}"
+                                            immediate="true">
                         <f:validator binding="#{row.bindings.BudgetBrand.validator}"/>
                       </af:inputListOfValues>
                     </af:panelGroupLayout>
@@ -431,7 +881,8 @@
                       <af:outputText value="#{row.bindings.BudgetExtentionDesc.inputValue == null ? '-' : row.bindings.BudgetExtentionDesc.inputValue}"
                                      shortDesc="#{row.bindings.BudgetExtentionDesc.inputValue == null ? '-' : row.bindings.BudgetExtentionDesc.inputValue}"
                                      id="it5"
-                                     inlineStyle="margin-right:3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 70px; display: inline-block;"/>
+                                     inlineStyle="margin-right:3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 70px; display: inline-block;"
+                                     partialTriggers="budgetExtentionId"/>
                       <af:inputListOfValues id="budgetExtentionId"
                                             popupTitle="Search and Select: #{bindings.BudgetCustomerView1.hints.BudgetExtention.label}"
                                             value="#{row.bindings.BudgetExtention.inputValue}"
@@ -445,7 +896,8 @@
                                             disabled="#{row.TranRow == 'T' or row.bindings.BudgetBrand.inputValue == null}"
                                             partialTriggers="budgetBrandId"
                                             valueChangeListener="#{BudgetCustomerBean.productExtentionChanged}"
-                                            binding="#{BudgetCustomerBean.itlovBudExtention}">
+                                            binding="#{BudgetCustomerBean.itlovBudExtention}"
+                                            immediate="true">
                         <f:validator binding="#{row.bindings.BudgetExtention.validator}"/>
                       </af:inputListOfValues>
                     </af:panelGroupLayout>
@@ -457,7 +909,8 @@
                       <af:outputText value="#{row.bindings.BudgetPackagingDesc.inputValue == null ? '-' : row.bindings.BudgetPackagingDesc.inputValue}"
                                      shortDesc="#{row.bindings.BudgetPackagingDesc.inputValue == null ? '-' : row.bindings.BudgetPackagingDesc.inputValue}"
                                      id="it6"
-                                     inlineStyle="margin-right:3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 70px; display: inline-block;"/>
+                                     inlineStyle="margin-right:3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 70px; display: inline-block;"
+                                     partialTriggers="budgetPackagingId"/>
                       <af:inputListOfValues id="budgetPackagingId"
                                             popupTitle="Search and Select: #{bindings.BudgetCustomerView1.hints.BudgetPackaging.label}"
                                             value="#{row.bindings.BudgetPackaging.inputValue}"
@@ -471,7 +924,8 @@
                                             disabled="#{row.TranRow == 'T' or row.bindings.BudgetExtention.inputValue == null}"
                                             partialTriggers="budgetExtentionId"
                                             valueChangeListener="#{BudgetCustomerBean.productPackagingChanged}"
-                                            binding="#{BudgetCustomerBean.itlovBudPackaging}">
+                                            binding="#{BudgetCustomerBean.itlovBudPackaging}"
+                                            immediate="true">
                         <f:validator binding="#{row.bindings.BudgetPackaging.validator}"/>
                       </af:inputListOfValues>
                     </af:panelGroupLayout>
@@ -496,7 +950,8 @@
                                             editMode="select"
                                             disabled="#{row.TranRow == 'T' or row.bindings.BudgetPackaging.inputValue == null}"
                                             partialTriggers="budgetPackagingId"
-                                            binding="#{BudgetCustomerBean.itlovBudVariant}">
+                                            binding="#{BudgetCustomerBean.itlovBudVariant}"
+                                            immediate="true">
                         <f:validator binding="#{row.bindings.BudgetVariant.validator}"/>
                       </af:inputListOfValues>
                     </af:panelGroupLayout>
@@ -511,7 +966,8 @@
                                   maximumLength="#{bindings.BudgetCustomerView1.hints.YearlyBudgetAmount.precision}"
                                   shortDesc="#{bindings.BudgetCustomerView1.hints.YearlyBudgetAmount.tooltip}"
                                   id="it1"
-                                  disabled="#{row.TranRow == 'T'}">
+                                  disabled="#{(row.TranRow == 'T' and (UserData.userRole != 'adminapp'))}"
+                                  readOnly="true">
                       <f:validator binding="#{row.bindings.YearlyBudgetAmount.validator}"/>
                       <af:convertNumber groupingUsed="false"
                                         pattern="#{bindings.BudgetCustomerView1.hints.YearlyBudgetAmount.format}"/>
@@ -532,6 +988,57 @@
                                         pattern="#{bindings.BudgetCustomerView1.hints.YearlyBudgetRemaining.format}"/>
                     </af:inputText>
                   </af:column>
+                  <af:column sortProperty="#{bindings.BudgetCustomerView1.hints.BudgetAsToDate.name}"
+                             sortable="false"
+                             headerText="#{bindings.BudgetCustomerView1.hints.BudgetAsToDate.label}"
+                             id="c18" width="250" minimumWidth="250"
+                             align="center">
+                    <af:inputText value="#{row.bindings.BudgetAsToDate.inputValue} [#{row.PercentAsToDateVsYearly} %]"
+                                  label="#{bindings.BudgetCustomerView1.hints.BudgetAsToDate.label}"
+                                  required="#{bindings.BudgetCustomerView1.hints.BudgetAsToDate.mandatory}"
+                                  columns="#{bindings.BudgetCustomerView1.hints.BudgetAsToDate.displayWidth}"
+                                  maximumLength="#{bindings.BudgetCustomerView1.hints.BudgetAsToDate.precision}"
+                                  shortDesc="#{bindings.BudgetCustomerView1.hints.BudgetAsToDate.tooltip}"
+                                  id="it13" readOnly="true">
+                      <f:validator binding="#{row.bindings.BudgetAsToDate.validator}"/>
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.BudgetCustomerView1.hints.BudgetAsToDate.format}"/>
+                    </af:inputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateUsed.name}"
+                             sortable="false"
+                             headerText="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateUsed.label}"
+                             id="c17" width="200" minimumWidth="200"
+                             align="center">
+                    <af:inputText value="#{row.bindings.BudgetAsToDateUsed.inputValue}"
+                                  label="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateUsed.label}"
+                                  required="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateUsed.mandatory}"
+                                  columns="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateUsed.displayWidth}"
+                                  maximumLength="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateUsed.precision}"
+                                  shortDesc="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateUsed.tooltip}"
+                                  id="it14" readOnly="true">
+                      <f:validator binding="#{row.bindings.BudgetAsToDateUsed.validator}"/>
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateUsed.format}"/>
+                    </af:inputText>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateRemaining.name}"
+                             sortable="false"
+                             headerText="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateRemaining.label}"
+                             id="c19" width="200" minimumWidth="200"
+                             align="center">
+                    <af:inputText value="#{row.bindings.BudgetAsToDateRemaining.inputValue}"
+                                  label="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateRemaining.label}"
+                                  required="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateRemaining.mandatory}"
+                                  columns="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateRemaining.displayWidth}"
+                                  maximumLength="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateRemaining.precision}"
+                                  shortDesc="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateRemaining.tooltip}"
+                                  id="it15" readOnly="true">
+                      <f:validator binding="#{row.bindings.BudgetAsToDateRemaining.validator}"/>
+                      <af:convertNumber groupingUsed="false"
+                                        pattern="#{bindings.BudgetCustomerView1.hints.BudgetAsToDateRemaining.format}"/>
+                    </af:inputText>
+                  </af:column>
                   <af:column headerText="#{bindings.BudgetCustomerView1.hints.Status.label}"
                              id="c10" align="center">
                     <af:selectOneChoice value="#{row.bindings.Status.inputValue}"
@@ -543,6 +1050,20 @@
                       <f:selectItems value="#{row.bindings.Status.items}"
                                      id="si2"/>
                     </af:selectOneChoice>
+                  </af:column>
+                  <af:column sortProperty="#{bindings.BudgetCustomerView1.hints.BudgetCustomerId.name}"
+                             sortable="false"
+                             headerText="#{bindings.BudgetCustomerView1.hints.BudgetCustomerId.label}"
+                             id="c20" visible="false">
+                    <af:inputText value="#{row.bindings.BudgetCustomerId.inputValue}"
+                                  label="#{bindings.BudgetCustomerView1.hints.BudgetCustomerId.label}"
+                                  required="#{bindings.BudgetCustomerView1.hints.BudgetCustomerId.mandatory}"
+                                  columns="#{bindings.BudgetCustomerView1.hints.BudgetCustomerId.displayWidth}"
+                                  maximumLength="#{bindings.BudgetCustomerView1.hints.BudgetCustomerId.precision}"
+                                  shortDesc="#{bindings.BudgetCustomerView1.hints.BudgetCustomerId.tooltip}"
+                                  id="it16" readOnly="true">
+                      <f:validator binding="#{row.bindings.BudgetCustomerId.validator}"/>
+                    </af:inputText>
                   </af:column>
                 </af:table>
               </af:panelCollection>

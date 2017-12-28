@@ -46,28 +46,6 @@ public class DuplicateProdRegionCustGroupViewRowImpl extends ViewRowImpl {
                 obj.setNotes((String)value);
             }
         }
-        ,
-        RegionCode {
-            public Object get(DuplicateProdRegionCustGroupViewRowImpl obj) {
-                return obj.getRegionCode();
-            }
-
-            public void put(DuplicateProdRegionCustGroupViewRowImpl obj,
-                            Object value) {
-                obj.setRegionCode((String)value);
-            }
-        }
-        ,
-        CustGroupName {
-            public Object get(DuplicateProdRegionCustGroupViewRowImpl obj) {
-                return obj.getCustGroupName();
-            }
-
-            public void put(DuplicateProdRegionCustGroupViewRowImpl obj,
-                            Object value) {
-                obj.setCustGroupName((String)value);
-            }
-        }
         ;
         private static AttributesEnum[] vals = null;
         private static final int firstIndex = 0;
@@ -101,8 +79,6 @@ public class DuplicateProdRegionCustGroupViewRowImpl extends ViewRowImpl {
     public static final int PROMOPRODUKID = AttributesEnum.PromoProdukId.index();
     public static final int CUSTGROUP = AttributesEnum.CustGroup.index();
     public static final int NOTES = AttributesEnum.Notes.index();
-    public static final int REGIONCODE = AttributesEnum.RegionCode.index();
-    public static final int CUSTGROUPNAME = AttributesEnum.CustGroupName.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -158,37 +134,6 @@ public class DuplicateProdRegionCustGroupViewRowImpl extends ViewRowImpl {
         setAttributeInternal(NOTES, value);
     }
 
-    /**
-     * Gets the attribute value for the calculated attribute RegionCode.
-     * @return the RegionCode
-     */
-    public String getRegionCode() {
-        return (String) getAttributeInternal(REGIONCODE);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute RegionCode.
-     * @param value value to set the  RegionCode
-     */
-    public void setRegionCode(String value) {
-        setAttributeInternal(REGIONCODE, value);
-    }
-
-    /**
-     * Gets the attribute value for the calculated attribute CustGroupName.
-     * @return the CustGroupName
-     */
-    public String getCustGroupName() {
-        return (String) getAttributeInternal(CUSTGROUPNAME);
-    }
-
-    /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute CustGroupName.
-     * @param value value to set the  CustGroupName
-     */
-    public void setCustGroupName(String value) {
-        setAttributeInternal(CUSTGROUPNAME, value);
-    }
 
     /**
      * getAttrInvokeAccessor: generated method. Do not modify.

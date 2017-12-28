@@ -10,5 +10,6 @@ public interface PromoProposalAM extends ApplicationModule {
 
     void addDocApproval(String propId, String docNo, String docStatus,
                         String promoDtFrom, String promoDtTo, String docRegion,
-                        String roleName, String userNm, String aprvlFlowNm);
+                        String usrRole, String userNm, String aprvlFlowNm,
+                        String propDt);
 }

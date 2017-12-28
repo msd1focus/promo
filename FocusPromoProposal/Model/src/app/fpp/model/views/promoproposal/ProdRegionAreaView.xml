@@ -9,16 +9,16 @@
   SelectList="ProdRegionArea.PROMO_PRODUK_ID, 
        ProdRegionArea.AREA_CODE, 
        ProdRegionArea.NOTES, 
-       FcsViewTerritoryArea.DESCRIPTION, 
-       FcsViewTerritoryArea.VALUE, 
-       (SELECT ARC.ATTRIBUTE3 FROM APPS.AR_CUSTOMERS ARC WHERE ARC.ATTRIBUTE4 = ProdRegionArea.AREA_CODE GROUP BY ARC.ATTRIBUTE3) AS REGION_CODE"
-  FromList="PROD_REGION_AREA ProdRegionArea, APPS.FCS_VIEW_TERRITORY_AREA FcsViewTerritoryArea"
+       (SELECT ARC.ATTRIBUTE3 FROM APPS.AR_CUSTOMERS ARC WHERE ARC.ATTRIBUTE4 = ProdRegionArea.AREA_CODE GROUP BY ARC.ATTRIBUTE3) AS REGION_CODE, 
+       FcsFlexValuesVl.DESCRIPTION, 
+       FcsFlexValuesVl.FLEX_VALUE_ID"
+  FromList="PROD_REGION_AREA ProdRegionArea, APPS.FCS_FLEX_VALUES_VL FcsFlexValuesVl"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
-  Where="FcsViewTerritoryArea.VALUE = ProdRegionArea.AREA_CODE"
-  OrderBy='"REGION_CODE",ProdRegionArea.AREA_CODE,FcsViewTerritoryArea.DESCRIPTION'>
+  OrderBy='ProdRegionArea.AREA_CODE,FcsFlexValuesVl.DESCRIPTION'
+  Where="FcsFlexValuesVl.FLEX_VALUE = ProdRegionArea.AREA_CODE">
   <Properties>
     <SchemaBasedProperties>
       <LABEL
@@ -29,8 +29,8 @@
     Name="ProdRegionArea"
     Entity="app.fpp.model.entities.promoproposal.ProdRegionArea"/>
   <EntityUsage
-    Name="FcsViewTerritoryArea"
-    Entity="app.fpp.model.entities.masterdata.ebs.FcsViewTerritoryArea"
+    Name="FcsFlexValuesVl"
+    Entity="app.fpp.model.entities.masterdata.ebs.FcsFlexValuesVl"
     SourceUsage="app.fpp.model.views.promoproposal.ProdRegionAreaView.ProdRegionArea"
     ReadOnly="true"
     Reference="true"
@@ -60,19 +60,6 @@
       PropertiesFile="app.fpp.model.ModelBundle"/>
   </ResourceBundle>
   <ViewAttribute
-    Name="Description"
-    PrecisionRule="true"
-    EntityAttrName="Description"
-    EntityUsage="FcsViewTerritoryArea"
-    AliasName="DESCRIPTION"/>
-  <ViewAttribute
-    Name="Value"
-    IsNotNull="true"
-    PrecisionRule="true"
-    EntityAttrName="Value"
-    EntityUsage="FcsViewTerritoryArea"
-    AliasName="VALUE"/>
-  <ViewAttribute
     Name="RegionCode"
     IsUpdateable="false"
     IsPersistent="false"
@@ -83,4 +70,17 @@
     SQLType="VARCHAR"
     Precision="255"
     Expression="SELECT ARC.ATTRIBUTE3 FROM APPS.AR_CUSTOMERS ARC WHERE ARC.ATTRIBUTE4 = ProdRegionArea.AREA_CODE GROUP BY ARC.ATTRIBUTE3"/>
+  <ViewAttribute
+    Name="Description"
+    PrecisionRule="true"
+    EntityAttrName="Description"
+    EntityUsage="FcsFlexValuesVl"
+    AliasName="DESCRIPTION"/>
+  <ViewAttribute
+    Name="FlexValueId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="FlexValueId"
+    EntityUsage="FcsFlexValuesVl"
+    AliasName="FLEX_VALUE_ID"/>
 </ViewObject>

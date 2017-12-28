@@ -243,6 +243,76 @@ public class BudgetCustomerViewRowImpl extends ViewRowImpl {
             }
         }
         ,
+        BudgetAsToDate {
+            public Object get(BudgetCustomerViewRowImpl obj) {
+                return obj.getBudgetAsToDate();
+            }
+
+            public void put(BudgetCustomerViewRowImpl obj, Object value) {
+                obj.setBudgetAsToDate((Number)value);
+            }
+        }
+        ,
+        BudgetAsToDateUsed {
+            public Object get(BudgetCustomerViewRowImpl obj) {
+                return obj.getBudgetAsToDateUsed();
+            }
+
+            public void put(BudgetCustomerViewRowImpl obj, Object value) {
+                obj.setBudgetAsToDateUsed((Number)value);
+            }
+        }
+        ,
+        BudgetAsToDateRemaining {
+            public Object get(BudgetCustomerViewRowImpl obj) {
+                return obj.getBudgetAsToDateRemaining();
+            }
+
+            public void put(BudgetCustomerViewRowImpl obj, Object value) {
+                obj.setBudgetAsToDateRemaining((Number)value);
+            }
+        }
+        ,
+        CheckRowStatus {
+            public Object get(BudgetCustomerViewRowImpl obj) {
+                return obj.getCheckRowStatus();
+            }
+
+            public void put(BudgetCustomerViewRowImpl obj, Object value) {
+                obj.setCheckRowStatus((Integer)value);
+            }
+        }
+        ,
+        BudgetHistoryNum {
+            public Object get(BudgetCustomerViewRowImpl obj) {
+                return obj.getBudgetHistoryNum();
+            }
+
+            public void put(BudgetCustomerViewRowImpl obj, Object value) {
+                obj.setBudgetHistoryNum((Long)value);
+            }
+        }
+        ,
+        PercentAsToDateVsYearly {
+            public Object get(BudgetCustomerViewRowImpl obj) {
+                return obj.getPercentAsToDateVsYearly();
+            }
+
+            public void put(BudgetCustomerViewRowImpl obj, Object value) {
+                obj.setPercentAsToDateVsYearly((Number)value);
+            }
+        }
+        ,
+        BudgetApprovalNum {
+            public Object get(BudgetCustomerViewRowImpl obj) {
+                return obj.getBudgetApprovalNum();
+            }
+
+            public void put(BudgetCustomerViewRowImpl obj, Object value) {
+                obj.setBudgetApprovalNum((Long)value);
+            }
+        }
+        ,
         BudgetCustTranView {
             public Object get(BudgetCustomerViewRowImpl obj) {
                 return obj.getBudgetCustTranView();
@@ -256,6 +326,16 @@ public class BudgetCustomerViewRowImpl extends ViewRowImpl {
         BudgetCustTranHistoryView {
             public Object get(BudgetCustomerViewRowImpl obj) {
                 return obj.getBudgetCustTranHistoryView();
+            }
+
+            public void put(BudgetCustomerViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        BudgetCustTranApproval {
+            public Object get(BudgetCustomerViewRowImpl obj) {
+                return obj.getBudgetCustTranApproval();
             }
 
             public void put(BudgetCustomerViewRowImpl obj, Object value) {
@@ -395,8 +475,16 @@ public class BudgetCustomerViewRowImpl extends ViewRowImpl {
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDON = AttributesEnum.ModifiedOn.index();
     public static final int TRANROW = AttributesEnum.TranRow.index();
+    public static final int BUDGETASTODATE = AttributesEnum.BudgetAsToDate.index();
+    public static final int BUDGETASTODATEUSED = AttributesEnum.BudgetAsToDateUsed.index();
+    public static final int BUDGETASTODATEREMAINING = AttributesEnum.BudgetAsToDateRemaining.index();
+    public static final int CHECKROWSTATUS = AttributesEnum.CheckRowStatus.index();
+    public static final int BUDGETHISTORYNUM = AttributesEnum.BudgetHistoryNum.index();
+    public static final int PERCENTASTODATEVSYEARLY = AttributesEnum.PercentAsToDateVsYearly.index();
+    public static final int BUDGETAPPROVALNUM = AttributesEnum.BudgetApprovalNum.index();
     public static final int BUDGETCUSTTRANVIEW = AttributesEnum.BudgetCustTranView.index();
     public static final int BUDGETCUSTTRANHISTORYVIEW = AttributesEnum.BudgetCustTranHistoryView.index();
+    public static final int BUDGETCUSTTRANAPPROVAL = AttributesEnum.BudgetCustTranApproval.index();
     public static final int BUDGETCUSTTYPELOV = AttributesEnum.BudgetCustTypeLov.index();
     public static final int BUDGETBYCATEGORYLOV = AttributesEnum.BudgetByCategoryLov.index();
     public static final int BUDGETBYCLASSLOV = AttributesEnum.BudgetByClassLov.index();
@@ -814,6 +902,127 @@ public class BudgetCustomerViewRowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for BUDGET_AS_TO_DATE using the alias name BudgetAsToDate.
+     * @return the BUDGET_AS_TO_DATE
+     */
+    public Number getBudgetAsToDate() {
+        return (Number) getAttributeInternal(BUDGETASTODATE);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for BUDGET_AS_TO_DATE using the alias name BudgetAsToDate.
+     * @param value value to set the BUDGET_AS_TO_DATE
+     */
+    public void setBudgetAsToDate(Number value) {
+        setAttributeInternal(BUDGETASTODATE, value);
+    }
+
+    /**
+     * Gets the attribute value for BUDGET_AS_TO_DATE_USED using the alias name BudgetAsToDateUsed.
+     * @return the BUDGET_AS_TO_DATE_USED
+     */
+    public Number getBudgetAsToDateUsed() {
+        return (Number) getAttributeInternal(BUDGETASTODATEUSED);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for BUDGET_AS_TO_DATE_USED using the alias name BudgetAsToDateUsed.
+     * @param value value to set the BUDGET_AS_TO_DATE_USED
+     */
+    public void setBudgetAsToDateUsed(Number value) {
+        setAttributeInternal(BUDGETASTODATEUSED, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute BudgetAsToDateRemaining.
+     * @return the BudgetAsToDateRemaining
+     */
+    public Number getBudgetAsToDateRemaining() {
+        return (Number) getAttributeInternal(BUDGETASTODATEREMAINING);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute BudgetAsToDateRemaining.
+     * @param value value to set the  BudgetAsToDateRemaining
+     */
+    public void setBudgetAsToDateRemaining(Number value) {
+        setAttributeInternal(BUDGETASTODATEREMAINING, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CheckRowStatus.
+     * @return the CheckRowStatus
+     */
+     /*here row is reference variable of collection, this expression returns an int value if it is 
+      2-Modified
+      0-New
+      1-Unmodified
+     -1-Initialized
+     */
+     public Integer getCheckRowStatus() {
+         byte entityState = this.getEntity(0).getEntityState();
+         return new Integer(entityState);
+
+         // return (Integer) getAttributeInternal(CHECKROWSTATUS);
+     }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CheckRowStatus.
+     * @param value value to set the  CheckRowStatus
+     */
+    public void setCheckRowStatus(Integer value) {
+        setAttributeInternal(CHECKROWSTATUS, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute BudgetHistoryNum.
+     * @return the BudgetHistoryNum
+     */
+    public Long getBudgetHistoryNum() {
+        return (Long) getAttributeInternal(BUDGETHISTORYNUM);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute BudgetHistoryNum.
+     * @param value value to set the  BudgetHistoryNum
+     */
+    public void setBudgetHistoryNum(Long value) {
+        setAttributeInternal(BUDGETHISTORYNUM, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PercentAsToDateVsYearly.
+     * @return the PercentAsToDateVsYearly
+     */
+    public Number getPercentAsToDateVsYearly() {
+        return (Number) getAttributeInternal(PERCENTASTODATEVSYEARLY);
+    }
+
+	/**
+     * Gets the attribute value for the calculated attribute BudgetApprovalNum.
+     * @return the BudgetApprovalNum
+     */
+    public Long getBudgetApprovalNum() {
+        return (Long) getAttributeInternal(BUDGETAPPROVALNUM);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PercentAsToDateVsYearly.
+     * @param value value to set the  PercentAsToDateVsYearly
+     */
+    public void setPercentAsToDateVsYearly(Number value) {
+        setAttributeInternal(PERCENTASTODATEVSYEARLY, value);
+    }
+	
+	/**
+     * Sets <code>value</code> as the attribute value for the calculated attribute BudgetApprovalNum.
+     * @param value value to set the  BudgetApprovalNum
+     */
+    public void setBudgetApprovalNum(Long value) {
+        setAttributeInternal(BUDGETAPPROVALNUM, value);
+    }
+
+    /**
      * Gets the attribute value for the calculated attribute YearlyBudgetRemaining.
      * @return the YearlyBudgetRemaining
      */
@@ -857,6 +1066,13 @@ public class BudgetCustomerViewRowImpl extends ViewRowImpl {
      */
     public RowIterator getBudgetCustTranHistoryView() {
         return (RowIterator)getAttributeInternal(BUDGETCUSTTRANHISTORYVIEW);
+    }
+
+    /**
+     * Gets the associated <code>RowIterator</code> using master-detail link BudgetCustTranApproval.
+     */
+    public RowIterator getBudgetCustTranApproval() {
+        return (RowIterator)getAttributeInternal(BUDGETCUSTTRANAPPROVAL);
     }
 
     /**

@@ -4,7 +4,7 @@
     <default-activity id="__6">FilterByCompanyUser</default-activity>
     <managed-bean id="__4">
       <managed-bean-name id="__3">ProposalBean</managed-bean-name>
-      <managed-bean-class id="__2">app.fpp.bean.ProposalBean</managed-bean-class>
+      <managed-bean-class id="__2">app.fpp.bean.promoproposal.ProposalBean</managed-bean-class>
       <managed-bean-scope id="__5">request</managed-bean-scope>
     </managed-bean>
     <view id="formProposal">
@@ -445,13 +445,13 @@
         <document>/WEB-INF/pp-excl-prop-area.xml</document>
         <id>pp-excl-prop-area</id>
       </task-flow-reference>
-      <input-parameter id="__150">
-        <name>propId</name>
-        <value>#{pageFlowScope.propId}</value>
+      <input-parameter id="__186">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
       </input-parameter>
-      <input-parameter id="__151">
-        <name>propNo</name>
-        <value>#{pageFlowScope.propNo}</value>
+      <input-parameter id="__187">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
       </input-parameter>
       <run-as-dialog>
         <display-type id="__133">
@@ -464,13 +464,13 @@
         <document>/WEB-INF/pp-excl-prop-customer.xml</document>
         <id>pp-excl-prop-customer</id>
       </task-flow-reference>
-      <input-parameter id="__148">
-        <name>propId</name>
-        <value>#{pageFlowScope.propId}</value>
+      <input-parameter id="__184">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
       </input-parameter>
-      <input-parameter id="__149">
-        <name>propNo</name>
-        <value>#{pageFlowScope.propNo}</value>
+      <input-parameter id="__185">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
       </input-parameter>
       <run-as-dialog>
         <display-type id="__132">
@@ -483,13 +483,13 @@
         <document>/WEB-INF/pp-excl-prop-region.xml</document>
         <id>pp-excl-prop-region</id>
       </task-flow-reference>
-      <input-parameter id="__154">
-        <name>propId</name>
-        <value>#{pageFlowScope.propId}</value>
+      <input-parameter id="__190">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
       </input-parameter>
-      <input-parameter id="__155">
-        <name>propNo</name>
-        <value>#{pageFlowScope.propNo}</value>
+      <input-parameter id="__191">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
       </input-parameter>
       <run-as-dialog>
         <display-type id="__135">
@@ -502,13 +502,13 @@
         <document>/WEB-INF/pp-excl-prop-loc.xml</document>
         <id>pp-excl-prop-loc</id>
       </task-flow-reference>
-      <input-parameter id="__152">
-        <name>propId</name>
-        <value>#{pageFlowScope.propId}</value>
+      <input-parameter id="__188">
+        <name>promoProdukId</name>
+        <value>#{pageFlowScope.promoProdukId}</value>
       </input-parameter>
-      <input-parameter id="__153">
-        <name>propNo</name>
-        <value>#{pageFlowScope.propNo}</value>
+      <input-parameter id="__189">
+        <name>prodName</name>
+        <value>#{pageFlowScope.prodName}</value>
       </input-parameter>
       <run-as-dialog>
         <display-type id="__134">
@@ -588,6 +588,25 @@
       </input-parameter>
       <run-as-dialog>
         <display-type id="__171">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="pp-upload-download">
+      <task-flow-reference>
+        <document>/WEB-INF/pp-upload-download.xml</document>
+        <id>pp-upload-download</id>
+      </task-flow-reference>
+      <input-parameter id="__151">
+        <name>propId</name>
+        <value>#{pageFlowScope.propId}</value>
+      </input-parameter>
+      <input-parameter id="__152">
+        <name>propNo</name>
+        <value>#{pageFlowScope.propNo}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__153">
           <inline-popup/>
         </display-type>
       </run-as-dialog>
@@ -689,6 +708,10 @@
       <control-flow-case id="__165">
         <from-outcome id="__167">exclprodregion</from-outcome>
         <to-activity-id id="__166">pp-excl-prod-region</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__149">
+        <from-outcome id="__150">uploaddownload</from-outcome>
+        <to-activity-id id="__148">pp-upload-download</to-activity-id>
       </control-flow-case>
     </control-flow-rule>
     <control-flow-rule id="__7">

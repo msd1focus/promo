@@ -30,6 +30,7 @@ public class ApprovalReceiverRejectProposalViewImpl extends ViewObjectImpl {
         setNamedWhereClauseParam("aprvlCode", value);
     }
 
+
     /**
      * Returns the bind variable value for usrRole.
      * @return bind variable value for usrRole
@@ -44,5 +45,21 @@ public class ApprovalReceiverRejectProposalViewImpl extends ViewObjectImpl {
      */
     public void setusrRole(String value) {
         setNamedWhereClauseParam("usrRole", value);
+    }
+
+    /**
+     * Returns the bind variable value for noProp.
+     * @return bind variable value for noProp
+     */
+    public String getnoProp() {
+        return (String)getNamedWhereClauseParam("noProp");
+    }
+
+    /**
+     * Sets <code>value</code> for bind variable noProp.
+     * @param value value to bind as noProp
+     */
+    public void setnoProp(String value) {
+        setNamedWhereClauseParam("noProp", value);
     }
 }

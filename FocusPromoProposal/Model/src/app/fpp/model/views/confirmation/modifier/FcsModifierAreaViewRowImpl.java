@@ -16,6 +16,16 @@ public class FcsModifierAreaViewRowImpl extends ViewRowImpl {
      * AttributesEnum: generated enum for identifying attributes and accessors. DO NOT MODIFY.
      */
     public enum AttributesEnum {
+        LineNum {
+            public Object get(FcsModifierAreaViewRowImpl obj) {
+                return obj.getLineNum();
+            }
+
+            public void put(FcsModifierAreaViewRowImpl obj, Object value) {
+                obj.setLineNum((Number)value);
+            }
+        }
+        ,
         NoConfirm {
             public Object get(FcsModifierAreaViewRowImpl obj) {
                 return obj.getNoConfirm();
@@ -286,13 +296,43 @@ public class FcsModifierAreaViewRowImpl extends ViewRowImpl {
             }
         }
         ,
-        Bucket1 {
+        ConfirmNoDef {
             public Object get(FcsModifierAreaViewRowImpl obj) {
-                return obj.getBucket1();
+                return obj.getConfirmNoDef();
             }
 
             public void put(FcsModifierAreaViewRowImpl obj, Object value) {
-                obj.setBucket1((String)value);
+                obj.setConfirmNoDef((String)value);
+            }
+        }
+        ,
+        PromoProdukId {
+            public Object get(FcsModifierAreaViewRowImpl obj) {
+                return obj.getPromoProdukId();
+            }
+
+            public void put(FcsModifierAreaViewRowImpl obj, Object value) {
+                obj.setPromoProdukId((Number)value);
+            }
+        }
+        ,
+        DiscYearly {
+            public Object get(FcsModifierAreaViewRowImpl obj) {
+                return obj.getDiscYearly();
+            }
+
+            public void put(FcsModifierAreaViewRowImpl obj, Object value) {
+                obj.setDiscYearly((Number)value);
+            }
+        }
+        ,
+        Ket {
+            public Object get(FcsModifierAreaViewRowImpl obj) {
+                return obj.getKet();
+            }
+
+            public void put(FcsModifierAreaViewRowImpl obj, Object value) {
+                obj.setKet((String)value);
             }
         }
         ;
@@ -325,6 +365,7 @@ public class FcsModifierAreaViewRowImpl extends ViewRowImpl {
     }
 
 
+    public static final int LINENUM = AttributesEnum.LineNum.index();
     public static final int NOCONFIRM = AttributesEnum.NoConfirm.index();
     public static final int CURRENCY = AttributesEnum.Currency.index();
     public static final int STARTDATE = AttributesEnum.StartDate.index();
@@ -352,7 +393,10 @@ public class FcsModifierAreaViewRowImpl extends ViewRowImpl {
     public static final int QUALIFIERATTR = AttributesEnum.QualifierAttr.index();
     public static final int OPERATORSIGN = AttributesEnum.OperatorSign.index();
     public static final int VALUEQUALIFIER = AttributesEnum.ValueQualifier.index();
-    public static final int BUCKET1 = AttributesEnum.Bucket1.index();
+    public static final int CONFIRMNODEF = AttributesEnum.ConfirmNoDef.index();
+    public static final int PROMOPRODUKID = AttributesEnum.PromoProdukId.index();
+    public static final int DISCYEARLY = AttributesEnum.DiscYearly.index();
+    public static final int KET = AttributesEnum.Ket.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -360,13 +404,6 @@ public class FcsModifierAreaViewRowImpl extends ViewRowImpl {
     public FcsModifierAreaViewRowImpl() {
     }
 
-    /**
-     * Gets FcsViewItemMasterCategory entity object.
-     * @return the FcsViewItemMasterCategory
-     */
-    public EntityImpl getFcsViewItemMasterCategory() {
-        return (EntityImpl)getEntity(0);
-    }
 
     /**
      * Gets the attribute value for the calculated attribute NoConfirm.
@@ -721,6 +758,22 @@ public class FcsModifierAreaViewRowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for the calculated attribute LineNum.
+     * @return the LineNum
+     */
+    public Number getLineNum() {
+        return (Number) getAttributeInternal(LINENUM);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute LineNum.
+     * @param value value to set the  LineNum
+     */
+    public void setLineNum(Number value) {
+        setAttributeInternal(LINENUM, value);
+    }
+
+    /**
      * Gets the attribute value for the calculated attribute GroupingNo.
      * @return the GroupingNo
      */
@@ -802,19 +855,68 @@ public class FcsModifierAreaViewRowImpl extends ViewRowImpl {
 
 
     /**
-     * Gets the attribute value for the calculated attribute Bucket1.
-     * @return the Bucket1
+     * Gets the attribute value for the calculated attribute ConfirmNoDef.
+     * @return the ConfirmNoDef
      */
-    public String getBucket1() {
-        return (String) getAttributeInternal(BUCKET1);
+    public String getConfirmNoDef() {
+        return (String) getAttributeInternal(CONFIRMNODEF);
     }
 
     /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute Bucket1.
-     * @param value value to set the  Bucket1
+     * Sets <code>value</code> as the attribute value for the calculated attribute ConfirmNoDef.
+     * @param value value to set the  ConfirmNoDef
      */
-    public void setBucket1(String value) {
-        setAttributeInternal(BUCKET1, value);
+    public void setConfirmNoDef(String value) {
+        setAttributeInternal(CONFIRMNODEF, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute PromoProdukId.
+     * @return the PromoProdukId
+     */
+    public Number getPromoProdukId() {
+        return (Number) getAttributeInternal(PROMOPRODUKID);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute PromoProdukId.
+     * @param value value to set the  PromoProdukId
+     */
+    public void setPromoProdukId(Number value) {
+        setAttributeInternal(PROMOPRODUKID, value);
+    }
+
+
+    /**
+     * Gets the attribute value for the calculated attribute DiscYearly.
+     * @return the DiscYearly
+     */
+    public Number getDiscYearly() {
+        return (Number) getAttributeInternal(DISCYEARLY);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute DiscYearly.
+     * @param value value to set the  DiscYearly
+     */
+    public void setDiscYearly(Number value) {
+        setAttributeInternal(DISCYEARLY, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute Ket.
+     * @return the Ket
+     */
+    public String getKet() {
+        return (String) getAttributeInternal(KET);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute Ket.
+     * @param value value to set the  Ket
+     */
+    public void setKet(String value) {
+        setAttributeInternal(KET, value);
     }
 
     /**

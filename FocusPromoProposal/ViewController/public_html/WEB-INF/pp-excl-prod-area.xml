@@ -16,7 +16,7 @@
     </input-parameter-definition>
     <managed-bean id="__25">
       <managed-bean-name id="__24">PpProdExclAreaBackingBean</managed-bean-name>
-      <managed-bean-class id="__26">app.fpp.bean.PpProdExclAreaBackingBean</managed-bean-class>
+      <managed-bean-class id="__26">app.fpp.bean.promoproposal.PpProdExclAreaBackingBean</managed-bean-class>
       <managed-bean-scope id="__27">backingBean</managed-bean-scope>
     </managed-bean>
     <method-call id="setKeyPromoProdukId">

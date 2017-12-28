@@ -30,19 +30,20 @@ public class ApprovalReceiverApproveProposalViewImpl extends ViewObjectImpl {
         setNamedWhereClauseParam("aprvlCode", value);
     }
 
+
     /**
-     * Returns the bind variable value for usrRole.
-     * @return bind variable value for usrRole
+     * Returns the bind variable value for usrName.
+     * @return bind variable value for usrName
      */
-    public String getusrRole() {
-        return (String)getNamedWhereClauseParam("usrRole");
+    public String getusrName() {
+        return (String)getNamedWhereClauseParam("usrName");
     }
 
     /**
-     * Sets <code>value</code> for bind variable usrRole.
-     * @param value value to bind as usrRole
+     * Sets <code>value</code> for bind variable usrName.
+     * @param value value to bind as usrName
      */
-    public void setusrRole(String value) {
-        setNamedWhereClauseParam("usrRole", value);
+    public void setusrName(String value) {
+        setNamedWhereClauseParam("usrName", value);
     }
 }

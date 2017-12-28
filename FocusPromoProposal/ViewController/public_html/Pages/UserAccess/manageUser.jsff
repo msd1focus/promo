@@ -20,7 +20,7 @@
     </f:facet>
     <f:facet name="second">
       <af:panelSplitter id="panelSplitter1" splitterPosition="300"
-                        disabled="true">
+                        disabled="false">
         <f:facet name="first">
           <af:panelCollection id="pc2" styleClass="AFStretchWidth"
                               featuresOff="detach viewMenu columnsMenuItem">
@@ -149,9 +149,9 @@
                   <f:facet name="start">
                     <af:panelGroupLayout id="pgl3" layout="vertical"
                                          inlineStyle="padding-top:3px; padding-left:5px;">
-                      <af:outputText value="#{row.UserName}" id="ot4"
-                                     inlineStyle="font-weight:bold;"/>
-                      <af:outputText value="#{row.FullName}" id="ot1"
+                      <af:outputText value="#{row.FullName}" id="ot4"
+                                     inlineStyle="font-weight:bold;text-transform: uppercase;"/>
+                      <af:outputText value="Username: #{row.UserName}" id="ot1"
                                      inlineStyle="font-size:xx-small;padding-top:2px;"/>
                     </af:panelGroupLayout>
                   </f:facet>
@@ -184,7 +184,7 @@
                              id="outputText3"/>
             </af:panelGroupLayout>
             <af:panelHeader text=" " id="ph1"
-                            inlineStyle="padding-right:40px; padding-top:6px; height:500px;"
+                            inlineStyle="padding-right:40px; padding-top:6px; height:660px;"
                             visible="#{bindings.AppUserAccessView1Iterator.estimatedRowCount > 0}"
                             type="default">
               <f:facet name="toolbar">
@@ -228,203 +228,243 @@
                   </af:commandToolbarButton>
                 </af:toolbar>
               </f:facet>
-              <af:panelSplitter id="ps1" orientation="horizontal"
+              <af:panelSplitter id="ps3" orientation="vertical"
                                 styleClass="AFStretchWidth"
-                                splitterPosition="468" dimensionsFrom="auto"
-                                disabled="true" inlineStyle="padding-top:20px;"
-                                binding="#{UserAccessBean.psUserData}">
+                                splitterPosition="300"
+                                inlineStyle="height:600px;" disabled="true">
                 <f:facet name="first">
-                  <af:panelFormLayout id="pfl1" labelWidth="130"
-                                      partialTriggers="pc2:t1">
-                    <af:spacer width="10" height="10" id="s4"/>
-                    <af:panelLabelAndMessage label="#{bindings.UserName.hints.label}"
-                                             id="plam5">
-                      <af:panelGroupLayout id="pgl10" layout="horizontal">
-                        <af:inputText value="#{bindings.UserName.inputValue}"
-                                      label="#{bindings.UserName.hints.label}"
-                                      required="#{bindings.UserName.hints.mandatory}"
-                                      columns="#{bindings.UserName.hints.displayWidth}"
-                                      maximumLength="#{bindings.UserName.hints.precision}"
-                                      shortDesc="#{bindings.UserName.hints.tooltip}"
-                                      id="it4" readOnly="true"
-                                      contentStyle="font-weight:bold;"
-                                      simple="true">
-                          <f:validator binding="#{bindings.UserName.validator}"/>
+                  <af:panelSplitter id="ps1" orientation="horizontal"
+                                    styleClass="AFStretchWidth"
+                                    splitterPosition="420" dimensionsFrom="auto"
+                                    disabled="true"
+                                    inlineStyle="padding-top:20px;"
+                                    binding="#{UserAccessBean.psUserData}">
+                    <f:facet name="first">
+                      <af:panelFormLayout id="pfl1" labelWidth="150"
+                                          partialTriggers="pc2:t1">
+                        <af:spacer width="10" height="10" id="s4"/>
+                        <af:panelLabelAndMessage label="#{bindings.UserName.hints.label}"
+                                                 id="plam5">
+                          <af:panelGroupLayout id="pgl10" layout="horizontal">
+                            <af:inputText value="#{bindings.UserName.inputValue}"
+                                          label="#{bindings.UserName.hints.label}"
+                                          required="#{bindings.UserName.hints.mandatory}"
+                                          columns="#{bindings.UserName.hints.displayWidth}"
+                                          maximumLength="#{bindings.UserName.hints.precision}"
+                                          shortDesc="#{bindings.UserName.hints.tooltip}"
+                                          id="it4" readOnly="true"
+                                          contentStyle="font-weight:bold;"
+                                          simple="true">
+                              <f:validator binding="#{bindings.UserName.validator}"/>
+                            </af:inputText>
+                            <af:outputText value="," id="outputText1"/>
+                            <af:spacer width="10" height="10" id="spacer2"/>
+                            <af:inputText value="#{bindings.UserInitial.inputValue}"
+                                          label="#{bindings.UserInitial.hints.label}"
+                                          required="#{bindings.UserInitial.hints.mandatory}"
+                                          columns="#{bindings.UserInitial.hints.displayWidth}"
+                                          maximumLength="#{bindings.UserInitial.hints.precision}"
+                                          shortDesc="#{bindings.UserInitial.hints.tooltip}"
+                                          id="it11" readOnly="true"
+                                          contentStyle="font-weight:bold;">
+                              <f:validator binding="#{bindings.UserInitial.validator}"/>
+                            </af:inputText>
+                          </af:panelGroupLayout>
+                        </af:panelLabelAndMessage>
+                        <af:spacer width="10" height="9" id="s5"/>
+                        <af:panelLabelAndMessage label="#{bindings.CompanyId.label}"
+                                                 id="plam7">
+                          <af:panelGroupLayout id="pgl11" layout="horizontal">
+                            <af:selectOneChoice value="#{bindings.CompanyId.inputValue}"
+                                                label="#{bindings.CompanyId.label}"
+                                                required="#{bindings.CompanyId.hints.mandatory}"
+                                                shortDesc="#{bindings.CompanyId.hints.tooltip}"
+                                                id="soc2" readOnly="true"
+                                                contentStyle="font-weight:bold;"
+                                                simple="true">
+                              <f:selectItems value="#{bindings.CompanyId.items}"
+                                             id="si2"/>
+                            </af:selectOneChoice>
+                            <af:outputText value="," id="outputText2"/>
+                            <af:spacer width="10" height="10" id="spacer3"/>
+                            <af:selectOneChoice value="#{bindings.UserType.inputValue}"
+                                                label="#{bindings.UserType.label}"
+                                                required="#{bindings.UserType.hints.mandatory}"
+                                                shortDesc="#{bindings.UserType.hints.tooltip}"
+                                                id="soc5" readOnly="true"
+                                                contentStyle="font-weight:bold;">
+                              <f:selectItems value="#{bindings.UserType.items}"
+                                             id="si5"/>
+                            </af:selectOneChoice>
+                            <af:outputText value="#{bindings.UserType1.inputValue}"
+                                           id="ot11" visible="false"/>
+                          </af:panelGroupLayout>
+                        </af:panelLabelAndMessage>
+                        <af:spacer width="10" height="7" id="s6"/>
+                        <af:inputText value="#{bindings.FullName.inputValue}"
+                                      label="#{bindings.FullName.hints.label}"
+                                      required="#{bindings.FullName.hints.mandatory}"
+                                      columns="#{bindings.FullName.hints.displayWidth}"
+                                      maximumLength="#{bindings.FullName.hints.precision}"
+                                      shortDesc="#{bindings.FullName.hints.tooltip}"
+                                      id="it5">
+                          <f:validator binding="#{bindings.FullName.validator}"/>
                         </af:inputText>
-                        <af:outputText value="," id="outputText1"/>
-                        <af:spacer width="10" height="10" id="spacer2"/>
-                        <af:inputText value="#{bindings.UserInitial.inputValue}"
-                                      label="#{bindings.UserInitial.hints.label}"
-                                      required="#{bindings.UserInitial.hints.mandatory}"
-                                      columns="#{bindings.UserInitial.hints.displayWidth}"
-                                      maximumLength="#{bindings.UserInitial.hints.precision}"
-                                      shortDesc="#{bindings.UserInitial.hints.tooltip}"
-                                      id="it11" readOnly="true"
-                                      contentStyle="font-weight:bold;">
-                          <f:validator binding="#{bindings.UserInitial.validator}"/>
+                        <af:spacer width="10" height="2" id="spacer4"/>
+                        <af:selectOneChoice value="#{bindings.Title.inputValue}"
+                                            label="#{bindings.Title.label}"
+                                            required="#{bindings.Title.hints.mandatory}"
+                                            shortDesc="#{bindings.Title.hints.tooltip}"
+                                            id="soc1">
+                          <f:selectItems value="#{bindings.Title.items}"
+                                         id="si1"/>
+                        </af:selectOneChoice>
+                        <af:spacer width="10" height="2" id="s7"/>
+                        <af:inputText value="#{bindings.ContactNo.inputValue}"
+                                      label="#{bindings.ContactNo.hints.label}"
+                                      required="#{bindings.ContactNo.hints.mandatory}"
+                                      columns="#{bindings.ContactNo.hints.displayWidth}"
+                                      maximumLength="#{bindings.ContactNo.hints.precision}"
+                                      shortDesc="#{bindings.ContactNo.hints.tooltip}"
+                                      id="it7">
+                          <f:validator binding="#{bindings.ContactNo.validator}"/>
                         </af:inputText>
-                      </af:panelGroupLayout>
-                    </af:panelLabelAndMessage>
-                    <af:spacer width="10" height="9" id="s5"/>
-                    <af:panelLabelAndMessage label="#{bindings.CompanyId.label}"
-                                             id="plam7">
-                      <af:panelGroupLayout id="pgl11" layout="horizontal">
-                        <af:selectOneChoice value="#{bindings.CompanyId.inputValue}"
-                                            label="#{bindings.CompanyId.label}"
-                                            required="#{bindings.CompanyId.hints.mandatory}"
-                                            shortDesc="#{bindings.CompanyId.hints.tooltip}"
-                                            id="soc2" readOnly="true"
-                                            contentStyle="font-weight:bold;"
-                                            simple="true">
-                          <f:selectItems value="#{bindings.CompanyId.items}"
-                                         id="si2"/>
+                        <af:spacer width="10" height="2" id="s8"/>
+                        <af:selectOneChoice value="#{bindings.UserDivision.inputValue}"
+                                            label="#{bindings.UserDivision.label}"
+                                            required="#{bindings.UserDivision.hints.mandatory}"
+                                            shortDesc="#{bindings.UserDivision.hints.tooltip}"
+                                            id="soc7">
+                          <f:selectItems value="#{bindings.UserDivision.items}"
+                                         id="si7"/>
                         </af:selectOneChoice>
-                        <af:outputText value="," id="outputText2"/>
-                        <af:spacer width="10" height="10" id="spacer3"/>
-                        <af:selectOneChoice value="#{bindings.UserType.inputValue}"
-                                            label="#{bindings.UserType.label}"
-                                            required="#{bindings.UserType.hints.mandatory}"
-                                            shortDesc="#{bindings.UserType.hints.tooltip}"
-                                            id="soc5" readOnly="true"
-                                            contentStyle="font-weight:bold;">
-                          <f:selectItems value="#{bindings.UserType.items}"
-                                         id="si5"/>
-                        </af:selectOneChoice>
-                        <af:outputText value="#{bindings.UserType1.inputValue}"
-                                       id="ot11" visible="false"/>
-                      </af:panelGroupLayout>
-                    </af:panelLabelAndMessage>
-                    <af:spacer width="10" height="7" id="s6"/>
-                    <af:inputText value="#{bindings.FullName.inputValue}"
-                                  label="#{bindings.FullName.hints.label}"
-                                  required="#{bindings.FullName.hints.mandatory}"
-                                  columns="#{bindings.FullName.hints.displayWidth}"
-                                  maximumLength="#{bindings.FullName.hints.precision}"
-                                  shortDesc="#{bindings.FullName.hints.tooltip}"
-                                  id="it5">
-                      <f:validator binding="#{bindings.FullName.validator}"/>
-                    </af:inputText>
-                    <af:spacer width="10" height="2" id="spacer4"/>
-                    <af:selectOneChoice value="#{bindings.Title.inputValue}"
-                                        label="#{bindings.Title.label}"
-                                        required="#{bindings.Title.hints.mandatory}"
-                                        shortDesc="#{bindings.Title.hints.tooltip}"
-                                        id="soc1">
-                      <f:selectItems value="#{bindings.Title.items}" id="si1"/>
-                    </af:selectOneChoice>
-                    <af:spacer width="10" height="2" id="s7"/>
-                    <af:inputText value="#{bindings.ContactNo.inputValue}"
-                                  label="#{bindings.ContactNo.hints.label}"
-                                  required="#{bindings.ContactNo.hints.mandatory}"
-                                  columns="#{bindings.ContactNo.hints.displayWidth}"
-                                  maximumLength="#{bindings.ContactNo.hints.precision}"
-                                  shortDesc="#{bindings.ContactNo.hints.tooltip}"
-                                  id="it7">
-                      <f:validator binding="#{bindings.ContactNo.validator}"/>
-                    </af:inputText>
-                    <af:spacer width="10" height="2" id="s8"/>
-                    <af:selectOneChoice value="#{bindings.UserDivision.inputValue}"
-                                        label="#{bindings.UserDivision.label}"
-                                        required="#{bindings.UserDivision.hints.mandatory}"
-                                        shortDesc="#{bindings.UserDivision.hints.tooltip}"
-                                        id="soc7">
-                      <f:selectItems value="#{bindings.UserDivision.items}"
-                                     id="si7"/>
-                    </af:selectOneChoice>
-                    <af:spacer width="10" height="2" id="spacer5"/>
-                    <af:panelLabelAndMessage label="Login Period From"
-                                             id="plam2">
-                      <af:panelGroupLayout id="pgl2" layout="horizontal">
-                        <af:inputDate value="#{bindings.ActivePeriodFrom.inputValue}"
-                                      label="#{bindings.ActivePeriodFrom.hints.label}"
-                                      required="#{bindings.ActivePeriodFrom.hints.mandatory}"
-                                      shortDesc="#{bindings.ActivePeriodFrom.hints.tooltip}"
-                                      id="id3" simple="true"
-                                      contentStyle="width:85px;">
-                          <f:validator binding="#{bindings.ActivePeriodFrom.validator}"/>
-                          <af:convertDateTime pattern="#{bindings.ActivePeriodFrom.format}"/>
-                        </af:inputDate>
-                        <af:spacer width="10" height="10" id="s2"/>
-                        <af:outputText value="To" id="ot6"/>
-                        <af:spacer width="10" height="10" id="s3"/>
-                        <af:inputDate value="#{bindings.ActivePeriodTo.inputValue}"
-                                      label="#{bindings.ActivePeriodTo.hints.label}"
-                                      required="#{bindings.ActivePeriodTo.hints.mandatory}"
-                                      shortDesc="#{bindings.ActivePeriodTo.hints.tooltip}"
-                                      id="id2" simple="true"
-                                      contentStyle="width:85px;">
-                          <f:validator binding="#{bindings.ActivePeriodTo.validator}"/>
-                          <af:convertDateTime pattern="#{bindings.ActivePeriodTo.format}"/>
-                        </af:inputDate>
-                      </af:panelGroupLayout>
-                    </af:panelLabelAndMessage>
-                    <af:spacer width="10" height="3" id="s9"/>
-                    <af:panelLabelAndMessage label="#{bindings.Descr.hints.label}"
-                                             id="plam6"
-                                             labelStyle="vertical-align: top;padding-top:8px;">
-                      <af:inputText value="#{bindings.Descr.inputValue}"
-                                    label="#{bindings.Descr.hints.label}"
-                                    required="#{bindings.Descr.hints.mandatory}"
-                                    columns="#{bindings.Descr.hints.displayWidth}"
-                                    maximumLength="#{bindings.Descr.hints.precision}"
-                                    shortDesc="#{bindings.Descr.hints.tooltip}"
-                                    id="it2" rows="4" simple="true"
-                                    contentStyle="width:255px;">
-                        <f:validator binding="#{bindings.Descr.validator}"/>
-                      </af:inputText>
-                    </af:panelLabelAndMessage>
-                    <af:spacer width="10" height="5" id="s13"/>
-                  </af:panelFormLayout>
+                        <af:spacer width="10" height="2" id="spacer5"/>
+                        <af:panelLabelAndMessage label="Login Period From"
+                                                 id="plam2">
+                          <af:panelGroupLayout id="pgl2" layout="horizontal">
+                            <af:inputDate value="#{bindings.ActivePeriodFrom.inputValue}"
+                                          label="#{bindings.ActivePeriodFrom.hints.label}"
+                                          required="#{bindings.ActivePeriodFrom.hints.mandatory}"
+                                          shortDesc="#{bindings.ActivePeriodFrom.hints.tooltip}"
+                                          id="id3" simple="true"
+                                          contentStyle="width:85px;">
+                              <f:validator binding="#{bindings.ActivePeriodFrom.validator}"/>
+                              <af:convertDateTime pattern="#{bindings.ActivePeriodFrom.format}"/>
+                            </af:inputDate>
+                            <af:spacer width="10" height="10" id="s2"/>
+                            <af:outputText value="To" id="ot6"/>
+                            <af:spacer width="10" height="10" id="s3"/>
+                            <af:inputDate value="#{bindings.ActivePeriodTo.inputValue}"
+                                          label="#{bindings.ActivePeriodTo.hints.label}"
+                                          required="#{bindings.ActivePeriodTo.hints.mandatory}"
+                                          shortDesc="#{bindings.ActivePeriodTo.hints.tooltip}"
+                                          id="id2" simple="true"
+                                          contentStyle="width:85px;">
+                              <f:validator binding="#{bindings.ActivePeriodTo.validator}"/>
+                              <af:convertDateTime pattern="#{bindings.ActivePeriodTo.format}"/>
+                            </af:inputDate>
+                          </af:panelGroupLayout>
+                        </af:panelLabelAndMessage>
+                      </af:panelFormLayout>
+                    </f:facet>
+                    <f:facet name="second">
+                      <af:panelFormLayout id="pfl3" labelWidth="120">
+                        <af:spacer width="10" height="10" id="s15"/>
+                        <af:panelLabelAndMessage label="User Role" id="plam3"
+                                                 labelStyle="vertical-align: top;padding-top:13px;">
+                          <af:panelGroupLayout id="pgl6" layout="horizontal"
+                                               valign="top">
+                            <af:table value="#{bindings.AppUserAccessRolesView1.collectionModel}"
+                                      var="row"
+                                      rows="#{bindings.AppUserAccessRolesView1.rangeSize}"
+                                      emptyText="#{bindings.AppUserAccessRolesView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                      fetchSize="#{bindings.AppUserAccessRolesView1.rangeSize}"
+                                      rowBandingInterval="0" id="t4"
+                                      inlineStyle="height:34px; width:348px; margin-left:3px;"
+                                      columnStretching="last"
+                                      binding="#{UserAccessBean.tblAssignedRole}">
+                              <af:column sortProperty="#{bindings.AppUserAccessRolesView1.hints.Label.name}"
+                                         sortable="false" id="c1">
+                                <af:outputText value="#{row.Label}" id="ot8"
+                                               inlineStyle="padding-left:5px;"/>
+                              </af:column>
+                            </af:table>
+                            <af:spacer width="10" height="10" id="s12"/>
+                            <af:panelGroupLayout id="pgl1" layout="vertical">
+                              <af:spacer width="10" height="3" id="s1"/>
+                              <af:commandButton id="cmdRole"
+                                                icon="/Images/edit_list.png"
+                                                inlineStyle="padding:5px;"
+                                                action="assignrole"
+                                                useWindow="true"
+                                                windowHeight="230"
+                                                windowWidth="500"
+                                                windowModalityType="applicationModal"
+                                                returnListener="#{UserAccessBean.windowRoleReturnListener}"
+                                                shortDesc=" "
+                                                windowEmbedStyle="window">
+                                <af:setPropertyListener from="#{bindings.UserName.inputValue}"
+                                                        to="#{pageFlowScope.userName}"
+                                                        type="action"/>
+                                <af:setPropertyListener from="#{bindings.FullName.inputValue}"
+                                                        to="#{pageFlowScope.fullName}"
+                                                        type="action"/>
+                                <af:setPropertyListener from="#{bindings.UserType1.inputValue}"
+                                                        to="#{pageFlowScope.userType}"
+                                                        type="action"/>
+                              </af:commandButton>
+                            </af:panelGroupLayout>
+                          </af:panelGroupLayout>
+                        </af:panelLabelAndMessage>
+                        <af:spacer width="10" height="5" id="spacer6"/>
+                        <af:panelLabelAndMessage label="#{bindings.DirectSpv.hints.label}" id="plam1">
+                          <af:panelGroupLayout id="pgl7" layout="horizontal">
+                            <af:inputListOfValues id="directSpvId"
+                                                  popupTitle="Search and Select: #{bindings.DirectSpv.hints.label}"
+                                                  value="#{bindings.DirectSpv.inputValue}"
+                                                  label="#{bindings.DirectSpv.hints.label}"
+                                                  model="#{bindings.DirectSpv.listOfValuesModel}"
+                                                  required="#{bindings.DirectSpv.hints.mandatory}"
+                                                  columns="#{bindings.DirectSpv.hints.displayWidth}"
+                                                  shortDesc="#{bindings.DirectSpv.hints.tooltip}"
+                                                  contentStyle="padding:7px;border-color:rgb(201,202,204); border-style:solid; border-width:1.0px; width:40px; font-weight:bold;"
+                                                  simple="true">
+                              <f:validator binding="#{bindings.DirectSpv.validator}"/>
+                            </af:inputListOfValues>
+                            <af:spacer width="10" height="10" id="s9"/>
+                            <af:outputText value="#{bindings.DirectSpvDesc.inputValue}"
+                                           id="ot15"
+                                           partialTriggers="directSpvId"
+                                           inlineStyle="font-weight:bold;"/>
+                          </af:panelGroupLayout>
+                        </af:panelLabelAndMessage>
+                        <af:spacer width="10" height="5" id="spacer1"/>
+                        <af:panelLabelAndMessage label="#{bindings.Descr.hints.label}"
+                                                 id="plam6"
+                                                 labelStyle="vertical-align: top;padding-top:8px;">
+                          <af:inputText value="#{bindings.Descr.inputValue}"
+                                        label="#{bindings.Descr.hints.label}"
+                                        required="#{bindings.Descr.hints.mandatory}"
+                                        columns="#{bindings.Descr.hints.displayWidth}"
+                                        maximumLength="#{bindings.Descr.hints.precision}"
+                                        shortDesc="#{bindings.Descr.hints.tooltip}"
+                                        id="it2" rows="8" simple="true"
+                                        contentStyle="width:380px;">
+                            <f:validator binding="#{bindings.Descr.validator}"/>
+                          </af:inputText>
+                        </af:panelLabelAndMessage>
+                      </af:panelFormLayout>
+                    </f:facet>
+                  </af:panelSplitter>
                 </f:facet>
                 <f:facet name="second">
-                  <af:panelFormLayout id="pfl3">
-                    <af:spacer width="10" height="10" id="s15"/>
-                    <af:panelLabelAndMessage label="User Role" id="plam3"
-                                             labelStyle="vertical-align: top;padding-top:6px;">
-                      <af:panelGroupLayout id="pgl6" layout="horizontal"
-                                           valign="top">
-                        <af:table value="#{bindings.AppUserAccessRolesView1.collectionModel}"
-                                  var="row"
-                                  rows="#{bindings.AppUserAccessRolesView1.rangeSize}"
-                                  emptyText="#{bindings.AppUserAccessRolesView1.viewable ? 'No data to display.' : 'Access Denied.'}"
-                                  fetchSize="#{bindings.AppUserAccessRolesView1.rangeSize}"
-                                  rowBandingInterval="0" id="t4"
-                                  inlineStyle="height:102px; width:350px; margin-left:3px;"
-                                  columnStretching="last"
-                                  binding="#{UserAccessBean.tblAssignedRole}">
-                          <af:column sortProperty="#{bindings.AppUserAccessRolesView1.hints.Label.name}"
-                                     sortable="false" id="c1">
-                            <af:outputText value="#{row.Label}" id="ot8"
-                                           inlineStyle="padding-left:5px;"/>
-                          </af:column>
-                        </af:table>
-                        <af:spacer width="10" height="10" id="s12"/>
-                        <af:commandButton id="cmdRole"
-                                          icon="/Images/edit_list.png"
-                                          inlineStyle="padding:5px;"
-                                          action="assignrole" useWindow="true"
-                                          windowHeight="230" windowWidth="500"
-                                          windowModalityType="applicationModal"
-                                          returnListener="#{UserAccessBean.windowRoleReturnListener}"
-                                          shortDesc=" "
-                                          windowEmbedStyle="window">
-                          <af:setPropertyListener from="#{bindings.UserName.inputValue}"
-                                                  to="#{pageFlowScope.userName}"
-                                                  type="action"/>
-                          <af:setPropertyListener from="#{bindings.FullName.inputValue}"
-                                                  to="#{pageFlowScope.fullName}"
-                                                  type="action"/>
-                          <af:setPropertyListener from="#{bindings.UserType1.inputValue}"
-                                                  to="#{pageFlowScope.userType}"
-                                                  type="action"/>
-                        </af:commandButton>
-                      </af:panelGroupLayout>
-                    </af:panelLabelAndMessage>
-                    <af:spacer width="10" height="5" id="spacer1"/>
-                    <af:panelLabelAndMessage label="User Region" id="plam4"
-                                             labelStyle="vertical-align: top;padding-top:6px;">
-                      <af:panelGroupLayout id="pgl7" valign="top"
-                                           layout="horizontal">
+                  <af:panelTabbed id="pt1" inlineStyle="margin-left:25px;"
+                                  styleClass="AFStretchWidth">
+                    <af:showDetailItem text="Region (#{bindings.AppUserRegionView1.estimatedRowCount})" id="sdi1"
+                                       stretchChildren="first"
+                                       binding="#{UserAccessBean.tabUserRegion}">
+                      <af:panelCollection id="pc1" styleClass="AFStretchWidth"
+                                          featuresOff="detach viewMenu columnsMenuItem statusBar">
                         <af:table value="#{bindings.AppUserRegionView1.collectionModel}"
                                   var="row"
                                   rows="#{bindings.AppUserRegionView1.rangeSize}"
@@ -432,34 +472,237 @@
                                   fetchSize="#{bindings.AppUserRegionView1.rangeSize}"
                                   rowBandingInterval="0" id="t5"
                                   columnStretching="last"
-                                  inlineStyle="height:238px; width:350px; margin-left:3px;"
                                   binding="#{UserAccessBean.tblAssignedRegion}">
                           <af:column sortProperty="#{bindings.AppUserRegionView1.hints.RegionLabel.name}"
                                      sortable="false" id="c2">
-                            <af:outputText value="#{row.RegionLabel}" id="ot9"
-                                           inlineStyle="padding-left:5px;"/>
+                            <af:outputText value="#{row.RegionCode} #{row.RegionLabel}" id="ot9"
+                                           inlineStyle="margin:10px;"/>
                           </af:column>
                         </af:table>
-                        <af:spacer width="10" height="10" id="s14"/>
-                        <af:commandButton id="cmdRegion"
-                                          icon="/Images/edit_list.png"
-                                          inlineStyle="padding:5px;"
-                                          action="assignregion" useWindow="true"
-                                          windowHeight="230" windowWidth="500"
-                                          windowModalityType="applicationModal"
-                                          returnListener="#{UserAccessBean.windowRegionReturnListener}"
-                                          shortDesc=" "
-                                          windowEmbedStyle="window">
-                          <af:setPropertyListener from="#{bindings.UserName.inputValue}"
-                                                  to="#{pageFlowScope.userName}"
-                                                  type="action"/>
-                          <af:setPropertyListener from="#{bindings.FullName.inputValue}"
-                                                  to="#{pageFlowScope.fullName}"
-                                                  type="action"/>
-                        </af:commandButton>
-                      </af:panelGroupLayout>
-                    </af:panelLabelAndMessage>
-                  </af:panelFormLayout>
+                        <f:facet name="toolbar">
+                          <af:toolbar id="t6">
+                            <af:commandToolbarButton id="cmdRegion"
+                                              action="assignregion"
+                                              useWindow="true"
+                                              windowHeight="230"
+                                              windowWidth="500"
+                                              windowModalityType="applicationModal"
+                                              returnListener="#{UserAccessBean.windowRegionReturnListener}"
+                                              shortDesc=" "
+                                              windowEmbedStyle="window"
+                                              icon="/Images/addrem.png"
+                                              text="Add / Remove Region"
+                                                     hoverIcon="/Images/addrem.png"
+                                                     depressedIcon="/Images/addrem.png"
+                                                     disabledIcon="/Images/addrem_dis.png">
+                              <af:setPropertyListener from="#{bindings.UserName.inputValue}"
+                                                      to="#{pageFlowScope.userName}"
+                                                      type="action"/>
+                              <af:setPropertyListener from="#{bindings.FullName.inputValue}"
+                                                      to="#{pageFlowScope.fullName}"
+                                                      type="action"/>
+                            </af:commandToolbarButton>
+                          </af:toolbar>
+                        </f:facet>
+                      </af:panelCollection>
+                    </af:showDetailItem>
+                    <af:showDetailItem text="Area (#{bindings.AppUserAreaView1.estimatedRowCount})" id="sdi2"
+                                       stretchChildren="first"
+                                       binding="#{UserAccessBean.tabUserArea}">
+                      <af:panelCollection id="pcl2"
+                                          styleClass="AFStretchWidth"
+                                          featuresOff="detach viewMenu columnsMenuItem statusBar">
+                        <f:facet name="toolbar">
+                          <af:toolbar id="toolbar1">
+                            <af:commandToolbarButton id="commandToolbarButton2"
+                                                     action="assignarea"
+                                                     useWindow="true"
+                                                     windowHeight="230"
+                                                     windowWidth="600"
+                                                     windowModalityType="applicationModal"
+                                                     returnListener="#{UserAccessBean.windowAreaReturnListener}"
+                                                     shortDesc=" "
+                                                     windowEmbedStyle="window"
+                                                     icon="/Images/addrem.png"
+                                                     text="Add / Remove Area"
+                                                     hoverIcon="/Images/addrem.png"
+                                                     depressedIcon="/Images/addrem.png"
+                                                     disabledIcon="/Images/addrem_dis.png">
+                              <af:setPropertyListener from="#{bindings.UserName.inputValue}"
+                                                      to="#{pageFlowScope.userName}"
+                                                      type="action"/>
+                              <af:setPropertyListener from="#{bindings.FullName.inputValue}"
+                                                      to="#{pageFlowScope.fullName}"
+                                                      type="action"/>
+                            </af:commandToolbarButton>
+                          </af:toolbar>
+                        </f:facet>
+                        <af:table value="#{bindings.AppUserAreaView1.collectionModel}"
+                                  var="row"
+                                  rows="#{bindings.AppUserAreaView1.rangeSize}"
+                                  emptyText="#{bindings.AppUserAreaView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  fetchSize="#{bindings.AppUserAreaView1.rangeSize}"
+                                  rowBandingInterval="0" id="t7"
+                                  columnStretching="last"
+                                  binding="#{UserAccessBean.tblAssignedArea}">
+                          <af:column sortProperty="#{bindings.AppUserAreaView1.hints.Description.name}"
+                                     sortable="false"
+                                     id="c4">
+                            <af:outputText value="#{row.AreaCode} #{row.Description}" id="ot5"
+                                           inlineStyle="margin:10px;"/>
+                          </af:column>
+                        </af:table>
+                      </af:panelCollection>
+                    </af:showDetailItem>
+                    <af:showDetailItem text="Location (#{bindings.AppUserLocView1.estimatedRowCount})" id="sdi3"
+                                       stretchChildren="first"
+                                       binding="#{UserAccessBean.tabUserLoc}">
+                      <af:panelCollection id="pcl3"
+                                          styleClass="AFStretchWidth"
+                                          featuresOff="detach viewMenu columnsMenuItem statusBar">
+                        <f:facet name="toolbar">
+                          <af:toolbar id="toolbar2">
+                            <af:commandToolbarButton id="commandToolbarButton3"
+                                                     action="assignloc"
+                                                     useWindow="true"
+                                                     windowHeight="230"
+                                                     windowWidth="500"
+                                                     windowModalityType="applicationModal"
+                                                     returnListener="#{UserAccessBean.windowLocationReturnListener}"
+                                                     shortDesc=" "
+                                                     windowEmbedStyle="window"
+                                                     icon="/Images/addrem.png"
+                                                     text="Add / Remove Location"
+                                                     hoverIcon="/Images/addrem.png"
+                                                     depressedIcon="/Images/addrem.png"
+                                                     disabledIcon="/Images/addrem_dis.png">
+                              <af:setPropertyListener from="#{bindings.UserName.inputValue}"
+                                                      to="#{pageFlowScope.userName}"
+                                                      type="action"/>
+                              <af:setPropertyListener from="#{bindings.FullName.inputValue}"
+                                                      to="#{pageFlowScope.fullName}"
+                                                      type="action"/>
+                            </af:commandToolbarButton>
+                          </af:toolbar>
+                        </f:facet>
+                        <af:table value="#{bindings.AppUserLocView1.collectionModel}"
+                                  var="row"
+                                  rows="#{bindings.AppUserLocView1.rangeSize}"
+                                  emptyText="#{bindings.AppUserLocView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  fetchSize="#{bindings.AppUserLocView1.rangeSize}"
+                                  rowBandingInterval="0" id="t8"
+                                  columnStretching="last"
+                                  binding="#{UserAccessBean.tblAssignedLoc}">
+                          <af:column sortProperty="#{bindings.AppUserLocView1.hints.LocationCode.name}"
+                                     sortable="false"
+                                     id="c5">
+                            <af:outputText value="#{row.LocationCode} #{row.Description}"
+                                           id="ot12"
+                                           inlineStyle="margin:10px;"/>
+                          </af:column>
+                        </af:table>
+                      </af:panelCollection>
+                    </af:showDetailItem>
+                    <af:showDetailItem text="Customer Group (#{bindings.AppUserCustGroupView1.estimatedRowCount})" id="sdi5"
+                                       stretchChildren="first"
+                                       binding="#{UserAccessBean.tabUserCustGroup}">
+                      <af:panelCollection id="pc3"
+                                          featuresOff="detach viewMenu columnsMenuItem statusBar"
+                                          styleClass="AFStretchWidth">
+                        <f:facet name="menus"/>
+                        <f:facet name="toolbar">
+                          <af:toolbar id="t10">
+                            <af:commandToolbarButton id="ctb6"
+                                                     action="assigncustgroup"
+                                                     useWindow="true"
+                                                     windowHeight="220"
+                                                     windowWidth="500"
+                                                     windowModalityType="applicationModal"
+                                                     returnListener="#{UserAccessBean.windowCustGroupReturnListener}"
+                                                     shortDesc=" "
+                                                     windowEmbedStyle="window"
+                                                     icon="/Images/addrem.png"
+                                                     text="Add / Remove Customer Group"
+                                                     hoverIcon="/Images/addrem.png"
+                                                     depressedIcon="/Images/addrem.png"
+                                                     disabledIcon="/Images/addrem_dis.png">
+                              <af:setPropertyListener from="#{bindings.UserName.inputValue}"
+                                                      to="#{pageFlowScope.userName}"
+                                                      type="action"/>
+                              <af:setPropertyListener from="#{bindings.FullName.inputValue}"
+                                                      to="#{pageFlowScope.fullName}"
+                                                      type="action"/>
+                            </af:commandToolbarButton>
+                          </af:toolbar>
+                        </f:facet>
+                        <f:facet name="statusbar"/>
+                        <af:table value="#{bindings.AppUserCustGroupView1.collectionModel}"
+                                  var="row"
+                                  rows="#{bindings.AppUserCustGroupView1.rangeSize}"
+                                  emptyText="#{bindings.AppUserCustGroupView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  fetchSize="#{bindings.AppUserCustGroupView1.rangeSize}"
+                                  rowBandingInterval="0" id="t11"
+                                  columnStretching="last"
+                                  binding="#{UserAccessBean.tblAssignedCustGroup}">
+                          <af:column sortProperty="#{bindings.AppUserCustGroupView1.hints.CustGroup.name}"
+                                     sortable="false"
+                                     id="c7">
+                            <af:outputText value="#{row.CustGroup} #{row.Description}" id="ot14"
+                                           inlineStyle="margin:10px;"/>
+                          </af:column>
+                        </af:table>
+                      </af:panelCollection>
+                    </af:showDetailItem>
+                    <af:showDetailItem text="Customer (#{bindings.AppUserCustView1.estimatedRowCount})" id="sdi4"
+                                       stretchChildren="first"
+                                       binding="#{UserAccessBean.tabUserCust}">
+                      <af:panelCollection id="pcl4"
+                                          styleClass="AFStretchWidth"
+                                          featuresOff="detach viewMenu columnsMenuItem statusBar">
+                        <f:facet name="toolbar">
+                          <af:toolbar id="toolbar3">
+                            <af:commandToolbarButton id="commandToolbarButton4"
+                                                     action="assigncust"
+                                                     useWindow="true"
+                                                     windowHeight="230"
+                                                     windowWidth="680"
+                                                     windowModalityType="applicationModal"
+                                                     returnListener="#{UserAccessBean.windowCustomerReturnListener}"
+                                                     shortDesc=" "
+                                                     windowEmbedStyle="window"
+                                                     icon="/Images/addrem.png"
+                                                     text="Add / Remove Customer"
+                                                     hoverIcon="/Images/addrem.png"
+                                                     depressedIcon="/Images/addrem.png"
+                                                     disabledIcon="/Images/addrem_dis.png">
+                              <af:setPropertyListener from="#{bindings.UserName.inputValue}"
+                                                      to="#{pageFlowScope.userName}"
+                                                      type="action"/>
+                              <af:setPropertyListener from="#{bindings.FullName.inputValue}"
+                                                      to="#{pageFlowScope.fullName}"
+                                                      type="action"/>
+                            </af:commandToolbarButton>
+                          </af:toolbar>
+                        </f:facet>
+                        <af:table value="#{bindings.AppUserCustView1.collectionModel}"
+                                  var="row"
+                                  rows="#{bindings.AppUserCustView1.rangeSize}"
+                                  emptyText="#{bindings.AppUserCustView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  fetchSize="#{bindings.AppUserCustView1.rangeSize}"
+                                  rowBandingInterval="0" id="t9"
+                                  columnStretching="last"
+                                  binding="#{UserAccessBean.tblAssignedCust}">
+                          <af:column sortProperty="#{bindings.AppUserCustView1.hints.CustomerName.name}"
+                                     sortable="false"
+                                     id="c6">
+                            <af:outputText value="#{row.CustomerName}"
+                                           id="ot13"
+                                           inlineStyle="margin:10px;"/>
+                          </af:column>
+                        </af:table>
+                      </af:panelCollection>
+                    </af:showDetailItem>
+                  </af:panelTabbed>
                 </f:facet>
               </af:panelSplitter>
             </af:panelHeader>

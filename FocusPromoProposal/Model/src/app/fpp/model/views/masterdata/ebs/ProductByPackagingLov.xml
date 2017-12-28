@@ -79,7 +79,7 @@
   </Variable>
   <SQLQuery>
     <![CDATA[SELECT FcsViewItemMasterCategory.SET_PACKAGING, 
-       FcsViewItemMasterCategory.SET_PACKAGING_DESC, 
+       NVL(FcsViewItemMasterCategory.SET_PACKAGING_DESC, FcsViewItemMasterCategory.SET_PACKAGING) AS SET_PACKAGING_DESC, 
        FcsViewItemMasterCategory.SET_EXT, 
        (FcsViewItemMasterCategory.SET_PACKAGING || ' ' || FcsViewItemMasterCategory.SET_PACKAGING_DESC) AS PACKAGING_SEARCH
 FROM APPS.FCS_VIEW_ITEM_MASTER_CATEGORY FcsViewItemMasterCategory

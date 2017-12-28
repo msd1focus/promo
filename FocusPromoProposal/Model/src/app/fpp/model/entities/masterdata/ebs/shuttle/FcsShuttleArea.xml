@@ -65,6 +65,18 @@
       <Attr Name="_DisplaySize" Value="30"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="RegionCode"
+    Precision="150"
+    ColumnName="REGION_CODE"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="FCS_SHUTTLE_AREA">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="150"/>
+    </DesignTime>
+  </Attribute>
   <Key
     Name="FcsshuttleareaPrimaryKey"
     PrimaryKey="true">

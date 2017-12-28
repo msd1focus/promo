@@ -153,6 +153,16 @@ public class AppUserAccessImpl extends EntityImpl {
             }
         }
         ,
+        DirectSpv {
+            public Object get(AppUserAccessImpl obj) {
+                return obj.getDirectSpv();
+            }
+
+            public void put(AppUserAccessImpl obj, Object value) {
+                obj.setDirectSpv((String)value);
+            }
+        }
+        ,
         AppUserAccessRoles {
             public Object get(AppUserAccessImpl obj) {
                 return obj.getAppUserAccessRoles();
@@ -166,6 +176,46 @@ public class AppUserAccessImpl extends EntityImpl {
         AppUserRegion {
             public Object get(AppUserAccessImpl obj) {
                 return obj.getAppUserRegion();
+            }
+
+            public void put(AppUserAccessImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        AppUserArea {
+            public Object get(AppUserAccessImpl obj) {
+                return obj.getAppUserArea();
+            }
+
+            public void put(AppUserAccessImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        AppUserCust {
+            public Object get(AppUserAccessImpl obj) {
+                return obj.getAppUserCust();
+            }
+
+            public void put(AppUserAccessImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        AppUserLoc {
+            public Object get(AppUserAccessImpl obj) {
+                return obj.getAppUserLoc();
+            }
+
+            public void put(AppUserAccessImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        AppUserCustGroup {
+            public Object get(AppUserAccessImpl obj) {
+                return obj.getAppUserCustGroup();
             }
 
             public void put(AppUserAccessImpl obj, Object value) {
@@ -214,8 +264,13 @@ public class AppUserAccessImpl extends EntityImpl {
     public static final int ACTIVEPERIODTO = AttributesEnum.ActivePeriodTo.index();
     public static final int USERTYPE = AttributesEnum.UserType.index();
     public static final int USERDIVISION = AttributesEnum.UserDivision.index();
+    public static final int DIRECTSPV = AttributesEnum.DirectSpv.index();
     public static final int APPUSERACCESSROLES = AttributesEnum.AppUserAccessRoles.index();
     public static final int APPUSERREGION = AttributesEnum.AppUserRegion.index();
+    public static final int APPUSERAREA = AttributesEnum.AppUserArea.index();
+    public static final int APPUSERCUST = AttributesEnum.AppUserCust.index();
+    public static final int APPUSERLOC = AttributesEnum.AppUserLoc.index();
+    public static final int APPUSERCUSTGROUP = AttributesEnum.AppUserCustGroup.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -428,6 +483,23 @@ public class AppUserAccessImpl extends EntityImpl {
     }
 
     /**
+     * Gets the attribute value for DirectSpv, using the alias name DirectSpv.
+     * @return the DirectSpv
+     */
+    public String getDirectSpv() {
+        return (String)getAttributeInternal(DIRECTSPV);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for DirectSpv.
+     * @param value value to set the DirectSpv
+     */
+    public void setDirectSpv(String value) {
+        setAttributeInternal(DIRECTSPV, value);
+    }
+
+
+    /**
      * Gets the attribute value for UserInitial, using the alias name UserInitial.
      * @return the UserInitial
      */
@@ -489,6 +561,36 @@ public class AppUserAccessImpl extends EntityImpl {
      */
     public RowIterator getAppUserRegion() {
         return (RowIterator)getAttributeInternal(APPUSERREGION);
+    }
+
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getAppUserArea() {
+        return (RowIterator)getAttributeInternal(APPUSERAREA);
+    }
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getAppUserCust() {
+        return (RowIterator)getAttributeInternal(APPUSERCUST);
+    }
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getAppUserLoc() {
+        return (RowIterator)getAttributeInternal(APPUSERLOC);
+    }
+
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getAppUserCustGroup() {
+        return (RowIterator)getAttributeInternal(APPUSERCUSTGROUP);
     }
 
 

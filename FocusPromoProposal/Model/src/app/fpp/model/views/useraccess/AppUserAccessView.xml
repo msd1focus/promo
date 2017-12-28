@@ -18,13 +18,20 @@
        AppUserAccess.ACTIVE_PERIOD_FROM, 
        AppUserAccess.ACTIVE_PERIOD_TO, 
        AppUserAccess.USER_TYPE, 
-       AppUserAccess.USER_DIVISION"
+       AppUserAccess.USER_DIVISION, 
+       AppUserAccess.DIRECT_SPV"
   FromList="APP_USER_ACCESS AppUserAccess"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
-  OrderBy="AppUserAccess.USER_NAME">
+  OrderBy="AppUserAccess.USER_NAME"
+  RowClass="app.fpp.model.views.useraccess.AppUserAccessViewRowImpl"
+  ComponentClass="app.fpp.model.views.useraccess.AppUserAccessViewImpl">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
   <ViewAccessor
     Name="LovUserTitle"
     ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
@@ -58,6 +65,27 @@
     <ParameterMap>
       <PIMap Variable="luTitle">
         <TransientExpression><![CDATA['APP_USER_DIVISION']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="LovUserCustPriv"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_USER_CUST_PRIV']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="DirectSpvLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.DirectSpvLov">
+    <ParameterMap>
+      <PIMap Variable="usrName">
+        <TransientExpression><![CDATA[UserName]]></TransientExpression>
+      </PIMap>
+      <PIMap Variable="compId">
+        <TransientExpression><![CDATA[CompanyId]]></TransientExpression>
       </PIMap>
     </ParameterMap>
   </ViewAccessor>
@@ -132,6 +160,27 @@
       <Item Value="Descr"/>
     </AttrArray>
     <DisplayCriteria/>
+  </ListBinding>
+  <ListBinding
+    Name="LOV_DirectSpv"
+    ListVOName="DirectSpvLov"
+    ListRangeSize="10"
+    NullValueFlag="none"
+    NullValueId="LOV_DirectSpv_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="DirectSpv"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="UserName"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+      <Item Value="FullName"/>
+    </AttrArray>
+    <DisplayCriteria
+      Hint="showAndExecute"
+      Name="DirectSpvLovCriteria"/>
   </ListBinding>
   <EntityUsage
     Name="AppUserAccess"
@@ -287,6 +336,30 @@
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>
+  <ViewAttribute
+    Name="DirectSpv"
+    PrecisionRule="true"
+    EntityAttrName="DirectSpv"
+    EntityUsage="AppUserAccess"
+    AliasName="DIRECT_SPV"
+    LOVName="LOV_DirectSpv">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="input_text_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="DirectSpvDesc"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
   <ViewLinkAccessor
     Name="AppUserAccessRolesView"
     ViewLink="app.fpp.model.views.useraccess.AppUserAccessRolesFk1Link"
@@ -294,7 +367,27 @@
     IsUpdateable="false"/>
   <ViewLinkAccessor
     Name="AppUserRegionView"
-    ViewLink="app.fpp.model.views.useraccess.AppUserAccessRegionFk1Link"
+    ViewLink="app.fpp.model.views.useraccess.AppUserRegionUserAccessFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="AppUserAreaView"
+    ViewLink="app.fpp.model.views.useraccess.AppUserAreaUserAccessFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="AppUserCustView"
+    ViewLink="app.fpp.model.views.useraccess.AppUserCustUserAccessFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="AppUserLocView"
+    ViewLink="app.fpp.model.views.useraccess.AppUserLocUserAccessFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="AppUserCustGroupView"
+    ViewLink="app.fpp.model.views.useraccess.AppUserCustGroupUserAccessFk1Link"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <ResourceBundle>

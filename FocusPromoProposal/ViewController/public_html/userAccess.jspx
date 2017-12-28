@@ -4,7 +4,7 @@
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
   <jsp:directive.page contentType="text/html;charset=UTF-8"/>
   <f:view beforePhase="#{Menu.createMenus}">
-    <af:document id="d1" title="User Access">
+    <af:document id="d1" title="Focus PCPP | User Access">
       <af:form id="f1">
         <af:pageTemplate viewId="/Templates/FPPDashboard.jspx"
                          value="#{bindings.pageTemplateBinding}" id="pt1">
@@ -51,7 +51,8 @@
           </f:facet>
           <f:facet name="mainWindow">
             <af:region value="#{bindings.dynamicRegion1.regionModel}" id="r1"
-                       partialTriggers="::cil3 ::commandImageLink1 ::commandImageLink2"/>
+                       partialTriggers="::cil3 ::commandImageLink1 ::commandImageLink2"
+                       showDisclosure="false"/>
           </f:facet>
         </af:pageTemplate>
       </af:form>

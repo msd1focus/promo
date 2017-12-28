@@ -72,6 +72,16 @@ public class AppRolesImpl extends EntityImpl {
             }
         }
         ,
+        ForwardFlg {
+            public Object get(AppRolesImpl obj) {
+                return obj.getForwardFlg();
+            }
+
+            public void put(AppRolesImpl obj, Object value) {
+                obj.setForwardFlg((String)value);
+            }
+        }
+        ,
         AppRoleMenuItems {
             public Object get(AppRolesImpl obj) {
                 return obj.getAppRoleMenuItems();
@@ -115,6 +125,7 @@ public class AppRolesImpl extends EntityImpl {
     public static final int DESCR = AttributesEnum.Descr.index();
     public static final int LABEL = AttributesEnum.Label.index();
     public static final int ROLETYPE = AttributesEnum.RoleType.index();
+    public static final int FORWARDFLG = AttributesEnum.ForwardFlg.index();
     public static final int APPROLEMENUITEMS = AttributesEnum.AppRoleMenuItems.index();
 
     /**
@@ -212,6 +223,22 @@ public class AppRolesImpl extends EntityImpl {
      */
     public void setRoleType(String value) {
         setAttributeInternal(ROLETYPE, value);
+    }
+
+    /**
+     * Gets the attribute value for ForwardFlg, using the alias name ForwardFlg.
+     * @return the ForwardFlg
+     */
+    public String getForwardFlg() {
+        return (String)getAttributeInternal(FORWARDFLG);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for ForwardFlg.
+     * @param value value to set the ForwardFlg
+     */
+    public void setForwardFlg(String value) {
+        setAttributeInternal(FORWARDFLG, value);
     }
 
     /**

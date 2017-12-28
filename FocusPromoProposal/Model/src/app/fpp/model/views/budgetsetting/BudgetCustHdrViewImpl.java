@@ -13,4 +13,20 @@ public class BudgetCustHdrViewImpl extends ViewObjectImpl {
      */
     public BudgetCustHdrViewImpl() {
     }
+
+    /**
+     * Returns the variable value for budgetType.
+     * @return variable value for budgetType
+     */
+    public String getbudgetType() {
+        return (String)ensureVariableManager().getVariableValue("budgetType");
+    }
+
+    /**
+     * Sets <code>value</code> for variable budgetType.
+     * @param value value to bind as budgetType
+     */
+    public void setbudgetType(String value) {
+        ensureVariableManager().setVariableValue("budgetType", value);
+    }
 }

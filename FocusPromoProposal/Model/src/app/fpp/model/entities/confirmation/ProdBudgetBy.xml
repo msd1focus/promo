@@ -129,6 +129,17 @@
       <Attr Name="_DisplaySize" Value="39"/>
     </DesignTime>
   </Attribute>
+  <Attribute
+    Name="BudgetCustId"
+    ColumnName="BUDGET_CUST_ID"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="PROD_BUDGET_BY">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </Attribute>
   <AccessorAttribute
     Name="PromoProduk"
     Association="app.fpp.model.entities.confirmation.ProdBudgetByPromoProdukFk1Assoc"

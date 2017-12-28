@@ -2,17 +2,15 @@ package app.fpp.model.am;
 
 import app.fpp.adfextensions.CustomApplicationModuleImpl;
 import app.fpp.model.am.common.PromoProposalAM;
-
 import app.fpp.model.views.approval.ApprovalReceiverNewProposalViewImpl;
-
-import app.fpp.model.views.approval.DocApprovalViewImpl;
-import app.fpp.model.views.masterdata.RunNumPropViewImpl;
 import app.fpp.model.views.masterdata.ebs.FcsViewCategCombinationViewImpl;
-import app.fpp.model.views.promoproposal.DiscountViewImpl;
-import app.fpp.model.views.promoproposal.ProdukItemViewImpl;
+import app.fpp.model.views.promoproposal.FindRegionCodeImpl;
 import app.fpp.model.views.promoproposal.PromoBonusVariantViewImpl;
 import app.fpp.model.views.promoproposal.duplicate.DuplicateBiayaViewImpl;
-import app.fpp.model.views.promoproposal.duplicate.DuplicateDiscountViewImpl;
+import app.fpp.model.views.promoproposal.duplicate.DuplicateProdExclAreaViewImpl;
+import app.fpp.model.views.promoproposal.duplicate.DuplicateProdExclCustomerViewImpl;
+import app.fpp.model.views.promoproposal.duplicate.DuplicateProdExclLocViewImpl;
+import app.fpp.model.views.promoproposal.duplicate.DuplicateProdExclRegionViewImpl;
 import app.fpp.model.views.promoproposal.duplicate.DuplicateProdRegionAreaViewImpl;
 import app.fpp.model.views.promoproposal.duplicate.DuplicateProdRegionCustGroupViewImpl;
 import app.fpp.model.views.promoproposal.duplicate.DuplicateProdRegionCustomerViewImpl;
@@ -20,23 +18,12 @@ import app.fpp.model.views.promoproposal.duplicate.DuplicateProdRegionLocViewImp
 import app.fpp.model.views.promoproposal.duplicate.DuplicateProdRegionViewImpl;
 import app.fpp.model.views.promoproposal.duplicate.DuplicateProdukItemViewImpl;
 import app.fpp.model.views.promoproposal.duplicate.DuplicateProdukVariantViewImpl;
-import app.fpp.model.views.promoproposal.ProdukVariantViewImpl;
-import app.fpp.model.views.promoproposal.PromoBonusViewImpl;
-import app.fpp.model.views.promoproposal.PromoProdukViewImpl;
-import app.fpp.model.views.promoproposal.ProposalViewImpl;
-
-import app.fpp.model.views.promoproposal.duplicate.DuplicatePromoBonusVariantViewImpl;
 import app.fpp.model.views.promoproposal.duplicate.DuplicatePromoBonusViewImpl;
-import app.fpp.model.views.promoproposal.duplicate.DuplicateTargetViewImpl;
-
 import app.fpp.model.views.promoproposal.validation.ProdVariantValidationViewImpl;
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import oracle.jbo.JboException;
 import oracle.jbo.Row;
-import oracle.jbo.server.ApplicationModuleImpl;
 import oracle.jbo.server.ViewLinkImpl;
 import oracle.jbo.server.ViewObjectImpl;
 // ---------------------------------------------------------------------
@@ -62,7 +49,8 @@ public class PromoProposalAMImpl extends CustomApplicationModuleImpl implements 
     public void addDocApproval(String propId, String docNo, String docStatus,
                                String promoDtFrom, String promoDtTo,
                                String docRegion, String usrRole, String userNm,
-                               String aprvlFlowNm) {
+                               String aprvlFlowNm, String propDt) {
+        
         //Choose reason init or resubmit
         String reasonStr = initReason;
         ViewObjectImpl docApproval = this.getDocApprovalView1();
@@ -74,17 +62,17 @@ public class PromoProposalAMImpl extends CustomApplicationModuleImpl implements 
             reasonStr = initReason;
         }
         
-
         //Retrieve proposal receiver role
         ViewObjectImpl proposalReceiver =
             this.getApprovalReceiverNewProposalView1();
         proposalReceiver.setNamedWhereClauseParam("aprvlFlowNm", aprvlFlowNm);
-        proposalReceiver.setNamedWhereClauseParam("usrRole", usrRole);
+        proposalReceiver.setNamedWhereClauseParam("usrName", userNm);
         proposalReceiver.executeQuery();
 
         if (proposalReceiver.getEstimatedRowCount() > 0) {
             Row propReceiverRow = proposalReceiver.first();
             String roleName = (String)propReceiverRow.getAttribute("RoleName");
+            String userName = (String)propReceiverRow.getAttribute("UserName");
             String aprvlCode =
                 (String)propReceiverRow.getAttribute("AprvlCode");
 
@@ -94,27 +82,27 @@ public class PromoProposalAMImpl extends CustomApplicationModuleImpl implements 
             try {
 
                 String SQLInit =
-                    "INSERT INTO DOC_APPROVAL (DOC_APPROVAL_ID, PROPOSAL_ID, DOCUMENT_NO, STATUS, PROMO_DATE_FROM, PROMO_DATE_TO, ACTION, ACTION_DATE, ACTION_BY, REASON, ROLE_NAME, REGION, APRVL_CODE, CREATED_BY, CREATION_DATE) " +
+                    "INSERT INTO DOC_APPROVAL (DOC_APPROVAL_ID, PROPOSAL_ID, DOCUMENT_NO, STATUS, PROMO_DATE_FROM, PROMO_DATE_TO, ACTION, ACTION_DATE, ACTION_BY, REASON, ROLE_NAME, REGION, APRVL_CODE, CREATED_BY, CREATION_DATE, ACTION_TO, PROPOSAL_DATE) " +
                     "VALUES (DOC_APPROVAL_SEQ.NEXTVAL, TO_NUMBER(" + propId +
                     "), '" + docNo + "', '" + docStatus +
                     "', TO_DATE(UPPER('" + promoDtFrom +
                     "'), 'DD-MON-YYYY'), " + "TO_DATE(UPPER('" + promoDtTo +
                     "'), 'DD-MON-YYYY'), 'SUBMIT', SYSDATE, '" + userNm +
                     "', '" + reasonStr + "', '" + usrRole + "', '" + docRegion + "', '" +
-                    aprvlCode + "', '" + userNm + "', SYSDATE)";
+                    aprvlCode + "', '" + userNm + "', SYSDATE, '" + userNm + "', TO_DATE(UPPER('" + propDt + "'), 'DD-MON-YYYY hh:mi:ss'))";
 
                 addDocInitApprovalStmt =
                         getDBTransaction().createPreparedStatement(SQLInit, 1);
                 addDocInitApprovalStmt.executeUpdate();
 
                 String SQL =
-                    "INSERT INTO DOC_APPROVAL (DOC_APPROVAL_ID, PROPOSAL_ID, DOCUMENT_NO, STATUS, PROMO_DATE_FROM, PROMO_DATE_TO, ROLE_NAME, REGION, APRVL_CODE, CREATED_BY, CREATION_DATE) " +
+                    "INSERT INTO DOC_APPROVAL (DOC_APPROVAL_ID, PROPOSAL_ID, DOCUMENT_NO, STATUS, PROMO_DATE_FROM, PROMO_DATE_TO, ROLE_NAME, REGION, APRVL_CODE, CREATED_BY, CREATION_DATE, ACTION_TO, PROPOSAL_DATE) " +
                     "VALUES (DOC_APPROVAL_SEQ.NEXTVAL, TO_NUMBER(" + propId +
                     "), '" + docNo + "', '" + docStatus +
                     "', TO_DATE(UPPER('" + promoDtFrom +
                     "'), 'DD-MON-YYYY'), " + "TO_DATE(UPPER('" + promoDtTo +
                     "'), 'DD-MON-YYYY'), '" + roleName + "', '" + docRegion +
-                    "', '" + aprvlCode + "', '" + userNm + "', SYSDATE)";
+                    "', '" + aprvlCode + "', '" + userNm + "', SYSDATE, '" + userName + "', TO_DATE(UPPER('" + propDt + "'), 'DD-MON-YYYY hh:mi:ss'))";
 
                 addDocApprovalStmt =
                         getDBTransaction().createPreparedStatement(SQL, 1);
@@ -133,7 +121,7 @@ public class PromoProposalAMImpl extends CustomApplicationModuleImpl implements 
             }
         } else {
             getDBTransaction().rollback();
-            throw new JboException("Role penerima pada flow approval tidak ditemukan.");
+            throw new JboException("User penerima pada flow approval tidak ditemukan.");
         }
     }
 
@@ -531,15 +519,6 @@ public class PromoProposalAMImpl extends CustomApplicationModuleImpl implements 
 
 
     /**
-     * Container's getter for DuplicatePromoBonusVariantView1.
-     * @return DuplicatePromoBonusVariantView1
-     */
-    public DuplicatePromoBonusVariantViewImpl getDuplicatePromoBonusVariantView1() {
-        return (DuplicatePromoBonusVariantViewImpl)findViewObject("DuplicatePromoBonusVariantView1");
-    }
-
-
-    /**
      * Container's getter for PromoBonusVariantView1.
      * @return PromoBonusVariantView1
      */
@@ -812,69 +791,6 @@ public class PromoProposalAMImpl extends CustomApplicationModuleImpl implements 
         return (ViewLinkImpl)findViewLink("ExclCustCustPromoProdukFk1Link1");
     }
 
-    /**
-     * Container's getter for ExclPropCustAreaView1.
-     * @return ExclPropCustAreaView1
-     */
-    public ViewObjectImpl getExclPropCustAreaView1() {
-        return (ViewObjectImpl)findViewObject("ExclPropCustAreaView1");
-    }
-
-    /**
-     * Container's getter for ExclPropCustAreaProposalFk1Link1.
-     * @return ExclPropCustAreaProposalFk1Link1
-     */
-    public ViewLinkImpl getExclPropCustAreaProposalFk1Link1() {
-        return (ViewLinkImpl)findViewLink("ExclPropCustAreaProposalFk1Link1");
-    }
-
-    /**
-     * Container's getter for ExclPropCustCustView1.
-     * @return ExclPropCustCustView1
-     */
-    public ViewObjectImpl getExclPropCustCustView1() {
-        return (ViewObjectImpl)findViewObject("ExclPropCustCustView1");
-    }
-
-    /**
-     * Container's getter for ExclPropCustCustProposalFk1Link1.
-     * @return ExclPropCustCustProposalFk1Link1
-     */
-    public ViewLinkImpl getExclPropCustCustProposalFk1Link1() {
-        return (ViewLinkImpl)findViewLink("ExclPropCustCustProposalFk1Link1");
-    }
-
-    /**
-     * Container's getter for ExclPropCustLocView1.
-     * @return ExclPropCustLocView1
-     */
-    public ViewObjectImpl getExclPropCustLocView1() {
-        return (ViewObjectImpl)findViewObject("ExclPropCustLocView1");
-    }
-
-    /**
-     * Container's getter for ExclPropCustLocProposalFk1Link1.
-     * @return ExclPropCustLocProposalFk1Link1
-     */
-    public ViewLinkImpl getExclPropCustLocProposalFk1Link1() {
-        return (ViewLinkImpl)findViewLink("ExclPropCustLocProposalFk1Link1");
-    }
-
-    /**
-     * Container's getter for ExclPropCustRegionView1.
-     * @return ExclPropCustRegionView1
-     */
-    public ViewObjectImpl getExclPropCustRegionView1() {
-        return (ViewObjectImpl)findViewObject("ExclPropCustRegionView1");
-    }
-
-    /**
-     * Container's getter for ExclPropCustRegionProposalFk1Link1.
-     * @return ExclPropCustRegionProposalFk1Link1
-     */
-    public ViewLinkImpl getExclPropCustRegionProposalFk1Link1() {
-        return (ViewLinkImpl)findViewLink("ExclPropCustRegionProposalFk1Link1");
-    }
 
     /**
      * Container's getter for AllExclProposalAreaShuttleView1.
@@ -938,5 +854,126 @@ public class PromoProposalAMImpl extends CustomApplicationModuleImpl implements 
      */
     public ViewObjectImpl getAllExcludeProdRegionShuttleView1() {
         return (ViewObjectImpl)findViewObject("AllExcludeProdRegionShuttleView1");
+    }
+
+    /**
+     * Container's getter for DuplicateProdExclAreaView1.
+     * @return DuplicateProdExclAreaView1
+     */
+    public DuplicateProdExclAreaViewImpl getDuplicateProdExclAreaView1() {
+        return (DuplicateProdExclAreaViewImpl)findViewObject("DuplicateProdExclAreaView1");
+    }
+
+    /**
+     * Container's getter for DuplicateProdExclCustomerView1.
+     * @return DuplicateProdExclCustomerView1
+     */
+    public DuplicateProdExclCustomerViewImpl getDuplicateProdExclCustomerView1() {
+        return (DuplicateProdExclCustomerViewImpl)findViewObject("DuplicateProdExclCustomerView1");
+    }
+
+    /**
+     * Container's getter for DuplicateProdExclLocView1.
+     * @return DuplicateProdExclLocView1
+     */
+    public DuplicateProdExclLocViewImpl getDuplicateProdExclLocView1() {
+        return (DuplicateProdExclLocViewImpl)findViewObject("DuplicateProdExclLocView1");
+    }
+
+    /**
+     * Container's getter for DuplicateProdExclRegionView1.
+     * @return DuplicateProdExclRegionView1
+     */
+    public DuplicateProdExclRegionViewImpl getDuplicateProdExclRegionView1() {
+        return (DuplicateProdExclRegionViewImpl)findViewObject("DuplicateProdExclRegionView1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustAreaView1.
+     * @return ExclPropCustAreaView1
+     */
+    public ViewObjectImpl getExclPropCustAreaView1() {
+        return (ViewObjectImpl)findViewObject("ExclPropCustAreaView1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustAreaPromoProdukFk1Link1.
+     * @return ExclPropCustAreaPromoProdukFk1Link1
+     */
+    public ViewLinkImpl getExclPropCustAreaPromoProdukFk1Link1() {
+        return (ViewLinkImpl)findViewLink("ExclPropCustAreaPromoProdukFk1Link1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustCustView1.
+     * @return ExclPropCustCustView1
+     */
+    public ViewObjectImpl getExclPropCustCustView1() {
+        return (ViewObjectImpl)findViewObject("ExclPropCustCustView1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustCustPromoProdukFk1Link1.
+     * @return ExclPropCustCustPromoProdukFk1Link1
+     */
+    public ViewLinkImpl getExclPropCustCustPromoProdukFk1Link1() {
+        return (ViewLinkImpl)findViewLink("ExclPropCustCustPromoProdukFk1Link1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustLocView1.
+     * @return ExclPropCustLocView1
+     */
+    public ViewObjectImpl getExclPropCustLocView1() {
+        return (ViewObjectImpl)findViewObject("ExclPropCustLocView1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustLocPromoProdukFk1Link1.
+     * @return ExclPropCustLocPromoProdukFk1Link1
+     */
+    public ViewLinkImpl getExclPropCustLocPromoProdukFk1Link1() {
+        return (ViewLinkImpl)findViewLink("ExclPropCustLocPromoProdukFk1Link1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustRegionView1.
+     * @return ExclPropCustRegionView1
+     */
+    public ViewObjectImpl getExclPropCustRegionView1() {
+        return (ViewObjectImpl)findViewObject("ExclPropCustRegionView1");
+    }
+
+    /**
+     * Container's getter for ExclPropCustRegionPromoProdukFk1Link1.
+     * @return ExclPropCustRegionPromoProdukFk1Link1
+     */
+    public ViewLinkImpl getExclPropCustRegionPromoProdukFk1Link1() {
+        return (ViewLinkImpl)findViewLink("ExclPropCustRegionPromoProdukFk1Link1");
+    }
+
+
+    /**
+     * Container's getter for UploadDownloadView1.
+     * @return UploadDownloadView1
+     */
+    public ViewObjectImpl getUploadDownloadView1() {
+        return (ViewObjectImpl)findViewObject("UploadDownloadView1");
+    }
+
+    /**
+     * Container's getter for UploadDownloadProposalFk1Link1.
+     * @return UploadDownloadProposalFk1Link1
+     */
+    public ViewLinkImpl getUploadDownloadProposalFk1Link1() {
+        return (ViewLinkImpl)findViewLink("UploadDownloadProposalFk1Link1");
+    }
+
+    /**
+     * Container's getter for FindRegionCode1.
+     * @return FindRegionCode1
+     */
+    public FindRegionCodeImpl getFindRegionCode1() {
+        return (FindRegionCodeImpl)findViewObject("FindRegionCode1");
     }
 }

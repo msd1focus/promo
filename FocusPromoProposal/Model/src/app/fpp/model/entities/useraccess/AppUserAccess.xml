@@ -276,6 +276,26 @@
       </SchemaBasedProperties>
     </Properties>
   </Attribute>
+  <Attribute
+    Name="DirectSpv"
+    Precision="30"
+    ColumnName="DIRECT_SPV"
+    SQLType="VARCHAR"
+    Type="java.lang.String"
+    ColumnType="VARCHAR2"
+    TableName="APP_USER_ACCESS">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="30"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="ATASAN_LANGSUNG"/>
+        <DISPLAYWIDTH
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
   <AccessorAttribute
     Name="AppUserAccessRoles"
     Association="app.fpp.model.entities.useraccess.AppUserAccessRolesFk1Assoc"
@@ -285,9 +305,37 @@
     IsUpdateable="false"/>
   <AccessorAttribute
     Name="AppUserRegion"
-    Association="app.fpp.model.entities.useraccess.AppUserAccessRegionFk1Assoc"
-    AssociationEnd="app.fpp.model.entities.useraccess.AppUserAccessRegionFk1Assoc.AppUserRegion"
-    AssociationOtherEnd="app.fpp.model.entities.useraccess.AppUserAccessRegionFk1Assoc.AppUserAccess"
+    Association="app.fpp.model.entities.useraccess.AppUserRegionAppUserAccessFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.useraccess.AppUserRegionAppUserAccessFk1Assoc.AppUserRegion"
+    AssociationOtherEnd="app.fpp.model.entities.useraccess.AppUserRegionAppUserAccessFk1Assoc.AppUserAccess"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="AppUserArea"
+    Association="app.fpp.model.entities.useraccess.AppUserAreaAppUserAccessFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.useraccess.AppUserAreaAppUserAccessFk1Assoc.AppUserArea"
+    AssociationOtherEnd="app.fpp.model.entities.useraccess.AppUserAreaAppUserAccessFk1Assoc.AppUserAccess"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="AppUserCust"
+    Association="app.fpp.model.entities.useraccess.AppUserCustAppUserAccessFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.useraccess.AppUserCustAppUserAccessFk1Assoc.AppUserCust"
+    AssociationOtherEnd="app.fpp.model.entities.useraccess.AppUserCustAppUserAccessFk1Assoc.AppUserAccess"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="AppUserLoc"
+    Association="app.fpp.model.entities.useraccess.AppUserLocAppUserAccessFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.useraccess.AppUserLocAppUserAccessFk1Assoc.AppUserLoc"
+    AssociationOtherEnd="app.fpp.model.entities.useraccess.AppUserLocAppUserAccessFk1Assoc.AppUserAccess"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="AppUserCustGroup"
+    Association="app.fpp.model.entities.useraccess.AppUserCustGroupAppUserAccessFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.useraccess.AppUserCustGroupAppUserAccessFk1Assoc.AppUserCustGroup"
+    AssociationOtherEnd="app.fpp.model.entities.useraccess.AppUserCustGroupAppUserAccessFk1Assoc.AppUserAccess"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <Key

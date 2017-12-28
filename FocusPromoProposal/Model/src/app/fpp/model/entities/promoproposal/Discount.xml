@@ -190,6 +190,25 @@
       </SchemaBasedProperties>
     </Properties>
   </Attribute>
+  <Attribute
+    Name="Kelipatan"
+    Precision="18"
+    Scale="0"
+    ColumnName="KELIPATAN"
+    SQLType="NUMERIC"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    TableName="DISCOUNT">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="19"/>
+    </DesignTime>
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="KELIPATAN"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Attribute>
   <AccessorAttribute
     Name="PromoProduk"
     Association="app.fpp.model.entities.promoproposal.DiscountPromoProdukFk1Assoc"

@@ -6,21 +6,8 @@
   Name="ApprovalReceiverApproveProposalView"
   Version="11.1.1.64.93"
   InheritPersonalization="true"
-  SelectList="ApprovalFlow.ID_APRVL_FLOW, 
-       ApprovalSteps.ID_APRVL_STEP, 
-       ApprovalFlow.APRVL_FLOW_NM, 
-       ApprovalFlow.APRVL_CODE, 
-       ApprovalSteps.ROLE_NAME, 
-       ApprovalSteps.STEP_SEQUENCE"
-  FromList="APPROVAL_FLOW ApprovalFlow, APPROVAL_STEPS ApprovalSteps"
-  Where="ApprovalFlow.ID_APRVL_FLOW = ApprovalSteps.ID_APRVL_FLOW
-AND ApprovalFlow.APRVL_CODE = :aprvlCode
-AND ApprovalSteps.STEP_SEQUENCE = (SELECT AST.STEP_SEQUENCE+1 FROM APPROVAL_FLOW AF, APPROVAL_STEPS AST
-WHERE AST.ID_APRVL_FLOW = AF.ID_APRVL_FLOW
-AND AF.APRVL_FLOW_NM = ApprovalFlow.APRVL_FLOW_NM
-AND AST.ROLE_NAME = :usrRole)"
   BindingStyle="OracleName"
-  CustomQuery="false"
+  CustomQuery="true"
   PageIterMode="Full"
   UseGlueCode="false"
   RowClass="app.fpp.model.views.approval.ApprovalReceiverApproveProposalViewRowImpl"
@@ -28,6 +15,7 @@ AND AST.ROLE_NAME = :usrRole)"
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
+    <Attr Name="_isExpertMode" Value="true"/>
   </DesignTime>
   <Properties>
     <SchemaBasedProperties>
@@ -40,9 +28,86 @@ AND AST.ROLE_NAME = :usrRole)"
     Kind="where"
     Type="java.lang.String"/>
   <Variable
-    Name="usrRole"
+    Name="usrName"
     Kind="where"
     Type="java.lang.String"/>
+  <SQLQuery>
+    <![CDATA[SELECT ApprovalFlow.ID_APRVL_FLOW, 
+       ApprovalSteps.ID_APRVL_STEP, 
+       ApprovalFlow.APRVL_FLOW_NM, 
+       ApprovalFlow.APRVL_CODE, 
+       ApprovalSteps.ROLE_NAME, 
+       ApprovalSteps.STEP_SEQUENCE, 
+       ApprovalFlow.STATUS,
+       AppUserAccess.USER_NAME,
+       AppUserAccess.ID
+FROM APPROVAL_FLOW ApprovalFlow, APPROVAL_STEPS ApprovalSteps, APP_USER_ACCESS AppUserAccess, APP_USER_ACCESS_ROLES AppUserAccessRoles
+WHERE ApprovalFlow.ID_APRVL_FLOW = ApprovalSteps.ID_APRVL_FLOW
+AND ApprovalFlow.APRVL_CODE = :aprvlCode
+AND ApprovalFlow.STATUS = 'A'
+AND AppUserAccessRoles.USER_NAME = AppUserAccess.USER_NAME
+AND AppUserAccessRoles.ROLE = ApprovalSteps.ROLE_NAME
+AND AppUserAccess.USER_NAME = (SELECT AUA.DIRECT_SPV FROM APP_USER_ACCESS AUA WHERE AUA.USER_NAME = :usrName)
+--AND ApprovalSteps.STEP_SEQUENCE = (SELECT AST.STEP_SEQUENCE+1 FROM APPROVAL_FLOW AF, APPROVAL_STEPS AST, APP_USER_ACCESS_ROLES UAR
+--WHERE AST.ID_APRVL_FLOW = AF.ID_APRVL_FLOW
+--AND AF.APRVL_FLOW_NM = ApprovalFlow.APRVL_FLOW_NM
+--AND AST.ROLE_NAME = UAR.ROLE
+--AND UAR.USER_NAME = :usrName)
+GROUP BY ApprovalFlow.ID_APRVL_FLOW, 
+       ApprovalSteps.ID_APRVL_STEP, 
+       ApprovalFlow.APRVL_FLOW_NM, 
+       ApprovalFlow.APRVL_CODE, 
+       ApprovalSteps.ROLE_NAME, 
+       ApprovalSteps.STEP_SEQUENCE, 
+       ApprovalFlow.STATUS,
+       AppUserAccess.USER_NAME,
+       AppUserAccess.ID
+UNION ALL
+SELECT ApprovalFlow.ID_APRVL_FLOW, 
+       ApprovalSteps.ID_APRVL_STEP, 
+       ApprovalFlow.APRVL_FLOW_NM, 
+       ApprovalFlow.APRVL_CODE, 
+       ApprovalSteps.ROLE_NAME, 
+       MAX(ApprovalSteps.STEP_SEQUENCE), 
+       ApprovalFlow.STATUS,
+       AppUserAccess.USER_NAME,
+       AppUserAccess.ID
+FROM APPROVAL_FLOW ApprovalFlow, APPROVAL_STEPS ApprovalSteps, APP_USER_ACCESS AppUserAccess, APP_USER_ACCESS_ROLES AppUserAccessRoles
+WHERE ApprovalFlow.ID_APRVL_FLOW = ApprovalSteps.ID_APRVL_FLOW
+AND ApprovalFlow.APRVL_CODE = :aprvlCode
+AND ApprovalFlow.STATUS = 'A'
+AND AppUserAccessRoles.USER_NAME = AppUserAccess.USER_NAME
+AND AppUserAccessRoles.ROLE = ApprovalSteps.ROLE_NAME
+AND AppUserAccess.USER_NAME <> :usrName
+AND (((SELECT COUNT(AUA.USER_NAME) FROM APP_USER_ACCESS AUA WHERE AUA.USER_NAME = :usrName AND AUA.DIRECT_SPV IS NULL) <> 0) 
+OR (SELECT COUNT(UAC.USER_NAME)
+FROM APPROVAL_FLOW AFL, APPROVAL_STEPS AST, APP_USER_ACCESS UAC, APP_USER_ACCESS_ROLES ACR
+WHERE AFL.ID_APRVL_FLOW = AST.ID_APRVL_FLOW
+AND AFL.APRVL_FLOW_NM = AFL.APRVL_FLOW_NM
+AND AFL.STATUS = 'A'
+AND ACR.USER_NAME = UAC.USER_NAME
+AND ACR.ROLE = AST.ROLE_NAME
+AND UAC.USER_NAME = (SELECT AUA.DIRECT_SPV FROM APP_USER_ACCESS AUA WHERE AUA.USER_NAME = :usrName)
+--AND AST.STEP_SEQUENCE = (SELECT AST.STEP_SEQUENCE+1 FROM APPROVAL_FLOW AF, APPROVAL_STEPS AST, APP_USER_ACCESS_ROLES UAR
+--WHERE AST.ID_APRVL_FLOW = AF.ID_APRVL_FLOW
+--AND AF.APRVL_FLOW_NM = AFL.APRVL_FLOW_NM
+--AND AST.ROLE_NAME = UAR.ROLE
+--AND UAR.USER_NAME = :usrName)
+) = 0)
+AND ApprovalSteps.STEP_SEQUENCE = (SELECT MAX(ASTEP.STEP_SEQUENCE)
+FROM APPROVAL_FLOW AFLOW, APPROVAL_STEPS ASTEP, APP_USER_ACCESS_ROLES UAR
+WHERE AFLOW.APRVL_FLOW_NM = ApprovalFlow.APRVL_FLOW_NM
+AND ASTEP.ID_APRVL_FLOW = AFLOW.ID_APRVL_FLOW)
+GROUP BY ApprovalFlow.ID_APRVL_FLOW, 
+       ApprovalSteps.ID_APRVL_STEP, 
+       ApprovalFlow.APRVL_FLOW_NM, 
+       ApprovalFlow.APRVL_CODE, 
+       ApprovalSteps.ROLE_NAME, 
+       ApprovalSteps.STEP_SEQUENCE, 
+       ApprovalFlow.STATUS,
+       AppUserAccess.USER_NAME,
+       AppUserAccess.ID]]>
+  </SQLQuery>
   <EntityUsage
     Name="ApprovalFlow"
     Entity="app.fpp.model.entities.approvalsetting.ApprovalFlow"/>
@@ -64,6 +129,33 @@ AND AST.ROLE_NAME = :usrRole)"
       <AttrArray Name="_dstAttributes">
         <Item
           Value="app.fpp.model.entities.approvalsetting.ApprovalSteps.IdAprvlFlow"/>
+      </AttrArray>
+    </DesignTime>
+  </EntityUsage>
+  <EntityUsage
+    Name="AppUserAccess"
+    Entity="app.fpp.model.entities.useraccess.AppUserAccess"
+    SourceUsage="app.fpp.model.views.approval.ApprovalReceiverApproveProposalView.ApprovalSteps"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"/>
+  <EntityUsage
+    Name="AppUserAccessRoles"
+    Entity="app.fpp.model.entities.useraccess.AppUserAccessRoles"
+    Association="app.fpp.model.entities.useraccess.AppUserAccessRolesFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.useraccess.AppUserAccessRolesFk1Assoc.AppUserAccessRoles"
+    SourceUsage="app.fpp.model.views.approval.ApprovalReceiverApproveProposalView.AppUserAccess"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"
+    JoinType="INNER JOIN">
+    <DesignTime>
+      <AttrArray Name="_srcAttributes">
+        <Item Value="app.fpp.model.entities.useraccess.AppUserAccess.UserName"/>
+      </AttrArray>
+      <AttrArray Name="_dstAttributes">
+        <Item
+          Value="app.fpp.model.entities.useraccess.AppUserAccessRoles.UserName"/>
       </AttrArray>
     </DesignTime>
   </EntityUsage>
@@ -111,6 +203,28 @@ AND AST.ROLE_NAME = :usrRole)"
     EntityAttrName="StepSequence"
     EntityUsage="ApprovalSteps"
     AliasName="STEP_SEQUENCE"/>
+  <ViewAttribute
+    Name="Status"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="Status"
+    EntityUsage="ApprovalFlow"
+    AliasName="STATUS"/>
+  <ViewAttribute
+    Name="UserName"
+    IsUnique="true"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="UserName"
+    EntityUsage="AppUserAccess"
+    AliasName="USER_NAME"/>
+  <ViewAttribute
+    Name="Id"
+    IsUpdateable="while_insert"
+    PrecisionRule="true"
+    EntityAttrName="Id"
+    EntityUsage="AppUserAccess"
+    AliasName="ID"/>
   <AttrArray Name="KeyAttributes">
     <Item Value="IdAprvlFlow"/>
   </AttrArray>

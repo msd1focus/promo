@@ -45,16 +45,18 @@
        Proposal.CUST_REG_FLAG, 
        Proposal.HIST_REMARK, 
        Proposal.HIST_TRAN_DT_FROM, 
-       Proposal.HIST_TRAN_DT_TO"
-  FromList="PROPOSAL Proposal, DOC_APPROVAL DocApproval, APPROVAL_REG_PROP ApprovalRegProp"
+       Proposal.HIST_TRAN_DT_TO, 
+       (select round(sysdate - da.action_date,0) from doc_approval da where da.action = 'SUBMIT' and da.reason = 'Initial proposal' and da.proposal_id = Proposal.PROPOSAL_ID) AS NUM_DAYS, 
+       (select da.action_date from doc_approval da where da.action = 'SUBMIT' and da.reason = 'Initial proposal' and da.proposal_id = Proposal.PROPOSAL_ID) AS SUBMIT_DATE, 
+       Proposal.MIX_QTY_PROMO"
+  FromList="PROPOSAL Proposal, DOC_APPROVAL DocApproval"
   Where="Proposal.PROPOSAL_ID = DocApproval.PROPOSAL_ID
 AND Proposal.COMPANY_ID = :compId
 AND Proposal.STATUS IN ('INPROCESS', 'REJECTED')
-AND ApprovalRegProp.PROPOSAL_ID = Proposal.PROPOSAL_ID
-AND ApprovalRegProp.PROPOSAL_ID = DocApproval.PROPOSAL_ID
 AND DocApproval.ACTION IS NULL
 AND DocApproval.ROLE_NAME = :roleName
-AND ApprovalRegProp.REGION_CODE IN (SELECT AUR.REGION_CODE FROM FOCUSPP.APP_USER_REGION AUR WHERE AUR.USER_NAME = :userName)
+AND DocApproval.ACTION_TO = :userName
+AND DocApproval.CREATION_DATE = (SELECT MAX(DA.CREATION_DATE) FROM DOC_APPROVAL DA WHERE DA.PROPOSAL_ID = Proposal.PROPOSAL_ID)
 GROUP BY Proposal.PROPOSAL_ID, 
        Proposal.PROPOSAL_NO, 
        Proposal.COMPANY_ID, 
@@ -90,8 +92,16 @@ GROUP BY Proposal.PROPOSAL_ID,
        Proposal.CUST_REG_FLAG,
        Proposal.HIST_REMARK, 
        Proposal.HIST_TRAN_DT_FROM, 
-       Proposal.HIST_TRAN_DT_TO"
-  OrderBy="DocApproval.CREATION_DATE">
+       Proposal.HIST_TRAN_DT_TO,
+       DocApproval.ACTION_TO, 
+       Proposal.MIX_QTY_PROMO"
+  OrderBy="DocApproval.CREATION_DATE"
+  ComponentClass="app.fpp.model.views.approval.ProposalApprovalViewImpl"
+  RowClass="app.fpp.model.views.approval.ProposalApprovalViewRowImpl">
+  <DesignTime>
+    <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
+    <Attr Name="_isCodegen" Value="true"/>
+  </DesignTime>
   <Properties>
     <SchemaBasedProperties>
       <LABEL
@@ -192,6 +202,15 @@ GROUP BY Proposal.PROPOSAL_ID,
     <ParameterMap>
       <PIMap Variable="luTitle">
         <TransientExpression><![CDATA['APP_PROP_REG_CUS_FLG']]></TransientExpression>
+      </PIMap>
+    </ParameterMap>
+  </ViewAccessor>
+  <ViewAccessor
+    Name="MixQtyPromoLov"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.LookupCodeView">
+    <ParameterMap>
+      <PIMap Variable="luTitle">
+        <TransientExpression><![CDATA['APP_MIX_QTY_PROMO_FLG']]></TransientExpression>
       </PIMap>
     </ParameterMap>
   </ViewAccessor>
@@ -376,6 +395,24 @@ GROUP BY Proposal.PROPOSAL_ID,
     <DisplayCriteria
       Hint="hide"/>
   </ListBinding>
+  <ListBinding
+    Name="LOV_MixQtyPromo"
+    ListVOName="MixQtyPromoLov"
+    ListRangeSize="-1"
+    NullValueFlag="none"
+    NullValueId="LOV_MixQtyPromo_LOVUIHints_NullValueId"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="MixQtyPromo"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="Value"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="Descr"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
   <EntityUsage
     Name="Proposal"
     Entity="app.fpp.model.entities.promoproposal.Proposal"
@@ -396,26 +433,6 @@ GROUP BY Proposal.PROPOSAL_ID,
       </AttrArray>
       <AttrArray Name="_dstAttributes">
         <Item Value="app.fpp.model.entities.approval.DocApproval.ProposalId"/>
-      </AttrArray>
-    </DesignTime>
-  </EntityUsage>
-  <EntityUsage
-    Name="ApprovalRegProp"
-    Entity="app.fpp.model.entities.approval.ApprovalRegProp"
-    Association="app.fpp.model.entities.approval.ApprovalRegPropProposalFk1Assoc"
-    AssociationEnd="app.fpp.model.entities.approval.ApprovalRegPropProposalFk1Assoc.ApprovalRegProp"
-    SourceUsage="app.fpp.model.views.approval.ProposalApprovalView.Proposal"
-    ReadOnly="true"
-    Reference="true"
-    DeleteParticipant="false"
-    JoinType="INNER JOIN">
-    <DesignTime>
-      <AttrArray Name="_srcAttributes">
-        <Item Value="app.fpp.model.entities.promoproposal.Proposal.ProposalId"/>
-      </AttrArray>
-      <AttrArray Name="_dstAttributes">
-        <Item
-          Value="app.fpp.model.entities.approval.ApprovalRegProp.ProposalId"/>
       </AttrArray>
     </DesignTime>
   </EntityUsage>
@@ -713,9 +730,7 @@ GROUP BY Proposal.PROPOSAL_ID,
     Type="java.lang.String"
     ColumnType="VARCHAR2"
     AliasName="PROG_DAYS_COUNT"
-    SQLType="VARCHAR">
-    <TransientExpression><![CDATA[(PeriodeProgTo - PeriodeProgFrom) + 1]]></TransientExpression>
-  </ViewAttribute>
+    SQLType="VARCHAR"/>
   <ViewAttribute
     Name="UserTypeCreator"
     IsNotNull="true"
@@ -797,6 +812,86 @@ GROUP BY Proposal.PROPOSAL_ID,
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>
+  <ViewAttribute
+    Name="PeriodeDateFromTemp"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="PeriodeDateToTemp"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
+  <ViewAttribute
+    Name="NumDays"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="NUM_DAYS"
+    SQLType="NUMERIC"
+    Expression="select round(sysdate - da.action_date,0) from doc_approval da where da.action = 'SUBMIT' and da.reason = 'Initial proposal' and da.proposal_id = Proposal.PROPOSAL_ID"/>
+  <ViewAttribute
+    Name="SubmitDate"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="SUBMIT_DATE"
+    SQLType="DATE"
+    Expression="select da.action_date from doc_approval da where da.action = 'SUBMIT' and da.reason = 'Initial proposal' and da.proposal_id = Proposal.PROPOSAL_ID">
+    <Properties>
+      <SchemaBasedProperties>
+        <FMT_FORMATTER
+          ResId="app.fpp.model.views.approval.ProposalApprovalView.SubmitDate_FMT_FORMATTER"/>
+        <FMT_FORMAT
+          ResId="app.fpp.model.views.approval.ProposalApprovalView.SubmitDate_FMT_FORMAT"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="MixQtyPromo"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="MixQtyPromo"
+    EntityUsage="Proposal"
+    AliasName="MIX_QTY_PROMO"
+    LOVName="LOV_MixQtyPromo">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="choice"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="HistTranDtToTemp"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="VIEW_ATTR"
+    SQLType="DATE"/>
+  <ViewAttribute
+    Name="HistTranDtFromTemp"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Date"
+    ColumnType="DATE"
+    AliasName="VIEW_ATTR"
+    SQLType="DATE"/>
   <AttrArray Name="KeyAttributes">
     <Item Value="ProposalId"/>
   </AttrArray>
@@ -830,10 +925,6 @@ GROUP BY Proposal.PROPOSAL_ID,
     ViewLink="app.fpp.model.views.approval.ProposalApprovalPropRegionLocFk1Link"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
-  <ResourceBundle>
-    <PropertiesBundle
-      PropertiesFile="app.fpp.model.ModelBundle"/>
-  </ResourceBundle>
   <ViewLinkAccessor
     Name="ApprovalRegPropView"
     ViewLink="app.fpp.model.views.approval.ApprovalRegPropProposalApprovalFk1Link"
@@ -845,23 +936,12 @@ GROUP BY Proposal.PROPOSAL_ID,
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
   <ViewLinkAccessor
-    Name="ExclPropCustAreaView"
-    ViewLink="app.fpp.model.views.approval.ExclPropCustAreaProposalApprovalFk1Link"
+    Name="UploadDownloadView"
+    ViewLink="app.fpp.model.views.approval.ApprovalUploadDownloadFk1Link"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
-  <ViewLinkAccessor
-    Name="ExclPropCustCustView"
-    ViewLink="app.fpp.model.views.approval.ExclPropCustCustProposalApprovalFk1Link"
-    Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
-  <ViewLinkAccessor
-    Name="ExclPropCustLocView"
-    ViewLink="app.fpp.model.views.approval.ExclPropCustLocProposalApprovalFk1Link"
-    Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
-  <ViewLinkAccessor
-    Name="ExclPropCustRegionView"
-    ViewLink="app.fpp.model.views.approval.ExclPropCustRegionProposaApprovalFk1Link"
-    Type="oracle.jbo.RowIterator"
-    IsUpdateable="false"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="app.fpp.model.ModelBundle"/>
+  </ResourceBundle>
 </ViewObject>

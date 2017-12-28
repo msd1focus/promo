@@ -6,10 +6,10 @@
   <executables>
     <variableIterator id="variables"/>
     <iterator id="AllRolesShuttleView1Iterator" Binds="AllRolesShuttleView1"
-              DataControl="UserAccessAMDataControl" RangeSize="50"/>
+              DataControl="UserAccessAMDataControl" RangeSize="-1"/>
     <iterator id="AppUserAccessRolesView1Iterator"
               Binds="AppUserAccessRolesView1"
-              DataControl="UserAccessAMDataControl" RangeSize="50"/>
+              DataControl="UserAccessAMDataControl" RangeSize="-1"/>
   </executables>
   <bindings>
     <action id="Commit" DataControl="UserAccessAMDataControl"

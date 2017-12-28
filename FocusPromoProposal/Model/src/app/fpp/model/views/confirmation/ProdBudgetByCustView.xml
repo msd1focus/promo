@@ -24,12 +24,20 @@
     Name="KombinasiBudgetCustLov"
     ViewObjectName="app.fpp.model.views.masterdata.lov.KombinasiBudgetCustLov"
     RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="KombinasiBudgetPostLov1"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.KombinasiBudgetPostLov"
+    RowLevelBinds="true"/>
+  <ViewAccessor
+    Name="KomBudgetCustLov1"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.KomBudgetCustLov"
+    RowLevelBinds="true"/>
   <ListBinding
-    Name="LOV_KombinasiBudget"
-    ListVOName="KombinasiBudgetCustLov"
+    Name="LOV_KombinasiBudget1"
+    ListVOName="KomBudgetCustLov1"
     ListRangeSize="10"
     NullValueFlag="none"
-    NullValueId="LOV_KombinasiBudget_LOVUIHints_NullValueId"
+    NullValueId="LOV_KombinasiBudget1_LOVUIHints_NullValueId"
     MRUCount="0">
     <AttrArray Name="AttrNames">
       <Item Value="KombinasiBudget"/>
@@ -38,11 +46,13 @@
       <Item Value="KombinasiName"/>
     </AttrArray>
     <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="CustomerId"/>
       <Item Value="KombinasiName"/>
       <Item Value="BudgetYear"/>
+      <Item Value="BudgetCustomerId"/>
     </AttrArray>
     <DisplayCriteria
-      Name="KombinasiBudgetCustLovCriteria"
+      Name="KomBudgetCustLovCriteria"
       Hint="showAndExecute"/>
   </ListBinding>
   <SQLQuery>
@@ -52,7 +62,8 @@
        ProdBudgetBy.PERCENTAGE,
        ProdBudgetBy.AMOUNT,
        Target.VALUE, 
-       Target.TARGET_ID
+       Target.TARGET_ID,
+       ProdBudgetBy.BUDGET_CUST_ID
 FROM PROD_BUDGET_BY ProdBudgetBy, TARGET Target
 WHERE ProdBudgetBy.PROMO_PRODUK_ID = Target.PROMO_PRODUK_ID]]>
   </SQLQuery>
@@ -81,7 +92,7 @@ WHERE ProdBudgetBy.PROMO_PRODUK_ID = Target.PROMO_PRODUK_ID]]>
     EntityAttrName="KombinasiBudget"
     EntityUsage="ProdBudgetBy"
     AliasName="KOMBINASI_BUDGET"
-    LOVName="LOV_KombinasiBudget">
+    LOVName="LOV_KombinasiBudget1">
     <Properties>
       <SchemaBasedProperties>
         <CONTROLTYPE
@@ -122,6 +133,43 @@ return BudgetPercent;
     EntityUsage="ProdBudgetBy">
     <TransientExpression><![CDATA[0]]></TransientExpression>
   </ViewAttribute>
+  <ViewAttribute
+    Name="Value"
+    IsUpdateable="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Precision="18"
+    Scale="2"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="VALUE"
+    Expression="VALUE"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="20"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="TargetId"
+    IsUpdateable="false"
+    IsPersistent="false"
+    IsNotNull="true"
+    PrecisionRule="true"
+    Type="oracle.jbo.domain.Number"
+    ColumnType="NUMBER"
+    AliasName="TARGET_ID"
+    Expression="TARGET_ID"
+    SQLType="NUMERIC">
+    <DesignTime>
+      <Attr Name="_DisplaySize" Value="39"/>
+    </DesignTime>
+  </ViewAttribute>
+  <ViewAttribute
+    Name="BudgetCustId"
+    PrecisionRule="true"
+    EntityAttrName="BudgetCustId"
+    EntityUsage="ProdBudgetBy"
+    AliasName="BUDGET_CUST_ID"/>
   <ViewAttribute
     Name="BudgetPercent"
     IsUpdateable="false"

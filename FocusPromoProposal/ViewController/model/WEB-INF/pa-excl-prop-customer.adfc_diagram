@@ -2,19 +2,6 @@
 <SDM>
    <OverallProperties
       id="OverallProperties1"/>
-   <MethodCall
-      id="MethodCall3">
-      <property
-         name="activityId">setUserCustCust</property>
-      <property
-         name="description">&lt;html>&lt;p>&lt;b>setUserCustCust&lt;/b>&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
-      <property
-         name="exceptionHandler">false</property>
-      <property
-         name="y">326.48828</property>
-      <property
-         name="x">349.35156</property>
-   </MethodCall>
    <View
       id="View4">
       <property
@@ -26,9 +13,9 @@
       <property
          name="exceptionHandler">false</property>
       <property
-         name="y">325.6377</property>
+         name="y">318.93652</property>
       <property
-         name="x">523.0</property>
+         name="x">533.0</property>
    </View>
    <TaskFlowReturn
       id="TaskFlowReturn5">
@@ -41,9 +28,9 @@
       <property
          name="exceptionHandler">false</property>
       <property
-         name="y">325.94824</property>
+         name="y">316.89648</property>
       <property
-         name="x">688.0</property>
+         name="x">713.0</property>
    </TaskFlowReturn>
    <ControlFlowCase
       islink="true"
@@ -53,41 +40,54 @@
       <property
          name="fromOutcome">close</property>
       <property
-         name="sdm:polyPoints">R50,564.0,325.2871,647.0,325.59766,L50</property>
+         name="sdm:polyPoints">R50,574.0,318.58594,672.0,316.89648,L50</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
       id="ControlFlowCase8"
-      from="MethodCall3"
+      from="MethodCall10"
       to="View4">
       <property
          name="fromOutcome">ExecuteWithParams</property>
       <property
-         name="sdm:polyPoints">R50,390.35156,326.1377,482.0,325.2871,L50</property>
+         name="sdm:polyPoints">R50,393.35156,320.89062,492.0,318.58594,L50</property>
    </ControlFlowCase>
-   <MethodCall
-      id="MethodCall9">
-      <property
-         name="activityId">setKeyProposalId</property>
-      <property
-         name="start">true</property>
-      <property
-         name="description">&lt;html>&lt;p>&lt;b>setKeyProposalId&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
-      <property
-         name="exceptionHandler">false</property>
-      <property
-         name="y">316.37305</property>
-      <property
-         name="x">167.7002</property>
-   </MethodCall>
    <ControlFlowCase
       islink="true"
       id="ControlFlowCase10"
-      from="MethodCall9"
-      to="MethodCall3">
+      from="MethodCall11"
+      to="MethodCall10">
       <property
          name="fromOutcome">setCurrentRowWithKeyValue</property>
       <property
-         name="sdm:polyPoints">R50,208.7002,316.02246,308.35156,326.1377,L50</property>
+         name="sdm:polyPoints">R50,181.7002,321.18945,311.35156,320.89062,L50</property>
    </ControlFlowCase>
+   <MethodCall
+      id="MethodCall10">
+      <property
+         name="activityId">setUserCustCust</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>setUserCustCust&lt;/b>&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">321.2412</property>
+      <property
+         name="x">352.35156</property>
+   </MethodCall>
+   <MethodCall
+      id="MethodCall11">
+      <property
+         name="activityId">setKeyPromoProdukId</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>setKeyPromoProdukId&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">321.54004</property>
+      <property
+         name="x">140.7002</property>
+   </MethodCall>
 </SDM>

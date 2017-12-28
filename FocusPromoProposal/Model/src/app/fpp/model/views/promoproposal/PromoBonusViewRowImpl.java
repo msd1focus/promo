@@ -250,6 +250,26 @@ public class PromoBonusViewRowImpl extends ViewRowImpl {
             }
         }
         ,
+        InputPriceBy {
+            public Object get(PromoBonusViewRowImpl obj) {
+                return obj.getInputPriceBy();
+            }
+
+            public void put(PromoBonusViewRowImpl obj, Object value) {
+                obj.setInputPriceBy((String)value);
+            }
+        }
+        ,
+        PriceVal {
+            public Object get(PromoBonusViewRowImpl obj) {
+                return obj.getPriceVal();
+            }
+
+            public void put(PromoBonusViewRowImpl obj, Object value) {
+                obj.setPriceVal((Number)value);
+            }
+        }
+        ,
         PromoBonusProdItemView {
             public Object get(PromoBonusViewRowImpl obj) {
                 return obj.getPromoBonusProdItemView();
@@ -339,6 +359,16 @@ public class PromoBonusViewRowImpl extends ViewRowImpl {
                 obj.setAttributeInternal(index(), value);
             }
         }
+        ,
+        LovPriceBased {
+            public Object get(PromoBonusViewRowImpl obj) {
+                return obj.getLovPriceBased();
+            }
+
+            public void put(PromoBonusViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static final int firstIndex = 0;
@@ -391,6 +421,8 @@ public class PromoBonusViewRowImpl extends ViewRowImpl {
     public static final int DISCNONYEARLY = AttributesEnum.DiscNonYearly.index();
     public static final int UOMDESC = AttributesEnum.UomDesc.index();
     public static final int TIPEPOTONGANDESC = AttributesEnum.TipePotonganDesc.index();
+    public static final int INPUTPRICEBY = AttributesEnum.InputPriceBy.index();
+    public static final int PRICEVAL = AttributesEnum.PriceVal.index();
     public static final int PROMOBONUSPRODITEMVIEW = AttributesEnum.PromoBonusProdItemView.index();
     public static final int PROMOBONUSVARIANTVIEW = AttributesEnum.PromoBonusVariantView.index();
     public static final int LOVTIPEPOTONGAN = AttributesEnum.LovTipePotongan.index();
@@ -400,6 +432,7 @@ public class PromoBonusViewRowImpl extends ViewRowImpl {
     public static final int PRODUCTBYEXTLOV = AttributesEnum.ProductByExtLov.index();
     public static final int PRODUCTBYPACKAGINGLOV = AttributesEnum.ProductByPackagingLov.index();
     public static final int PRODUCTUOMLOV = AttributesEnum.ProductUomLov.index();
+    public static final int LOVPRICEBASED = AttributesEnum.LovPriceBased.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -868,6 +901,38 @@ public class PromoBonusViewRowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the attribute value for INPUT_PRICE_BY using the alias name InputPriceBy.
+     * @return the INPUT_PRICE_BY
+     */
+    public String getInputPriceBy() {
+        return (String) getAttributeInternal(INPUTPRICEBY);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for INPUT_PRICE_BY using the alias name InputPriceBy.
+     * @param value value to set the INPUT_PRICE_BY
+     */
+    public void setInputPriceBy(String value) {
+        setAttributeInternal(INPUTPRICEBY, value);
+    }
+
+    /**
+     * Gets the attribute value for PRICE_VAL using the alias name PriceVal.
+     * @return the PRICE_VAL
+     */
+    public Number getPriceVal() {
+        return (Number) getAttributeInternal(PRICEVAL);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for PRICE_VAL using the alias name PriceVal.
+     * @param value value to set the PRICE_VAL
+     */
+    public void setPriceVal(Number value) {
+        setAttributeInternal(PRICEVAL, value);
+    }
+
+    /**
      * Gets the associated <code>RowIterator</code> using master-detail link PromoBonusProdItemView.
      */
     public RowIterator getPromoBonusProdItemView() {
@@ -929,6 +994,14 @@ public class PromoBonusViewRowImpl extends ViewRowImpl {
      */
     public RowSet getProductUomLov() {
         return (RowSet)getAttributeInternal(PRODUCTUOMLOV);
+    }
+
+
+    /**
+     * Gets the view accessor <code>RowSet</code> LovPriceBased.
+     */
+    public RowSet getLovPriceBased() {
+        return (RowSet)getAttributeInternal(LOVPRICEBASED);
     }
 
     /**

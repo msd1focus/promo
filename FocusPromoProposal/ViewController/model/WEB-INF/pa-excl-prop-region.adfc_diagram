@@ -2,21 +2,6 @@
 <SDM>
    <OverallProperties
       id="OverallProperties1"/>
-   <MethodCall
-      id="MethodCall2">
-      <property
-         name="activityId">setUserRegionCust</property>
-      <property
-         name="start">false</property>
-      <property
-         name="description">&lt;html>&lt;p>&lt;b>setUserRegionCust&lt;/b>&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
-      <property
-         name="exceptionHandler">false</property>
-      <property
-         name="y">321.94238</property>
-      <property
-         name="x">279.35156</property>
-   </MethodCall>
    <View
       id="View3">
       <property
@@ -60,36 +45,49 @@
    <ControlFlowCase
       islink="true"
       id="ControlFlowCase6"
-      from="MethodCall2"
+      from="MethodCall9"
       to="View3">
       <property
          name="fromOutcome">ExecuteWithParams</property>
       <property
-         name="sdm:polyPoints">R50,320.35156,321.5918,401.0,321.6377,L50</property>
+         name="sdm:polyPoints">R50,328.35156,318.7871,401.0,321.6377,L50</property>
    </ControlFlowCase>
-   <MethodCall
-      id="MethodCall7">
-      <property
-         name="activityId">setKeyProposalId</property>
-      <property
-         name="start">true</property>
-      <property
-         name="description">&lt;html>&lt;p>&lt;b>setKeyProposalId&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
-      <property
-         name="exceptionHandler">false</property>
-      <property
-         name="y">322.83887</property>
-      <property
-         name="x">106.700195</property>
-   </MethodCall>
    <ControlFlowCase
       islink="true"
       id="ControlFlowCase8"
-      from="MethodCall7"
-      to="MethodCall2">
+      from="MethodCall10"
+      to="MethodCall9">
       <property
          name="fromOutcome">setCurrentRowWithKeyValue</property>
       <property
-         name="sdm:polyPoints">R50,147.7002,322.48828,238.35156,321.5918,L50</property>
+         name="sdm:polyPoints">R50,150.7002,316.18945,246.35156,318.7871,L50</property>
    </ControlFlowCase>
+   <MethodCall
+      id="MethodCall9">
+      <property
+         name="activityId">setUserRegionCust</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>setUserRegionCust&lt;/b>&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">319.1377</property>
+      <property
+         name="x">287.35156</property>
+   </MethodCall>
+   <MethodCall
+      id="MethodCall10">
+      <property
+         name="activityId">setKeyPromoProdukId</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>setKeyPromoProdukId&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">316.18945</property>
+      <property
+         name="x">109.700195</property>
+   </MethodCall>
 </SDM>

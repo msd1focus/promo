@@ -10,7 +10,6 @@
   CustomQuery="true"
   PageIterMode="Full"
   UseGlueCode="false"
-  OrderBy='"ITEM_DESCRIPTION"'
   RowClass="app.fpp.model.views.masterdata.ebs.AllKodePostingViewRowImpl"
   ComponentClass="app.fpp.model.views.masterdata.ebs.AllKodePostingViewImpl">
   <DesignTime>
@@ -32,16 +31,19 @@
       <SchemaBasedProperties>
         <LABEL
           ResId="POSTING"/>
+        <DISPLAYWIDTH
+          Value="30"/>
       </SchemaBasedProperties>
     </Properties>
   </Variable>
   <SQLQuery>
     <![CDATA[SELECT FcsViewItemMasterCategory.ITEM, 
-       FcsViewItemMasterCategory.ITEM_DESCRIPTION,
+       (FcsViewItemMasterCategory.ITEM || ' - ' || FcsViewItemMasterCategory.ITEM_DESCRIPTION) AS ITEM_DESCRIPTION,
        (FcsViewItemMasterCategory.ITEM || ' ' || FcsViewItemMasterCategory.ITEM_DESCRIPTION) AS POSTING_SEARCH
 FROM APPS.FCS_VIEW_ITEM_MASTER_CATEGORY FcsViewItemMasterCategory
 WHERE FcsViewItemMasterCategory.ITEM_TYPE = 'PST'
-GROUP BY FcsViewItemMasterCategory.ITEM, FcsViewItemMasterCategory.ITEM_DESCRIPTION]]>
+GROUP BY FcsViewItemMasterCategory.ITEM, FcsViewItemMasterCategory.ITEM_DESCRIPTION
+ORDER BY "ITEM_DESCRIPTION"]]>
   </SQLQuery>
   <ViewAttribute
     Name="Item"

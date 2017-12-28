@@ -1,10 +1,7 @@
 package app.fpp.model.views.promoproposal;
 
-import app.fpp.model.entities.approval.DocApprovalImpl;
 import app.fpp.model.entities.promoproposal.ProposalImpl;
-
 import oracle.jbo.JboException;
-import oracle.jbo.Row;
 import oracle.jbo.RowIterator;
 import oracle.jbo.RowSet;
 import oracle.jbo.domain.DBSequence;
@@ -404,13 +401,63 @@ public class ProposalViewRowImpl extends ViewRowImpl {
             }
         }
         ,
-        Division {
+        UserCustomer {
             public Object get(ProposalViewRowImpl obj) {
-                return obj.getDivision();
+                return obj.getUserCustomer();
             }
 
             public void put(ProposalViewRowImpl obj, Object value) {
-                obj.setDivision((String)value);
+                obj.setUserCustomer((String)value);
+            }
+        }
+        ,
+        CustRegFlagSwitcher {
+            public Object get(ProposalViewRowImpl obj) {
+                return obj.getCustRegFlagSwitcher();
+            }
+
+            public void put(ProposalViewRowImpl obj, Object value) {
+                obj.setCustRegFlagSwitcher((String)value);
+            }
+        }
+        ,
+        CustRegFlagLov {
+            public Object get(ProposalViewRowImpl obj) {
+                return obj.getCustRegFlagLov();
+            }
+
+            public void put(ProposalViewRowImpl obj, Object value) {
+                obj.setCustRegFlagLov((String)value);
+            }
+        }
+        ,
+        MixQtyPromo {
+            public Object get(ProposalViewRowImpl obj) {
+                return obj.getMixQtyPromo();
+            }
+
+            public void put(ProposalViewRowImpl obj, Object value) {
+                obj.setMixQtyPromo((String)value);
+            }
+        }
+        ,
+        HistTranDtToTemp {
+            public Object get(ProposalViewRowImpl obj) {
+                return obj.getHistTranDtToTemp();
+            }
+
+            public void put(ProposalViewRowImpl obj, Object value) {
+                obj.setHistTranDtToTemp((Date)value);
+            }
+        }
+        ,
+        HistTranDtFromTemp {
+            public Object get(ProposalViewRowImpl obj) {
+                return obj.getHistTranDtFromTemp();
+            }
+
+            public void put(ProposalViewRowImpl obj, Object value) {
+                obj.setHistTranDtFromTemp((Date)value);
             }
         }
         ,
@@ -544,6 +591,16 @@ public class ProposalViewRowImpl extends ViewRowImpl {
             }
         }
         ,
+        UploadDownloadView {
+            public Object get(ProposalViewRowImpl obj) {
+                return obj.getUploadDownloadView();
+            }
+
+            public void put(ProposalViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
         ProposalTypeLov {
             public Object get(ProposalViewRowImpl obj) {
                 return obj.getProposalTypeLov();
@@ -634,9 +691,69 @@ public class ProposalViewRowImpl extends ViewRowImpl {
             }
         }
         ,
-        RegionCustFlagLov {
+        CustByRegionLov {
             public Object get(ProposalViewRowImpl obj) {
-                return obj.getRegionCustFlagLov();
+                return obj.getCustByRegionLov();
+            }
+
+            public void put(ProposalViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        CustByAreaLov {
+            public Object get(ProposalViewRowImpl obj) {
+                return obj.getCustByAreaLov();
+            }
+
+            public void put(ProposalViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        CustByLocLov {
+            public Object get(ProposalViewRowImpl obj) {
+                return obj.getCustByLocLov();
+            }
+
+            public void put(ProposalViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        CustByCustGroupLov {
+            public Object get(ProposalViewRowImpl obj) {
+                return obj.getCustByCustGroupLov();
+            }
+
+            public void put(ProposalViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        CustByCustomerLov {
+            public Object get(ProposalViewRowImpl obj) {
+                return obj.getCustByCustomerLov();
+            }
+
+            public void put(ProposalViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        CustByInvalid {
+            public Object get(ProposalViewRowImpl obj) {
+                return obj.getCustByInvalid();
+            }
+
+            public void put(ProposalViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
+        MixQtyPromoLov {
+            public Object get(ProposalViewRowImpl obj) {
+                return obj.getMixQtyPromoLov();
             }
 
             public void put(ProposalViewRowImpl obj, Object value) {
@@ -711,7 +828,12 @@ public class ProposalViewRowImpl extends ViewRowImpl {
     public static final int HISTTRANDTFROM = AttributesEnum.HistTranDtFrom.index();
     public static final int HISTREMARK = AttributesEnum.HistRemark.index();
     public static final int USERDIVISION = AttributesEnum.UserDivision.index();
-    public static final int DIVISION = AttributesEnum.Division.index();
+    public static final int USERCUSTOMER = AttributesEnum.UserCustomer.index();
+    public static final int CUSTREGFLAGSWITCHER = AttributesEnum.CustRegFlagSwitcher.index();
+    public static final int CUSTREGFLAGLOV = AttributesEnum.CustRegFlagLov.index();
+    public static final int MIXQTYPROMO = AttributesEnum.MixQtyPromo.index();
+    public static final int HISTTRANDTTOTEMP = AttributesEnum.HistTranDtToTemp.index();
+    public static final int HISTTRANDTFROMTEMP = AttributesEnum.HistTranDtFromTemp.index();
     public static final int DOCAPPROVALVIEW = AttributesEnum.DocApprovalView.index();
     public static final int PROMOPRODUKVIEW = AttributesEnum.PromoProdukView.index();
     public static final int PROPREGIONVIEW = AttributesEnum.PropRegionView.index();
@@ -725,6 +847,7 @@ public class ProposalViewRowImpl extends ViewRowImpl {
     public static final int EXCLPROPCUSTCUSTVIEW = AttributesEnum.ExclPropCustCustView.index();
     public static final int EXCLPROPCUSTLOCVIEW = AttributesEnum.ExclPropCustLocView.index();
     public static final int EXCLPROPCUSTREGIONVIEW = AttributesEnum.ExclPropCustRegionView.index();
+    public static final int UPLOADDOWNLOADVIEW = AttributesEnum.UploadDownloadView.index();
     public static final int PROPOSALTYPELOV = AttributesEnum.ProposalTypeLov.index();
     public static final int DISCOUNTTYPELOV = AttributesEnum.DiscountTypeLov.index();
     public static final int MEKPENAGIHANLOV = AttributesEnum.MekPenagihanLov.index();
@@ -734,7 +857,13 @@ public class ProposalViewRowImpl extends ViewRowImpl {
     public static final int PROGRAMPROMOLOV = AttributesEnum.ProgramPromoLov.index();
     public static final int CURRENCYLOV = AttributesEnum.CurrencyLov.index();
     public static final int USERACCESSLOV = AttributesEnum.UserAccessLov.index();
-    public static final int REGIONCUSTFLAGLOV = AttributesEnum.RegionCustFlagLov.index();
+    public static final int CUSTBYREGIONLOV = AttributesEnum.CustByRegionLov.index();
+    public static final int CUSTBYAREALOV = AttributesEnum.CustByAreaLov.index();
+    public static final int CUSTBYLOCLOV = AttributesEnum.CustByLocLov.index();
+    public static final int CUSTBYCUSTGROUPLOV = AttributesEnum.CustByCustGroupLov.index();
+    public static final int CUSTBYCUSTOMERLOV = AttributesEnum.CustByCustomerLov.index();
+    public static final int CUSTBYINVALID = AttributesEnum.CustByInvalid.index();
+    public static final int MIXQTYPROMOLOV = AttributesEnum.MixQtyPromoLov.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -757,7 +886,6 @@ public class ProposalViewRowImpl extends ViewRowImpl {
     public EntityImpl getUserAccess() {
         return (EntityImpl)getEntity(1);
     }
-
 
     /**
      * Gets the attribute value for PROPOSAL_ID using the alias name ProposalId.
@@ -836,9 +964,8 @@ public class ProposalViewRowImpl extends ViewRowImpl {
      * @param value value to set the PERIODE_PROG_FROM
      */
     public void setPeriodeProgFrom(Date value) {
-
         String errorMessage =
-            "Date of \"Periode Program From\" should be less than \"Periode Program To\" Date.";
+            "Tanggal mulai \"Periode Program\" harus lebih kecil dari tanggal akhir.";
         Date other = null;
         java.util.Date otherUtil = null;
         setAttributeInternal(PERIODEDATEFROMTEMP, value);
@@ -871,7 +998,7 @@ public class ProposalViewRowImpl extends ViewRowImpl {
      */
     public void setPeriodeProgTo(Date value) {
         String errorMessage =
-            "Date of \"Periode Program To\" should be greater than \"Periode Program From\" Date.";
+            "Tanggal akhir \"Periode Program\" harus lebih besar dari tanggal mulai.";
         Date other = null;
         java.util.Date otherUtil = null;
         setAttributeInternal(PERIODEDATETOTEMP, value);
@@ -1356,7 +1483,46 @@ public class ProposalViewRowImpl extends ViewRowImpl {
      * @param value value to set the HIST_TRAN_DT_TO
      */
     public void setHistTranDtTo(Date value) {
-        setAttributeInternal(HISTTRANDTTO, value);
+        String errorMessage = "Tanggal akhir \"History Transaksi\" harus lebih besar dari tanggal mulai.";
+        String errorMessagePromo = "Tanggal akhir \"History Transaksi\" tidak boleh lebih besar atau sama dengan tanggal mulai promo.";
+        Date other = null;
+        Date dtStartPromoAttr = null;
+        Date dtHistToAttr = null;
+        java.util.Date otherUtil = null;
+        java.util.Date dtStartPromo = null;
+        java.util.Date dtHistTo = null;
+        setAttributeInternal(HISTTRANDTTOTEMP, value);
+        if (null != getAttributeInternal(HISTTRANDTFROMTEMP)) {
+            other = (Date)getAttributeInternal(HISTTRANDTFROMTEMP);
+            otherUtil = other.getValue();
+        } else if (null != getAttributeInternal(HISTTRANDTFROM)) {
+            other = (Date)getAttributeInternal(HISTTRANDTFROM);
+            otherUtil = other.getValue();
+        }
+        java.util.Date valueUtil = value.getValue();
+        if (null != otherUtil && otherUtil.after(valueUtil)) {
+            throw new JboException(errorMessage);
+        } else {
+            if (null != getAttributeInternal(HISTTRANDTTOTEMP)) {
+                dtHistToAttr = (Date)getAttributeInternal(HISTTRANDTTOTEMP);
+                dtHistTo = dtHistToAttr.getValue();
+            } else if (null != getAttributeInternal(HISTTRANDTTO)) {
+                dtHistToAttr = (Date)getAttributeInternal(HISTTRANDTTO);
+                dtHistTo = dtHistToAttr.getValue();
+            }
+            
+            if (null != getAttributeInternal(PERIODEPROGFROM)) {
+                dtStartPromoAttr = (Date)getAttributeInternal(PERIODEPROGFROM);
+                dtStartPromo = dtStartPromoAttr.getValue();
+            }
+            
+            if ((null != dtStartPromo && dtHistTo.after(dtStartPromo)) ||
+                 (null != dtStartPromo && dtHistTo.compareTo(dtStartPromo) >= 0)) {
+                throw new JboException(errorMessagePromo);
+            }
+            setAttributeInternal(HISTTRANDTTO, value);
+            setAttributeInternal(HISTTRANDTFROM, other);
+        }
     }
 
     /**
@@ -1372,7 +1538,24 @@ public class ProposalViewRowImpl extends ViewRowImpl {
      * @param value value to set the HIST_TRAN_DT_FROM
      */
     public void setHistTranDtFrom(Date value) {
+        String errorMessage = "Tanggal mulai \"History Transaksi\" harus lebih kecil dari tanggal akhir.";
+        oracle.jbo.domain.Date other = null;
+        java.util.Date otherUtil = null;
+
+        setAttributeInternal(HISTTRANDTFROMTEMP, value);
+        if (null != getAttributeInternal(HISTTRANDTTOTEMP)) {
+            other = (Date)getAttributeInternal(HISTTRANDTTOTEMP);
+            otherUtil = other.getValue();
+        } else if (null != getAttributeInternal(HISTTRANDTTO)) {
+            other = (Date)getAttributeInternal(HISTTRANDTTO);
+            otherUtil = other.getValue();
+        }
+        java.util.Date valueUtil = value.getValue();
+        if (null != otherUtil && valueUtil.after(otherUtil)) {
+            throw new JboException(errorMessage);
+        }
         setAttributeInternal(HISTTRANDTFROM, value);
+        setAttributeInternal(HISTTRANDTTO, other);
     }
 
     /**
@@ -1408,19 +1591,99 @@ public class ProposalViewRowImpl extends ViewRowImpl {
     }
 
     /**
-     * Gets the attribute value for the calculated attribute Division.
-     * @return the Division
+     * Gets the attribute value for the calculated attribute UserCustomer.
+     * @return the UserCustomer
      */
-    public String getDivision() {
-        return (String) getAttributeInternal(DIVISION);
+    public String getUserCustomer() {
+        return (String) getAttributeInternal(USERCUSTOMER);
     }
 
     /**
-     * Sets <code>value</code> as the attribute value for the calculated attribute Division.
-     * @param value value to set the  Division
+     * Sets <code>value</code> as the attribute value for the calculated attribute UserCustomer.
+     * @param value value to set the  UserCustomer
      */
-    public void setDivision(String value) {
-        setAttributeInternal(DIVISION, value);
+    public void setUserCustomer(String value) {
+        setAttributeInternal(USERCUSTOMER, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CustRegFlagSwitcher.
+     * @return the CustRegFlagSwitcher
+     */
+    public String getCustRegFlagSwitcher() {
+        return (String) getAttributeInternal(CUSTREGFLAGSWITCHER);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CustRegFlagSwitcher.
+     * @param value value to set the  CustRegFlagSwitcher
+     */
+    public void setCustRegFlagSwitcher(String value) {
+        setAttributeInternal(CUSTREGFLAGSWITCHER, value);
+    }
+
+    /**
+     * Gets the attribute value for CUST_REG_FLAG_LOV using the alias name CustRegFlagLov.
+     * @return the CUST_REG_FLAG_LOV
+     */
+    public String getCustRegFlagLov() {
+        return (String) getAttributeInternal(CUSTREGFLAGLOV);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for CUST_REG_FLAG_LOV using the alias name CustRegFlagLov.
+     * @param value value to set the CUST_REG_FLAG_LOV
+     */
+    public void setCustRegFlagLov(String value) {
+        setAttributeInternal(CUSTREGFLAGLOV, value);
+    }
+
+    /**
+     * Gets the attribute value for MIX_QTY_PROMO using the alias name MixQtyPromo.
+     * @return the MIX_QTY_PROMO
+     */
+    public String getMixQtyPromo() {
+        return (String) getAttributeInternal(MIXQTYPROMO);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for MIX_QTY_PROMO using the alias name MixQtyPromo.
+     * @param value value to set the MIX_QTY_PROMO
+     */
+    public void setMixQtyPromo(String value) {
+        setAttributeInternal(MIXQTYPROMO, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute HistTranDtToTemp.
+     * @return the HistTranDtToTemp
+     */
+    public Date getHistTranDtToTemp() {
+        return (Date) getAttributeInternal(HISTTRANDTTOTEMP);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute HistTranDtToTemp.
+     * @param value value to set the  HistTranDtToTemp
+     */
+    public void setHistTranDtToTemp(Date value) {
+        setAttributeInternal(HISTTRANDTTOTEMP, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute HistTranDtFromTemp.
+     * @return the HistTranDtFromTemp
+     */
+    public Date getHistTranDtFromTemp() {
+        return (Date) getAttributeInternal(HISTTRANDTFROMTEMP);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute HistTranDtFromTemp.
+     * @param value value to set the  HistTranDtFromTemp
+     */
+    public void setHistTranDtFromTemp(Date value) {
+        setAttributeInternal(HISTTRANDTFROMTEMP, value);
     }
 
     /**
@@ -1515,6 +1778,13 @@ public class ProposalViewRowImpl extends ViewRowImpl {
     }
 
     /**
+     * Gets the associated <code>RowIterator</code> using master-detail link UploadDownloadView.
+     */
+    public RowIterator getUploadDownloadView() {
+        return (RowIterator)getAttributeInternal(UPLOADDOWNLOADVIEW);
+    }
+
+    /**
      * Gets the view accessor <code>RowSet</code> ProposalTypeLov.
      */
     public RowSet getProposalTypeLov() {
@@ -1581,10 +1851,52 @@ public class ProposalViewRowImpl extends ViewRowImpl {
 
 
     /**
-     * Gets the view accessor <code>RowSet</code> RegionCustFlagLov.
+     * Gets the view accessor <code>RowSet</code> CustByRegionLov.
      */
-    public RowSet getRegionCustFlagLov() {
-        return (RowSet)getAttributeInternal(REGIONCUSTFLAGLOV);
+    public RowSet getCustByRegionLov() {
+        return (RowSet)getAttributeInternal(CUSTBYREGIONLOV);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> CustByAreaLov.
+     */
+    public RowSet getCustByAreaLov() {
+        return (RowSet)getAttributeInternal(CUSTBYAREALOV);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> CustByLocLov.
+     */
+    public RowSet getCustByLocLov() {
+        return (RowSet)getAttributeInternal(CUSTBYLOCLOV);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> CustByCustGroupLov.
+     */
+    public RowSet getCustByCustGroupLov() {
+        return (RowSet)getAttributeInternal(CUSTBYCUSTGROUPLOV);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> CustByCustomerLov.
+     */
+    public RowSet getCustByCustomerLov() {
+        return (RowSet)getAttributeInternal(CUSTBYCUSTOMERLOV);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> CustByInvalid.
+     */
+    public RowSet getCustByInvalid() {
+        return (RowSet)getAttributeInternal(CUSTBYINVALID);
+    }
+
+    /**
+     * Gets the view accessor <code>RowSet</code> MixQtyPromoLov.
+     */
+    public RowSet getMixQtyPromoLov() {
+        return (RowSet)getAttributeInternal(MIXQTYPROMOLOV);
     }
 
     /**
@@ -1619,9 +1931,9 @@ public class ProposalViewRowImpl extends ViewRowImpl {
         }
         super.setAttrInvokeAccessor(index, value, attrDef);
     }
-
+/*
     public void setDateFrom(Date value) {
-        String errorMessage = "From Date should be less than To Date.";
+        String errorMessage = "Tanggal mulai \"Periode Program\" harus lebih kecil dari tanggal akhir.";
         oracle.jbo.domain.Date other = null;
         java.util.Date otherUtil = null;
 
@@ -1643,7 +1955,7 @@ public class ProposalViewRowImpl extends ViewRowImpl {
     }
 
     public void setDateTO(Date value) {
-        String errorMessage = "To Date should be greater than From Date.";
+        String errorMessage = "Tanggal akhir \"Periode Program\" harus lebih besar dari tanggal mulai.";
         Date other = null;
         java.util.Date otherUtil = null;
         setAttributeInternal(PERIODEDATETOTEMP, value);
@@ -1661,4 +1973,5 @@ public class ProposalViewRowImpl extends ViewRowImpl {
         setAttributeInternal(PERIODEPROGTO, value);
         setAttributeInternal(PERIODEPROGFROM, other);
     }
+*/
 }

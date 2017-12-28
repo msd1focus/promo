@@ -8,14 +8,13 @@
   InheritPersonalization="true"
   SelectList="PropRegionCustomer.CUSTOMER_ID, 
        PropRegionCustomer.PROPOSAL_ID, 
-       (SELECT ARC.CUSTOMER_NUMBER || ' ' || ARC.CUSTOMER_NAME FROM APPS.AR_CUSTOMERS ARC WHERE ARC.CUSTOMER_ID = PropRegionCustomer.CUSTOMER_ID) AS CUSTOMER_NAME, 
-       (SELECT ARC.ATTRIBUTE3 FROM APPS.AR_CUSTOMERS ARC WHERE ARC.CUSTOMER_ID = PropRegionCustomer.CUSTOMER_ID) AS REGION_CODE"
+       PropRegionCustomer.CUSTDESCRIPTION"
   FromList="PROP_REGION_CUSTOMER PropRegionCustomer"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
-  OrderBy='"CUSTOMER_NAME"'>
+  OrderBy='PropRegionCustomer.CUSTDESCRIPTION'>
   <Properties>
     <SchemaBasedProperties>
       <LABEL
@@ -39,30 +38,14 @@
     EntityAttrName="ProposalId"
     EntityUsage="PropRegionCustomer"
     AliasName="PROPOSAL_ID"/>
-  <ViewAttribute
-    Name="CustomerName"
-    IsUpdateable="false"
-    IsPersistent="false"
-    PrecisionRule="true"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="CUSTOMER_NAME"
-    SQLType="VARCHAR"
-    Precision="255"
-    Expression="SELECT ARC.CUSTOMER_NUMBER || ' ' || ARC.CUSTOMER_NAME FROM APPS.AR_CUSTOMERS ARC WHERE ARC.CUSTOMER_ID = PropRegionCustomer.CUSTOMER_ID"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="app.fpp.model.ModelBundle"/>
   </ResourceBundle>
   <ViewAttribute
-    Name="RegionCode"
-    IsUpdateable="false"
-    IsPersistent="false"
+    Name="Custdescription"
     PrecisionRule="true"
-    Type="java.lang.String"
-    ColumnType="VARCHAR2"
-    AliasName="REGION_CODE"
-    SQLType="VARCHAR"
-    Precision="255"
-    Expression="SELECT ARC.ATTRIBUTE3 FROM APPS.AR_CUSTOMERS ARC WHERE ARC.CUSTOMER_ID = PropRegionCustomer.CUSTOMER_ID"/>
+    EntityAttrName="Custdescription"
+    EntityUsage="PropRegionCustomer"
+    AliasName="CUSTDESCRIPTION"/>
 </ViewObject>

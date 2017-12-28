@@ -11,7 +11,7 @@
        ProdBudgetBy.KOMBINASI_BUDGET, 
        ProdBudgetBy.AMOUNT, 
        ProdBudgetBy.PERCENTAGE, 
-       ProdBudgetBy.BUDGET_POSTING_ID"
+       ProdBudgetBy.BUDGET_CUST_ID"
   FromList="PROD_BUDGET_BY ProdBudgetBy"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -24,12 +24,12 @@
     </SchemaBasedProperties>
   </Properties>
   <ViewAccessor
-    Name="KombinasiBudgetPostLov"
-    ViewObjectName="app.fpp.model.views.masterdata.lov.KombinasiBudgetPostLov"
+    Name="KomBudgetPostLov1"
+    ViewObjectName="app.fpp.model.views.masterdata.lov.KomBudgetPostLov"
     RowLevelBinds="true"/>
   <ListBinding
     Name="LOV_KombinasiBudget"
-    ListVOName="KombinasiBudgetPostLov"
+    ListVOName="KomBudgetPostLov1"
     ListRangeSize="10"
     NullValueFlag="none"
     NullValueId="LOV_KombinasiBudget_LOVUIHints_NullValueId"
@@ -38,15 +38,16 @@
       <Item Value="KombinasiBudget"/>
     </AttrArray>
     <AttrArray Name="ListAttrNames">
-      <Item Value="KodePosting"/>
+      <Item Value="KombinasiName"/>
     </AttrArray>
     <AttrArray Name="ListDisplayAttrNames">
       <Item Value="KodePosting"/>
+      <Item Value="KombinasiName"/>
       <Item Value="BudgetYear"/>
-      <Item Value="BudgetPostingId"/>
+      <Item Value="BudgetCustomerId"/>
     </AttrArray>
     <DisplayCriteria
-      Name="KombinasiBudgetPostLovCriteria"
+      Name="KomBudgetPostLovCriteria"
       Hint="showAndExecute"/>
   </ListBinding>
   <EntityUsage
@@ -148,9 +149,9 @@ return BudgetPercent;
       PropertiesFile="app.fpp.model.ModelBundle"/>
   </ResourceBundle>
   <ViewAttribute
-    Name="BudgetPostingId"
+    Name="BudgetCustId"
     PrecisionRule="true"
-    EntityAttrName="BudgetPostingId"
+    EntityAttrName="BudgetCustId"
     EntityUsage="ProdBudgetBy"
-    AliasName="BUDGET_POSTING_ID"/>
+    AliasName="BUDGET_CUST_ID"/>
 </ViewObject>

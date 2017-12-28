@@ -10,19 +10,29 @@
        ProdRegionLoc.LOCATION_CODE, 
        ProdRegionLoc.NOTES, 
        (SELECT ArCustomers.ATTRIBUTE3 FROM APPS.AR_CUSTOMERS ArCustomers WHERE ArCustomers.ATTRIBUTE5 = ProdRegionLoc.LOCATION_CODE GROUP BY ArCustomers.ATTRIBUTE3) AS REGION_CODE, 
-       (ProdRegionLoc.LOCATION_CODE) AS LOCATION_NAME"
-  FromList="PROD_REGION_LOC ProdRegionLoc"
+       (ProdRegionLoc.LOCATION_CODE) AS LOCATION_NAME, 
+       FcsFlexValuesVl.DESCRIPTION, 
+       FcsFlexValuesVl.FLEX_VALUE_ID"
+  FromList="PROD_REGION_LOC ProdRegionLoc, APPS.FCS_FLEX_VALUES_VL FcsFlexValuesVl"
   BindingStyle="OracleName"
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false"
-  OrderBy='"LOCATION_NAME",ProdRegionLoc.LOCATION_CODE'>
+  OrderBy='ProdRegionLoc.LOCATION_CODE,FcsFlexValuesVl.DESCRIPTION'
+  Where="FcsFlexValuesVl.FLEX_VALUE = ProdRegionLoc.LOCATION_CODE">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|VarAccess"/>
   </DesignTime>
   <EntityUsage
     Name="ProdRegionLoc"
     Entity="app.fpp.model.entities.promoproposal.ProdRegionLoc"/>
+  <EntityUsage
+    Name="FcsFlexValuesVl"
+    Entity="app.fpp.model.entities.masterdata.ebs.FcsFlexValuesVl"
+    SourceUsage="app.fpp.model.views.promoproposal.ProdRegionLocView.ProdRegionLoc"
+    ReadOnly="true"
+    Reference="true"
+    DeleteParticipant="false"/>
   <ViewAttribute
     Name="PromoProdukId"
     IsNotNull="true"
@@ -65,4 +75,17 @@
     SQLType="VARCHAR"
     Precision="255"
     Expression="ProdRegionLoc.LOCATION_CODE"/>
+  <ViewAttribute
+    Name="Description"
+    PrecisionRule="true"
+    EntityAttrName="Description"
+    EntityUsage="FcsFlexValuesVl"
+    AliasName="DESCRIPTION"/>
+  <ViewAttribute
+    Name="FlexValueId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="FlexValueId"
+    EntityUsage="FcsFlexValuesVl"
+    AliasName="FLEX_VALUE_ID"/>
 </ViewObject>

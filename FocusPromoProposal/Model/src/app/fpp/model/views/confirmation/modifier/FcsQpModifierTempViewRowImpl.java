@@ -486,6 +486,16 @@ public class FcsQpModifierTempViewRowImpl extends ViewRowImpl {
                 obj.setLineNo((Number)value);
             }
         }
+        ,
+        Attribute2 {
+            public Object get(FcsQpModifierTempViewRowImpl obj) {
+                return obj.getAttribute2();
+            }
+
+            public void put(FcsQpModifierTempViewRowImpl obj, Object value) {
+                obj.setAttribute2((String)value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static final int firstIndex = 0;
@@ -563,6 +573,7 @@ public class FcsQpModifierTempViewRowImpl extends ViewRowImpl {
     public static final int BUCKET = AttributesEnum.Bucket.index();
     public static final int LISTHEADERID = AttributesEnum.ListHeaderId.index();
     public static final int LINENO = AttributesEnum.LineNo.index();
+    public static final int ATTRIBUTE2 = AttributesEnum.Attribute2.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -1331,6 +1342,22 @@ public class FcsQpModifierTempViewRowImpl extends ViewRowImpl {
      */
     public void setLineNo(Number value) {
         setAttributeInternal(LINENO, value);
+    }
+
+    /**
+     * Gets the attribute value for ATTRIBUTE2 using the alias name Attribute2.
+     * @return the ATTRIBUTE2
+     */
+    public String getAttribute2() {
+        return (String) getAttributeInternal(ATTRIBUTE2);
+    }
+
+    /**
+     * Sets <code>value</code> as attribute value for ATTRIBUTE2 using the alias name Attribute2.
+     * @param value value to set the ATTRIBUTE2
+     */
+    public void setAttribute2(String value) {
+        setAttributeInternal(ATTRIBUTE2, value);
     }
 
     /**

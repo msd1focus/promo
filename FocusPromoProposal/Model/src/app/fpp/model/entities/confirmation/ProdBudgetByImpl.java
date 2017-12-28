@@ -83,6 +83,16 @@ public class ProdBudgetByImpl extends EntityImpl {
             }
         }
         ,
+        BudgetCustId {
+            public Object get(ProdBudgetByImpl obj) {
+                return obj.getBudgetCustId();
+            }
+
+            public void put(ProdBudgetByImpl obj, Object value) {
+                obj.setBudgetCustId((Number)value);
+            }
+        }
+        ,
         PromoProduk {
             public Object get(ProdBudgetByImpl obj) {
                 return obj.getPromoProduk();
@@ -127,6 +137,7 @@ public class ProdBudgetByImpl extends EntityImpl {
     public static final int AMOUNT = AttributesEnum.Amount.index();
     public static final int PERCENTAGE = AttributesEnum.Percentage.index();
     public static final int BUDGETPOSTINGID = AttributesEnum.BudgetPostingId.index();
+    public static final int BUDGETCUSTID = AttributesEnum.BudgetCustId.index();
     public static final int PROMOPRODUK = AttributesEnum.PromoProduk.index();
 
     /**
@@ -240,6 +251,22 @@ public class ProdBudgetByImpl extends EntityImpl {
      */
     public void setBudgetPostingId(Number value) {
         setAttributeInternal(BUDGETPOSTINGID, value);
+    }
+
+    /**
+     * Gets the attribute value for BudgetCustId, using the alias name BudgetCustId.
+     * @return the BudgetCustId
+     */
+    public Number getBudgetCustId() {
+        return (Number)getAttributeInternal(BUDGETCUSTID);
+    }
+
+    /**
+     * Sets <code>value</code> as the attribute value for BudgetCustId.
+     * @param value value to set the BudgetCustId
+     */
+    public void setBudgetCustId(Number value) {
+        setAttributeInternal(BUDGETCUSTID, value);
     }
 
     /**

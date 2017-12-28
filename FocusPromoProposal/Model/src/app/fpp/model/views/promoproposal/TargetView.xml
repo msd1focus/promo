@@ -105,8 +105,7 @@
     PrecisionRule="true"
     EntityAttrName="Price"
     EntityUsage="Target"
-    AliasName="PRICE"
-    DefaultValue="0">
+    AliasName="PRICE">
     <Properties>
       <SchemaBasedProperties>
         <FMT_FORMATTER
@@ -121,8 +120,7 @@
     PrecisionRule="true"
     EntityAttrName="AvgQty"
     EntityUsage="Target"
-    AliasName="AVG_QTY"
-    DefaultValue="0">
+    AliasName="AVG_QTY">
     <Properties>
       <SchemaBasedProperties>
         <FMT_FORMAT
@@ -159,8 +157,7 @@
     PrecisionRule="true"
     EntityAttrName="Qty"
     EntityUsage="Target"
-    AliasName="QTY"
-    DefaultValue="0">
+    AliasName="QTY">
     <Properties>
       <SchemaBasedProperties>
         <FMT_FORMATTER
@@ -176,7 +173,7 @@
     EntityAttrName="Uom"
     EntityUsage="Target"
     AliasName="UOM"
-    DefaultValue="Pcs"
+    DefaultValue="Ctn"
     LOVName="LOV_Uom">
     <Properties>
       <SchemaBasedProperties>

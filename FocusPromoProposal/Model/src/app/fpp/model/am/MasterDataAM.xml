@@ -25,6 +25,12 @@
   <ViewUsage
     Name="LookupCodeCRUDView1"
     ViewObjectName="app.fpp.model.views.masterdata.LookupCodeCRUDView"/>
+  <ViewUsage
+    Name="FcsViewCategCombDescView1"
+    ViewObjectName="app.fpp.model.views.masterdata.ebs.FcsViewCategCombDescView"/>
+  <ViewUsage
+    Name="FcsViewCategCombDescView2"
+    ViewObjectName="app.fpp.model.views.masterdata.ebs.FcsViewCategCombDescView"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="app.fpp.model.ModelBundle"/>

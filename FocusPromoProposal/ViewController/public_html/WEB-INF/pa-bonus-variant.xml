@@ -46,7 +46,7 @@
     </input-parameter-definition>
     <managed-bean id="__4">
       <managed-bean-name id="__3">PaBonusVariantBackingBean</managed-bean-name>
-      <managed-bean-class id="__5">app.fpp.bean.PaBonusVariantBackingBean</managed-bean-class>
+      <managed-bean-class id="__5">app.fpp.bean.approval.PaBonusVariantBackingBean</managed-bean-class>
       <managed-bean-scope id="__2">backingBean</managed-bean-scope>
     </managed-bean>
     <view id="paBonusVariant">

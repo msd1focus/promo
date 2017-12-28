@@ -132,8 +132,8 @@
           <type>COLUMN</type>
         </columnID>
         <columnID class="oracle.javatools.db.IdentifierBasedID">
-          <name>RUN_MONTH</name>
-          <identifier class="java.lang.String">dd06881c-7d67-40e3-9702-125a55e0676b</identifier>
+          <name>USER_NAME</name>
+          <identifier class="java.lang.String">43e98bcf-ee6c-42f8-92e8-7fd61fd9535e</identifier>
           <parent class="oracle.javatools.db.IdentifierBasedID">
             <name>RUN_NUMBER</name>
             <identifier class="java.lang.String">90c6dadd-5c4d-4f3a-95cf-0c7f1eab50d1</identifier>
@@ -143,8 +143,8 @@
           <type>COLUMN</type>
         </columnID>
         <columnID class="oracle.javatools.db.IdentifierBasedID">
-          <name>USER_NAME</name>
-          <identifier class="java.lang.String">43e98bcf-ee6c-42f8-92e8-7fd61fd9535e</identifier>
+          <name>RUN_MONTH</name>
+          <identifier class="java.lang.String">dd06881c-7d67-40e3-9702-125a55e0676b</identifier>
           <parent class="oracle.javatools.db.IdentifierBasedID">
             <name>RUN_NUMBER</name>
             <identifier class="java.lang.String">90c6dadd-5c4d-4f3a-95cf-0c7f1eab50d1</identifier>

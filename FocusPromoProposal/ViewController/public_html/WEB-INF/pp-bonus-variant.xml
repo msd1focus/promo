@@ -46,7 +46,7 @@
     </input-parameter-definition>
     <managed-bean id="__17">
       <managed-bean-name id="__14">PpBonusVariantBackingBean</managed-bean-name>
-      <managed-bean-class id="__16">app.fpp.bean.PpBonusVariantBackingBean</managed-bean-class>
+      <managed-bean-class id="__16">app.fpp.bean.promoproposal.PpBonusVariantBackingBean</managed-bean-class>
       <managed-bean-scope id="__15">backingBean</managed-bean-scope>
     </managed-bean>
     <view id="ppBonusVariant">

@@ -14,7 +14,8 @@
        Discount.QTY_TO, 
        Discount.TIPE_POTONGAN, 
        Discount.DISC_NON_YEARLY, 
-       Discount.DISC_YEARLY"
+       Discount.DISC_YEARLY, 
+       Discount.KELIPATAN"
   FromList="DISCOUNT Discount"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -144,7 +145,7 @@
     EntityAttrName="Uom"
     EntityUsage="Discount"
     AliasName="UOM"
-    DefaultValue="Pcs"
+    DefaultValue="Ctn"
     LOVName="LOV_Uom">
     <Properties>
       <SchemaBasedProperties>
@@ -166,7 +167,7 @@
     EntityAttrName="QtyTo"
     EntityUsage="Discount"
     AliasName="QTY_TO"
-    DefaultValue="999"/>
+    DefaultValue="999999"/>
   <ViewAttribute
     Name="TipePotongan"
     PrecisionRule="true"
@@ -187,7 +188,8 @@
     PrecisionRule="true"
     EntityAttrName="DiscNonYearly"
     EntityUsage="Discount"
-    AliasName="DISC_NON_YEARLY">
+    AliasName="DISC_NON_YEARLY"
+    DefaultValue="0">
     <Properties>
       <SchemaBasedProperties>
         <FMT_FORMATTER
@@ -202,7 +204,8 @@
     PrecisionRule="true"
     EntityAttrName="DiscYearly"
     EntityUsage="Discount"
-    AliasName="DISC_YEARLY">
+    AliasName="DISC_YEARLY"
+    DefaultValue="0">
     <Properties>
       <SchemaBasedProperties>
         <FMT_FORMATTER
@@ -272,6 +275,12 @@
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>
+  <ViewAttribute
+    Name="Kelipatan"
+    PrecisionRule="true"
+    EntityAttrName="Kelipatan"
+    EntityUsage="Discount"
+    AliasName="KELIPATAN"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="app.fpp.model.ModelBundle"/>

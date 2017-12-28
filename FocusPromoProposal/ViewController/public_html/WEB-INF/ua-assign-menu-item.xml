@@ -16,7 +16,7 @@
     </input-parameter-definition>
     <managed-bean id="__18">
       <managed-bean-name id="__20">AssignMenuItemRoleBackingBean</managed-bean-name>
-      <managed-bean-class id="__21">app.fpp.bean.AssignMenuItemRoleBackingBean</managed-bean-class>
+      <managed-bean-class id="__21">app.fpp.bean.useraccess.AssignMenuItemRoleBackingBean</managed-bean-class>
       <managed-bean-scope id="__19">backingBean</managed-bean-scope>
     </managed-bean>
     <view id="assignMenuItem">

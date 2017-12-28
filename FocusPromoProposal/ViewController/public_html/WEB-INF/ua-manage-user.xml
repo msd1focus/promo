@@ -4,12 +4,12 @@
     <default-activity id="__1">manageUser</default-activity>
     <managed-bean id="__4">
       <managed-bean-name id="__3">UserAccessBean</managed-bean-name>
-      <managed-bean-class id="__2">app.fpp.bean.UserAccessBean</managed-bean-class>
+      <managed-bean-class id="__2">app.fpp.bean.useraccess.UserAccessBean</managed-bean-class>
       <managed-bean-scope id="__5">request</managed-bean-scope>
     </managed-bean>
     <managed-bean id="__7">
       <managed-bean-name id="__6">AssignRoleUserBackingBean</managed-bean-name>
-      <managed-bean-class id="__9">app.fpp.bean.AssignRoleUserBackingBean</managed-bean-class>
+      <managed-bean-class id="__9">app.fpp.bean.useraccess.AssignRoleUserBackingBean</managed-bean-class>
       <managed-bean-scope id="__8">backingBean</managed-bean-scope>
     </managed-bean>
     <view id="manageUser">
@@ -57,6 +57,82 @@
         </display-type>
       </run-as-dialog>
     </task-flow-call>
+    <task-flow-call id="ua-assign-loc">
+      <task-flow-reference>
+        <document>/WEB-INF/ua-assign-loc.xml</document>
+        <id>ua-assign-loc</id>
+      </task-flow-reference>
+      <input-parameter id="__41">
+        <name>userName</name>
+        <value>#{pageFlowScope.userName}</value>
+      </input-parameter>
+      <input-parameter id="__42">
+        <name>fullName</name>
+        <value>#{pageFlowScope.fullName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__36">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="ua-assign-area">
+      <task-flow-reference>
+        <document>/WEB-INF/ua-assign-area.xml</document>
+        <id>ua-assign-area</id>
+      </task-flow-reference>
+      <input-parameter id="__39">
+        <name>userName</name>
+        <value>#{pageFlowScope.userName}</value>
+      </input-parameter>
+      <input-parameter id="__40">
+        <name>fullName</name>
+        <value>#{pageFlowScope.fullName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__35">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="ua-assign-cust">
+      <task-flow-reference>
+        <document>/WEB-INF/ua-assign-cust.xml</document>
+        <id>ua-assign-cust</id>
+      </task-flow-reference>
+      <input-parameter id="__37">
+        <name>userName</name>
+        <value>#{pageFlowScope.userName}</value>
+      </input-parameter>
+      <input-parameter id="__38">
+        <name>fullName</name>
+        <value>#{pageFlowScope.fullName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__34">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
+    <task-flow-call id="ua-assign-cust-group">
+      <task-flow-reference>
+        <document>/WEB-INF/ua-assign-cust-group.xml</document>
+        <id>ua-assign-cust-group</id>
+      </task-flow-reference>
+      <input-parameter id="__47">
+        <name>userName</name>
+        <value>#{pageFlowScope.userName}</value>
+      </input-parameter>
+      <input-parameter id="__48">
+        <name>fullName</name>
+        <value>#{pageFlowScope.fullName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__46">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
     <control-flow-rule id="__17">
       <from-activity-id id="__18">manageUser</from-activity-id>
       <control-flow-case id="__20">
@@ -66,6 +142,22 @@
       <control-flow-case id="__10">
         <from-outcome id="__12">assignregion</from-outcome>
         <to-activity-id id="__11">ua-assign-region</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__26">
+        <from-outcome id="__27">assigncust</from-outcome>
+        <to-activity-id id="__25">ua-assign-cust</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__29">
+        <from-outcome id="__30">assignarea</from-outcome>
+        <to-activity-id id="__28">ua-assign-area</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__32">
+        <from-outcome id="__33">assignloc</from-outcome>
+        <to-activity-id id="__31">ua-assign-loc</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__43">
+        <from-outcome id="__45">assigncustgroup</from-outcome>
+        <to-activity-id id="__44">ua-assign-cust-group</to-activity-id>
       </control-flow-case>
     </control-flow-rule>
     <use-page-fragments/>

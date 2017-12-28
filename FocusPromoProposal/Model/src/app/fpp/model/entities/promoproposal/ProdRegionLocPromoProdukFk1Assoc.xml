@@ -14,9 +14,9 @@
     Cardinality="1"
     Source="true"
     Owner="app.fpp.model.entities.promoproposal.PromoProduk"
+    LockLevel="NONE"
     CascadeDelete="true"
-    DeleteContainee="true"
-    LockLevel="NONE">
+    DeleteContainee="true">
     <DesignTime>
       <Attr Name="_aggregation" Value="0"/>
       <Attr Name="_finderName" Value="PromoProduk"/>

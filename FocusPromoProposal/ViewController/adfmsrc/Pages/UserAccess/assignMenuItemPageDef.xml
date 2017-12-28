@@ -7,9 +7,9 @@
     <variableIterator id="variables"/>
     <iterator id="AllMenuItemShuttleView1Iterator"
               Binds="AllMenuItemShuttleView1"
-              DataControl="UserAccessAMDataControl" RangeSize="25"/>
+              DataControl="UserAccessAMDataControl" RangeSize="-1"/>
     <iterator id="AppRoleMenuItemsView1Iterator" Binds="AppRoleMenuItemsView1"
-              DataControl="UserAccessAMDataControl" RangeSize="25"/>
+              DataControl="UserAccessAMDataControl" RangeSize="-1"/>
   </executables>
   <bindings>
     <action id="Commit" DataControl="UserAccessAMDataControl"
