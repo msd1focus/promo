@@ -66,6 +66,7 @@ public class BudgetCustomerBean {
     private RichInputText budgetAsToDate;
     private BigDecimal bdHundred = new BigDecimal("100");
     private String action = "APPROVED";
+    private String actionReject = "REJECTED";
     private RichInputListOfValues itlovBudClass;
     private RichInputListOfValues itlovBudBrand;
     private RichInputListOfValues itlovBudExtention;
@@ -104,6 +105,8 @@ public class BudgetCustomerBean {
     private RichOutputText otpesan;
     private RichCommandToolbarButton btnTranHistory;
     private RichCommandToolbarButton btnTranApproval;
+    private String budgetTypeCust = "CUSTOMER";
+    private String budgetTypePost = "POSTING";
 
     public BudgetCustomerBean() {
     }
@@ -1383,6 +1386,7 @@ public class BudgetCustomerBean {
 
     public void budgetQueryListener(QueryEvent queryEvent) {
         String budgetTypeVal = null;
+        String budgetYearVal = null;
         QueryDescriptor qd = queryEvent.getDescriptor();
         ConjunctionCriterion conCrit = qd.getConjunctionCriterion();
         List<Criterion> criterionList = conCrit.getCriterionList();
@@ -1392,13 +1396,20 @@ public class BudgetCustomerBean {
                 ((AttributeCriterion)criterion).getAttribute();
             String name = attrDescriptor.getName();
             Object value = ((AttributeCriterion)criterion).getValues().get(0);
+            
             if (name.equalsIgnoreCase("BudgetType") && value != null) {
                 budgetTypeVal = value.toString();
             } else {
-                budgetTypeVal = "NOT VALID";
+                if (budgetTypeVal == null) {
+                    budgetTypeVal = "NOT VALID";
+                }
+            }
+            
+            if (name.equalsIgnoreCase("BudgetYear") && value != null) {
+                budgetYearVal = value.toString();
             }
         }
-
+        
         if (budgetTypeVal.equalsIgnoreCase("CUSTOMER") ||
             budgetTypeVal.equalsIgnoreCase("POSTING")) {
             //Execute query
@@ -1410,11 +1421,13 @@ public class BudgetCustomerBean {
             ADFContext adfCtx = ADFContext.getCurrent();
             Map pageFlowScope = adfCtx.getPageFlowScope();
             pageFlowScope.put("budgetType", budgetTypeVal);
-
+            pageFlowScope.put("budgetYear", budgetYearVal);
+            /*
             //Enable button add and remove
             btnBudgetAdd.setDisabled(false);
             btnBudgetDelete.setDisabled(false);
             btnBudgetRefresh.setDisabled(false);
+            */
             AdfFacesContext.getCurrentInstance().addPartialTarget(btnBudgetAdd);
             AdfFacesContext.getCurrentInstance().addPartialTarget(btnBudgetDelete);
             AdfFacesContext.getCurrentInstance().addPartialTarget(btnBudgetRefresh);
@@ -1423,11 +1436,13 @@ public class BudgetCustomerBean {
             ADFContext adfCtx = ADFContext.getCurrent();
             Map pageFlowScope = adfCtx.getPageFlowScope();
             pageFlowScope.put("budgetType", null);
-
+            pageFlowScope.put("budgetYear", null);
+            /*
             //Disable button add and remove
             btnBudgetAdd.setDisabled(true);
             btnBudgetDelete.setDisabled(true);
             btnBudgetRefresh.setDisabled(true);
+            */
             AdfFacesContext.getCurrentInstance().addPartialTarget(btnBudgetAdd);
             AdfFacesContext.getCurrentInstance().addPartialTarget(btnBudgetDelete);
             AdfFacesContext.getCurrentInstance().addPartialTarget(btnBudgetRefresh);
@@ -1439,7 +1454,8 @@ public class BudgetCustomerBean {
         ADFContext adfCtx = ADFContext.getCurrent();
         Map pageFlowScope = adfCtx.getPageFlowScope();
         String budgetType = (String)pageFlowScope.get("budgetType");
-
+        String budgetYear = (String)pageFlowScope.get("budgetYear");
+        
         DCIteratorBinding iter =
             (DCIteratorBinding)getBindings().get("BudgetCustHdrView1Iterator");
         ViewObjectImpl vo = (ViewObjectImpl)iter.getViewObject();
@@ -1448,13 +1464,17 @@ public class BudgetCustomerBean {
             if (budgetType == null) {
                 vo.ensureVariableManager().setVariableValue("budgetType",
                                                             dummyResetValue);
+                vo.ensureVariableManager().setVariableValue("budgetYear",
+                                                            dummyResetValue);
             } else {
                 vo.ensureVariableManager().setVariableValue("budgetType",
                                                             budgetType);
+                vo.ensureVariableManager().setVariableValue("budgetYear",
+                                                            budgetYear);
             }
             //vo.executeQuery();
-
-            if (budgetType == null) {
+            /*
+            if (budgetType == null && budgetYear == null) {
                 //Disable button add and remove
                 btnBudgetAdd.setDisabled(true);
                 btnBudgetDelete.setDisabled(true);
@@ -1465,7 +1485,7 @@ public class BudgetCustomerBean {
                 btnBudgetDelete.setDisabled(false);
                 btnBudgetRefresh.setDisabled(false);
             }
-
+            */
             AdfFacesContext.getCurrentInstance().addPartialTarget(btnBudgetAdd);
             AdfFacesContext.getCurrentInstance().addPartialTarget(btnBudgetDelete);
             AdfFacesContext.getCurrentInstance().addPartialTarget(btnBudgetRefresh);
@@ -1486,21 +1506,23 @@ public class BudgetCustomerBean {
 
             if (!canCreateNew) {
                 vo.ensureVariableManager().setVariableValue("budgetType", budgetType);
+                vo.ensureVariableManager().setVariableValue("budgetYear", budgetType);
 
                 StringBuilder message = new StringBuilder("<html><body>");
                 message.append("<p>Masih ada proses input setup budget yang masih belum selesai.</p>");
                 message.append("<p>Mohon dilanjutkan terlebih dahulu atau di-cancel.</p>");
                 message.append("</body></html>");
                 JSFUtils.addFacesWarningMessage(message.toString());
+            } else {
+                //Invoke default operation listener
+                ADFUtils.invokeEL("#{bindings.BudgetCustHdrViewCriteriaQuery.processQueryOperation}",
+                                  new Class[] { QueryOperationEvent.class },
+                                  new Object[] { queryOperationEvent });
             }
+            AdfFacesContext.getCurrentInstance().addPartialTarget(btnBudgetAdd);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(btnBudgetDelete);
+            AdfFacesContext.getCurrentInstance().addPartialTarget(btnBudgetRefresh);
         }
-
-        /*
-        //Invoke default operation listener
-        ADFUtils.invokeEL("#{bindings.BudgetCustHdrViewCriteriaQuery.processQueryOperation}",
-                          new Class[] { QueryOperationEvent.class },
-                          new Object[] { queryOperationEvent });
-        */
     }
 
     public void setBtnBudgetDelete(RichCommandToolbarButton btnBudgetDelete) {
@@ -1533,6 +1555,7 @@ public class BudgetCustomerBean {
         ADFContext adfCtx = ADFContext.getCurrent();
         Map pageFlowScope = adfCtx.getPageFlowScope();
         String budgetType = (String)pageFlowScope.get("budgetType");
+        String budgetYear = (String)pageFlowScope.get("budgetYear");
 
         BindingContext bctx = BindingContext.getCurrent();
         DCBindingContainer binding =
@@ -1551,6 +1574,7 @@ public class BudgetCustomerBean {
             Row row = budgetCustIter.getNavigatableRowIterator().createRow();
             row.setNewRowState(Row.STATUS_INITIALIZED);
             row.setAttribute("BudgetType", budgetType);
+            row.setAttribute("BudgetYear", budgetYear);
             //budgetCustIter.getRowSetIterator().insertRow(row);
             budgetCustIter.getNavigatableRowIterator().insertRowAtRangeIndex(0,
                                                                              row);
@@ -1563,7 +1587,7 @@ public class BudgetCustomerBean {
         } else {
             StringBuilder message = new StringBuilder("<html><body>");
             message.append("<p>Masih ada setup budget yang belum diselesaikan.</p>");
-            message.append("<p>Proses penambahan setup budget tidak dapat dilanjutkan</p>");
+            message.append("<p>Proses penambahan setup budget baru tidak dapat dilanjutkan.</p>");
             message.append("</body></html>");
             JSFUtils.addFacesErrorMessage(message.toString());
         }
@@ -2430,5 +2454,32 @@ public class BudgetCustomerBean {
 
     public RichCommandToolbarButton getBtnTranApproval() {
         return btnTranApproval;
+    }
+
+    public void btnRejectSetBudgetEvent(ActionEvent actionEvent) {
+        UserData userData =
+            (UserData)JSFUtils.resolveExpression("#{UserData}");
+        String userName = userData.getUserNameLogin();
+        DCBindingContainer bindings =
+            (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
+        DCIteratorBinding dcIterBudgetCustHisTransApprvlUpdate =
+            bindings.findIteratorBinding("BudgetCustTranApprovalView1Iterator");
+        ViewObject voTableDataApprvlUpdate =
+            dcIterBudgetCustHisTransApprvlUpdate.getViewObject();
+        Row rowSelectedApprvlUpdate =
+            voTableDataApprvlUpdate.getCurrentRow();
+        
+        if (voTableDataApprvlUpdate.getEstimatedRowCount() > 0) {
+            if (rowSelectedApprvlUpdate.getAttribute("BudgetCustTranId") !=
+                null) {
+                rowSelectedApprvlUpdate.setAttribute("Action",
+                                                     actionReject);
+                rowSelectedApprvlUpdate.setAttribute("ActionBy",
+                                                     userName);
+                dcIterBudgetCustHisTransApprvlUpdate.getDataControl().commitTransaction();
+            }
+        }
+        dcIterBudgetCustHisTransApprvlUpdate.executeQuery();
+        AdfFacesContext.getCurrentInstance().addPartialTarget(tblBudgetCustomer);
     }
 }

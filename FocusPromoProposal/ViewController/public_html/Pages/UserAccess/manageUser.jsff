@@ -473,6 +473,8 @@
                                   rowBandingInterval="0" id="t5"
                                   columnStretching="last"
                                   binding="#{UserAccessBean.tblAssignedRegion}">
+                          <af:column id="c8" width="6" minimumWidth="6"
+                                     rowHeader="true"/>
                           <af:column sortProperty="#{bindings.AppUserRegionView1.hints.RegionLabel.name}"
                                      sortable="false" id="c2">
                             <af:outputText value="#{row.RegionCode} #{row.RegionLabel}" id="ot9"
@@ -545,6 +547,8 @@
                                   rowBandingInterval="0" id="t7"
                                   columnStretching="last"
                                   binding="#{UserAccessBean.tblAssignedArea}">
+                          <af:column id="c9" width="6" minimumWidth="6"
+                                     rowHeader="true"/>
                           <af:column sortProperty="#{bindings.AppUserAreaView1.hints.Description.name}"
                                      sortable="false"
                                      id="c4">
@@ -593,11 +597,64 @@
                                   rowBandingInterval="0" id="t8"
                                   columnStretching="last"
                                   binding="#{UserAccessBean.tblAssignedLoc}">
+                          <af:column id="c10" width="6" minimumWidth="6"
+                                     rowHeader="true"/>
                           <af:column sortProperty="#{bindings.AppUserLocView1.hints.LocationCode.name}"
                                      sortable="false"
                                      id="c5">
                             <af:outputText value="#{row.LocationCode} #{row.Description}"
                                            id="ot12"
+                                           inlineStyle="margin:10px;"/>
+                          </af:column>
+                        </af:table>
+                      </af:panelCollection>
+                    </af:showDetailItem>
+                    <af:showDetailItem text="Customer Type (#{bindings.AppUserCustTypeView1.estimatedRowCount})" id="sdi6"
+                                       stretchChildren="first"
+                                       binding="#{UserAccessBean.tabUserCustType}">
+                      <af:panelCollection id="pc4"
+                                          featuresOff="detach viewMenu columnsMenuItem statusBar">
+                        <f:facet name="toolbar">
+                          <af:toolbar id="t13">
+                            <af:commandToolbarButton id="commandToolbarButton5"
+                                                     action="assigncusttype"
+                                                     useWindow="true"
+                                                     windowHeight="220"
+                                                     windowWidth="500"
+                                                     windowModalityType="applicationModal"
+                                                     returnListener="#{UserAccessBean.windowCustTypeReturnListener}"
+                                                     shortDesc=" "
+                                                     windowEmbedStyle="window"
+                                                     icon="/Images/addrem.png"
+                                                     text="Add / Remove Customer Type"
+                                                     hoverIcon="/Images/addrem.png"
+                                                     depressedIcon="/Images/addrem.png"
+                                                     disabledIcon="/Images/addrem_dis.png">
+                              <af:setPropertyListener from="#{bindings.UserName.inputValue}"
+                                                      to="#{pageFlowScope.userName}"
+                                                      type="action"/>
+                              <af:setPropertyListener from="#{bindings.FullName.inputValue}"
+                                                      to="#{pageFlowScope.fullName}"
+                                                      type="action"/>
+                            </af:commandToolbarButton>
+                          </af:toolbar>
+                        </f:facet>
+                        <f:facet name="statusbar"/>
+                        <af:table value="#{bindings.AppUserCustTypeView1.collectionModel}"
+                                  var="row"
+                                  rows="#{bindings.AppUserCustTypeView1.rangeSize}"
+                                  emptyText="#{bindings.AppUserCustTypeView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                  fetchSize="#{bindings.AppUserCustTypeView1.rangeSize}"
+                                  rowBandingInterval="0" id="t12"
+                                  columnStretching="column:c13"
+                                  binding="#{UserAccessBean.tblAssignedCustType}">
+                          <af:column id="c14" width="6" minimumWidth="6"
+                                     rowHeader="true"/>
+                          <af:column sortProperty="#{bindings.AppUserCustTypeView1.hints.Description.name}"
+                                     sortable="false"
+                                     id="c13">
+                            <af:outputText value="#{row.CustType} #{row.Description}"
+                                           id="ot16"
                                            inlineStyle="margin:10px;"/>
                           </af:column>
                         </af:table>
@@ -609,7 +666,6 @@
                       <af:panelCollection id="pc3"
                                           featuresOff="detach viewMenu columnsMenuItem statusBar"
                                           styleClass="AFStretchWidth">
-                        <f:facet name="menus"/>
                         <f:facet name="toolbar">
                           <af:toolbar id="t10">
                             <af:commandToolbarButton id="ctb6"
@@ -644,6 +700,8 @@
                                   rowBandingInterval="0" id="t11"
                                   columnStretching="last"
                                   binding="#{UserAccessBean.tblAssignedCustGroup}">
+                          <af:column id="c11" width="6" minimumWidth="6"
+                                     rowHeader="true"/>
                           <af:column sortProperty="#{bindings.AppUserCustGroupView1.hints.CustGroup.name}"
                                      sortable="false"
                                      id="c7">
@@ -692,6 +750,8 @@
                                   rowBandingInterval="0" id="t9"
                                   columnStretching="last"
                                   binding="#{UserAccessBean.tblAssignedCust}">
+                          <af:column id="c12" width="6" minimumWidth="6"
+                                     rowHeader="true"/>
                           <af:column sortProperty="#{bindings.AppUserCustView1.hints.CustomerName.name}"
                                      sortable="false"
                                      id="c6">

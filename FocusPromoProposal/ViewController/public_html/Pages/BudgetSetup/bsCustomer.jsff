@@ -49,7 +49,7 @@
       <af:panelSplitter id="panelSplitter1" splitterPosition="310">
         <f:facet name="first">
           <af:panelSplitter id="ps3" orientation="vertical"
-                            splitterPosition="90" disabled="true">
+                            splitterPosition="120" disabled="true">
             <f:facet name="first">
               <af:query id="qryId1" headerText="Search" disclosed="true"
                         value="#{bindings.BudgetCustHdrViewCriteriaQuery.queryDescriptor}"
@@ -78,7 +78,7 @@
                                    partialTriggers="ctb2" visible="false"/>
                     <af:commandToolbarButton
                                              text="Add"
-                                             disabled="#{pageFlowScope.budgetType == null}"
+                                             disabled="#{pageFlowScope.budgetYear == null}"
                                              id="ctb2"
                                              binding="#{BudgetCustomerBean.btnBudgetAdd}"
                                              partialTriggers="::qryId1"
@@ -273,7 +273,7 @@
                                               columns="#{bindings.BudgetYear.hints.displayWidth}"
                                               shortDesc="#{bindings.BudgetYear.hints.tooltip}"
                                               contentStyle="padding:7px;border-color:rgb(201,202,204); border-style:solid; border-width:1.0px; width:35px;font-weight:bold;"
-                                              disabled="#{bindings.BudgetCustomerView1Iterator.estimatedRowCount > 0}"
+                                              disabled="true"
                                               simple="true"
                                               binding="#{BudgetCustomerBean.itLovBudgetYearHdr}">
                           <f:validator binding="#{bindings.BudgetYear.validator}"/>
@@ -439,9 +439,10 @@
                             <af:column sortProperty="#{bindings.BudgetCustTranHistoryView1.hints.Action.name}"
                                        sortable="false"
                                        headerText="#{bindings.BudgetCustTranHistoryView1.hints.Action.label}"
-                                       id="c27" align="center" width="80"
-                                       minimumWidth="80">
-                              <af:outputText value="#{row.Action}" id="ot29"/>
+                                       id="c27" align="center" width="50"
+                                       minimumWidth="50">
+                              <af:image source="#{row.Action == 'APPROVED' ? '/Images/status_active.png' : '/Images/status_reject.png'}"
+                                        shortDesc="#{row.Action == 'APPROVED' ? 'Approved' : 'Rejected'}" id="i2"/>
                               <f:facet name="header">
                                 <af:outputText value="Status" id="ot28"/>
                               </f:facet>
@@ -648,7 +649,7 @@
                                     columnStretching="column:column9"
                                     rowSelection="single"
                                     selectionListener="#{bindings.BudgetCustTranApprovalView1.collectionModel.makeCurrent}"
-                                    partialTriggers="cb1">
+                                    partialTriggers="cb1 commandButton1">
                             <af:column sortProperty="#{bindings.BudgetCustTranHistoryView1.hints.BudgetCustomerId.name}"
                                        sortable="false"
                                        headerText="#{bindings.BudgetCustTranHistoryView1.hints.BudgetCustomerId.label}"
@@ -740,11 +741,23 @@
                             <af:column id="c26" align="center"
                                        headerText="Action" width="80"
                                        minimumWidth="80">
-                              <af:commandButton text="Confirm"
-                                                id="cb1"
-                                                actionListener="#{BudgetCustomerBean.btnSetBudgetEvent}"
-                                                partialSubmit="true"
-                                                partialTriggers="::::pc2:t1"/>
+                              <af:panelGroupLayout id="pgl23"
+                                                   layout="horizontal">
+                                <af:commandButton id="cb1"
+                                                  actionListener="#{BudgetCustomerBean.btnSetBudgetEvent}"
+                                                  partialSubmit="true"
+                                                  partialTriggers="::::pc2:t1"
+                                                  icon="/Images/status_active_sm.png"
+                                                  shortDesc="Confirm"
+                                                  inlineStyle="padding:3px;"/>
+                                <af:commandButton id="commandButton1"
+                                                  actionListener="#{BudgetCustomerBean.btnRejectSetBudgetEvent}"
+                                                  partialSubmit="true"
+                                                  partialTriggers="::::pc2:t1"
+                                                  icon="/Images/status_reject_sm.png"
+                                                  shortDesc="Reject"
+                                                  inlineStyle="padding:3px;"/>
+                              </af:panelGroupLayout>
                             </af:column>
                           </af:table>
                         </af:panelCollection>

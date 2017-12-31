@@ -133,6 +133,25 @@
         </display-type>
       </run-as-dialog>
     </task-flow-call>
+    <task-flow-call id="ua-assign-cust-type">
+      <task-flow-reference>
+        <document>/WEB-INF/ua-assign-cust-type.xml</document>
+        <id>ua-assign-cust-type</id>
+      </task-flow-reference>
+      <input-parameter id="__53">
+        <name>userName</name>
+        <value>#{pageFlowScope.userName}</value>
+      </input-parameter>
+      <input-parameter id="__54">
+        <name>fullName</name>
+        <value>#{pageFlowScope.fullName}</value>
+      </input-parameter>
+      <run-as-dialog>
+        <display-type id="__52">
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
+    </task-flow-call>
     <control-flow-rule id="__17">
       <from-activity-id id="__18">manageUser</from-activity-id>
       <control-flow-case id="__20">
@@ -158,6 +177,10 @@
       <control-flow-case id="__43">
         <from-outcome id="__45">assigncustgroup</from-outcome>
         <to-activity-id id="__44">ua-assign-cust-group</to-activity-id>
+      </control-flow-case>
+      <control-flow-case id="__50">
+        <from-outcome id="__51">assigncusttype</from-outcome>
+        <to-activity-id id="__49">ua-assign-cust-type</to-activity-id>
       </control-flow-case>
     </control-flow-rule>
     <use-page-fragments/>

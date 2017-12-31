@@ -2,14 +2,20 @@ package app.fpp.model.am;
 
 import app.fpp.model.am.common.UserAccessAM;
 import app.fpp.model.views.useraccess.AppUserAccessChangePasswordViewImpl;
+import app.fpp.model.views.useraccess.AppUserAccessViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveAreaByRegionViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveCustByAreaViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveCustByCustGroupViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustByCustTypeViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveCustByLocViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveCustByRegionViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveCustGroupByAreaViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustGroupByCustTypeViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveCustGroupByLocViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveCustGroupByRegionViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustTypeByAreaViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustTypeByLocViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustTypeByRegionViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveLocByAreaViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveLocByRegionViewImpl;
 import oracle.jbo.Row;
@@ -348,5 +354,69 @@ public class UserAccessAMImpl extends ApplicationModuleImpl implements UserAcces
      */
     public AppUserRemoveCustByCustGroupViewImpl getAppUserRemoveCustByCustGroupView1() {
         return (AppUserRemoveCustByCustGroupViewImpl)findViewObject("AppUserRemoveCustByCustGroupView1");
+    }
+
+    /**
+     * Container's getter for AppUserCustTypeView1.
+     * @return AppUserCustTypeView1
+     */
+    public ViewObjectImpl getAppUserCustTypeView1() {
+        return (ViewObjectImpl)findViewObject("AppUserCustTypeView1");
+    }
+
+    /**
+     * Container's getter for AppUserCustTypeUserAccessFk1Link1.
+     * @return AppUserCustTypeUserAccessFk1Link1
+     */
+    public ViewLinkImpl getAppUserCustTypeUserAccessFk1Link1() {
+        return (ViewLinkImpl)findViewLink("AppUserCustTypeUserAccessFk1Link1");
+    }
+
+    /**
+     * Container's getter for AllUserMgmtCustTypeShuttleView1.
+     * @return AllUserMgmtCustTypeShuttleView1
+     */
+    public ViewObjectImpl getAllUserMgmtCustTypeShuttleView1() {
+        return (ViewObjectImpl)findViewObject("AllUserMgmtCustTypeShuttleView1");
+    }
+
+    /**
+     * Container's getter for AppUserRemoveCustGroupByCustTypeView1.
+     * @return AppUserRemoveCustGroupByCustTypeView1
+     */
+    public AppUserRemoveCustGroupByCustTypeViewImpl getAppUserRemoveCustGroupByCustTypeView1() {
+        return (AppUserRemoveCustGroupByCustTypeViewImpl)findViewObject("AppUserRemoveCustGroupByCustTypeView1");
+    }
+
+    /**
+     * Container's getter for AppUserRemoveCustTypeByAreaView1.
+     * @return AppUserRemoveCustTypeByAreaView1
+     */
+    public AppUserRemoveCustTypeByAreaViewImpl getAppUserRemoveCustTypeByAreaView1() {
+        return (AppUserRemoveCustTypeByAreaViewImpl)findViewObject("AppUserRemoveCustTypeByAreaView1");
+    }
+
+    /**
+     * Container's getter for AppUserRemoveCustTypeByLocView1.
+     * @return AppUserRemoveCustTypeByLocView1
+     */
+    public AppUserRemoveCustTypeByLocViewImpl getAppUserRemoveCustTypeByLocView1() {
+        return (AppUserRemoveCustTypeByLocViewImpl)findViewObject("AppUserRemoveCustTypeByLocView1");
+    }
+
+    /**
+     * Container's getter for AppUserRemoveCustTypeByRegionView1.
+     * @return AppUserRemoveCustTypeByRegionView1
+     */
+    public AppUserRemoveCustTypeByRegionViewImpl getAppUserRemoveCustTypeByRegionView1() {
+        return (AppUserRemoveCustTypeByRegionViewImpl)findViewObject("AppUserRemoveCustTypeByRegionView1");
+    }
+
+    /**
+     * Container's getter for AppUserRemoveCustByCustTypeView1.
+     * @return AppUserRemoveCustByCustTypeView1
+     */
+    public AppUserRemoveCustByCustTypeViewImpl getAppUserRemoveCustByCustTypeView1() {
+        return (AppUserRemoveCustByCustTypeViewImpl)findViewObject("AppUserRemoveCustByCustTypeView1");
     }
 }

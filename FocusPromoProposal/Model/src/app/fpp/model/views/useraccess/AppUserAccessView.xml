@@ -390,6 +390,11 @@
     ViewLink="app.fpp.model.views.useraccess.AppUserCustGroupUserAccessFk1Link"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
+  <ViewLinkAccessor
+    Name="AppUserCustTypeView"
+    ViewLink="app.fpp.model.views.useraccess.AppUserCustTypeUserAccessFk1Link"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="app.fpp.model.ModelBundle"/>

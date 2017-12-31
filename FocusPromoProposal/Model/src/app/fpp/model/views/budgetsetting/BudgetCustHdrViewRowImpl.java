@@ -7,7 +7,6 @@ import oracle.jbo.RowIterator;
 import oracle.jbo.RowSet;
 import oracle.jbo.domain.DBSequence;
 import oracle.jbo.domain.Date;
-import oracle.jbo.domain.Number;
 import oracle.jbo.server.AttributeDefImpl;
 import oracle.jbo.server.ViewRowImpl;
 // ---------------------------------------------------------------------
@@ -41,6 +40,36 @@ public class BudgetCustHdrViewRowImpl extends ViewRowImpl {
             }
         }
         ,
+        CustomerDesc {
+            public Object get(BudgetCustHdrViewRowImpl obj) {
+                return obj.getCustomerDesc();
+            }
+
+            public void put(BudgetCustHdrViewRowImpl obj, Object value) {
+                obj.setCustomerDesc((String)value);
+            }
+        }
+        ,
+        KodePosting {
+            public Object get(BudgetCustHdrViewRowImpl obj) {
+                return obj.getKodePosting();
+            }
+
+            public void put(BudgetCustHdrViewRowImpl obj, Object value) {
+                obj.setKodePosting((String)value);
+            }
+        }
+        ,
+        BudgetType {
+            public Object get(BudgetCustHdrViewRowImpl obj) {
+                return obj.getBudgetType();
+            }
+
+            public void put(BudgetCustHdrViewRowImpl obj, Object value) {
+                obj.setBudgetType((String)value);
+            }
+        }
+        ,
         BudgetYear {
             public Object get(BudgetCustHdrViewRowImpl obj) {
                 return obj.getBudgetYear();
@@ -48,6 +77,16 @@ public class BudgetCustHdrViewRowImpl extends ViewRowImpl {
 
             public void put(BudgetCustHdrViewRowImpl obj, Object value) {
                 obj.setBudgetYear((String)value);
+            }
+        }
+        ,
+        CheckRowStatus {
+            public Object get(BudgetCustHdrViewRowImpl obj) {
+                return obj.getCheckRowStatus();
+            }
+
+            public void put(BudgetCustHdrViewRowImpl obj, Object value) {
+                obj.setCheckRowStatus((Integer)value);
             }
         }
         ,
@@ -88,46 +127,6 @@ public class BudgetCustHdrViewRowImpl extends ViewRowImpl {
 
             public void put(BudgetCustHdrViewRowImpl obj, Object value) {
                 obj.setModifiedOn((Date)value);
-            }
-        }
-        ,
-        CustomerDesc {
-            public Object get(BudgetCustHdrViewRowImpl obj) {
-                return obj.getCustomerDesc();
-            }
-
-            public void put(BudgetCustHdrViewRowImpl obj, Object value) {
-                obj.setCustomerDesc((String)value);
-            }
-        }
-        ,
-        KodePosting {
-            public Object get(BudgetCustHdrViewRowImpl obj) {
-                return obj.getKodePosting();
-            }
-
-            public void put(BudgetCustHdrViewRowImpl obj, Object value) {
-                obj.setKodePosting((String)value);
-            }
-        }
-        ,
-        BudgetType {
-            public Object get(BudgetCustHdrViewRowImpl obj) {
-                return obj.getBudgetType();
-            }
-
-            public void put(BudgetCustHdrViewRowImpl obj, Object value) {
-                obj.setBudgetType((String)value);
-            }
-        }
-        ,
-        CheckRowStatus {
-            public Object get(BudgetCustHdrViewRowImpl obj) {
-                return obj.getCheckRowStatus();
-            }
-
-            public void put(BudgetCustHdrViewRowImpl obj, Object value) {
-                obj.setCheckRowStatus((Integer)value);
             }
         }
         ,
@@ -212,15 +211,15 @@ public class BudgetCustHdrViewRowImpl extends ViewRowImpl {
 
     public static final int BUDGETCUSTHDRID = AttributesEnum.BudgetCustHdrId.index();
     public static final int CUSTOMERID = AttributesEnum.CustomerId.index();
+    public static final int CUSTOMERDESC = AttributesEnum.CustomerDesc.index();
+    public static final int KODEPOSTING = AttributesEnum.KodePosting.index();
+    public static final int BUDGETTYPE = AttributesEnum.BudgetType.index();
     public static final int BUDGETYEAR = AttributesEnum.BudgetYear.index();
+    public static final int CHECKROWSTATUS = AttributesEnum.CheckRowStatus.index();
     public static final int CREATEDBY = AttributesEnum.CreatedBy.index();
     public static final int CREATIONDATE = AttributesEnum.CreationDate.index();
     public static final int MODIFIEDBY = AttributesEnum.ModifiedBy.index();
     public static final int MODIFIEDON = AttributesEnum.ModifiedOn.index();
-    public static final int CUSTOMERDESC = AttributesEnum.CustomerDesc.index();
-    public static final int KODEPOSTING = AttributesEnum.KodePosting.index();
-    public static final int BUDGETTYPE = AttributesEnum.BudgetType.index();
-    public static final int CHECKROWSTATUS = AttributesEnum.CheckRowStatus.index();
     public static final int BUDGETCUSTOMERVIEW = AttributesEnum.BudgetCustomerView.index();
     public static final int BUDGETCUSTOMERYEARLOV = AttributesEnum.BudgetCustomerYearLov.index();
     public static final int ALLKODEPOSTINGVIEW1 = AttributesEnum.AllKodePostingView1.index();

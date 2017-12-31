@@ -222,6 +222,16 @@ public class AppUserAccessImpl extends EntityImpl {
                 obj.setAttributeInternal(index(), value);
             }
         }
+        ,
+        AppUserCustType {
+            public Object get(AppUserAccessImpl obj) {
+                return obj.getAppUserCustType();
+            }
+
+            public void put(AppUserAccessImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
         ;
         private static AttributesEnum[] vals = null;
         private static final int firstIndex = 0;
@@ -271,6 +281,7 @@ public class AppUserAccessImpl extends EntityImpl {
     public static final int APPUSERCUST = AttributesEnum.AppUserCust.index();
     public static final int APPUSERLOC = AttributesEnum.AppUserLoc.index();
     public static final int APPUSERCUSTGROUP = AttributesEnum.AppUserCustGroup.index();
+    public static final int APPUSERCUSTTYPE = AttributesEnum.AppUserCustType.index();
 
     /**
      * This is the default constructor (do not remove).
@@ -591,6 +602,14 @@ public class AppUserAccessImpl extends EntityImpl {
      */
     public RowIterator getAppUserCustGroup() {
         return (RowIterator)getAttributeInternal(APPUSERCUSTGROUP);
+    }
+
+
+    /**
+     * @return the associated entity oracle.jbo.RowIterator.
+     */
+    public RowIterator getAppUserCustType() {
+        return (RowIterator)getAttributeInternal(APPUSERCUSTTYPE);
     }
 
 

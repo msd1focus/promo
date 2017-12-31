@@ -195,7 +195,8 @@ bindings.MekanismePenagihan1.inputValue == 'ONINVOICE' and bindings.DiscountType
       <af:panelSplitter id="panelSplitter1" splitterPosition="300">
         <f:facet name="first">
           <af:panelCollection id="pc2" styleClass="AFStretchWidth"
-                              featuresOff="detach viewMenu columnsMenuItem">
+                              featuresOff="detach viewMenu columnsMenuItem"
+                              inlineStyle="border-top:none;">
             <f:facet name="toolbar">
               <af:toolbar id="t3">
                 <af:commandToolbarButton text="New Confirmation" id="ctb1">
@@ -277,9 +278,11 @@ bindings.MekanismePenagihan1.inputValue == 'ONINVOICE' and bindings.DiscountType
                       binding="#{ConfirmationPromoBean.tblPropConfirmation}"
                       partialTriggers=":::d2 :::d6 ::ctb2 ::d1"
                       filterModel="#{bindings.ProposalConfirmationView11Query.queryDescriptor}"
-                      queryListener="#{bindings.ProposalConfirmationView11Query.processQuery}"
+                      queryListener="#{ConfirmationPromoBean.tableFilterProcessQuery}"
                       filterVisible="true" varStatus="vs"
-                      blockRowNavigationOnError="always">
+                      blockRowNavigationOnError="always"
+                      inlineStyle="border-right: none;border-left: none;">
+              <af:column id="c70" width="5" minimumWidth="5" rowHeader="true"/>
               <af:column sortProperty="#{bindings.ProposalConfirmationView11.hints.ConfirmNo.name}"
                          filterable="true" sortable="true"
                          headerText="#{bindings.ProposalConfirmationView11.hints.ConfirmNo.label}"
@@ -3070,15 +3073,11 @@ bindings.MekanismePenagihan1.inputValue == 'ONINVOICE' and bindings.DiscountType
                                       </af:panelTabbed>
                                     </f:facet>
                                   </af:panelSplitter>
-                                  <af:panelGroupLayout id="pgl01"
-                                                       layout="horizontal"
-                                                       inlineStyle="width:968px;margin-top:8px;margin-bottom:-30px;margin-right:-30px;"
-                                                       halign="right"
-                                                       valign="top">
+                                  <f:facet name="buttonBar">
                                     <af:panelGroupLayout id="pgl15"
-                                                         layout="horizontal">
-                                      <af:spacer width="906" height="10"
-                                                 id="s26"/>
+                                                         layout="horizontal"
+                                                         inlineStyle="margin-bottom:7px;margin-right:3px;"
+                                                         halign="right">
                                       <af:commandButton text="OK" id="cb3"
                                                         actionListener="#{ConfirmationPromoBean.dialogEventCustomDetailProduct}"/>
                                       <af:spacer width="3" height="10"
@@ -3087,7 +3086,7 @@ bindings.MekanismePenagihan1.inputValue == 'ONINVOICE' and bindings.DiscountType
                                                         actionListener="#{ConfirmationPromoBean.dialogCancelEventCustomDetailProduct}"
                                                         immediate="true"/>
                                     </af:panelGroupLayout>
-                                  </af:panelGroupLayout>
+                                  </f:facet>
                                 </af:dialog>
                               </af:popup>
                               <af:commandToolbarButton text="Attachment"

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AllUserMgmtCustTypeShuttleView"
+  Version="11.1.1.64.93"
+  InheritPersonalization="true"
+  SelectList="FcsShuttleUserCustType.CUST_TYPE_CODE, 
+       FcsShuttleUserCustType.CUST_TYPE_LABEL"
+  FromList="FCS_SHUTTLE_USER_CUST_TYPE FcsShuttleUserCustType"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false"
+  Where="FcsShuttleUserCustType.USER_NAME = :userName
+GROUP BY FcsShuttleUserCustType.CUST_TYPE_CODE, 
+       FcsShuttleUserCustType.CUST_TYPE_LABEL"
+  OrderBy="FcsShuttleUserCustType.CUST_TYPE_LABEL">
+  <Properties>
+    <SchemaBasedProperties>
+      <LABEL
+        ResId="app.fpp.model.views.masterdata.ebs.shuttle.AllUserMgmtCustTypeShuttleView_LABEL"/>
+    </SchemaBasedProperties>
+  </Properties>
+  <Variable
+    Name="userName"
+    Kind="where"
+    Type="java.lang.String"/>
+  <EntityUsage
+    Name="FcsShuttleUserCustType"
+    Entity="app.fpp.model.entities.masterdata.ebs.shuttle.FcsShuttleUserCustType"
+    ReadOnly="true"
+    DeleteParticipant="false"/>
+  <ViewAttribute
+    Name="CustTypeCode"
+    PrecisionRule="true"
+    EntityAttrName="CustTypeCode"
+    EntityUsage="FcsShuttleUserCustType"
+    AliasName="CUST_TYPE_CODE"/>
+  <ViewAttribute
+    Name="CustTypeLabel"
+    PrecisionRule="true"
+    EntityAttrName="CustTypeLabel"
+    EntityUsage="FcsShuttleUserCustType"
+    AliasName="CUST_TYPE_LABEL"/>
+  <ResourceBundle>
+    <PropertiesBundle
+      PropertiesFile="app.fpp.model.ModelBundle"/>
+  </ResourceBundle>
+</ViewObject>

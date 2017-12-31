@@ -23,7 +23,7 @@
 AND BudgetCustomer.BUDGET_CUSTOMER_ID =:CustId
 AND (BudgetCustomer.BUDGET_CATEGORY || '.' || BudgetCustomer.BUDGET_CLASS || '.' || BudgetCustomer.BUDGET_BRAND || '.' || BudgetCustomer.BUDGET_EXTENTION || '.' || BudgetCustomer.BUDGET_PACKAGING || '.' || BudgetCustomer.BUDGET_VARIANT) = FcsViewCategCombDesc.COMBINATION_CATEGORY(+)
 AND  (BudgetCustTran.PERCENTAGE + BudgetCustTran.AMOUNT != 0)
-AND BudgetCustTran.ACTION ='APPROVED'"
+AND BudgetCustTran.ACTION IN ('APPROVED', 'REJECTED')"
   OrderBy="BudgetCustTran.BUDGET_DATE, BudgetCustTran.BUDGET_TYPE DESC"
   BindingStyle="OracleName"
   CustomQuery="false"

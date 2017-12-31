@@ -1039,6 +1039,16 @@ AND Proposal.STATUS &lt;> 'CLOSED'">
     ColumnType="DATE"
     AliasName="VIEW_ATTR"
     SQLType="DATE"/>
+  <ViewAttribute
+    Name="CheckRowStatus"
+    IsUpdateable="false"
+    IsSelected="false"
+    IsPersistent="false"
+    PrecisionRule="true"
+    Type="java.lang.Integer"
+    ColumnType="NUMBER"
+    AliasName="VIEW_ATTR"
+    SQLType="VARCHAR"/>
   <AttrArray Name="KeyAttributes">
     <Item Value="ProposalId"/>
     <Item Value="Id"/>

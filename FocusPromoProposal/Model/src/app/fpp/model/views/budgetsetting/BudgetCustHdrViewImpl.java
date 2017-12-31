@@ -29,4 +29,20 @@ public class BudgetCustHdrViewImpl extends ViewObjectImpl {
     public void setbudgetType(String value) {
         ensureVariableManager().setVariableValue("budgetType", value);
     }
+
+    /**
+     * Returns the variable value for budgetYear.
+     * @return variable value for budgetYear
+     */
+    public String getbudgetYear() {
+        return (String)ensureVariableManager().getVariableValue("budgetYear");
+    }
+
+    /**
+     * Sets <code>value</code> for variable budgetYear.
+     * @param value value to bind as budgetYear
+     */
+    public void setbudgetYear(String value) {
+        ensureVariableManager().setVariableValue("budgetYear", value);
+    }
 }

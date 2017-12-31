@@ -338,6 +338,13 @@
     AssociationOtherEnd="app.fpp.model.entities.useraccess.AppUserCustGroupAppUserAccessFk1Assoc.AppUserAccess"
     Type="oracle.jbo.RowIterator"
     IsUpdateable="false"/>
+  <AccessorAttribute
+    Name="AppUserCustType"
+    Association="app.fpp.model.entities.useraccess.AppUserCustTypeAppUserAccessFk1Assoc"
+    AssociationEnd="app.fpp.model.entities.useraccess.AppUserCustTypeAppUserAccessFk1Assoc.AppUserCustType"
+    AssociationOtherEnd="app.fpp.model.entities.useraccess.AppUserCustTypeAppUserAccessFk1Assoc.AppUserAccess"
+    Type="oracle.jbo.RowIterator"
+    IsUpdateable="false"/>
   <Key
     Name="AppUserAccessContactNoCheck">
     <DesignTime>

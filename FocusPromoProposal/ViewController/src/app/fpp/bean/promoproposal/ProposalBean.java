@@ -75,7 +75,14 @@ import oracle.adf.view.rich.context.AdfFacesContext;
 import oracle.adf.view.rich.event.DialogEvent;
 import oracle.adf.view.rich.event.PopupCanceledEvent;
 import oracle.adf.view.rich.event.PopupFetchEvent;
+import oracle.adf.view.rich.event.QueryEvent;
 import oracle.adf.view.rich.event.ReturnPopupEvent;
+
+import oracle.adf.view.rich.model.AttributeCriterion;
+import oracle.adf.view.rich.model.AttributeDescriptor;
+import oracle.adf.view.rich.model.ConjunctionCriterion;
+import oracle.adf.view.rich.model.Criterion;
+import oracle.adf.view.rich.model.FilterableQueryDescriptor;
 
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
@@ -2554,6 +2561,7 @@ public class ProposalBean {
     }
 
     public void addPromoProduk(ActionEvent actionEvent) {
+        boolean canCreateNew = true;
         BindingContainer bindings =
             BindingContext.getCurrent().getCurrentBindingsEntry();
 
@@ -2564,49 +2572,70 @@ public class ProposalBean {
 
         DCIteratorBinding dciter =
             (DCIteratorBinding)bindings.get("PromoProdukView1Iterator");
-        RowSetIterator rsi = dciter.getRowSetIterator();
-        Row lastRow = rsi.last();
-        int lastRowIndex = rsi.getRangeIndexOf(lastRow);
-        Row newRow = rsi.createRow();
-        newRow.setNewRowState(Row.STATUS_INITIALIZED);
-
-        if (usrCustomer.equalsIgnoreCase(userCustRegion)) {
-            newRow.setAttribute("RegCustFlag", userCustRegion);
-        } else if (usrCustomer.equalsIgnoreCase(userCustArea)) {
-            newRow.setAttribute("RegCustFlag", userCustArea);
-        } else if (usrCustomer.equalsIgnoreCase(userCustLocation)) {
-            newRow.setAttribute("RegCustFlag", userCustLocation);
-        } else if (usrCustomer.equalsIgnoreCase(userCustCustGroup)) {
-            newRow.setAttribute("RegCustFlag", userCustCustGroup);
-        } else if (usrCustomer.equalsIgnoreCase(userCustCustomer)) {
-            newRow.setAttribute("RegCustFlag", userCustCustomer);
-        } else {
-            newRow.setAttribute("RegCustFlag", userCustInvalid);
-            JSFUtils.addFacesWarningMessage("Anda tidak memiliki hak akses memilih customer.");
+        long produkRowCount = dciter.getEstimatedRowCount();
+        
+        for (Row produkRow : dciter.getAllRowsInRange()) {
+            Integer rowStatus =
+                (Integer)produkRow.getAttribute("CheckRowStatus");
+            String validComb =
+                (String)produkRow.getAttribute("ValidComb");
+            if ((rowStatus == 0 && produkRowCount > 0) || 
+                (!("Y").equalsIgnoreCase(validComb) && produkRowCount > 0)) {
+                canCreateNew = false;
+            }
         }
 
-        //add row to last index + 1 so it becomes last in the range set
-        rsi.insertRowAtRangeIndex(lastRowIndex + 1, newRow);
-        //make row the current row so it is displayed correctly
-        rsi.setCurrentRow(newRow);
-
-        Integer propTypeIdx = (Integer)itLovProposalType.getValue();
-        if (propTypeIdx.compareTo(idxFood) == 0) {
-            itLovProdCategory.setValue(prodCatCodeFood);
-            itCategory.setValue(prodDescCodeFood);
-            AdfFacesContext adc = AdfFacesContext.getCurrentInstance();
-            adc.addPartialTarget(itLovProdCategory);
-            adc.addPartialTarget(itCategory);
-            adc.addPartialTarget(tblListProduct);
-        } else if (propTypeIdx.compareTo(idxNonFood) == 0) {
-            itLovProdCategory.setValue(prodCatCodeNonFood);
-            itCategory.setValue(prodDescCodeNonFood);
-            AdfFacesContext adc = AdfFacesContext.getCurrentInstance();
-            adc.addPartialTarget(itLovProdCategory);
-            adc.addPartialTarget(itCategory);
-            adc.addPartialTarget(tblListProduct);
+        if (canCreateNew) {
+            RowSetIterator rsi = dciter.getRowSetIterator();
+            Row lastRow = rsi.last();
+            int lastRowIndex = rsi.getRangeIndexOf(lastRow);
+            Row newRow = rsi.createRow();
+            newRow.setNewRowState(Row.STATUS_INITIALIZED);
+    
+            if (usrCustomer.equalsIgnoreCase(userCustRegion)) {
+                newRow.setAttribute("RegCustFlag", userCustRegion);
+            } else if (usrCustomer.equalsIgnoreCase(userCustArea)) {
+                newRow.setAttribute("RegCustFlag", userCustArea);
+            } else if (usrCustomer.equalsIgnoreCase(userCustLocation)) {
+                newRow.setAttribute("RegCustFlag", userCustLocation);
+            } else if (usrCustomer.equalsIgnoreCase(userCustCustGroup)) {
+                newRow.setAttribute("RegCustFlag", userCustCustGroup);
+            } else if (usrCustomer.equalsIgnoreCase(userCustCustomer)) {
+                newRow.setAttribute("RegCustFlag", userCustCustomer);
+            } else {
+                newRow.setAttribute("RegCustFlag", userCustInvalid);
+                JSFUtils.addFacesWarningMessage("Anda tidak memiliki hak akses memilih customer.");
+            }
+    
+            //add row to last index + 1 so it becomes last in the range set
+            rsi.insertRowAtRangeIndex(lastRowIndex + 1, newRow);
+            //make row the current row so it is displayed correctly
+            rsi.setCurrentRow(newRow);
+    
+            Integer propTypeIdx = (Integer)itLovProposalType.getValue();
+            if (propTypeIdx.compareTo(idxFood) == 0) {
+                itLovProdCategory.setValue(prodCatCodeFood);
+                itCategory.setValue(prodDescCodeFood);
+                AdfFacesContext adc = AdfFacesContext.getCurrentInstance();
+                adc.addPartialTarget(itLovProdCategory);
+                adc.addPartialTarget(itCategory);
+                adc.addPartialTarget(tblListProduct);
+            } else if (propTypeIdx.compareTo(idxNonFood) == 0) {
+                itLovProdCategory.setValue(prodCatCodeNonFood);
+                itCategory.setValue(prodDescCodeNonFood);
+                AdfFacesContext adc = AdfFacesContext.getCurrentInstance();
+                adc.addPartialTarget(itLovProdCategory);
+                adc.addPartialTarget(itCategory);
+                adc.addPartialTarget(tblListProduct);
+            } else {
+                JSFUtils.addFacesErrorMessage("Tipe proposal selain FOOD dan NON FOOD tidak dikenali.");
+            }
         } else {
-            JSFUtils.addFacesErrorMessage("Tipe proposal selain FOOD dan NON FOOD tidak dikenali.");
+            StringBuilder message = new StringBuilder("<html><body>");
+            message.append("<p>Data produk ada yang belum selesai dilengkapi dan kombinasi belum valid.</p>");
+            message.append("<p>Proses penambahan produk baru tidak dapat dilanjutkan.</p>");
+            message.append("</body></html>");
+            JSFUtils.addFacesWarningMessage(message.toString());
         }
     }
 
@@ -5643,7 +5672,7 @@ promoProposalAM.getDBTransaction().createCallableStatement("BEGIN APPS.FCS_PPPC_
     }
 
     public void newProposalEvent(ActionEvent actionEvent) {
-
+        boolean canCreateNew = true;
         UserData userData =
             (UserData)JSFUtils.resolveExpression("#{UserData}");
         String usrDivId = userData.getUserDivision();
@@ -5655,50 +5684,65 @@ promoProposalAM.getDBTransaction().createCallableStatement("BEGIN APPS.FCS_PPPC_
             BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding dciterProposal =
             (DCIteratorBinding)bindings.get("ProposalView1Iterator");
-        RowSetIterator rsi = dciterProposal.getRowSetIterator();
-        Row lastRow = rsi.last();
-        int lastRowIndex = rsi.getRangeIndexOf(lastRow);
-        Row newRow = rsi.createRow();
-        newRow.setNewRowState(Row.STATUS_INITIALIZED);
-
-        if (usrDivId.equalsIgnoreCase("NONFOOD")) {
-            newRow.setAttribute("ProposalType", "NONFOOD");
-        } else if (usrDivId.equalsIgnoreCase("FOOD")) {
-            newRow.setAttribute("ProposalType", "FOOD");
-        } else {
-            newRow.setAttribute("ProposalType", null);
+        for (Row proposalRow : dciterProposal.getAllRowsInRange()) {
+            Integer rowStatus =
+                (Integer)proposalRow.getAttribute("CheckRowStatus");
+            if (rowStatus == 0) {
+                canCreateNew = false;
+            }
         }
 
-        if (usrCustomer.equalsIgnoreCase(userCustRegion)) {
-            newRow.setAttribute("CustRegFlag", userCustRegion);
-            newRow.setAttribute("CustRegFlagLov", userCustRegion);
-        } else if (usrCustomer.equalsIgnoreCase(userCustArea)) {
-            newRow.setAttribute("CustRegFlag", userCustArea);
-            newRow.setAttribute("CustRegFlagLov", userCustArea);
-        } else if (usrCustomer.equalsIgnoreCase(userCustLocation)) {
-            newRow.setAttribute("CustRegFlag", userCustLocation);
-            newRow.setAttribute("CustRegFlagLov", userCustLocation);
-        } else if (usrCustomer.equalsIgnoreCase(userCustCustGroup)) {
-            newRow.setAttribute("CustRegFlag", userCustCustGroup);
-            newRow.setAttribute("CustRegFlagLov", userCustCustGroup);
-        } else if (usrCustomer.equalsIgnoreCase(userCustCustomer)) {
-            newRow.setAttribute("CustRegFlag", userCustCustomer);
-            newRow.setAttribute("CustRegFlagLov", userCustCustomer);
+        if (canCreateNew) {
+            RowSetIterator rsi = dciterProposal.getRowSetIterator();
+            Row lastRow = rsi.last();
+            int lastRowIndex = rsi.getRangeIndexOf(lastRow);
+            Row newRow = rsi.createRow();
+            newRow.setNewRowState(Row.STATUS_INITIALIZED);
+    
+            if (usrDivId.equalsIgnoreCase("NONFOOD")) {
+                newRow.setAttribute("ProposalType", "NONFOOD");
+            } else if (usrDivId.equalsIgnoreCase("FOOD")) {
+                newRow.setAttribute("ProposalType", "FOOD");
+            } else {
+                newRow.setAttribute("ProposalType", null);
+            }
+    
+            if (usrCustomer.equalsIgnoreCase(userCustRegion)) {
+                newRow.setAttribute("CustRegFlag", userCustRegion);
+                newRow.setAttribute("CustRegFlagLov", userCustRegion);
+            } else if (usrCustomer.equalsIgnoreCase(userCustArea)) {
+                newRow.setAttribute("CustRegFlag", userCustArea);
+                newRow.setAttribute("CustRegFlagLov", userCustArea);
+            } else if (usrCustomer.equalsIgnoreCase(userCustLocation)) {
+                newRow.setAttribute("CustRegFlag", userCustLocation);
+                newRow.setAttribute("CustRegFlagLov", userCustLocation);
+            } else if (usrCustomer.equalsIgnoreCase(userCustCustGroup)) {
+                newRow.setAttribute("CustRegFlag", userCustCustGroup);
+                newRow.setAttribute("CustRegFlagLov", userCustCustGroup);
+            } else if (usrCustomer.equalsIgnoreCase(userCustCustomer)) {
+                newRow.setAttribute("CustRegFlag", userCustCustomer);
+                newRow.setAttribute("CustRegFlagLov", userCustCustomer);
+            } else {
+                newRow.setAttribute("CustRegFlag", userCustInvalid);
+                newRow.setAttribute("CustRegFlagLov", userCustInvalid);
+                JSFUtils.addFacesWarningMessage("Anda tidak memiliki hak akses memilih customer.");
+            }
+    
+            newRow.setAttribute("UserTypeCreator", usrType);
+    
+            //add row to last index + 1 so it becomes last in the range set
+            rsi.insertRowAtRangeIndex(lastRowIndex + 1, newRow);
+            //make row the current row so it is displayed correctly
+            rsi.setCurrentRow(newRow);
+    
+            AdfFacesContext.getCurrentInstance().addPartialTarget(switchMain);
         } else {
-            newRow.setAttribute("CustRegFlag", userCustInvalid);
-            newRow.setAttribute("CustRegFlagLov", userCustInvalid);
-            JSFUtils.addFacesWarningMessage("Anda tidak memiliki hak akses memilih customer.");
+            StringBuilder message = new StringBuilder("<html><body>");
+            message.append("<p>Masih ada proposal baru yang belum dilengkapi dan belum tersimpan.</p>");
+            message.append("<p>Proses penambahan proposal baru tidak dapat dilanjutkan.</p>");
+            message.append("</body></html>");
+            JSFUtils.addFacesWarningMessage(message.toString());
         }
-
-        newRow.setAttribute("UserTypeCreator", usrType);
-
-        //add row to last index + 1 so it becomes last in the range set
-        rsi.insertRowAtRangeIndex(lastRowIndex + 1, newRow);
-        //make row the current row so it is displayed correctly
-        rsi.setCurrentRow(newRow);
-
-        AdfFacesContext.getCurrentInstance().addPartialTarget(switchMain);
-
     }
 
     public void setTblListExclLocation(RichTable tblListExclLocation) {
@@ -6486,6 +6530,11 @@ new BigDecimal(rowMf.getValue().toString().replaceAll(",", ""));
             (DCBindingContainer)BindingContext.getCurrent().getCurrentBindingsEntry();
         DCIteratorBinding dcItteratorBindings =
             bindings.findIteratorBinding("DiscountView1Iterator");
+        RowSetIterator rsi = dcItteratorBindings.getRowSetIterator();
+        Integer currRowIndex = rsi.getCurrentRowIndex() + 1;
+        Row lastRow = rsi.last();
+        Integer fetchedRowCount = rsi.getFetchedRowCount();
+        
         if (dcItteratorBindings.getEstimatedRowCount() == 1) {
             ViewObject voTableData = dcItteratorBindings.getViewObject();
             Row rowSelected = voTableData.getCurrentRow();
@@ -6515,147 +6564,159 @@ new BigDecimal(rowMf.getValue().toString().replaceAll(",", ""));
                 AdfFacesContext.getCurrentInstance().addPartialTarget(otRasioMf);
             }
         } else {
-            ViewObject voTableData = dcItteratorBindings.getViewObject();
-            Row rowSelected = voTableData.getCurrentRow();
-            if (rowSelected.getAttribute("DiscountId") != null) {
-                voTableData.removeCurrentRow();
-                OperationBinding operation =
-                    (OperationBinding)BindingContext.getCurrent().getCurrentBindingsEntry().get("Commit");
-                operation.execute();
-            }
-            DCIteratorBinding dciterPromoProduk =
-                ADFUtils.findIterator("PromoProdukView1Iterator");
-            Row r = dciterPromoProduk.getCurrentRow();
-            DCIteratorBinding dciterDiscount =
-                ADFUtils.findIterator("DiscountView1Iterator");
-            BigDecimal totalMf = BigDecimal.ZERO;
-            BigDecimal totalOntop = BigDecimal.ZERO;
-            for (Row er : dciterDiscount.getAllRowsInRange()) {
-                String valueMF =
-                    er.getAttribute("DiscYearly").toString().replaceAll(",",
-                                                                        "");
-                String valueTop =
-                    er.getAttribute("DiscNonYearly").toString().replaceAll(",",
-                                                                           "");
-                BigDecimal ontopValue =
-                    new BigDecimal(valueTop) == null ? new BigDecimal(0) :
-                    new BigDecimal(valueTop);
-                BigDecimal mfValue =
-                    new BigDecimal(valueMF) == null ? new BigDecimal(0) :
-                    new BigDecimal(valueMF);
-                totalMf = totalMf.add(mfValue);
-                totalOntop = totalOntop.add(ontopValue);
-            }
-            DCIteratorBinding dciterTarget =
-                ADFUtils.findIterator("TargetView1Iterator");
-            Row row = dciterTarget.getCurrentRow();
-            BigDecimal mf = BigDecimal.ZERO;
-            BigDecimal rMf = BigDecimal.ZERO;
-            BigDecimal RasioMf = BigDecimal.ZERO;
-            BigDecimal rasioTotal = BigDecimal.ZERO;
-            BigDecimal rasioT = BigDecimal.ZERO;
-            BigDecimal ontop = BigDecimal.ZERO;
-            BigDecimal rOntop = BigDecimal.ZERO;
-            BigDecimal RasioOntop = BigDecimal.ZERO;
-            Number qty =
-                (Number)row.getAttribute("Qty") == null ? new Number(0) :
-                (Number)row.getAttribute("Qty");
-            Number value =
-                (Number)row.getAttribute("Value") == null ? new Number(0) :
-                (Number)row.getAttribute("Value");
-
-            DCIteratorBinding dciterDiscountTgetTPot =
-                ADFUtils.findIterator("DiscountView1Iterator");
-            for (Row ere : dciterDiscountTgetTPot.getAllRowsInRange()) {
-                String typePot =
-                    ere.getAttribute("TipePotongan").toString().replaceAll(",",
-                                                                           "");
-                if (typePot.equalsIgnoreCase("PERCENT")) {
-                    rMf = totalMf;
-                    mf =
- (value.multiply(rMf)).getBigDecimalValue().divide(bdHundred);
-                    otMF.setSubmittedValue(mf);
-                    RasioMf =
-                            mf.divide(value.getBigDecimalValue(), 2, RoundingMode.HALF_UP).multiply(bdHundred);
-                    String rasMf = RasioMf.toString();
-                    otRasioMf.setSubmittedValue(rasMf);
-                    rasioT =
-                            new BigDecimal(otRasioOntop.getValue().toString().replaceAll(" ",
-                                                                                         "").replaceAll("%",
-                                                                                                        ""));
-                    rasioTotal = RasioMf.add(rasioT);
-                    String Total = rasioTotal.toString();
-                    otRasioTotal.setSubmittedValue(Total);
-
-                    rOntop = totalOntop;
-                    String rasio =
-                        otRasioMf.getValue() == "" ? "0" :
-                        otRasioMf.getValue() == null ? "0" :
-                        otRasioMf.getValue().toString();
-                    rasioT =
-                            new BigDecimal(rasio.toString().replaceAll(" ", "").replaceAll("%",
-                                                                                           ""));
-                    ontop =
-                            (value.multiply(rOntop)).getBigDecimalValue().divide(bdHundred);
-                    otOnTop.setSubmittedValue(ontop);
-                    RasioOntop =
-                            ontop.divide(value.getBigDecimalValue(), 2, RoundingMode.HALF_UP).multiply(bdHundred);
-                    String rasOntop = RasioOntop.toString();
-                    otRasioOntop.setSubmittedValue(rasOntop);
-
-                    r.setAttribute("DiscOnTop", ontop);
-                    r.setAttribute("DiscRasioOnTop", rasOntop);
-                    r.setAttribute("DiscRasioTotal1", Total);
-                    r.setAttribute("DiscMf", mf);
-                    r.setAttribute("DiscRasioMf", rasMf);
-
-                    dciterPromoProduk.getDataControl().commitTransaction();
-
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(otOnTop);
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(otRasioOntop);
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(otRasioTotal);
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(otMF);
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(otRasioMf);
-
-                } else {
-                    ontop = qty.getBigDecimalValue().multiply(totalOntop);
-                    otOnTop.setSubmittedValue(ontop);
-                    RasioOntop =
-                            ontop.divide(value.getBigDecimalValue(), 2, RoundingMode.HALF_UP).multiply(bdHundred);
-                    String rasOntop = RasioOntop.toString();
-
-                    otRasioOntop.setSubmittedValue(rasOntop);
-                    String rasio =
-                        otRasioMf.getValue() == "" ? "0" :
-                        otRasioMf.getValue() == null ? "0" :
-                        otRasioMf.getValue().toString();
-                    rasioT =
-                            new BigDecimal(rasio.toString().replaceAll(" ", "").replaceAll("%",
-                                                                                           ""));
-                    rasioTotal = RasioOntop.add(rasioT);
-                    String total = rasioTotal.toString();
-                    otRasioTotal.setSubmittedValue(total);
-
-                    mf = qty.getBigDecimalValue().multiply(totalMf);
-                    otMF.setSubmittedValue(mf);
-                    RasioMf =
-                            mf.divide(value.getBigDecimalValue(), 2, RoundingMode.HALF_UP).multiply(bdHundred);
-                    String rasMf = RasioMf.toString();
-                    otRasioMf.setSubmittedValue(rasMf);
-
-                    r.setAttribute("DiscOnTop", ontop);
-                    r.setAttribute("DiscRasioOnTop", rasOntop);
-                    r.setAttribute("DiscRasioTotal1", total);
-                    r.setAttribute("DiscMf", mf);
-                    r.setAttribute("DiscRasioMf", rasMf);
-                    dciterPromoProduk.getDataControl().commitTransaction();
-
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(otMF);
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(otRasioMf);
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(otOnTop);
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(otRasioOntop);
-                    AdfFacesContext.getCurrentInstance().addPartialTarget(otRasioTotal);
+            if (fetchedRowCount == currRowIndex) {
+                ViewObject voTableData = dcItteratorBindings.getViewObject();
+                Row rowSelected = voTableData.getCurrentRow();
+                if (rowSelected.getAttribute("DiscountId") != null) {
+                    voTableData.removeCurrentRow();
+                    OperationBinding operation =
+                        (OperationBinding)BindingContext.getCurrent().getCurrentBindingsEntry().get("Commit");
+                    operation.execute();
                 }
+                DCIteratorBinding dciterPromoProduk =
+                    ADFUtils.findIterator("PromoProdukView1Iterator");
+                Row r = dciterPromoProduk.getCurrentRow();
+                DCIteratorBinding dciterDiscount =
+                    ADFUtils.findIterator("DiscountView1Iterator");
+                BigDecimal totalMf = BigDecimal.ZERO;
+                BigDecimal totalOntop = BigDecimal.ZERO;
+                for (Row er : dciterDiscount.getAllRowsInRange()) {
+                    String valueMF = null;
+                    try {
+                        valueMF = er.getAttribute("DiscYearly").toString().replaceAll(",", "");
+                    } catch (Exception e) {
+                        valueMF = null;
+                    }
+                    
+                    String valueTop = null;
+                    try {
+                        valueTop = er.getAttribute("DiscNonYearly").toString().replaceAll(",", "");
+                    } catch (Exception e) {
+                        valueTop = null;
+                    }
+                    
+                    BigDecimal ontopValue =
+                        valueTop == null ? new BigDecimal(0) :
+                        new BigDecimal(valueTop);
+                    BigDecimal mfValue =
+                        valueMF == null ? new BigDecimal(0) :
+                        new BigDecimal(valueMF);
+                    totalMf = totalMf.add(mfValue);
+                    totalOntop = totalOntop.add(ontopValue);
+                }
+                DCIteratorBinding dciterTarget =
+                    ADFUtils.findIterator("TargetView1Iterator");
+                Row row = dciterTarget.getCurrentRow();
+                BigDecimal mf = BigDecimal.ZERO;
+                BigDecimal rMf = BigDecimal.ZERO;
+                BigDecimal RasioMf = BigDecimal.ZERO;
+                BigDecimal rasioTotal = BigDecimal.ZERO;
+                BigDecimal rasioT = BigDecimal.ZERO;
+                BigDecimal ontop = BigDecimal.ZERO;
+                BigDecimal rOntop = BigDecimal.ZERO;
+                BigDecimal RasioOntop = BigDecimal.ZERO;
+                Number qty =
+                    (Number)row.getAttribute("Qty") == null ? new Number(0) :
+                    (Number)row.getAttribute("Qty");
+                Number value =
+                    (Number)row.getAttribute("Value") == null ? new Number(0) :
+                    (Number)row.getAttribute("Value");
+    
+                DCIteratorBinding dciterDiscountTgetTPot =
+                    ADFUtils.findIterator("DiscountView1Iterator");
+                for (Row ere : dciterDiscountTgetTPot.getAllRowsInRange()) {
+                    String typePot =
+                        ere.getAttribute("TipePotongan").toString().replaceAll(",",
+                                                                               "");
+                    if (typePot.equalsIgnoreCase("PERCENT")) {
+                        rMf = totalMf;
+                        mf =
+     (value.multiply(rMf)).getBigDecimalValue().divide(bdHundred);
+                        otMF.setSubmittedValue(mf);
+                        RasioMf =
+                                mf.divide(value.getBigDecimalValue(), 2, RoundingMode.HALF_UP).multiply(bdHundred);
+                        String rasMf = RasioMf.toString();
+                        otRasioMf.setSubmittedValue(rasMf);
+                        rasioT =
+                                new BigDecimal(otRasioOntop.getValue().toString().replaceAll(" ",
+                                                                                             "").replaceAll("%",
+                                                                                                            ""));
+                        rasioTotal = RasioMf.add(rasioT);
+                        String Total = rasioTotal.toString();
+                        otRasioTotal.setSubmittedValue(Total);
+    
+                        rOntop = totalOntop;
+                        String rasio =
+                            otRasioMf.getValue() == "" ? "0" :
+                            otRasioMf.getValue() == null ? "0" :
+                            otRasioMf.getValue().toString();
+                        rasioT =
+                                new BigDecimal(rasio.toString().replaceAll(" ", "").replaceAll("%",
+                                                                                               ""));
+                        ontop =
+                                (value.multiply(rOntop)).getBigDecimalValue().divide(bdHundred);
+                        otOnTop.setSubmittedValue(ontop);
+                        RasioOntop =
+                                ontop.divide(value.getBigDecimalValue(), 2, RoundingMode.HALF_UP).multiply(bdHundred);
+                        String rasOntop = RasioOntop.toString();
+                        otRasioOntop.setSubmittedValue(rasOntop);
+    
+                        r.setAttribute("DiscOnTop", ontop);
+                        r.setAttribute("DiscRasioOnTop", rasOntop);
+                        r.setAttribute("DiscRasioTotal1", Total);
+                        r.setAttribute("DiscMf", mf);
+                        r.setAttribute("DiscRasioMf", rasMf);
+    
+                        dciterPromoProduk.getDataControl().commitTransaction();
+    
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(otOnTop);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(otRasioOntop);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(otRasioTotal);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(otMF);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(otRasioMf);
+    
+                    } else {
+                        ontop = qty.getBigDecimalValue().multiply(totalOntop);
+                        otOnTop.setSubmittedValue(ontop);
+                        RasioOntop =
+                                ontop.divide(value.getBigDecimalValue(), 2, RoundingMode.HALF_UP).multiply(bdHundred);
+                        String rasOntop = RasioOntop.toString();
+    
+                        otRasioOntop.setSubmittedValue(rasOntop);
+                        String rasio =
+                            otRasioMf.getValue() == "" ? "0" :
+                            otRasioMf.getValue() == null ? "0" :
+                            otRasioMf.getValue().toString();
+                        rasioT =
+                                new BigDecimal(rasio.toString().replaceAll(" ", "").replaceAll("%",
+                                                                                               ""));
+                        rasioTotal = RasioOntop.add(rasioT);
+                        String total = rasioTotal.toString();
+                        otRasioTotal.setSubmittedValue(total);
+    
+                        mf = qty.getBigDecimalValue().multiply(totalMf);
+                        otMF.setSubmittedValue(mf);
+                        RasioMf =
+                                mf.divide(value.getBigDecimalValue(), 2, RoundingMode.HALF_UP).multiply(bdHundred);
+                        String rasMf = RasioMf.toString();
+                        otRasioMf.setSubmittedValue(rasMf);
+    
+                        r.setAttribute("DiscOnTop", ontop);
+                        r.setAttribute("DiscRasioOnTop", rasOntop);
+                        r.setAttribute("DiscRasioTotal1", total);
+                        r.setAttribute("DiscMf", mf);
+                        r.setAttribute("DiscRasioMf", rasMf);
+                        dciterPromoProduk.getDataControl().commitTransaction();
+    
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(otMF);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(otRasioMf);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(otOnTop);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(otRasioOntop);
+                        AdfFacesContext.getCurrentInstance().addPartialTarget(otRasioTotal);
+                    }
+                }
+            } else {
+                JSFUtils.addFacesWarningMessage("Potongan hanya dapat dihapus mulai dari baris terakhir.");
             }
         }
     }
@@ -8616,5 +8677,29 @@ promoProposalAM.getDBTransaction().createCallableStatement("BEGIN APPS.FCS_PPPC_
 
     public RichOutputText getOtHistTo() {
         return otHistTo;
+    }
+
+    public void tableFilterProcessQuery(QueryEvent queryEvent) {
+        FilterableQueryDescriptor fqd = (FilterableQueryDescriptor) queryEvent.getDescriptor();
+        ConjunctionCriterion conjunctionCriterion = fqd.getConjunctionCriterion();
+        List<Criterion> criterionList = conjunctionCriterion.getCriterionList();
+        for (Criterion criterion : criterionList) {
+            AttributeDescriptor attrDescriptor = ((AttributeCriterion) criterion).getAttribute();
+            Object value = ((AttributeCriterion) criterion).getValues();
+            /*
+            if (attrDescriptor.getType().equals(String.class)) {
+                if (value != null) {
+                    ((AttributeCriterion) criterion).setValue("%" + value + "%");
+                }
+            }
+            */
+        }
+
+        //Execute query
+        ADFUtils.invokeEL("#{bindings.ProposalView1Query.processQuery}",
+                          new Class[] { QueryEvent.class },
+                          new Object[] { queryEvent });
+        
+        AdfFacesContext.getCurrentInstance().addPartialTarget(switchMain);
     }
 }

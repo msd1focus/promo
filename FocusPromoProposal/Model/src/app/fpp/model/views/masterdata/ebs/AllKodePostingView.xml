@@ -32,7 +32,7 @@
         <LABEL
           ResId="POSTING"/>
         <DISPLAYWIDTH
-          Value="30"/>
+          Value="60"/>
       </SchemaBasedProperties>
     </Properties>
   </Variable>
@@ -107,7 +107,7 @@ ORDER BY "ITEM_DESCRIPTION"]]>
         <LABEL
           ResId="KODE_POSTING"/>
         <DISPLAYWIDTH
-          Value="30"/>
+          Value="60"/>
       </SchemaBasedProperties>
     </Properties>
   </ViewAttribute>

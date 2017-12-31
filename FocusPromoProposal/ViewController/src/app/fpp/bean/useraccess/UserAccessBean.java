@@ -11,6 +11,9 @@ import app.fpp.model.views.useraccess.AppUserRemoveCustByRegionViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveCustGroupByAreaViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveCustGroupByLocViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveCustGroupByRegionViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustTypeByAreaViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustTypeByLocViewImpl;
+import app.fpp.model.views.useraccess.AppUserRemoveCustTypeByRegionViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveLocByAreaViewImpl;
 import app.fpp.model.views.useraccess.AppUserRemoveLocByRegionViewImpl;
 import javax.faces.application.FacesMessage;
@@ -51,6 +54,8 @@ public class UserAccessBean {
     private RichShowDetailItem tabUserCust;
     private UserAccessAMImpl userAccessAM =
         (UserAccessAMImpl)ADFUtils.getApplicationModuleForDataControl("UserAccessAMDataControl");
+    private RichTable tblAssignedCustType;
+    private RichShowDetailItem tabUserCustType;
 
     public UserAccessBean() {
     }
@@ -280,6 +285,22 @@ public class UserAccessBean {
             remLocIter.closeRowSetIterator();
         }
         
+        // Remove Selected Customer Type
+        AppUserRemoveCustTypeByRegionViewImpl remCustTypeVo = userAccessAM.getAppUserRemoveCustTypeByRegionView1();
+        remCustTypeVo.setNamedWhereClauseParam("userName", userName);
+        remCustTypeVo.executeQuery();
+        if (remCustTypeVo.getEstimatedRowCount() > 0) {
+            RowSetIterator remCustTypeIter = remCustTypeVo.createRowSetIterator(null);
+            Row remCustTypeRow = null;            
+            int i = 0;
+            while (remCustTypeIter.hasNext()) {
+                i = i + 1;
+                remCustTypeRow = remCustTypeIter.next();
+                remCustTypeRow.remove();
+            }
+            remCustTypeIter.closeRowSetIterator();
+        }
+        
         // Remove Selected Customer Group
         AppUserRemoveCustGroupByRegionViewImpl remCustGroupVo = userAccessAM.getAppUserRemoveCustGroupByRegionView1();
         remCustGroupVo.setNamedWhereClauseParam("userName", userName);
@@ -328,6 +349,10 @@ public class UserAccessBean {
             bindings.getOperationBinding("ExecuteLoc");
         refreshLoc.execute();
         
+        OperationBinding refreshCustType =
+            bindings.getOperationBinding("ExecuteCustType");
+        refreshCustType.execute();
+        
         OperationBinding refreshCustGroup =
             bindings.getOperationBinding("ExecuteCustGroup");
         refreshCustGroup.execute();
@@ -340,6 +365,7 @@ public class UserAccessBean {
         AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserRegion);
         AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserArea);
         AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserLoc);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserCustType);
         AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserCustGroup);
         AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserCust);
     }
@@ -365,6 +391,22 @@ public class UserAccessBean {
                 remLocRow.remove();
             }
             remLocIter.closeRowSetIterator();
+        }
+        
+        // Remove Selected Customer Type
+        AppUserRemoveCustTypeByAreaViewImpl remCustTypeVo = userAccessAM.getAppUserRemoveCustTypeByAreaView1();
+        remCustTypeVo.setNamedWhereClauseParam("userName", userName);
+        remCustTypeVo.executeQuery();
+        if (remCustTypeVo.getEstimatedRowCount() > 0) {
+            RowSetIterator remCustTypeIter = remCustTypeVo.createRowSetIterator(null);
+            Row remCustTypeRow = null;            
+            int i = 0;
+            while (remCustTypeIter.hasNext()) {
+                i = i + 1;
+                remCustTypeRow = remCustTypeIter.next();
+                remCustTypeRow.remove();
+            }
+            remCustTypeIter.closeRowSetIterator();
         }
         
         // Remove Selected Customer Group
@@ -411,6 +453,10 @@ public class UserAccessBean {
             bindings.getOperationBinding("ExecuteLoc");
         refreshLoc.execute();
         
+        OperationBinding refreshCustType =
+            bindings.getOperationBinding("ExecuteCustType");
+        refreshCustType.execute();
+        
         OperationBinding refreshCustGroup =
             bindings.getOperationBinding("ExecuteCustGroup");
         refreshCustGroup.execute();
@@ -422,6 +468,7 @@ public class UserAccessBean {
         AdfFacesContext.getCurrentInstance().addPartialTarget(tblAssignedArea);
         AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserArea);
         AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserLoc);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserCustType);
         AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserCustGroup);
         AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserCust);
     }
@@ -432,6 +479,22 @@ public class UserAccessBean {
         AttributeBinding userNameAttr =
             (AttributeBinding)bindings.getControlBinding("UserName");
         String userName = (String)userNameAttr.getInputValue();
+        
+        // Remove Selected Customer Type
+        AppUserRemoveCustTypeByLocViewImpl remCustTypeVo = userAccessAM.getAppUserRemoveCustTypeByLocView1();
+        remCustTypeVo.setNamedWhereClauseParam("userName", userName);
+        remCustTypeVo.executeQuery();
+        if (remCustTypeVo.getEstimatedRowCount() > 0) {
+            RowSetIterator remCustTypeIter = remCustTypeVo.createRowSetIterator(null);
+            Row remCustTypeRow = null;            
+            int i = 0;
+            while (remCustTypeIter.hasNext()) {
+                i = i + 1;
+                remCustTypeRow = remCustTypeIter.next();
+                remCustTypeRow.remove();
+            }
+            remCustTypeIter.closeRowSetIterator();
+        }
         
         // Remove Selected Customer Group
         AppUserRemoveCustGroupByLocViewImpl remCustGroupVo = userAccessAM.getAppUserRemoveCustGroupByLocView1();
@@ -473,6 +536,10 @@ public class UserAccessBean {
             bindings.getOperationBinding("ExecuteLoc");
         refreshLoc.execute();
         
+        OperationBinding refreshCustType =
+            bindings.getOperationBinding("ExecuteCustType");
+        refreshCustType.execute();
+        
         OperationBinding refreshCustGroup =
             bindings.getOperationBinding("ExecuteCustGroup");
         refreshCustGroup.execute();
@@ -483,6 +550,68 @@ public class UserAccessBean {
         
         AdfFacesContext.getCurrentInstance().addPartialTarget(tblAssignedLoc);
         AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserLoc);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserCustType);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserCustGroup);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserCust);
+    }
+    
+    public void windowCustTypeReturnListener(ReturnEvent returnEvent) {
+        BindingContainer bindings = this.getBindings();
+
+        AttributeBinding userNameAttr =
+            (AttributeBinding)bindings.getControlBinding("UserName");
+        String userName = (String)userNameAttr.getInputValue();
+        
+        // Remove Selected Customer Group
+        AppUserRemoveCustGroupByLocViewImpl remCustGroupVo = userAccessAM.getAppUserRemoveCustGroupByLocView1();
+        remCustGroupVo.setNamedWhereClauseParam("userName", userName);
+        remCustGroupVo.executeQuery();
+        if (remCustGroupVo.getEstimatedRowCount() > 0) {
+            RowSetIterator remCustGroupIter = remCustGroupVo.createRowSetIterator(null);
+            Row remCustGroupRow = null;            
+            int i = 0;
+            while (remCustGroupIter.hasNext()) {
+                i = i + 1;
+                remCustGroupRow = remCustGroupIter.next();
+                remCustGroupRow.remove();
+            }
+            remCustGroupIter.closeRowSetIterator();
+        }
+        
+        // Remove Selected Customer
+        AppUserRemoveCustByCustGroupViewImpl remCustVo = userAccessAM.getAppUserRemoveCustByCustGroupView1();
+        remCustVo.setNamedWhereClauseParam("userName", userName);
+        remCustVo.executeQuery();
+        if (remCustVo.getEstimatedRowCount() > 0) {
+            RowSetIterator remCustIter = remCustVo.createRowSetIterator(null);
+            Row remCustRow = null;            
+            int i = 0;
+            while (remCustIter.hasNext()) {
+                i = i + 1;
+                remCustRow = remCustIter.next();
+                remCustRow.remove();
+            }
+            remCustIter.closeRowSetIterator();
+        }
+        
+        OperationBinding execCommit =
+            bindings.getOperationBinding("Commit");
+         execCommit.execute();
+         
+        OperationBinding refreshCustType =
+            bindings.getOperationBinding("ExecuteCustType");
+        refreshCustType.execute();
+         
+        OperationBinding refreshCustGroup =
+            bindings.getOperationBinding("ExecuteCustGroup");
+        refreshCustGroup.execute();
+        
+        OperationBinding refreshCust =
+            bindings.getOperationBinding("ExecuteCust");
+        refreshCust.execute();
+        
+        AdfFacesContext.getCurrentInstance().addPartialTarget(tblAssignedCustType);
+        AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserCustType);
         AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserCustGroup);
         AdfFacesContext.getCurrentInstance().addPartialTarget(tabUserCust);
     }
@@ -719,5 +848,21 @@ public class UserAccessBean {
 
     public RichShowDetailItem getTabUserCust() {
         return tabUserCust;
+    }
+
+    public void setTblAssignedCustType(RichTable tblAssignedCustType) {
+        this.tblAssignedCustType = tblAssignedCustType;
+    }
+
+    public RichTable getTblAssignedCustType() {
+        return tblAssignedCustType;
+    }
+
+    public void setTabUserCustType(RichShowDetailItem tabUserCustType) {
+        this.tabUserCustType = tabUserCustType;
+    }
+
+    public RichShowDetailItem getTabUserCustType() {
+        return tabUserCustType;
     }
 }

@@ -29,6 +29,9 @@
     <iterator Binds="AppUserCustGroupView1" RangeSize="-1"
               DataControl="UserAccessAMDataControl"
               id="AppUserCustGroupView1Iterator"/>
+    <iterator Binds="AppUserCustTypeView1" RangeSize="25"
+              DataControl="UserAccessAMDataControl"
+              id="AppUserCustTypeView1Iterator"/>
   </executables>
   <bindings>
     <tree IterBinding="AppUserAccessView1Iterator" id="AppUserAccessView1">
@@ -157,6 +160,10 @@
             InstanceName="UserAccessAMDataControl.AppUserCustGroupView1"
             DataControl="UserAccessAMDataControl" RequiresUpdateModel="true"
             Action="iteratorExecute"/>
+    <action IterBinding="AppUserCustTypeView1Iterator" id="ExecuteCustType"
+            InstanceName="UserAccessAMDataControl.AppUserCustTypeView1"
+            DataControl="UserAccessAMDataControl" RequiresUpdateModel="true"
+            Action="iteratorExecute"/>
     <attributeValues IterBinding="AppUserAccessView1Iterator" id="UserInitial">
       <AttrNames>
         <Item Value="UserInitial"/>
@@ -197,5 +204,14 @@
         <Item Value="DirectSpvDesc"/>
       </AttrNames>
     </attributeValues>
+    <tree IterBinding="AppUserCustTypeView1Iterator" id="AppUserCustTypeView1">
+      <nodeDefinition DefName="app.fpp.model.views.useraccess.AppUserCustTypeView"
+                      Name="AppUserCustTypeView10">
+        <AttrNames>
+          <Item Value="CustType"/>
+          <Item Value="Description"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
   </bindings>
 </pageDefinition>

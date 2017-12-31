@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -43,7 +44,14 @@ import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
 import oracle.adf.view.rich.event.DialogEvent;
 import oracle.adf.view.rich.event.PopupFetchEvent;
+import oracle.adf.view.rich.event.QueryEvent;
 import oracle.adf.view.rich.event.ReturnPopupEvent;
+import oracle.adf.view.rich.model.AttributeCriterion;
+import oracle.adf.view.rich.model.AttributeDescriptor;
+import oracle.adf.view.rich.model.ConjunctionCriterion;
+import oracle.adf.view.rich.model.Criterion;
+import oracle.adf.view.rich.model.FilterableQueryDescriptor;
+
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
 import oracle.jbo.JboException;
@@ -53,7 +61,6 @@ import oracle.jbo.RowSetIterator;
 import oracle.jbo.ViewObject;
 import oracle.jbo.domain.DBSequence;
 import oracle.jbo.domain.Number;
-import oracle.jbo.uicli.binding.JUCtrlListBinding;
 import org.apache.myfaces.trinidad.component.UIXSwitcher;
 import org.apache.myfaces.trinidad.event.DisclosureEvent;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
@@ -125,6 +132,7 @@ public class ApprovalPromoBean {
     private RichTable tblListProductCustGroup;
     private RichInputListOfValues itlovExclCustBy;
     private DecimalFormat df = new DecimalFormat("###");
+    private DecimalFormat df2dgt = new DecimalFormat("###.##");
     private RichTable tblListExclRegion;
     private RichTable tblListExclArea;
     private RichTable tblListExclCustomer;
@@ -190,6 +198,7 @@ public class ApprovalPromoBean {
     private RichOutputText otHistTo;
     private Number zeroNumber = new Number(0);
     private Number maxNumber = new Number(999999);
+    private RichSelectOneChoice propTypeVal;
 
     public ApprovalPromoBean() {
     }
@@ -378,6 +387,7 @@ public class ApprovalPromoBean {
     }
 
     public void addPromoProduk(ActionEvent actionEvent) {
+        boolean canCreateNew = true;
         BindingContainer bindings =
             BindingContext.getCurrent().getCurrentBindingsEntry();
 
@@ -388,51 +398,75 @@ public class ApprovalPromoBean {
 
         DCIteratorBinding dciter =
             (DCIteratorBinding)bindings.get("PromoProdukView1Iterator");
-        RowSetIterator rsi = dciter.getRowSetIterator();
-        Row lastRow = rsi.last();
-        int lastRowIndex = rsi.getRangeIndexOf(lastRow);
-        Row newRow = rsi.createRow();
-        newRow.setNewRowState(Row.STATUS_INITIALIZED);
-
-        if (usrCustomer.equalsIgnoreCase(userCustRegion)) {
-            newRow.setAttribute("RegCustFlag", userCustRegion);
-        } else if (usrCustomer.equalsIgnoreCase(userCustArea)) {
-            newRow.setAttribute("RegCustFlag", userCustArea);
-        } else if (usrCustomer.equalsIgnoreCase(userCustLocation)) {
-            newRow.setAttribute("RegCustFlag", userCustLocation);
-        } else if (usrCustomer.equalsIgnoreCase(userCustCustGroup)) {
-            newRow.setAttribute("RegCustFlag", userCustCustGroup);
-        } else if (usrCustomer.equalsIgnoreCase(userCustCustomer)) {
-            newRow.setAttribute("RegCustFlag", userCustCustomer);
-        } else {
-            newRow.setAttribute("RegCustFlag", userCustInvalid);
-            JSFUtils.addFacesWarningMessage("Anda tidak memiliki hak akses memilih customer.");
+        long produkRowCount = dciter.getEstimatedRowCount();
+        
+        for (Row produkRow : dciter.getAllRowsInRange()) {
+            Integer rowStatus =
+                (Integer)produkRow.getAttribute("CheckRowStatus");
+            String validComb =
+                (String)produkRow.getAttribute("ValidComb");
+            if ((rowStatus == 0 && produkRowCount > 0) || 
+                (!("Y").equalsIgnoreCase(validComb) && produkRowCount > 0)) {
+                canCreateNew = false;
+            }
         }
 
-        //add row to last index + 1 so it becomes last in the range set
-        rsi.insertRowAtRangeIndex(lastRowIndex + 1, newRow);
-        //make row the current row so it is displayed correctly
-        rsi.setCurrentRow(newRow);
-
-        BindingContext bctx = BindingContext.getCurrent();
-        DCBindingContainer binding =
-            (DCBindingContainer)bctx.getCurrentBindingsEntry();
-        DCIteratorBinding iter =
-            (DCIteratorBinding)binding.get("ProposalApprovalView1Iterator");
-        Row r = iter.getCurrentRow();
-        String FoodCode = r.getAttribute("ProposalType").toString();
-        if (prodDescCodeFood.equalsIgnoreCase(FoodCode)) {
-            itLovProdCategory.setValue(prodCatCodeFood);
-            itCategory.setValue(prodDescCodeFood);
-            AdfFacesContext adc = AdfFacesContext.getCurrentInstance();
-            adc.addPartialTarget(itLovProdCategory);
-            adc.addPartialTarget(itCategory);
+        if (canCreateNew) {
+            RowSetIterator rsi = dciter.getRowSetIterator();
+            Row lastRow = rsi.last();
+            int lastRowIndex = rsi.getRangeIndexOf(lastRow);
+            Row newRow = rsi.createRow();
+            newRow.setNewRowState(Row.STATUS_INITIALIZED);
+    
+            if (usrCustomer.equalsIgnoreCase(userCustRegion)) {
+                newRow.setAttribute("RegCustFlag", userCustRegion);
+            } else if (usrCustomer.equalsIgnoreCase(userCustArea)) {
+                newRow.setAttribute("RegCustFlag", userCustArea);
+            } else if (usrCustomer.equalsIgnoreCase(userCustLocation)) {
+                newRow.setAttribute("RegCustFlag", userCustLocation);
+            } else if (usrCustomer.equalsIgnoreCase(userCustCustGroup)) {
+                newRow.setAttribute("RegCustFlag", userCustCustGroup);
+            } else if (usrCustomer.equalsIgnoreCase(userCustCustomer)) {
+                newRow.setAttribute("RegCustFlag", userCustCustomer);
+            } else {
+                newRow.setAttribute("RegCustFlag", userCustInvalid);
+                JSFUtils.addFacesWarningMessage("Anda tidak memiliki hak akses memilih customer.");
+            }
+    
+            //add row to last index + 1 so it becomes last in the range set
+            rsi.insertRowAtRangeIndex(lastRowIndex + 1, newRow);
+            //make row the current row so it is displayed correctly
+            rsi.setCurrentRow(newRow);
+    
+            BindingContext bctx = BindingContext.getCurrent();
+            DCBindingContainer binding =
+                (DCBindingContainer)bctx.getCurrentBindingsEntry();
+            DCIteratorBinding iter =
+                (DCIteratorBinding)binding.get("ProposalApprovalView1Iterator");
+            Row r = iter.getCurrentRow();
+            String FoodCode = r.getAttribute("ProposalType").toString();
+            
+            if (prodDescCodeFood.equalsIgnoreCase(FoodCode)) {
+                itLovProdCategory.setValue(prodCatCodeFood);
+                itCategory.setValue(prodDescCodeFood);
+                AdfFacesContext adc = AdfFacesContext.getCurrentInstance();
+                adc.addPartialTarget(itLovProdCategory);
+                adc.addPartialTarget(itCategory);
+                adc.addPartialTarget(tblListProduct);
+            } else {
+                itLovProdCategory.setValue(prodCatCodeNonFood);
+                itCategory.setValue(prodDescCodeNonFood);
+                AdfFacesContext adc = AdfFacesContext.getCurrentInstance();
+                adc.addPartialTarget(itLovProdCategory);
+                adc.addPartialTarget(itCategory);
+                adc.addPartialTarget(tblListProduct);
+            }
         } else {
-            itLovProdCategory.setValue(prodCatCodeNonFood);
-            itCategory.setValue(prodDescCodeNonFood);
-            AdfFacesContext adc = AdfFacesContext.getCurrentInstance();
-            adc.addPartialTarget(itLovProdCategory);
-            adc.addPartialTarget(itCategory);
+            StringBuilder message = new StringBuilder("<html><body>");
+            message.append("<p>Data produk ada yang belum selesai dilengkapi dan kombinasi belum valid.</p>");
+            message.append("<p>Proses penambahan produk baru tidak dapat dilanjutkan.</p>");
+            message.append("</body></html>");
+            JSFUtils.addFacesWarningMessage(message.toString());
         }
     }
 
@@ -470,15 +504,16 @@ public class ApprovalPromoBean {
 
     public void targetQtyValueChangeListener(ValueChangeEvent valueChangeEvent) {
         BigDecimal tgtQty =
-            new BigDecimal(itTargetQty.getValue().toString().replaceAll(",",
+            new BigDecimal(itTargetQty.getValue() == "" ? "0" : itTargetQty.getValue() == null ? "0" : itTargetQty.getValue().toString().replaceAll(",",
                                                                         ""));
         BigDecimal tgtHarga =
-            new BigDecimal(itTargetHarga.getValue().toString().replaceAll(",",
+            new BigDecimal(itTargetHarga.getValue() == "" ? "0" : itTargetHarga.getValue() == null ? "0" : itTargetHarga.getValue().toString().replaceAll(",",
                                                                           ""));
         BigDecimal totalValue = tgtQty.multiply(tgtHarga);
         oracle.jbo.domain.Number number = null;
         try {
-            number = new oracle.jbo.domain.Number(totalValue.toString());
+            number =
+                    new oracle.jbo.domain.Number(df2dgt.format(totalValue).toString());
         } catch (SQLException e) {
             JSFUtils.addFacesErrorMessage("Error", e.getLocalizedMessage());
         }
@@ -495,15 +530,17 @@ public class ApprovalPromoBean {
 
     public void targetHargaValueChangeListener(ValueChangeEvent valueChangeEvent) {
         BigDecimal tgtQty =
-            new BigDecimal(itTargetQty.getValue().toString().replaceAll(",",
+            new BigDecimal(itTargetQty.getValue() == "" ? "0" : itTargetQty.getValue() == null ? "0" : itTargetQty.getValue().toString().replaceAll(",",
                                                                         ""));
         BigDecimal tgtHarga =
-            new BigDecimal(itTargetHarga.getValue().toString().replaceAll(",",
+            new BigDecimal(itTargetHarga.getValue() == "" ? "0" : itTargetHarga.getValue() == null ? "0" : itTargetHarga.getValue().toString().replaceAll(",",
                                                                           ""));
+        
         BigDecimal totalValue = tgtQty.multiply(tgtHarga);
         oracle.jbo.domain.Number number = null;
         try {
-            number = new oracle.jbo.domain.Number(totalValue.toString());
+            number =
+                    new oracle.jbo.domain.Number(df2dgt.format(totalValue).toString());
         } catch (SQLException e) {
             JSFUtils.addFacesErrorMessage("Error", e.getLocalizedMessage());
         }
@@ -3565,17 +3602,25 @@ new BigDecimal(rowMf.getValue().toString().replaceAll(",", ""));
             BigDecimal totalMf = BigDecimal.ZERO;
             BigDecimal totalOntop = BigDecimal.ZERO;
             for (Row er : dciterDiscount.getAllRowsInRange()) {
-                String valueMF =
-                    er.getAttribute("DiscYearly").toString().replaceAll(",",
-                                                                        "");
-                String valueTop =
-                    er.getAttribute("DiscNonYearly").toString().replaceAll(",",
-                                                                           "");
+                String valueMF = null;
+                try {
+                    valueMF = er.getAttribute("DiscYearly").toString().replaceAll(",", "");
+                } catch (Exception e) {
+                    valueMF = null;
+                }
+                
+                String valueTop = null;
+                try {
+                    valueTop = er.getAttribute("DiscNonYearly").toString().replaceAll(",", "");
+                } catch (Exception e) {
+                    valueTop = null;
+                }
+                
                 BigDecimal ontopValue =
-                    new BigDecimal(valueTop) == null ? new BigDecimal(0) :
+                    valueTop == null ? new BigDecimal(0) :
                     new BigDecimal(valueTop);
                 BigDecimal mfValue =
-                    new BigDecimal(valueMF) == null ? new BigDecimal(0) :
+                    valueMF == null ? new BigDecimal(0) :
                     new BigDecimal(valueMF);
                 totalMf = totalMf.add(mfValue);
                 totalOntop = totalOntop.add(ontopValue);
@@ -4329,7 +4374,7 @@ new BigDecimal(rowMf.getValue().toString().replaceAll(",", ""));
         if (rowSelected.getAttribute("PromoProdukId") != null) {
             PromoProdukIdSel =
                     rowSelected.getAttribute("PromoProdukId").toString();
-            BindingContext bctx = BindingContext.getCurrent();
+            
             DCIteratorBinding iterVar =
                 ADFUtils.findIterator("ProdukVariantView1Iterator");
             for (Row r : iterVar.getAllRowsInRange()) {
@@ -4338,8 +4383,8 @@ new BigDecimal(rowMf.getValue().toString().replaceAll(",", ""));
                     r.remove();
                 }
             }
-
-            iterVar.getDataControl().commitTransaction();
+            //iterVar.getDataControl().commitTransaction();
+            
             DCIteratorBinding iterItem =
                 ADFUtils.findIterator("ProdukItemView1Iterator");
             for (Row rItem : iterItem.getAllRowsInRange()) {
@@ -4348,7 +4393,8 @@ new BigDecimal(rowMf.getValue().toString().replaceAll(",", ""));
                     rItem.remove();
                 }
             }
-            iterItem.getDataControl().commitTransaction();
+            //iterItem.getDataControl().commitTransaction();
+            
             DCIteratorBinding iterPP =
                 ADFUtils.findIterator("PromoProdukView1Iterator");
             for (Row rPP : iterPP.getAllRowsInRange()) {
@@ -4357,7 +4403,7 @@ new BigDecimal(rowMf.getValue().toString().replaceAll(",", ""));
                     rPP.remove();
                 }
             }
-            iterPP.getDataControl().commitTransaction();
+            //iterPP.getDataControl().commitTransaction();
         }
     }
 
@@ -5007,5 +5053,37 @@ new BigDecimal(rowMf.getValue().toString().replaceAll(",", ""));
 
     public RichOutputText getOtHistTo() {
         return otHistTo;
+    }
+
+    public void tableFilterProcessQuery(QueryEvent queryEvent) {
+        FilterableQueryDescriptor fqd = (FilterableQueryDescriptor) queryEvent.getDescriptor();
+        ConjunctionCriterion conjunctionCriterion = fqd.getConjunctionCriterion();
+        List<Criterion> criterionList = conjunctionCriterion.getCriterionList();
+        for (Criterion criterion : criterionList) {
+            AttributeDescriptor attrDescriptor = ((AttributeCriterion) criterion).getAttribute();
+            Object value = ((AttributeCriterion) criterion).getValues();
+            /*
+            if (attrDescriptor.getType().equals(String.class)) {
+                if (value != null) {
+                    ((AttributeCriterion) criterion).setValue("%" + value + "%");
+                }
+            }
+            */
+        }
+
+        //Execute query
+        ADFUtils.invokeEL("#{bindings.ProposalApprovalView1Query.processQuery}",
+                          new Class[] { QueryEvent.class },
+                          new Object[] { queryEvent });
+        
+        AdfFacesContext.getCurrentInstance().addPartialTarget(switchMain);
+    }
+
+    public void setPropTypeVal(RichSelectOneChoice propTypeVal) {
+        this.propTypeVal = propTypeVal;
+    }
+
+    public RichSelectOneChoice getPropTypeVal() {
+        return propTypeVal;
     }
 }

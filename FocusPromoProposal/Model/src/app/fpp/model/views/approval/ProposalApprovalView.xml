@@ -56,45 +56,7 @@ AND Proposal.STATUS IN ('INPROCESS', 'REJECTED')
 AND DocApproval.ACTION IS NULL
 AND DocApproval.ROLE_NAME = :roleName
 AND DocApproval.ACTION_TO = :userName
-AND DocApproval.CREATION_DATE = (SELECT MAX(DA.CREATION_DATE) FROM DOC_APPROVAL DA WHERE DA.PROPOSAL_ID = Proposal.PROPOSAL_ID)
-GROUP BY Proposal.PROPOSAL_ID, 
-       Proposal.PROPOSAL_NO, 
-       Proposal.COMPANY_ID, 
-       Proposal.PROPOSAL_DATE, 
-       Proposal.PERIODE_PROG_FROM, 
-       Proposal.PERIODE_PROG_TO, 
-       Proposal.PROG_DAYS, 
-       Proposal.PROG_PROMO, 
-       Proposal.PROPOSAL_TYPE, 
-       Proposal.DISCOUNT_TYPE, 
-       Proposal.STD_STM, 
-       Proposal.MEKANISME_PENAGIHAN, 
-       Proposal.STATUS, 
-       Proposal.PEMOHON, 
-       Proposal.CONTACT, 
-       Proposal.CURRENCY, 
-       Proposal.KOMPENSASI_DIPEROLEH, 
-       Proposal.ADDENDUM_KE, 
-       Proposal.CONFIRM_NO, 
-       Proposal.CREATED_BY, 
-       Proposal.CREATION_DATE, 
-       Proposal.LAST_UPDATE_DATE, 
-       Proposal.LAST_UPDATED_BY, 
-       Proposal.PC_TYPE, 
-       Proposal.NOTES,
-       DocApproval.CREATION_DATE, 
-       DocApproval.DOC_APPROVAL_ID, 
-       DocApproval.LAST_UPDATE_DATE, 
-       DocApproval.LAST_UPDATED_BY, 
-       DocApproval.ROLE_NAME,
-       Proposal.USER_TYPE_CREATOR,
-       Proposal.COPY_SOURCE, 
-       Proposal.CUST_REG_FLAG,
-       Proposal.HIST_REMARK, 
-       Proposal.HIST_TRAN_DT_FROM, 
-       Proposal.HIST_TRAN_DT_TO,
-       DocApproval.ACTION_TO, 
-       Proposal.MIX_QTY_PROMO"
+AND DocApproval.CREATION_DATE = (SELECT MAX(DA.CREATION_DATE) FROM DOC_APPROVAL DA WHERE DA.PROPOSAL_ID = Proposal.PROPOSAL_ID AND DA.ACTION IS NULL AND DA.ROLE_NAME = DocApproval.ROLE_NAME AND DA.ACTION_TO = DocApproval.ACTION_TO)"
   OrderBy="DocApproval.CREATION_DATE"
   ComponentClass="app.fpp.model.views.approval.ProposalApprovalViewImpl"
   RowClass="app.fpp.model.views.approval.ProposalApprovalViewRowImpl">
@@ -820,7 +782,7 @@ GROUP BY Proposal.PROPOSAL_ID,
     Type="oracle.jbo.domain.Date"
     ColumnType="DATE"
     AliasName="VIEW_ATTR"
-    SQLType="VARCHAR"/>
+    SQLType="DATE"/>
   <ViewAttribute
     Name="PeriodeDateToTemp"
     IsSelected="false"
@@ -829,7 +791,7 @@ GROUP BY Proposal.PROPOSAL_ID,
     Type="oracle.jbo.domain.Date"
     ColumnType="DATE"
     AliasName="VIEW_ATTR"
-    SQLType="VARCHAR"/>
+    SQLType="DATE"/>
   <ViewAttribute
     Name="NumDays"
     IsUpdateable="false"

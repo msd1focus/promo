@@ -62,7 +62,13 @@ import oracle.adf.view.rich.component.rich.output.RichOutputText;
 import oracle.adf.view.rich.context.AdfFacesContext;
 import oracle.adf.view.rich.event.DialogEvent;
 import oracle.adf.view.rich.event.PopupFetchEvent;
+import oracle.adf.view.rich.event.QueryEvent;
 import oracle.adf.view.rich.event.ReturnPopupEvent;
+import oracle.adf.view.rich.model.AttributeCriterion;
+import oracle.adf.view.rich.model.AttributeDescriptor;
+import oracle.adf.view.rich.model.ConjunctionCriterion;
+import oracle.adf.view.rich.model.Criterion;
+import oracle.adf.view.rich.model.FilterableQueryDescriptor;
 import oracle.adf.view.rich.model.ListOfValuesModel;
 import oracle.binding.BindingContainer;
 import oracle.binding.OperationBinding;
@@ -2827,5 +2833,29 @@ confirmationAM.getDBTransaction().createCallableStatement("BEGIN APPS.FCS_RUN_CO
                 AdfFacesContext.getCurrentInstance().addPartialTarget(itConfirmNo);
             }
         }
+    }
+
+    public void tableFilterProcessQuery(QueryEvent queryEvent) {
+        FilterableQueryDescriptor fqd = (FilterableQueryDescriptor) queryEvent.getDescriptor();
+        ConjunctionCriterion conjunctionCriterion = fqd.getConjunctionCriterion();
+        List<Criterion> criterionList = conjunctionCriterion.getCriterionList();
+        for (Criterion criterion : criterionList) {
+            AttributeDescriptor attrDescriptor = ((AttributeCriterion) criterion).getAttribute();
+            Object value = ((AttributeCriterion) criterion).getValues();
+            /*
+            if (attrDescriptor.getType().equals(String.class)) {
+                if (value != null) {
+                    ((AttributeCriterion) criterion).setValue("%" + value + "%");
+                }
+            }
+            */
+        }
+
+        //Execute query
+        ADFUtils.invokeEL("#{bindings.ProposalConfirmationView11Query.processQuery}",
+                          new Class[] { QueryEvent.class },
+                          new Object[] { queryEvent });
+        
+        AdfFacesContext.getCurrentInstance().addPartialTarget(switchMain);
     }
 }

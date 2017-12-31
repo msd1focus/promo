@@ -22,7 +22,8 @@
   PageIterMode="Full"
   UseGlueCode="false"
   RowClass="app.fpp.model.views.promoproposal.DiscountViewRowImpl"
-  ComponentClass="app.fpp.model.views.promoproposal.DiscountViewImpl">
+  ComponentClass="app.fpp.model.views.promoproposal.DiscountViewImpl"
+  OrderBy="Discount.DISCOUNT_ID ASC">
   <DesignTime>
     <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess"/>
     <Attr Name="_isCodegen" Value="true"/>
@@ -188,8 +189,7 @@
     PrecisionRule="true"
     EntityAttrName="DiscNonYearly"
     EntityUsage="Discount"
-    AliasName="DISC_NON_YEARLY"
-    DefaultValue="0">
+    AliasName="DISC_NON_YEARLY">
     <Properties>
       <SchemaBasedProperties>
         <FMT_FORMATTER
@@ -204,8 +204,7 @@
     PrecisionRule="true"
     EntityAttrName="DiscYearly"
     EntityUsage="Discount"
-    AliasName="DISC_YEARLY"
-    DefaultValue="0">
+    AliasName="DISC_YEARLY">
     <Properties>
       <SchemaBasedProperties>
         <FMT_FORMATTER

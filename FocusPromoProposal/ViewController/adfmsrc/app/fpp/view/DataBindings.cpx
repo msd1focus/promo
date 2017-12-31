@@ -418,6 +418,12 @@
           usageId="app_fpp_view_dashboard_main_dashboard_main_ExecutePageDef"/>
     <page path="/WEB-INF/budget-setup-customer.xml#budget-setup-customer@Execute"
           usageId="app_fpp_view_budget_setup_customer_budget_setup_customer_ExecutePageDef"/>
+    <page path="/Pages/UserAccess/assignCustomerType.jspx"
+          usageId="app_fpp_view_assignCustomerTypePageDef"/>
+    <page path="/WEB-INF/ua-assign-cust-type.xml#ua-assign-cust-type@setCustTypeByUser"
+          usageId="app_fpp_view_ua_assign_cust_type_ua_assign_cust_type_ExecuteWithParamsPageDef"/>
+    <page path="/WEB-INF/ua-assign-cust-type.xml#ua-assign-cust-type@SetCurrentRowWithKeyValue"
+          usageId="app_fpp_view_ua_assign_cust_type_ua_assign_cust_type_SetCurrentRowWithKeyValuePageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="app_fpp_view_loginPageDef"
@@ -837,6 +843,12 @@
           path="app.fpp.view.pageDefs.dashboard_main_dashboard_main_ExecutePageDef"/>
     <page id="app_fpp_view_budget_setup_customer_budget_setup_customer_ExecutePageDef"
           path="app.fpp.view.pageDefs.budget_setup_customer_budget_setup_customer_ExecutePageDef"/>
+    <page id="app_fpp_view_assignCustomerTypePageDef"
+          path="Pages.UserAccess.assignCustomerTypePageDef"/>
+    <page id="app_fpp_view_ua_assign_cust_type_ua_assign_cust_type_ExecuteWithParamsPageDef"
+          path="app.fpp.view.pageDefs.ua_assign_cust_type_ua_assign_cust_type_ExecuteWithParamsPageDef"/>
+    <page id="app_fpp_view_ua_assign_cust_type_ua_assign_cust_type_SetCurrentRowWithKeyValuePageDef"
+          path="app.fpp.view.pageDefs.ua_assign_cust_type_ua_assign_cust_type_SetCurrentRowWithKeyValuePageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
     <BC4JDataControl id="SecurityAMDataControl" Package="app.fpp.model.am"

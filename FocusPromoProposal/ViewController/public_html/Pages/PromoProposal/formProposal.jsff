@@ -192,7 +192,7 @@
                       fetchSize="#{bindings.ProposalView11.rangeSize}"
                       rowBandingInterval="0" summary=" "
                       filterModel="#{bindings.ProposalView1Query.queryDescriptor}"
-                      queryListener="#{bindings.ProposalView1Query.processQuery}"
+                      queryListener="#{ProposalBean.tableFilterProcessQuery}"
                       filterVisible="true" varStatus="vs"
                       selectedRowKeys="#{bindings.ProposalView11.collectionModel.selectedRow}"
                       selectionListener="#{bindings.ProposalView11.collectionModel.makeCurrent}"
@@ -208,10 +208,11 @@
               <af:column sortProperty="#{bindings.ProposalView11.hints.ProposalNo.name}"
                          filterable="true" sortable="true"
                          headerText="#{bindings.ProposalView11.hints.ProposalNo.label}"
-                         id="c23" align="center" width="80" minimumWidth="80">
+                         id="c23" align="center" width="80" minimumWidth="80"
+                         noWrap="false">
                 <af:outputText value="#{row.ProposalNo}" id="ot5"
                                partialTriggers="::cb1"
-                               inlineStyle="text-transform: uppercase;"/>
+                               inlineStyle="#{row.ProposalNo == 'Auto Generated' ? 'text-transform: uppercase; font-size:x-small;' : 'text-transform: uppercase;' }"/>
               </af:column>
               <af:column sortProperty="#{bindings.ProposalView11.hints.ProposalDate.name}"
                          filterable="false" sortable="true"
@@ -1171,7 +1172,7 @@
                                                        disabled="#{((bindings.Status.inputValue == 'INPROCESS' and bindings.CanEdit.inputValue == 'F') or (bindings.Status.inputValue == 'REJECTED' and bindings.CanEdit.inputValue == 'F')) or bindings.Status.inputValue == 'ACTIVE'}"
                                                        actionListener="#{bindings.CreateInsertPromoProduk.execute}"
                                                        rendered="false"/>
-                              <af:commandToolbarButton text="Remove Selected"
+                              <af:commandToolbarButton text="Remove Produk"
                                                        id="ctb3"
                                                        visible="#{((bindings.Status.inputValue != 'INPROCESS' and bindings.CanEdit.inputValue != 'F') or (bindings.Status.inputValue != 3 and bindings.CanEdit.inputValue != 'F')) or bindings.Status.inputValue != 0}"
                                                        disabled="#{(((bindings.Status.inputValue == 'INPROCESS') or (bindings.Status.inputValue == 'REJECTED' and bindings.CanEdit.inputValue == 'F')) or bindings.PromoProdukView1Iterator.estimatedRowCount == 0) or bindings.Status.inputValue == 'ACTIVE'}"
@@ -2909,8 +2910,8 @@
                                                 <af:commandToolbarButton text="Remove"
                                                                          id="ctb5"
                                                                          actionListener="#{ProposalBean.removeRowPotongan}"
-                                                                         disabled="#{(((bindings.Status.inputValue == 'INPROCESS') or (bindings.Status.inputValue == 'REJECTED' and bindings.CanEdit.inputValue == 'F')) or bindings.Status.inputValue == 'ACTIVE')}"
-                                                                         partialTriggers="::t1"
+                                                                         disabled="#{(((bindings.Status.inputValue == 'INPROCESS') or (bindings.Status.inputValue == 'REJECTED' and bindings.CanEdit.inputValue == 'F')) or bindings.Status.inputValue == 'ACTIVE') or bindings.DiscountView1Iterator.estimatedRowCount == 0}"
+                                                                         partialTriggers="ctb4 ::t1 t5"
                                                                          immediate="true"/>
                                               </af:toolbar>
                                             </f:facet>
@@ -3779,26 +3780,21 @@
                                       </af:panelTabbed>
                                     </f:facet>
                                   </af:panelSplitter>
-                                  <af:panelGroupLayout id="pgl38"
-                                                       inlineStyle="width:968px;margin-top:8px;margin-bottom:-30px;"
-                                                       halign="right"
-                                                       valign="top"
-                                                       layout="horizontal">
+                                  <f:facet name="buttonBar">
                                     <af:panelGroupLayout id="pgl37"
-                                                         halign="start"
-                                                         layout="horizontal">
-                                      <af:spacer width="900" height="10"
-                                                 id="s26"/>
+                                                         halign="end"
+                                                         layout="horizontal"
+                                                         inlineStyle="margin-bottom:7px;margin-right:3px;">
                                       <af:commandButton text="OK" id="cb4"
                                                         actionListener="#{ProposalBean.btnOkDetailProduct}"
                                                         binding="#{ProposalBean.btnOkpromoDetail}"/>
-                                      <af:spacer width="10" height="10"
+                                      <af:spacer width="5" height="10"
                                                  id="s25"/>
                                       <af:commandButton text="Cancel" id="cb5"
                                                         actionListener="#{ProposalBean.cancelDetailProduct}"
                                                         immediate="true"/>
                                     </af:panelGroupLayout>
-                                  </af:panelGroupLayout>
+                                  </f:facet>
                                 </af:dialog>
                               </af:popup>
                               <af:popup id="p112"

@@ -8,13 +8,13 @@
   InheritPersonalization="true"
   SelectList="BudgetCustHdr.BUDGET_CUST_HDR_ID, 
        BudgetCustHdr.CUSTOMER_ID, 
+       BudgetCustHdr.KODE_POSTING, 
+       BudgetCustHdr.BUDGET_TYPE, 
        BudgetCustHdr.BUDGET_YEAR, 
        BudgetCustHdr.CREATED_BY, 
        BudgetCustHdr.CREATION_DATE, 
        BudgetCustHdr.MODIFIED_BY, 
-       BudgetCustHdr.MODIFIED_ON, 
-       BudgetCustHdr.KODE_POSTING, 
-       BudgetCustHdr.BUDGET_TYPE"
+       BudgetCustHdr.MODIFIED_ON"
   FromList="BUDGET_CUST_HDR BudgetCustHdr"
   BindingStyle="OracleName"
   CustomQuery="false"
@@ -33,6 +33,23 @@
     Type="java.lang.String">
     <Properties>
       <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="input_text_lov"/>
+        <DISPLAYWIDTH
+          Value="230"/>
+        <DISPLAYHEIGHT
+          Value="40"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </Variable>
+  <Variable
+    Name="budgetYear"
+    Kind="viewcriteria"
+    Type="java.lang.String">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="BUDGET_YEAR"/>
         <CONTROLTYPE
           Value="input_text_lov"/>
         <DISPLAYWIDTH
@@ -170,48 +187,6 @@
     </Properties>
   </ViewAttribute>
   <ViewAttribute
-    Name="BudgetYear"
-    PrecisionRule="true"
-    EntityAttrName="BudgetYear"
-    EntityUsage="BudgetCustHdr"
-    AliasName="BUDGET_YEAR"
-    LOVName="LOV_BudgetYear">
-    <Properties>
-      <SchemaBasedProperties>
-        <CONTROLTYPE
-          Value="input_text_lov"/>
-      </SchemaBasedProperties>
-    </Properties>
-  </ViewAttribute>
-  <ViewAttribute
-    Name="CreatedBy"
-    PrecisionRule="true"
-    EntityAttrName="CreatedBy"
-    EntityUsage="BudgetCustHdr"
-    AliasName="CREATED_BY"
-    IsUpdateable="false"/>
-  <ViewAttribute
-    Name="CreationDate"
-    PrecisionRule="true"
-    EntityAttrName="CreationDate"
-    EntityUsage="BudgetCustHdr"
-    AliasName="CREATION_DATE"
-    IsUpdateable="false"/>
-  <ViewAttribute
-    Name="ModifiedBy"
-    PrecisionRule="true"
-    EntityAttrName="ModifiedBy"
-    EntityUsage="BudgetCustHdr"
-    AliasName="MODIFIED_BY"
-    IsUpdateable="false"/>
-  <ViewAttribute
-    Name="ModifiedOn"
-    PrecisionRule="true"
-    EntityAttrName="ModifiedOn"
-    EntityUsage="BudgetCustHdr"
-    AliasName="MODIFIED_ON"
-    IsUpdateable="false"/>
-  <ViewAttribute
     Name="CustomerDesc"
     IsUpdateable="false"
     IsPersistent="false"
@@ -259,6 +234,20 @@
     </Properties>
   </ViewAttribute>
   <ViewAttribute
+    Name="BudgetYear"
+    PrecisionRule="true"
+    EntityAttrName="BudgetYear"
+    EntityUsage="BudgetCustHdr"
+    AliasName="BUDGET_YEAR"
+    LOVName="LOV_BudgetYear">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="input_text_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
+  <ViewAttribute
     Name="CheckRowStatus"
     IsUpdateable="false"
     IsPersistent="false"
@@ -267,6 +256,34 @@
     ColumnType="NUMBER"
     AliasName="VIEW_ATTR"
     SQLType="NUMERIC"/>
+  <ViewAttribute
+    Name="CreatedBy"
+    PrecisionRule="true"
+    EntityAttrName="CreatedBy"
+    EntityUsage="BudgetCustHdr"
+    AliasName="CREATED_BY"
+    IsUpdateable="false"/>
+  <ViewAttribute
+    Name="CreationDate"
+    PrecisionRule="true"
+    EntityAttrName="CreationDate"
+    EntityUsage="BudgetCustHdr"
+    AliasName="CREATION_DATE"
+    IsUpdateable="false"/>
+  <ViewAttribute
+    Name="ModifiedBy"
+    PrecisionRule="true"
+    EntityAttrName="ModifiedBy"
+    EntityUsage="BudgetCustHdr"
+    AliasName="MODIFIED_BY"
+    IsUpdateable="false"/>
+  <ViewAttribute
+    Name="ModifiedOn"
+    PrecisionRule="true"
+    EntityAttrName="ModifiedOn"
+    EntityUsage="BudgetCustHdr"
+    AliasName="MODIFIED_ON"
+    IsUpdateable="false"/>
   <ViewCriteria
     Name="BudgetCustHdrViewCriteria"
     ViewObjectName="app.fpp.model.views.budgetsetting.BudgetCustHdrView"
@@ -300,6 +317,14 @@
         Operator="="
         Conjunction="AND"
         Value=":budgetType"
+        IsBindVarValue="true"
+        Required="Optional"/>
+      <ViewCriteriaItem
+        Name="BudgetYear"
+        ViewAttribute="BudgetYear"
+        Operator="="
+        Conjunction="AND"
+        Value=":budgetYear"
         IsBindVarValue="true"
         Required="Optional"/>
     </ViewCriteriaRow>

@@ -110,6 +110,27 @@
   <ViewUsage
     Name="AppUserRemoveCustByCustGroupView1"
     ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveCustByCustGroupView"/>
+  <ViewUsage
+    Name="AppUserCustTypeView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserCustTypeView"/>
+  <ViewUsage
+    Name="AllUserMgmtCustTypeShuttleView1"
+    ViewObjectName="app.fpp.model.views.masterdata.ebs.shuttle.AllUserMgmtCustTypeShuttleView"/>
+  <ViewUsage
+    Name="AppUserRemoveCustGroupByCustTypeView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveCustGroupByCustTypeView"/>
+  <ViewUsage
+    Name="AppUserRemoveCustTypeByAreaView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveCustTypeByAreaView"/>
+  <ViewUsage
+    Name="AppUserRemoveCustTypeByLocView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveCustTypeByLocView"/>
+  <ViewUsage
+    Name="AppUserRemoveCustTypeByRegionView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveCustTypeByRegionView"/>
+  <ViewUsage
+    Name="AppUserRemoveCustByCustTypeView1"
+    ViewObjectName="app.fpp.model.views.useraccess.AppUserRemoveCustByCustTypeView"/>
   <ViewLinkUsage
     Name="AppMenuItemsAppMenuFk1Link1"
     ViewLinkObjectName="app.fpp.model.views.useraccess.AppMenuItemsAppMenuFk1Link"
@@ -158,10 +179,55 @@
     SrcViewUsageName="app.fpp.model.am.UserAccessAM.AppUserAccessView1"
     DstViewUsageName="app.fpp.model.am.UserAccessAM.AppUserCustGroupView1"
     Reversed="false"/>
+  <ViewLinkUsage
+    Name="AppUserCustTypeUserAccessFk1Link1"
+    ViewLinkObjectName="app.fpp.model.views.useraccess.AppUserCustTypeUserAccessFk1Link"
+    SrcViewUsageName="app.fpp.model.am.UserAccessAM.AppUserAccessView1"
+    DstViewUsageName="app.fpp.model.am.UserAccessAM.AppUserCustTypeView1"
+    Reversed="false"/>
   <ResourceBundle>
     <PropertiesBundle
       PropertiesFile="app.fpp.model.ModelBundle"/>
   </ResourceBundle>
+  <ClientInterface>
+    <Method
+      Name="changePassword">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="userId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="newPassword"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ClientInterface>
+    <Method
+      Name="changePassword">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="userId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="newPassword"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
+  <ClientInterface>
+    <Method
+      Name="changePassword">
+      <Return
+        Type="void"/>
+      <Parameter
+        Name="userId"
+        Type="java.lang.String"/>
+      <Parameter
+        Name="newPassword"
+        Type="java.lang.String"/>
+    </Method>
+  </ClientInterface>
   <ClientInterface>
     <Method
       Name="changePassword">

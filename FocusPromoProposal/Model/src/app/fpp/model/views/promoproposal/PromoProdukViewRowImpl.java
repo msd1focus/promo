@@ -670,6 +670,16 @@ public class PromoProdukViewRowImpl extends ViewRowImpl {
             }
         }
         ,
+        CheckRowStatus {
+            public Object get(PromoProdukViewRowImpl obj) {
+                return obj.getCheckRowStatus();
+            }
+
+            public void put(PromoProdukViewRowImpl obj, Object value) {
+                obj.setCheckRowStatus((Integer)value);
+            }
+        }
+        ,
         DiscountView {
             public Object get(PromoProdukViewRowImpl obj) {
                 return obj.getDiscountView();
@@ -1143,6 +1153,7 @@ public class PromoProdukViewRowImpl extends ViewRowImpl {
     public static final int BIARASIOMF = AttributesEnum.BiaRasioMf.index();
     public static final int BIARASIOTOTAL = AttributesEnum.BiaRasioTotal.index();
     public static final int BIARASIONONTOP = AttributesEnum.BiaRasionOntop.index();
+    public static final int CHECKROWSTATUS = AttributesEnum.CheckRowStatus.index();
     public static final int DISCOUNTVIEW = AttributesEnum.DiscountView.index();
     public static final int TARGETVIEW = AttributesEnum.TargetView.index();
     public static final int PRODUKITEMVIEW = AttributesEnum.ProdukItemView.index();
@@ -2331,6 +2342,31 @@ public class PromoProdukViewRowImpl extends ViewRowImpl {
      */
     public void setBiaRasionOntop(Number value) {
         setAttributeInternal(BIARASIONONTOP, value);
+    }
+
+    /**
+     * Gets the attribute value for the calculated attribute CheckRowStatus.
+     * @return the CheckRowStatus
+     */
+     /*here row is reference variable of collection, this expression returns an int value if it is 
+      2-Modified
+      0-New
+      1-Unmodified
+     -1-Initialized
+     */
+     public Integer getCheckRowStatus() {
+         byte entityState = this.getEntity(0).getEntityState();
+         return new Integer(entityState);
+
+         // return (Integer) getAttributeInternal(CHECKROWSTATUS);
+     }
+
+    /**
+     * Sets <code>value</code> as the attribute value for the calculated attribute CheckRowStatus.
+     * @param value value to set the  CheckRowStatus
+     */
+    public void setCheckRowStatus(Integer value) {
+        setAttributeInternal(CHECKROWSTATUS, value);
     }
 
     /**

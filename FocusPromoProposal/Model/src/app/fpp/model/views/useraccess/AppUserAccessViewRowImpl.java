@@ -230,6 +230,16 @@ public class AppUserAccessViewRowImpl extends ViewRowImpl {
             }
         }
         ,
+        AppUserCustTypeView {
+            public Object get(AppUserAccessViewRowImpl obj) {
+                return obj.getAppUserCustTypeView();
+            }
+
+            public void put(AppUserAccessViewRowImpl obj, Object value) {
+                obj.setAttributeInternal(index(), value);
+            }
+        }
+        ,
         LovUserTitle {
             public Object get(AppUserAccessViewRowImpl obj) {
                 return obj.getLovUserTitle();
@@ -317,6 +327,7 @@ public class AppUserAccessViewRowImpl extends ViewRowImpl {
             return vals;
         }
     }
+
     public static final int ID = AttributesEnum.Id.index();
     public static final int USERNAME = AttributesEnum.UserName.index();
     public static final int USERINITIAL = AttributesEnum.UserInitial.index();
@@ -338,6 +349,7 @@ public class AppUserAccessViewRowImpl extends ViewRowImpl {
     public static final int APPUSERCUSTVIEW = AttributesEnum.AppUserCustView.index();
     public static final int APPUSERLOCVIEW = AttributesEnum.AppUserLocView.index();
     public static final int APPUSERCUSTGROUPVIEW = AttributesEnum.AppUserCustGroupView.index();
+    public static final int APPUSERCUSTTYPEVIEW = AttributesEnum.AppUserCustTypeView.index();
     public static final int LOVUSERTITLE = AttributesEnum.LovUserTitle.index();
     public static final int LOVCOMPANY = AttributesEnum.LovCompany.index();
     public static final int LOVUSERTYPE = AttributesEnum.LovUserType.index();
@@ -651,6 +663,13 @@ public class AppUserAccessViewRowImpl extends ViewRowImpl {
      */
     public RowIterator getAppUserCustGroupView() {
         return (RowIterator)getAttributeInternal(APPUSERCUSTGROUPVIEW);
+    }
+
+    /**
+     * Gets the associated <code>RowIterator</code> using master-detail link AppUserCustTypeView.
+     */
+    public RowIterator getAppUserCustTypeView() {
+        return (RowIterator)getAttributeInternal(APPUSERCUSTTYPEVIEW);
     }
 
     /**

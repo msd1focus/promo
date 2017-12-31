@@ -39,9 +39,9 @@
       <property
          name="exceptionHandler">false</property>
       <property
-         name="y">170.04004</property>
+         name="y">54.936523</property>
       <property
-         name="x">615.0</property>
+         name="x">605.0</property>
    </TaskFlowCall>
    <ControlFlowCase
       islink="true"
@@ -51,7 +51,7 @@
       <property
          name="fromOutcome">assignrole</property>
       <property
-         name="sdm:polyPoints">R46,507.5,170.0459,507.5,169.68945,L50</property>
+         name="sdm:polyPoints">R42,605.0,166.5459,B50</property>
    </ControlFlowCase>
    <TaskFlowCall
       id="TaskFlowCall6">
@@ -147,7 +147,7 @@
       <property
          name="fromOutcome">assigncust</property>
       <property
-         name="sdm:polyPoints">L42,196.0,166.5459,T50</property>
+         name="sdm:polyPoints">L46,196.0,170.0459,T50</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -157,7 +157,7 @@
       <property
          name="fromOutcome">assignarea</property>
       <property
-         name="sdm:polyPoints">L50,296.0,173.5459,T50</property>
+         name="sdm:polyPoints">L54,296.0,177.0459,T50</property>
    </ControlFlowCase>
    <ControlFlowCase
       islink="true"
@@ -167,7 +167,7 @@
       <property
          name="fromOutcome">assignloc</property>
       <property
-         name="sdm:polyPoints">R54,501.0,177.0459,T50</property>
+         name="sdm:polyPoints">R58,501.0,180.5459,T50</property>
    </ControlFlowCase>
    <TaskFlowCall
       id="TaskFlowCall14">
@@ -196,6 +196,35 @@
       <property
          name="fromOutcome">assigncustgroup</property>
       <property
-         name="sdm:polyPoints">L58,359.0,180.5459,359.0,361.67773,607.0,361.67773,B50</property>
+         name="sdm:polyPoints">R50,607.0,173.5459,T50</property>
+   </ControlFlowCase>
+   <TaskFlowCall
+      id="TaskFlowCall16">
+      <property
+         name="taskFlowId">ua-assign-cust-type</property>
+      <property
+         name="activityId">ua-assign-cust-type</property>
+      <property
+         name="documentReference">/WEB-INF/ua-assign-cust-type.xml</property>
+      <property
+         name="runAsDialog">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>ua-assign-cust-type&lt;/b>&lt;/p>&lt;p>Activity Type:  Task Flow Call&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">55.091797</property>
+      <property
+         name="x">192.0</property>
+   </TaskFlowCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase17"
+      from="View2"
+      to="TaskFlowCall16">
+      <property
+         name="fromOutcome">assigncusttype</property>
+      <property
+         name="sdm:polyPoints">T50,400.0,54.74121,R50</property>
    </ControlFlowCase>
 </SDM>
